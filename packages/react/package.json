@@ -1,0 +1,37 @@
+{
+  "name": "@react-native-gtk/react",
+  "version": "1.0.0",
+  "description": "React components for GTK",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && babel src --out-dir dist --copy-files"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugeniodepalo/react-native-gtk.git"
+  },
+  "keywords": [
+    "react",
+    "gtk",
+    "node-gtk",
+    "native"
+  ],
+  "author": "Eugenio Depalo <eugeniodepalo@gmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/eugeniodepalo/react-native-gtk/issues"
+  },
+  "homepage": "https://github.com/eugeniodepalo/react-native-gtk#readme",
+  "dependencies": {
+    "node-gtk": "^0.12.0",
+    "react": "^18.2.0",
+    "react-reconciler": "^0.29.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.6",
+    "@babel/preset-env": "^7.22.6",
+    "@babel/preset-react": "^7.22.5"
+  }
+}

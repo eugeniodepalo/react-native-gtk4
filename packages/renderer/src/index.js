@@ -166,3 +166,5 @@ export default function render(element, app) {
 
   app.run([])
 }
+
+export { Gtk }

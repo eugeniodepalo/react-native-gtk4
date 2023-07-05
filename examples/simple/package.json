@@ -3,22 +3,19 @@
   "version": "1.0.0",
   "description": "A simple example of a React Native GTK app",
   "main": "dist/index.js",
-  "type": "module",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && babel src --out-dir dist --copy-files",
+    "build": "tsc",
     "start": "pnpm run -w build && node dist/index.js"
   },
   "dependencies": {
     "@react-native-gtk/react": "workspace:*",
     "@react-native-gtk/renderer": "workspace:*",
-    "node-gtk": "^0.12.0",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.6",
-    "@babel/preset-env": "^7.22.6",
-    "@babel/preset-react": "^7.22.5"
+    "@types/react": "^18.2.14",
+    "typescript": "^5.1.6"
   }
 }

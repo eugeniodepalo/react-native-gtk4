@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "React components for GTK",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && babel src --out-dir dist --copy-files"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -30,8 +29,7 @@
     "react-reconciler": "^0.29.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.6",
-    "@babel/preset-env": "^7.22.6",
-    "@babel/preset-react": "^7.22.5"
+    "@types/react": "^18.2.14",
+    "typescript": "^5.1.6"
   }
 }

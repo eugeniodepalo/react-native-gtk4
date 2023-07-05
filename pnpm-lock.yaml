@@ -10,18 +10,12 @@ importers:
 
   examples/simple:
     dependencies:
-      '@react-native-gtk/react':
-        specifier: workspace:*
-        version: link:../../packages/react
-      '@react-native-gtk/renderer':
-        specifier: workspace:*
-        version: link:../../packages/renderer
-      node-gtk:
-        specifier: ^0.12.0
-        version: 0.12.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      react-native-gtk:
+        specifier: workspace:*
+        version: link:../../packages/react-native-gtk
     devDependencies:
       '@types/react':
         specifier: ^18.2.14
@@ -30,26 +24,7 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
-  packages/react:
-    dependencies:
-      node-gtk:
-        specifier: ^0.12.0
-        version: 0.12.0
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-reconciler:
-        specifier: ^0.29.0
-        version: 0.29.0(react@18.2.0)
-    devDependencies:
-      '@types/react':
-        specifier: ^18.2.14
-        version: 18.2.14
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
-
-  packages/renderer:
+  packages/react-native-gtk:
     dependencies:
       node-gtk:
         specifier: ^0.12.0
@@ -58,6 +33,9 @@ importers:
         specifier: ^0.29.0
         version: 0.29.0(react@18.2.0)
     devDependencies:
+      '@types/react-reconciler':
+        specifier: ^0.28.2
+        version: 0.28.2
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -115,6 +93,12 @@ packages:
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
+    dev: true
+
+  /@types/react-reconciler@0.28.2:
+    resolution: {integrity: sha512-8tu6lHzEgYPlfDf/J6GOQdIc+gs+S2yAqlby3zTsB3SP2svlqTYe5fwZNtZyfactP74ShooP2vvi1BOp9ZemWw==}
+    dependencies:
+      '@types/react': 18.2.14
     dev: true
 
   /@types/react@18.2.14:

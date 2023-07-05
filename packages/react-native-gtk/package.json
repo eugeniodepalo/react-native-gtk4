@@ -1,8 +1,9 @@
 {
-  "name": "@react-native-gtk/react",
+  "name": "react-native-gtk",
   "version": "1.0.0",
-  "description": "React components for GTK",
+  "description": "React Native bindings for GTK",
   "main": "dist/index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
@@ -25,11 +26,10 @@
   "homepage": "https://github.com/eugeniodepalo/react-native-gtk#readme",
   "dependencies": {
     "node-gtk": "^0.12.0",
-    "react": "^18.2.0",
     "react-reconciler": "^0.29.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.14",
+    "@types/react-reconciler": "^0.28.2",
     "typescript": "^5.1.6"
   }
 }

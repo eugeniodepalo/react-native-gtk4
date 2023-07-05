@@ -11,6 +11,5 @@
     "declaration": true,
     "allowJs": true
   },
-  "include": ["src", "types"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src", "types"]
 }

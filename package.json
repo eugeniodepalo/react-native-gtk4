@@ -6,7 +6,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "pnpm recursive run --filter @react-native-gtk/* build",
-    "test": "pnpm recursive run --filter @react-native-gtk/* test"
+    "build": "pnpm run --filter react-native-gtk build",
+    "test": "pnpm run --filter react-native-gtk test"
   }
 }

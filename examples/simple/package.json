@@ -7,11 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "pnpm run -w build && node dist/index.js"
+    "start": "pnpm run -w build && pnpm run build && node dist/index.js"
   },
   "dependencies": {
-    "@react-native-gtk/react": "workspace:*",
-    "@react-native-gtk/renderer": "workspace:*",
+    "react-native-gtk": "workspace:*",
     "react": "^18.2.0"
   },
   "devDependencies": {

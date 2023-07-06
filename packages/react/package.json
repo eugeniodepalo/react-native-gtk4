@@ -1,5 +1,5 @@
 {
-  "name": "react-native-gtk",
+  "name": "react-native-gtk4",
   "version": "1.0.0",
   "description": "React Native bindings for GTK",
   "main": "dist/index.js",

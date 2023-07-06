@@ -15,7 +15,7 @@ importers:
         version: 18.2.0
       react-native-gtk:
         specifier: workspace:*
-        version: link:../../packages/react-native-gtk
+        version: link:../..
     devDependencies:
       '@types/react':
         specifier: ^18.2.14
@@ -33,7 +33,7 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0
 
-  packages/react-native-gtk:
+  packages/react:
     dependencies:
       node-gtk:
         specifier: ^0.12.0

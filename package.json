@@ -4,9 +4,5 @@
   "workspaces": [
     "packages/*",
     "examples/*"
-  ],
-  "scripts": {
-    "build": "pnpm run --filter react-native-gtk build",
-    "test": "pnpm run --filter react-native-gtk test"
-  }
+  ]
 }

@@ -1,7 +1,6 @@
 declare namespace JSX {
   interface IntrinsicElements {
     AboutDialog: JSX.IntrinsicElements["Window"] & {
-      ref?: React.Ref<any>
       artists?: string[]
       authors?: string[]
       comments?: string
@@ -21,13 +20,11 @@ declare namespace JSX {
       accessibleRole?: any
       onActivateLink?: () => void
     }
-    ActionBar: {
-      ref?: React.Ref<any>
+    ActionBar: JSX.IntrinsicElements["Widget"] & {
       revealed?: boolean
       accessibleRole?: any
     }
-    AppChooserButton: {
-      ref?: React.Ref<any>
+    AppChooserButton: JSX.IntrinsicElements["Widget"] & {
       heading?: string
       modal?: boolean
       showDefaultItem?: boolean
@@ -39,14 +36,12 @@ declare namespace JSX {
       onCustomItemActivated?: () => void
     }
     AppChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-      ref?: React.Ref<any>
       gfile?: any
       heading?: string
       accessibleRole?: any
       contentType?: string
     }
-    AppChooserWidget: {
-      ref?: React.Ref<any>
+    AppChooserWidget: JSX.IntrinsicElements["Widget"] & {
       defaultText?: string
       showAll?: boolean
       showDefault?: boolean
@@ -59,12 +54,10 @@ declare namespace JSX {
       onApplicationSelected?: () => void
     }
     ApplicationWindow: JSX.IntrinsicElements["Window"] & {
-      ref?: React.Ref<any>
       showMenubar?: boolean
       accessibleRole?: any
     }
-    AspectFrame: {
-      ref?: React.Ref<any>
+    AspectFrame: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       obeyChild?: boolean
       ratio?: number
@@ -73,7 +66,6 @@ declare namespace JSX {
       accessibleRole?: any
     }
     Assistant: JSX.IntrinsicElements["Window"] & {
-      ref?: React.Ref<any>
       pages?: any
       useHeaderBar?: number
       accessibleRole?: any
@@ -83,9 +75,8 @@ declare namespace JSX {
       onEscape?: () => void
       onPrepare?: () => void
     }
-    Box: {
+    Box: JSX.IntrinsicElements["Widget"] & {
       children?: React.ReactNode
-      ref?: React.Ref<any>
       baselineChild?: number
       baselinePosition?: any
       homogeneous?: boolean
@@ -93,8 +84,7 @@ declare namespace JSX {
       accessibleRole?: any
       orientation?: any
     }
-    Button: {
-      ref?: React.Ref<any>
+    Button: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       canShrink?: boolean
       hasFrame?: boolean
@@ -107,8 +97,7 @@ declare namespace JSX {
       onActivate?: () => void
       onClicked?: () => void
     }
-    Calendar: {
-      ref?: React.Ref<any>
+    Calendar: JSX.IntrinsicElements["Widget"] & {
       day?: number
       month?: number
       showDayNames?: boolean
@@ -122,8 +111,7 @@ declare namespace JSX {
       onPrevMonth?: () => void
       onPrevYear?: () => void
     }
-    CellView: {
-      ref?: React.Ref<any>
+    CellView: JSX.IntrinsicElements["Widget"] & {
       cellArea?: any
       cellAreaContext?: any
       drawSensitive?: boolean
@@ -132,8 +120,7 @@ declare namespace JSX {
       accessibleRole?: any
       orientation?: any
     }
-    CenterBox: {
-      ref?: React.Ref<any>
+    CenterBox: JSX.IntrinsicElements["Widget"] & {
       baselinePosition?: any
       centerWidget?: JSX.Element | null
       endWidget?: JSX.Element | null
@@ -142,8 +129,7 @@ declare namespace JSX {
       accessibleRole?: any
       orientation?: any
     }
-    CheckButton: {
-      ref?: React.Ref<any>
+    CheckButton: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       active?: boolean
       group?: any
@@ -156,8 +142,7 @@ declare namespace JSX {
       onActivate?: () => void
       onToggled?: () => void
     }
-    ColorButton: {
-      ref?: React.Ref<any>
+    ColorButton: JSX.IntrinsicElements["Widget"] & {
       modal?: boolean
       showEditor?: boolean
       title?: string
@@ -169,29 +154,25 @@ declare namespace JSX {
       onColorActivated?: () => void
     }
     ColorChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-      ref?: React.Ref<any>
       showEditor?: boolean
       accessibleRole?: any
       rgba?: any
       useAlpha?: boolean
       onColorActivated?: () => void
     }
-    ColorChooserWidget: {
-      ref?: React.Ref<any>
+    ColorChooserWidget: JSX.IntrinsicElements["Widget"] & {
       showEditor?: boolean
       accessibleRole?: any
       rgba?: any
       useAlpha?: boolean
       onColorActivated?: () => void
     }
-    ColorDialogButton: {
-      ref?: React.Ref<any>
+    ColorDialogButton: JSX.IntrinsicElements["Widget"] & {
       dialog?: any
       rgba?: any
       accessibleRole?: any
     }
-    ColumnView: {
-      ref?: React.Ref<any>
+    ColumnView: JSX.IntrinsicElements["Widget"] & {
       columns?: any
       enableRubberband?: boolean
       headerFactory?: any
@@ -210,8 +191,7 @@ declare namespace JSX {
       vscrollPolicy?: any
       onActivate?: () => void
     }
-    ComboBox: {
-      ref?: React.Ref<any>
+    ComboBox: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       active?: number
       activeId?: string
@@ -235,33 +215,28 @@ declare namespace JSX {
       onRemoveWidget?: () => void
     }
     ComboBoxText: JSX.IntrinsicElements["ComboBox"] & {
-      ref?: React.Ref<any>
       accessibleRole?: any
       editingCanceled?: boolean
       onEditingDone?: () => void
       onRemoveWidget?: () => void
     }
     Dialog: JSX.IntrinsicElements["Window"] & {
-      ref?: React.Ref<any>
       useHeaderBar?: number
       accessibleRole?: any
       onClose?: () => void
       onResponse?: () => void
     }
-    DragIcon: {
-      ref?: React.Ref<any>
+    DragIcon: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       accessibleRole?: any
     }
-    DrawingArea: {
-      ref?: React.Ref<any>
+    DrawingArea: JSX.IntrinsicElements["Widget"] & {
       contentHeight?: number
       contentWidth?: number
       accessibleRole?: any
       onResize?: () => void
     }
-    DropDown: {
-      ref?: React.Ref<any>
+    DropDown: JSX.IntrinsicElements["Widget"] & {
       enableSearch?: boolean
       expression?: any
       factory?: any
@@ -275,8 +250,7 @@ declare namespace JSX {
       accessibleRole?: any
       onActivate?: () => void
     }
-    EditableLabel: {
-      ref?: React.Ref<any>
+    EditableLabel: JSX.IntrinsicElements["Widget"] & {
       editing?: boolean
       accessibleRole?: any
       cursorPosition?: number
@@ -292,12 +266,10 @@ declare namespace JSX {
       onInsertText?: () => void
     }
     EmojiChooser: JSX.IntrinsicElements["Popover"] & {
-      ref?: React.Ref<any>
       accessibleRole?: any
       onEmojiPicked?: () => void
     }
-    Entry: {
-      ref?: React.Ref<any>
+    Entry: JSX.IntrinsicElements["Widget"] & {
       activatesDefault?: boolean
       attributes?: any
       buffer?: any
@@ -356,8 +328,7 @@ declare namespace JSX {
       onDeleteText?: () => void
       onInsertText?: () => void
     }
-    Expander: {
-      ref?: React.Ref<any>
+    Expander: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       expanded?: boolean
       label?: string
@@ -369,7 +340,6 @@ declare namespace JSX {
       onActivate?: () => void
     }
     FileChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-      ref?: React.Ref<any>
       accessibleRole?: any
       action?: any
       createFolders?: boolean
@@ -378,8 +348,7 @@ declare namespace JSX {
       selectMultiple?: boolean
       shortcutFolders?: any
     }
-    FileChooserWidget: {
-      ref?: React.Ref<any>
+    FileChooserWidget: JSX.IntrinsicElements["Widget"] & {
       searchMode?: boolean
       showTime?: boolean
       subtitle?: string
@@ -403,12 +372,10 @@ declare namespace JSX {
       onShowHidden?: () => void
       onUpFolder?: () => void
     }
-    Fixed: {
-      ref?: React.Ref<any>
+    Fixed: JSX.IntrinsicElements["Widget"] & {
       accessibleRole?: any
     }
-    FlowBox: {
-      ref?: React.Ref<any>
+    FlowBox: JSX.IntrinsicElements["Widget"] & {
       acceptUnpairedRelease?: boolean
       activateOnSingleClick?: boolean
       columnSpacing?: number
@@ -427,14 +394,12 @@ declare namespace JSX {
       onToggleCursorChild?: () => void
       onUnselectAll?: () => void
     }
-    FlowBoxChild: {
-      ref?: React.Ref<any>
+    FlowBoxChild: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       accessibleRole?: any
       onActivate?: () => void
     }
-    FontButton: {
-      ref?: React.Ref<any>
+    FontButton: JSX.IntrinsicElements["Widget"] & {
       modal?: boolean
       title?: string
       useFont?: boolean
@@ -452,7 +417,6 @@ declare namespace JSX {
       onFontActivated?: () => void
     }
     FontChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-      ref?: React.Ref<any>
       accessibleRole?: any
       font?: string
       fontDesc?: any
@@ -463,8 +427,7 @@ declare namespace JSX {
       showPreviewEntry?: boolean
       onFontActivated?: () => void
     }
-    FontChooserWidget: {
-      ref?: React.Ref<any>
+    FontChooserWidget: JSX.IntrinsicElements["Widget"] & {
       tweakAction?: any
       accessibleRole?: any
       font?: string
@@ -476,8 +439,7 @@ declare namespace JSX {
       showPreviewEntry?: boolean
       onFontActivated?: () => void
     }
-    FontDialogButton: {
-      ref?: React.Ref<any>
+    FontDialogButton: JSX.IntrinsicElements["Widget"] & {
       dialog?: any
       fontDesc?: any
       fontFeatures?: string
@@ -487,16 +449,14 @@ declare namespace JSX {
       useSize?: boolean
       accessibleRole?: any
     }
-    Frame: {
-      ref?: React.Ref<any>
+    Frame: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       label?: string
       labelWidget?: JSX.Element | null
       labelXalign?: number
       accessibleRole?: any
     }
-    GLArea: {
-      ref?: React.Ref<any>
+    GLArea: JSX.IntrinsicElements["Widget"] & {
       allowedApis?: any
       api?: any
       autoRender?: boolean
@@ -509,8 +469,7 @@ declare namespace JSX {
       onRender?: () => void
       onResize?: () => void
     }
-    Grid: {
-      ref?: React.Ref<any>
+    Grid: JSX.IntrinsicElements["Widget"] & {
       baselineRow?: number
       columnHomogeneous?: boolean
       columnSpacing?: number
@@ -520,7 +479,6 @@ declare namespace JSX {
       orientation?: any
     }
     GridView: JSX.IntrinsicElements["ListBase"] & {
-      ref?: React.Ref<any>
       enableRubberband?: boolean
       factory?: any
       maxColumns?: number
@@ -536,15 +494,13 @@ declare namespace JSX {
       vscrollPolicy?: any
       onActivate?: () => void
     }
-    HeaderBar: {
-      ref?: React.Ref<any>
+    HeaderBar: JSX.IntrinsicElements["Widget"] & {
       decorationLayout?: string
       showTitleButtons?: boolean
       titleWidget?: JSX.Element | null
       accessibleRole?: any
     }
-    IconView: {
-      ref?: React.Ref<any>
+    IconView: JSX.IntrinsicElements["Widget"] & {
       activateOnSingleClick?: boolean
       cellArea?: any
       columnSpacing?: number
@@ -576,8 +532,7 @@ declare namespace JSX {
       onToggleCursorItem?: () => void
       onUnselectAll?: () => void
     }
-    Image: {
-      ref?: React.Ref<any>
+    Image: JSX.IntrinsicElements["Widget"] & {
       file?: string
       gicon?: any
       iconName?: string
@@ -589,8 +544,7 @@ declare namespace JSX {
       useFallback?: boolean
       accessibleRole?: any
     }
-    InfoBar: {
-      ref?: React.Ref<any>
+    InfoBar: JSX.IntrinsicElements["Widget"] & {
       messageType?: any
       revealed?: boolean
       showCloseButton?: boolean
@@ -598,8 +552,7 @@ declare namespace JSX {
       onClose?: () => void
       onResponse?: () => void
     }
-    Inscription: {
-      ref?: React.Ref<any>
+    Inscription: JSX.IntrinsicElements["Widget"] & {
       attributes?: any
       markup?: string
       minChars?: number
@@ -613,8 +566,7 @@ declare namespace JSX {
       yalign?: number
       accessibleRole?: any
     }
-    Label: {
-      ref?: React.Ref<any>
+    Label: JSX.IntrinsicElements["Widget"] & {
       attributes?: any
       ellipsize?: any
       extraMenu?: any
@@ -641,8 +593,7 @@ declare namespace JSX {
       onCopyClipboard?: () => void
       onMoveCursor?: () => void
     }
-    LevelBar: {
-      ref?: React.Ref<any>
+    LevelBar: JSX.IntrinsicElements["Widget"] & {
       inverted?: boolean
       maxValue?: number
       minValue?: number
@@ -653,7 +604,6 @@ declare namespace JSX {
       onOffsetChanged?: () => void
     }
     LinkButton: JSX.IntrinsicElements["Button"] & {
-      ref?: React.Ref<any>
       uri?: string
       visited?: boolean
       accessibleRole?: any
@@ -661,8 +611,7 @@ declare namespace JSX {
       actionTarget?: any
       onActivateLink?: () => void
     }
-    ListBase: {
-      ref?: React.Ref<any>
+    ListBase: JSX.IntrinsicElements["Widget"] & {
       orientation?: any
       accessibleRole?: any
       orientation?: any
@@ -671,8 +620,7 @@ declare namespace JSX {
       vadjustment?: any
       vscrollPolicy?: any
     }
-    ListBox: {
-      ref?: React.Ref<any>
+    ListBox: JSX.IntrinsicElements["Widget"] & {
       acceptUnpairedRelease?: boolean
       activateOnSingleClick?: boolean
       selectionMode?: any
@@ -687,8 +635,7 @@ declare namespace JSX {
       onToggleCursorRow?: () => void
       onUnselectAll?: () => void
     }
-    ListBoxRow: {
-      ref?: React.Ref<any>
+    ListBoxRow: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       activatable?: boolean
       selectable?: boolean
@@ -698,7 +645,6 @@ declare namespace JSX {
       onActivate?: () => void
     }
     ListView: JSX.IntrinsicElements["ListBase"] & {
-      ref?: React.Ref<any>
       enableRubberband?: boolean
       factory?: any
       headerFactory?: any
@@ -715,7 +661,6 @@ declare namespace JSX {
       onActivate?: () => void
     }
     LockButton: JSX.IntrinsicElements["Button"] & {
-      ref?: React.Ref<any>
       permission?: any
       textLock?: string
       textUnlock?: string
@@ -726,13 +671,11 @@ declare namespace JSX {
       actionName?: string
       actionTarget?: any
     }
-    MediaControls: {
-      ref?: React.Ref<any>
+    MediaControls: JSX.IntrinsicElements["Widget"] & {
       mediaStream?: any
       accessibleRole?: any
     }
-    MenuButton: {
-      ref?: React.Ref<any>
+    MenuButton: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       active?: boolean
       alwaysShowArrow?: boolean
@@ -749,7 +692,6 @@ declare namespace JSX {
       onActivate?: () => void
     }
     MessageDialog: JSX.IntrinsicElements["Dialog"] & {
-      ref?: React.Ref<any>
       buttons?: any
       messageArea?: JSX.Element | null
       messageType?: any
@@ -759,8 +701,7 @@ declare namespace JSX {
       useMarkup?: boolean
       accessibleRole?: any
     }
-    Notebook: {
-      ref?: React.Ref<any>
+    Notebook: JSX.IntrinsicElements["Widget"] & {
       enablePopup?: boolean
       groupName?: string
       page?: number
@@ -781,18 +722,15 @@ declare namespace JSX {
       onSelectPage?: () => void
       onSwitchPage?: () => void
     }
-    Overlay: {
-      ref?: React.Ref<any>
+    Overlay: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       accessibleRole?: any
       onGetChildPosition?: () => void
     }
     PageSetupUnixDialog: JSX.IntrinsicElements["Dialog"] & {
-      ref?: React.Ref<any>
       accessibleRole?: any
     }
-    Paned: {
-      ref?: React.Ref<any>
+    Paned: JSX.IntrinsicElements["Widget"] & {
       endChild?: JSX.Element | null
       maxPosition?: number
       minPosition?: number
@@ -813,8 +751,7 @@ declare namespace JSX {
       onMoveHandle?: () => void
       onToggleHandleFocus?: () => void
     }
-    PasswordEntry: {
-      ref?: React.Ref<any>
+    PasswordEntry: JSX.IntrinsicElements["Widget"] & {
       activatesDefault?: boolean
       extraMenu?: any
       placeholderText?: string
@@ -833,8 +770,7 @@ declare namespace JSX {
       onDeleteText?: () => void
       onInsertText?: () => void
     }
-    Picture: {
-      ref?: React.Ref<any>
+    Picture: JSX.IntrinsicElements["Widget"] & {
       alternativeText?: string
       canShrink?: boolean
       contentFit?: any
@@ -843,8 +779,7 @@ declare namespace JSX {
       paintable?: any
       accessibleRole?: any
     }
-    Popover: {
-      ref?: React.Ref<any>
+    Popover: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       autohide?: boolean
       cascadePopdown?: boolean
@@ -858,18 +793,15 @@ declare namespace JSX {
       onClosed?: () => void
     }
     PopoverMenu: JSX.IntrinsicElements["Popover"] & {
-      ref?: React.Ref<any>
       menuModel?: any
       visibleSubmenu?: string
       accessibleRole?: any
     }
-    PopoverMenuBar: {
-      ref?: React.Ref<any>
+    PopoverMenuBar: JSX.IntrinsicElements["Widget"] & {
       menuModel?: any
       accessibleRole?: any
     }
     PrintUnixDialog: JSX.IntrinsicElements["Dialog"] & {
-      ref?: React.Ref<any>
       currentPage?: number
       embedPageSetup?: boolean
       hasSelection?: boolean
@@ -880,8 +812,7 @@ declare namespace JSX {
       supportSelection?: boolean
       accessibleRole?: any
     }
-    ProgressBar: {
-      ref?: React.Ref<any>
+    ProgressBar: JSX.IntrinsicElements["Widget"] & {
       ellipsize?: any
       fraction?: number
       inverted?: boolean
@@ -891,8 +822,7 @@ declare namespace JSX {
       accessibleRole?: any
       orientation?: any
     }
-    Range: {
-      ref?: React.Ref<any>
+    Range: JSX.IntrinsicElements["Widget"] & {
       adjustment?: any
       fillLevel?: number
       inverted?: boolean
@@ -906,8 +836,7 @@ declare namespace JSX {
       onMoveSlider?: () => void
       onValueChanged?: () => void
     }
-    Revealer: {
-      ref?: React.Ref<any>
+    Revealer: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       childRevealed?: boolean
       revealChild?: boolean
@@ -916,7 +845,6 @@ declare namespace JSX {
       accessibleRole?: any
     }
     Scale: JSX.IntrinsicElements["Range"] & {
-      ref?: React.Ref<any>
       digits?: number
       drawValue?: boolean
       hasOrigin?: boolean
@@ -924,8 +852,7 @@ declare namespace JSX {
       accessibleRole?: any
       orientation?: any
     }
-    ScaleButton: {
-      ref?: React.Ref<any>
+    ScaleButton: JSX.IntrinsicElements["Widget"] & {
       active?: boolean
       adjustment?: any
       icons?: string[]
@@ -936,14 +863,12 @@ declare namespace JSX {
       onPopup?: () => void
       onValueChanged?: () => void
     }
-    Scrollbar: {
-      ref?: React.Ref<any>
+    Scrollbar: JSX.IntrinsicElements["Widget"] & {
       adjustment?: any
       accessibleRole?: any
       orientation?: any
     }
-    ScrolledWindow: {
-      ref?: React.Ref<any>
+    ScrolledWindow: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       hadjustment?: any
       hasFrame?: boolean
@@ -965,16 +890,14 @@ declare namespace JSX {
       onMoveFocusOut?: () => void
       onScrollChild?: () => void
     }
-    SearchBar: {
-      ref?: React.Ref<any>
+    SearchBar: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       keyCaptureWidget?: JSX.Element | null
       searchModeEnabled?: boolean
       showCloseButton?: boolean
       accessibleRole?: any
     }
-    SearchEntry: {
-      ref?: React.Ref<any>
+    SearchEntry: JSX.IntrinsicElements["Widget"] & {
       activatesDefault?: boolean
       placeholderText?: string
       searchDelay?: number
@@ -997,19 +920,16 @@ declare namespace JSX {
       onDeleteText?: () => void
       onInsertText?: () => void
     }
-    Separator: {
-      ref?: React.Ref<any>
+    Separator: JSX.IntrinsicElements["Widget"] & {
       accessibleRole?: any
       orientation?: any
     }
-    ShortcutLabel: {
-      ref?: React.Ref<any>
+    ShortcutLabel: JSX.IntrinsicElements["Widget"] & {
       accelerator?: string
       disabledText?: string
       accessibleRole?: any
     }
     ShortcutsGroup: JSX.IntrinsicElements["Box"] & {
-      ref?: React.Ref<any>
       accelSizeGroup?: any
       height?: number
       title?: string
@@ -1019,7 +939,6 @@ declare namespace JSX {
       orientation?: any
     }
     ShortcutsSection: JSX.IntrinsicElements["Box"] & {
-      ref?: React.Ref<any>
       maxHeight?: number
       sectionName?: string
       title?: string
@@ -1028,8 +947,7 @@ declare namespace JSX {
       orientation?: any
       onChangeCurrentPage?: () => void
     }
-    ShortcutsShortcut: {
-      ref?: React.Ref<any>
+    ShortcutsShortcut: JSX.IntrinsicElements["Widget"] & {
       accelSizeGroup?: any
       accelerator?: string
       actionName?: string
@@ -1044,15 +962,13 @@ declare namespace JSX {
       accessibleRole?: any
     }
     ShortcutsWindow: JSX.IntrinsicElements["Window"] & {
-      ref?: React.Ref<any>
       sectionName?: string
       viewName?: string
       accessibleRole?: any
       onClose?: () => void
       onSearch?: () => void
     }
-    SpinButton: {
-      ref?: React.Ref<any>
+    SpinButton: JSX.IntrinsicElements["Widget"] & {
       adjustment?: any
       climbRate?: number
       digits?: number
@@ -1083,13 +999,11 @@ declare namespace JSX {
       onDeleteText?: () => void
       onInsertText?: () => void
     }
-    Spinner: {
-      ref?: React.Ref<any>
+    Spinner: JSX.IntrinsicElements["Widget"] & {
       spinning?: boolean
       accessibleRole?: any
     }
-    Stack: {
-      ref?: React.Ref<any>
+    Stack: JSX.IntrinsicElements["Widget"] & {
       hhomogeneous?: boolean
       interpolateSize?: boolean
       pages?: any
@@ -1101,25 +1015,21 @@ declare namespace JSX {
       visibleChildName?: string
       accessibleRole?: any
     }
-    StackSidebar: {
-      ref?: React.Ref<any>
+    StackSidebar: JSX.IntrinsicElements["Widget"] & {
       stack?: any
       accessibleRole?: any
     }
-    StackSwitcher: {
-      ref?: React.Ref<any>
+    StackSwitcher: JSX.IntrinsicElements["Widget"] & {
       stack?: any
       accessibleRole?: any
       orientation?: any
     }
-    Statusbar: {
-      ref?: React.Ref<any>
+    Statusbar: JSX.IntrinsicElements["Widget"] & {
       accessibleRole?: any
       onTextPopped?: () => void
       onTextPushed?: () => void
     }
-    Switch: {
-      ref?: React.Ref<any>
+    Switch: JSX.IntrinsicElements["Widget"] & {
       active?: boolean
       state?: boolean
       accessibleRole?: any
@@ -1128,8 +1038,7 @@ declare namespace JSX {
       onActivate?: () => void
       onStateSet?: () => void
     }
-    Text: {
-      ref?: React.Ref<any>
+    Text: JSX.IntrinsicElements["Widget"] & {
       activatesDefault?: boolean
       attributes?: any
       buffer?: any
@@ -1172,8 +1081,7 @@ declare namespace JSX {
       onDeleteText?: () => void
       onInsertText?: () => void
     }
-    TextView: {
-      ref?: React.Ref<any>
+    TextView: JSX.IntrinsicElements["Widget"] & {
       acceptsTab?: boolean
       bottomMargin?: number
       buffer?: any
@@ -1217,7 +1125,6 @@ declare namespace JSX {
       onToggleOverwrite?: () => void
     }
     ToggleButton: JSX.IntrinsicElements["Button"] & {
-      ref?: React.Ref<any>
       active?: boolean
       group?: any
       accessibleRole?: any
@@ -1225,8 +1132,7 @@ declare namespace JSX {
       actionTarget?: any
       onToggled?: () => void
     }
-    TreeExpander: {
-      ref?: React.Ref<any>
+    TreeExpander: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       hideExpander?: boolean
       indentForDepth?: boolean
@@ -1235,8 +1141,7 @@ declare namespace JSX {
       listRow?: any
       accessibleRole?: any
     }
-    TreeView: {
-      ref?: React.Ref<any>
+    TreeView: JSX.IntrinsicElements["Widget"] & {
       activateOnSingleClick?: boolean
       enableGridLines?: any
       enableSearch?: boolean
@@ -1275,16 +1180,14 @@ declare namespace JSX {
       onToggleCursorRow?: () => void
       onUnselectAll?: () => void
     }
-    Video: {
-      ref?: React.Ref<any>
+    Video: JSX.IntrinsicElements["Widget"] & {
       autoplay?: boolean
       file?: any
       loop?: boolean
       mediaStream?: any
       accessibleRole?: any
     }
-    Viewport: {
-      ref?: React.Ref<any>
+    Viewport: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       scrollToFocus?: boolean
       accessibleRole?: any
@@ -1294,13 +1197,62 @@ declare namespace JSX {
       vscrollPolicy?: any
     }
     VolumeButton: JSX.IntrinsicElements["ScaleButton"] & {
-      ref?: React.Ref<any>
       useSymbolic?: boolean
       accessibleRole?: any
       orientation?: any
     }
-    Window: {
+    Widget: {
       ref?: React.Ref<any>
+      canFocus?: boolean
+      canTarget?: boolean
+      cssClasses?: string[]
+      cssName?: string
+      cursor?: any
+      focusOnClick?: boolean
+      focusable?: boolean
+      halign?: any
+      hasDefault?: boolean
+      hasFocus?: boolean
+      hasTooltip?: boolean
+      heightRequest?: number
+      hexpand?: boolean
+      hexpandSet?: boolean
+      layoutManager?: any
+      marginBottom?: number
+      marginEnd?: number
+      marginStart?: number
+      marginTop?: number
+      name?: string
+      opacity?: number
+      overflow?: any
+      parent?: JSX.Element | null
+      receivesDefault?: boolean
+      root?: any
+      scaleFactor?: number
+      sensitive?: boolean
+      tooltipMarkup?: string
+      tooltipText?: string
+      valign?: any
+      vexpand?: boolean
+      vexpandSet?: boolean
+      visible?: boolean
+      widthRequest?: number
+      accessibleRole?: any
+      onDestroy?: () => void
+      onDirectionChanged?: () => void
+      onHide?: () => void
+      onKeynavFailed?: () => void
+      onMap?: () => void
+      onMnemonicActivate?: () => void
+      onMoveFocus?: () => void
+      onQueryTooltip?: () => void
+      onRealize?: () => void
+      onShow?: () => void
+      onStateFlagsChanged?: () => void
+      onUnmap?: () => void
+      onUnrealize?: () => void
+    }
+    Window: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       application?: any
       decorated?: boolean
@@ -1332,15 +1284,13 @@ declare namespace JSX {
       onEnableDebugging?: () => void
       onKeysChanged?: () => void
     }
-    WindowControls: {
-      ref?: React.Ref<any>
+    WindowControls: JSX.IntrinsicElements["Widget"] & {
       decorationLayout?: string
       empty?: boolean
       side?: any
       accessibleRole?: any
     }
-    WindowHandle: {
-      ref?: React.Ref<any>
+    WindowHandle: JSX.IntrinsicElements["Widget"] & {
       children?: JSX.Element
       accessibleRole?: any
     }

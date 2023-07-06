@@ -1,14 +1,13 @@
 import gi from "node-gtk"
-export const GLib = gi.require("GLib", "2.0")
-export const Gtk = gi.require("Gtk", "4.0")
-export * from "./widgets"
-export * from "./components"
 import Reconciler from "./reconciler"
 
 export interface Container {
   app: any
   loop: any
 }
+
+export const GLib = gi.require("GLib", "2.0")
+export const Gtk = gi.require("Gtk", "4.0")
 
 Gtk.init()
 gi.startLoop()
@@ -40,3 +39,5 @@ export default function render(element: React.ReactNode, app: any) {
 
   app.run([])
 }
+
+export * from "./widgets"

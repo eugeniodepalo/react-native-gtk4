@@ -28,6 +28,10 @@ async function parseGIR(file) {
 }
 
 function isDescendantOfWidget(className, parentClassDict) {
+  if (className === "Widget") {
+    return true
+  }
+
   while (className in parentClassDict) {
     className = parentClassDict[className]
 
@@ -35,6 +39,7 @@ function isDescendantOfWidget(className, parentClassDict) {
       return true
     }
   }
+
   return false
 }
 
@@ -87,7 +92,7 @@ async function getWidgetClasses(gir) {
 
         const widgetClass = {
           name: klass.$.name,
-          parent: klass.$.parent,
+          parent: klass.$.name === "Widget" ? null : klass.$.parent,
           props: props.map((prop) => ({
             name: prop.$.name,
             isArray: "array" in prop,
@@ -119,14 +124,16 @@ function generateWidgetFile(widgetClass) {
   let ts = ""
   ts += `import { Container, Gtk } from ".."\n`
 
-  if (parent !== "Widget") {
-    ts += `import ${parent} from "./${parent}"\n`
+  if (name === "Widget") {
+    ts += `import BaseWidget from "../widget"\n`
   } else {
-    ts += `import Widget from "../widget"\n`
+    ts += `import ${parent} from "./${parent}"\n`
   }
 
   ts += `\n`
-  ts += `export default class ${name} extends ${parent} {\n`
+  ts += `export default class ${name} extends ${
+    name === "Widget" ? "BaseWidget" : parent
+  } {\n`
   ts += `  createNode(container: Container) {\n`
   ts += `    return new Gtk.${name}()\n`
   ts += `  }\n`
@@ -218,17 +225,16 @@ function generateJSXDefinitionFile(widgetClasses) {
   for (const { name, props, signals, parent } of widgetClasses) {
     ts += `    ${name}:`
 
-    if (parent !== "Widget") {
+    if (name !== "Widget") {
       ts += `JSX.IntrinsicElements["${parent}"] & {\n`
     } else {
       ts += `{\n`
+      ts += `ref?: React.Ref<any>\n`
     }
 
     if (name === "Box") {
       ts += `children?: React.ReactNode\n`
     }
-
-    ts += `ref?: React.Ref<any>\n`
 
     if (props.map((prop) => prop.name).includes("child")) {
       ts += `children?: JSX.Element\n`
@@ -263,7 +269,7 @@ function generateRegistryFile(widgetClasses) {
   }
 
   ts += `\n`
-  ts += `export default {\n`
+  ts += `export {\n`
 
   for (const { name } of widgetClasses) {
     ts += `${name},\n`
@@ -287,6 +293,7 @@ function generateComponentFile(widgetClass) {
   let ts = ""
   ts += `import React from "react"\n`
   ts += `import { useState, useCallback, forwardRef } from "react"\n`
+  ts += `\n`
   ts += `const ${name} = "${name}"\n`
   ts += `\n`
   ts += `export default forwardRef<any, JSX.IntrinsicElements["${name}"]>(function ${name}Component({ `

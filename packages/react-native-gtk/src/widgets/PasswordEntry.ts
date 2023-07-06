@@ -1,5 +1,5 @@
 import { Container, Gtk } from ".."
-import Widget from "../widget"
+import Widget from "./Widget"
 
 export default class PasswordEntry extends Widget {
   createNode(container: Container) {

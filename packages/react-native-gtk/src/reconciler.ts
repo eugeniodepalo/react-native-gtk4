@@ -1,9 +1,11 @@
 import Reconciler, { HostConfig } from "react-reconciler"
-import registry, { ElementType } from "./registry"
+import * as registry from "./widgets/registry"
 import { DefaultEventPriority } from "react-reconciler/constants"
 import { Container } from "."
 import Widget from "./widget"
+import "./overrides"
 
+type ElementType = keyof typeof registry
 type UpdatePayload = [string, string, any][]
 
 const hostConfig: HostConfig<

@@ -1,5 +1,5 @@
 import { Container, Gtk } from ".."
-import Widget from "../widget"
+import Widget from "./Widget"
 
 export default class Switch extends Widget {
   createNode(container: Container) {

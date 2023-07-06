@@ -1,5 +1,6 @@
 import React from "react"
 import { useState, useCallback, forwardRef } from "react"
+
 const SearchBar = "SearchBar"
 
 export default forwardRef<any, JSX.IntrinsicElements["SearchBar"]>(

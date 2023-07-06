@@ -96,11 +96,12 @@ import TreeView from "./TreeView"
 import Video from "./Video"
 import Viewport from "./Viewport"
 import VolumeButton from "./VolumeButton"
+import Widget from "./Widget"
 import Window from "./Window"
 import WindowControls from "./WindowControls"
 import WindowHandle from "./WindowHandle"
 
-export default {
+export {
   AboutDialog,
   ActionBar,
   AppChooserButton,
@@ -199,6 +200,7 @@ export default {
   Video,
   Viewport,
   VolumeButton,
+  Widget,
   Window,
   WindowControls,
   WindowHandle,

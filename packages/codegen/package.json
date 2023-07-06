@@ -1,0 +1,32 @@
+{
+  "name": "codegen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React Native GTK Codegen",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugeniodepalo/react-native-gtk.git"
+  },
+  "keywords": [
+    "react",
+    "gtk",
+    "node-gtk",
+    "native"
+  ],
+  "author": "Eugenio Depalo <eugeniodepalo@gmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/eugeniodepalo/react-native-gtk/issues"
+  },
+  "homepage": "https://github.com/eugeniodepalo/react-native-gtk#readme",
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "xml2js": "^0.6.0"
+  }
+}

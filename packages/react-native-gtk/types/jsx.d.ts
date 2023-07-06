@@ -2,11 +2,11 @@ declare namespace JSX {
   interface IntrinsicElements {
     AboutDialog: JSX.IntrinsicElements["Window"] & {
       ref?: React.Ref<any>
-      artists?: string
-      authors?: string
+      artists?: string[]
+      authors?: string[]
       comments?: string
       copyright?: string
-      documenters?: string
+      documenters?: string[]
       license?: string
       licenseType?: any
       logo?: any
@@ -928,7 +928,7 @@ declare namespace JSX {
       ref?: React.Ref<any>
       active?: boolean
       adjustment?: any
-      icons?: string
+      icons?: string[]
       value?: number
       accessibleRole?: any
       orientation?: any

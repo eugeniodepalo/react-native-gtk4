@@ -234,11 +234,13 @@ function generateJSXDefinitionFile(widgetClasses) {
       ts += `children?: JSX.Element\n`
     }
 
-    for (const { name: propName, type } of props) {
+    for (const { name: propName, type, isArray } of props) {
       if (propName === "child") {
         continue
       }
-      ts += `${camelize(propName)}?: ${typeMap[type] || "any"}\n`
+      ts += `${camelize(propName)}?: ${typeMap[type] || "any"}${
+        isArray ? "[]" : ""
+      }\n`
     }
 
     for (const { name: signalName } of signals) {

@@ -1,7 +1,7 @@
 {
   "name": "react-native-gtk4",
   "version": "1.0.0",
-  "description": "React Native bindings for GTK",
+  "description": "React Native bindings for GTK4",
   "main": "dist/index.js",
   "types": "./index.d.ts",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eugeniodepalo/react-native-gtk.git"
+    "url": "git+https://github.com/eugeniodepalo/react-native-gtk4.git"
   },
   "keywords": [
     "react",
@@ -21,9 +21,9 @@
   "author": "Eugenio Depalo <eugeniodepalo@gmail.com>",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/eugeniodepalo/react-native-gtk/issues"
+    "url": "https://github.com/eugeniodepalo/react-native-gtk4/issues"
   },
-  "homepage": "https://github.com/eugeniodepalo/react-native-gtk#readme",
+  "homepage": "https://github.com/eugeniodepalo/react-native-gtk4#readme",
   "dependencies": {
     "node-gtk": "^0.12.0",
     "react": "^18.2.0",

@@ -88,15 +88,31 @@ async function getWidgetClasses(gir) {
         const props = [...(klass.property || []), ...interfaceProps]
         const signals = [...(klass["glib:signal"] || []), ...interfaceSignals]
 
+        const uniqueProps = props.reduce((acc, prop) => {
+          if (!acc.find((p) => p.$.name === prop.$.name)) {
+            acc.push(prop)
+          }
+
+          return acc
+        }, [])
+
+        const uniqueSignals = signals.reduce((acc, signal) => {
+          if (!acc.find((s) => s.$.name === signal.$.name)) {
+            acc.push(signal)
+          }
+
+          return acc
+        }, [])
+
         const widgetClass = {
           name: klass.$.name,
           parent: klass.$.name === "Widget" ? null : klass.$.parent,
-          props: props.map((prop) => ({
+          props: uniqueProps.map((prop) => ({
             name: prop.$.name,
             isArray: "array" in prop,
             type: (prop.array ? prop.array[0].type : prop.type)[0].$.name,
           })),
-          signals: signals.map((signal) => ({
+          signals: uniqueSignals.map((signal) => ({
             name: signal.$.name,
             args: (
               (signal.parameter && signal.parameter[0].instance_parameter) ||
@@ -217,8 +233,16 @@ function generateWidgetsIndexFile(widgetClasses) {
 
 function generateJSXDefinitionFile(widgetClasses) {
   let ts = ""
-  ts += `declare namespace JSX {\n`
-  ts += `  interface IntrinsicElements {\n`
+  ts += `import { Gtk } from "@girs/node-gtk-4.0"\n`
+  ts += `import { Gdk } from "@girs/node-gdk-4.0"\n`
+  ts += `import { Gio } from "@girs/node-gio-2.0"\n`
+  ts += `import { GLib } from "@girs/node-glib-2.0"\n`
+  ts += `import { GObject } from "@girs/node-gobject-2.0"\n`
+  ts += `import { Pango } from "@girs/node-pango-1.0"\n`
+  ts += `import React from "react"\n`
+  ts += `declare global {\n`
+  ts += `  namespace JSX {\n`
+  ts += `    interface IntrinsicElements {\n`
 
   for (const { name, props, signals, parent } of widgetClasses) {
     ts += `    ${name}:`
@@ -238,7 +262,12 @@ function generateJSXDefinitionFile(widgetClasses) {
       ts += `children?: React.ReactElement\n`
     }
 
-    for (const { name: propName, type, isArray } of props) {
+    const uniqueProps = props.filter(
+      (prop, index, self) =>
+        index === self.findIndex((p) => p.name === prop.name)
+    )
+
+    for (const { name: propName, type, isArray } of uniqueProps) {
       if (propName === "child") {
         continue
       }
@@ -257,8 +286,9 @@ function generateJSXDefinitionFile(widgetClasses) {
   }
   ts += `}\n`
   ts += `}\n`
+  ts += `}\n`
 
-  fs.writeFileSync(`jsx.d.ts`, ts)
+  fs.writeFileSync(`src/jsx.ts`, ts)
 }
 
 function generateRegistryFile(widgetClasses) {
@@ -348,7 +378,7 @@ async function main() {
 
   execSync(`pnpm exec prettier --write src/widgets/**/*.{ts,tsx}`)
   execSync(`pnpm exec prettier --write src/components/**/*.{ts,tsx}`)
-  execSync(`pnpm exec prettier --write jsx.d.ts`)
+  execSync(`pnpm exec prettier --write src/jsx.ts`)
 }
 
 main()

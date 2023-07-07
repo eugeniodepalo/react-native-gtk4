@@ -1,5 +1,4 @@
-/// <reference path="../jsx.d.ts" />
-
+import "./jsx.js"
 import gi from "@girs/node-gtk"
 import { Gtk } from "@girs/node-gtk-4.0"
 import { GLib } from "@girs/node-glib-2.0"

@@ -14,9 +14,6 @@ export default class ListBase extends Widget {
       case "accessibleRole":
         this.node.setAccessibleRole(newValue)
         break
-      case "orientation":
-        this.node.setOrientation(newValue)
-        break
       case "hadjustment":
         this.node.setHadjustment(newValue)
         break

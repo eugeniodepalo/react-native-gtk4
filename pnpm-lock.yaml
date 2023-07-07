@@ -15,7 +15,7 @@ importers:
         version: 18.2.0
       react-native-gtk4:
         specifier: workspace:*
-        version: link:../../packages/react
+        version: link:../../packages/react-native-gtk4
     devDependencies:
       '@types/react':
         specifier: ^18.2.14
@@ -24,17 +24,20 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
-  packages/codegen:
-    devDependencies:
-      prettier:
-        specifier: ^3.0.0
-        version: 3.0.0
-      xml2js:
-        specifier: ^0.6.0
-        version: 0.6.0
-
-  packages/react:
+  packages/react-native-gtk4:
     dependencies:
+      '@girs/node-gio-2.0':
+        specifier: 2.76.1-3.2.0
+        version: 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0':
+        specifier: 2.76.1-3.2.0
+        version: 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk':
+        specifier: ^3.2.0
+        version: 3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk-4.0':
+        specifier: 4.10.4-3.2.0
+        version: 4.10.4-3.2.0(node-gtk@0.12.0)
       node-gtk:
         specifier: ^0.12.0
         version: 0.12.0
@@ -51,11 +54,218 @@ importers:
       '@types/react-reconciler':
         specifier: ^0.28.2
         version: 0.28.2
+      prettier:
+        specifier: ^3.0.0
+        version: 3.0.0
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
+      xml2js:
+        specifier: ^0.6.0
+        version: 0.6.0
 
 packages:
+
+  /@girs/node-cairo-1.0@1.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-z6gHytgYgH5qvDMTkUc+2YtSxxf2xXUEm9QZIFNHhRpsdYaD84uQcRELpwBaWjExm9DVoMBe81CKNvZXI8eBXg==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-freetype2-2.0@2.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-v0mSlRY1uJjn4MeeVW08mxavy2qs4xOlDzQK+XWxVAb54K3v4Cf6Yb4kg0VYtI5rTFTE2vH7AIG0gcd5MknoKw==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gdk-4.0@4.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-ihQ7i5Z6O7xc+bqD03RPS5bxwKKw7wHW48ko9fCYqhF5lEmKhiTgFiLgP+DWCrK76g4aEBRQWRljZE1979cJyA==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-cairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-freetype2-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gdkpixbuf-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gio-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gmodule-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      '@girs/node-harfbuzz-0.0': 7.1.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-pango-1.0': 1.50.14-3.2.0(node-gtk@0.12.0)
+      '@girs/node-pangocairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gdkpixbuf-2.0@2.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-rRkzjV76XjxPpCV6Eg7W/Baeh3zTp/+BrqWj3RewkqUart5XcUOA33hd4wSvPKRBYC5HHasAxL/vCVknj1KmTQ==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-gio-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gmodule-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gio-2.0@2.76.1-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-+P55IHtqzAEYdf4ZTgBHne+N7bGMwALK6av5qAI9JF5azmkqv0ycUl6wtoVFBVFTlPdKOmAdxjw1g9Ed4wCQUw==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-glib-2.0@2.76.1-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-3YAZ8Qr6Hxo2k+EDpxqkXZ5G70rjNdgKPjpo3IPQECFzQK8FX2naT0jxS0XFwkh6TFnPCy9glkK7mw5rctBLfA==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gmodule-2.0@2.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-6TXtdNK2BZoWTt4E9IHEpp0qIycHdTJGmW2GlEIyN//KFiVcJc3M7WqW8ebQKgGJn8c8csO/UjSV9j2YVBxYGA==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gobject-2.0@2.76.1-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-w0c1UdYKliZeZBScbBLD0QeN+ET5jm3FbGWIYpSv2eKwEzpQuGriXYcbjgMP6A6FsR8S8zVN7RCbazt2lfGW+Q==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-graphene-1.0@1.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-A9TZcBtlMqxJuduhHd8DnUfrt+AxCiFEgTIJCzb3ilsCeEBEtXdnW95xUxHxZ7Ld/d3CJFRKWqfrwIHut6CtmQ==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gsk-4.0@4.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-j/D1JkxLk873kKq9pcpCDizi3bmqTRu6vTo7mGNC/aHwxe+8ejBF7t6EygtaL43TS0vrPnrawxW64Bst8/cNbQ==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-cairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-freetype2-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gdk-4.0': 4.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gdkpixbuf-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gio-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gmodule-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-graphene-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      '@girs/node-harfbuzz-0.0': 7.1.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-pango-1.0': 1.50.14-3.2.0(node-gtk@0.12.0)
+      '@girs/node-pangocairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gtk-4.0@4.10.4-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-rRSODB9upTTD+xitjZoSpWsa1uQHqpIMeX/5f/mBtKtgkgdErjbSil+SqI2T3ieg+7JQkhkoXY2RGYROkX68Dw==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-cairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-freetype2-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gdk-4.0': 4.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gdkpixbuf-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gio-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gmodule-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-graphene-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gsk-4.0': 4.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      '@girs/node-harfbuzz-0.0': 7.1.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-pango-1.0': 1.50.14-3.2.0(node-gtk@0.12.0)
+      '@girs/node-pangocairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-gtk@3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-c3Et3CqhiaBApCKp+0FSHWGoRRtQGVPGeIfHqhrNYSB2C2WrLNVln86vAPvs2uQuRvUHNos8I/81Md4WTWFZHQ==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-harfbuzz-0.0@7.1.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-GpALAZF4FIbDX+a34IYYCILFv8Vh/0XJj8d3JDBucQCvTQXWHpaatPXIhuOeCfIzl/imFx1YT26avhLl1AEIWQ==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-freetype2-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-pango-1.0@1.50.14-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-v43noCGXN905plIwmVsbo64X59ebgVcsasAjFB0Rv4IDDtEWUPXxSTNHx55WrcZg5JADWKf0JqAkaI8szPa3jQ==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-cairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-freetype2-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gio-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      '@girs/node-harfbuzz-0.0': 7.1.0-3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
+
+  /@girs/node-pangocairo-1.0@1.0.0-3.2.0(node-gtk@0.12.0):
+    resolution: {integrity: sha512-iXCZAjMg6vubXnOXpmsk8NfhqCND5evs7Q0CNS2O/Zw+F23SDcdwXubs8IRPI2i7Kii/CdldNq3Ee3sXw2XzRg==}
+    peerDependencies:
+      node-gtk: '*'
+    dependencies:
+      '@girs/node-cairo-1.0': 1.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-freetype2-2.0': 2.0.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gio-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-glib-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gobject-2.0': 2.76.1-3.2.0(node-gtk@0.12.0)
+      '@girs/node-gtk': 3.2.0(node-gtk@0.12.0)
+      '@girs/node-harfbuzz-0.0': 7.1.0-3.2.0(node-gtk@0.12.0)
+      '@girs/node-pango-1.0': 1.50.14-3.2.0(node-gtk@0.12.0)
+      node-gtk: 0.12.0
+    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -405,7 +615,7 @@ packages:
     dependencies:
       foreground-child: 3.1.1
       jackspeak: 2.2.1
-      minimatch: 9.0.2
+      minimatch: 9.0.3
       minipass: 5.0.0
       path-scurry: 1.10.0
     dev: false
@@ -591,8 +801,8 @@ packages:
       brace-expansion: 1.1.11
     dev: false
 
-  /minimatch@9.0.2:
-    resolution: {integrity: sha512-PZOT9g5v2ojiTL7r1xF6plNHLtOeTpSlDI007As2NlA2aYBMfVom17yqa6QzhmDP8QOhn7LjHTg7DFCVSSa6yg==}
+  /minimatch@9.0.3:
+    resolution: {integrity: sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==}
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.1

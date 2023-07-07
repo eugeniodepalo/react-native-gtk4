@@ -2,13 +2,15 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "ESNext",
-    "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Node",
     "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "declaration": true,
+    "jsx": "react"
+  },
+  "include": ["src"]
 }

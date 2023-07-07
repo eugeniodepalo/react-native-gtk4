@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "A simple example of a React Native GTK app",
   "main": "dist/index.js",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "pnpm run build && node dist/index.js"
+    "start": "pnpm run -w build && node dist/index.js"
   },
   "dependencies": {
     "react-native-gtk4": "workspace:*",

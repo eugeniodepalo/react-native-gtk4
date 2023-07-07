@@ -4,5 +4,8 @@
   "workspaces": [
     "packages/*",
     "examples/*"
-  ]
+  ],
+  "scripts": {
+    "build": "pnpm recursive run build"
+  }
 }

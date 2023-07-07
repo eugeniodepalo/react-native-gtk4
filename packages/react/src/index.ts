@@ -41,3 +41,4 @@ export default function render(element: React.ReactNode, app: any) {
 }
 
 export * from "./widgets"
+export * from "./components"

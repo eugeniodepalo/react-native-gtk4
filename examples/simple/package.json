@@ -6,10 +6,10 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "pnpm run -w build && pnpm run build && node dist/index.js"
+    "start": "pnpm run build && node dist/index.js"
   },
   "dependencies": {
-    "react-native-gtk": "workspace:*",
+    "react-native-gtk4": "workspace:*",
     "react": "^18.2.0"
   },
   "devDependencies": {

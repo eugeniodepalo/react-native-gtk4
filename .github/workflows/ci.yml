@@ -15,7 +15,7 @@ jobs:
           ref: main
       - name: Install and publish
         run: |
-          cd packages/react
+          cd packages/react-native-gtk4
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
           npm install -g pnpm
           pnpm install

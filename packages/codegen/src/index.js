@@ -17,7 +17,7 @@ const typeMap = {
   gint: "number",
   gdouble: "number",
   gfloat: "number",
-  Widget: "JSX.Element | null",
+  Widget: "React.ReactElement | null",
 }
 
 async function parseGIR(file) {
@@ -237,7 +237,7 @@ function generateJSXDefinitionFile(widgetClasses) {
     }
 
     if (props.map((prop) => prop.name).includes("child")) {
-      ts += `children?: JSX.Element\n`
+      ts += `children?: React.ReactElement\n`
     }
 
     for (const { name: propName, type, isArray } of props) {

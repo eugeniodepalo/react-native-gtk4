@@ -1,6 +1,6 @@
 {
   "name": "react-native-gtk4",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native bindings for GTK4",
   "main": "dist/index.js",
   "types": "./index.d.ts",

@@ -5,6 +5,7 @@ import { GLib } from "@girs/node-glib-2.0"
 import { GObject } from "@girs/node-gobject-2.0"
 import { Pango } from "@girs/node-pango-1.0"
 import React from "react"
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {

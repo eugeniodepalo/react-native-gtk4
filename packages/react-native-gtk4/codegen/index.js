@@ -240,6 +240,7 @@ function generateJSXDefinitionFile(widgetClasses) {
   ts += `import { GObject } from "@girs/node-gobject-2.0"\n`
   ts += `import { Pango } from "@girs/node-pango-1.0"\n`
   ts += `import React from "react"\n`
+  ts += `\n`
   ts += `declare global {\n`
   ts += `  namespace JSX {\n`
   ts += `    interface IntrinsicElements {\n`
@@ -302,7 +303,7 @@ function generateRegistryFile(widgetClasses) {
   ts += `export {\n`
 
   for (const { name } of widgetClasses) {
-    ts += `${name},\n`
+    ts += `  ${name},\n`
   }
 
   ts += `}\n`

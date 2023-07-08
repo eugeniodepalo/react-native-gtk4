@@ -9,7 +9,7 @@ React Native GTK4 is a project that allows you to build native GTK4 applications
 Before you begin, ensure that you have the following installed on your development machine:
 
 - [Node.js](https://nodejs.org) (v14 or higher)
-- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+- [GTK4](https://www.gtk.org/docs/installations)
 
 ### Installation
 
@@ -18,6 +18,10 @@ To install React Native GTK4, you can use npm:
 ```shell
 npm install react-native-gtk4
 ```
+
+### Usage
+
+Check out the example applications in the [example](example) directory for a working example of a React Native GTK4 application.
 
 ## Contributing
 
@@ -31,8 +35,8 @@ We welcome contributions to React Native GTK4! To contribute, please follow thes
 
 ## License
 
-React Native GTK is released under the [MPL-2.0](https://opensource.org/licenses/MPL-2.0). See the [LICENSE](LICENSE) file for more information.
+React Native GTK4 is released under the [MPL-2.0](https://opensource.org/licenses/MPL-2.0). See the [LICENSE](LICENSE) file for more information.
 
 ## Acknowledgements
 
-React Native GTK is built upon the foundations of node-gtk. We would like to express our gratitude to the respective communities for their contributions and support.
+React Native GTK is built upon the foundations of node-gtk. We would like to express our gratitude the original authors of node-gtk for their work on the project.

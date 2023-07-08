@@ -1,12 +1,16 @@
-import "./jsx.js"
 import gi from "@girs/node-gtk"
 import { Gtk } from "@girs/node-gtk-4.0"
-import { GLib } from "@girs/node-glib-2.0"
+import { Gdk } from "@girs/node-gdk-4.0"
 import { Gio } from "@girs/node-gio-2.0"
+import { GLib } from "@girs/node-glib-2.0"
+import { GObject } from "@girs/node-gobject-2.0"
+import { Pango } from "@girs/node-pango-1.0"
 import Reconciler from "./reconciler.js"
+
+import "./jsx.js"
 export * from "./elements.js"
 export * from "./components.js"
-export { Gtk, Gio, GLib }
+export { Gtk, Gio, GLib, GObject, Pango, Gdk }
 import "./overrides.js"
 
 export interface Container {

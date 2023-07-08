@@ -39,9 +39,8 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
       null
     )
     Reconciler.updateContainer(element, container, null, () => {
-      GLib.idleAdd(GLib.PRIORITY_DEFAULT, () => {
+      setTimeout(() => {
         loop.run()
-        return false
       })
     })
   })

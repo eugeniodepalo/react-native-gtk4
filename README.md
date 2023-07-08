@@ -1,7 +1,3 @@
-# react-native-gtk4
+# React Native GTK4
 
-React renderer for GTK4 using node-gtk
-
-## Getting Started
-
-Check out the package [README](packages/react-native-gtk/README.md) for more information.
+Check out the package [README](packages/react-native-gtk4/README.md) for more information.

@@ -21,7 +21,7 @@ npm install react-native-gtk4
 
 ### Usage
 
-Check out the example applications in the [example](example) directory for a working example of a React Native GTK4 application.
+Check out the example applications in the [examples](examples) directory for a working example of a React Native GTK4 application.
 
 ## Contributing
 

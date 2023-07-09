@@ -39,11 +39,12 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
       null
     )
     Reconciler.updateContainer(element, container, null, () => {
-      setTimeout(() => {
+      GLib.timeoutAdd(GLib.PRIORITY_HIGH, 0, () => {
         loop.run()
+        return false
       })
     })
   })
 
-  app.run([])
+  setTimeout(() => app.run([]))
 }

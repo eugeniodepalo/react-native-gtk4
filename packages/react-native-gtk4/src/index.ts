@@ -38,7 +38,7 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
       null
     )
     Reconciler.updateContainer(element, container, null, () => {})
-    setImmediate(gi.startLoop)
+    setTimeout(gi.startLoop)
     loop.run()
   })
 

@@ -19,7 +19,6 @@ export interface Container {
 }
 
 Gtk.init()
-gi.startLoop()
 
 let currentTag = 0
 
@@ -38,15 +37,10 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
       () => {},
       null
     )
-    Reconciler.updateContainer(element, container, null, () => {
-      setTimeout(() =>
-        GLib.timeoutAdd(GLib.PRIORITY_HIGH, 0, () => {
-          loop.run()
-          return false
-        })
-      )
-    })
+    Reconciler.updateContainer(element, container, null, () => {})
+    setImmediate(gi.startLoop)
+    loop.run()
   })
 
-  setTimeout(() => app.run([]))
+  app.run([])
 }

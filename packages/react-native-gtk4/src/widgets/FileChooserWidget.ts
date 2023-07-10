@@ -1,25 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class FileChooserWidget extends Widget {
-  createNode(container: Container) {
-    return new Gtk.FileChooserWidget()
+export default class FileChooserWidget<
+  T extends Gtk.FileChooserWidget,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.FileChooserWidget() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "searchMode":
-        this.node.setSearchMode(newValue)
-        break
-      case "showTime":
-        this.node.setShowTime(newValue)
-        break
-      case "subtitle":
-        this.node.setSubtitle(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "action":
         this.node.setAction(newValue)
         break
@@ -29,14 +19,8 @@ export default class FileChooserWidget extends Widget {
       case "filter":
         this.node.setFilter(newValue)
         break
-      case "filters":
-        this.node.setFilters(newValue)
-        break
       case "selectMultiple":
         this.node.setSelectMultiple(newValue)
-        break
-      case "shortcutFolders":
-        this.node.setShortcutFolders(newValue)
         break
       case "onDesktopFolder":
         if (oldValue) {

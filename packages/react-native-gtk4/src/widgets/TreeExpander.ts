@@ -1,14 +1,16 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class TreeExpander extends Widget {
-  createNode(container: Container) {
-    return new Gtk.TreeExpander()
+export default class TreeExpander<
+  T extends Gtk.TreeExpander,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.TreeExpander() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -23,14 +25,8 @@ export default class TreeExpander extends Widget {
       case "indentForIcon":
         this.node.setIndentForIcon(newValue)
         break
-      case "item":
-        this.node.setItem(newValue)
-        break
       case "listRow":
         this.node.setListRow(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

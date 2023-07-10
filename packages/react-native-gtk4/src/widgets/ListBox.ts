@@ -1,16 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ListBox extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ListBox()
+export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ListBox() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "acceptUnpairedRelease":
-        this.node.setAcceptUnpairedRelease(newValue)
-        break
       case "activateOnSingleClick":
         this.node.setActivateOnSingleClick(newValue)
         break
@@ -19,9 +16,6 @@ export default class ListBox extends Widget {
         break
       case "showSeparators":
         this.node.setShowSeparators(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onActivateCursorRow":
         if (oldValue) {

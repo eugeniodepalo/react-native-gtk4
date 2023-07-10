@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class DropDown extends Widget {
-  createNode(container: Container) {
-    return new Gtk.DropDown()
+export default class DropDown<T extends Gtk.DropDown> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.DropDown() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -26,14 +26,8 @@ export default class DropDown extends Widget {
       case "selected":
         this.node.setSelected(newValue)
         break
-      case "selectedItem":
-        this.node.setSelectedItem(newValue)
-        break
       case "showArrow":
         this.node.setShowArrow(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onActivate":
         if (oldValue) {

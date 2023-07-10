@@ -1,9 +1,11 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class WindowControls extends Widget {
-  createNode(container: Container) {
-    return new Gtk.WindowControls()
+export default class WindowControls<
+  T extends Gtk.WindowControls,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.WindowControls() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -11,14 +13,8 @@ export default class WindowControls extends Widget {
       case "decorationLayout":
         this.node.setDecorationLayout(newValue)
         break
-      case "empty":
-        this.node.setEmpty(newValue)
-        break
       case "side":
         this.node.setSide(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

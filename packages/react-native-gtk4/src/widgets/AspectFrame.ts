@@ -1,14 +1,14 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class AspectFrame extends Widget {
-  createNode(container: Container) {
-    return new Gtk.AspectFrame()
+export default class AspectFrame<T extends Gtk.AspectFrame> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.AspectFrame() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -25,9 +25,6 @@ export default class AspectFrame extends Widget {
         break
       case "yalign":
         this.node.setYalign(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

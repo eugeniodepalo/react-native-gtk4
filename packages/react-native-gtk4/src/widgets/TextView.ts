@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class TextView extends Widget {
-  createNode(container: Container) {
-    return new Gtk.TextView()
+export default class TextView<T extends Gtk.TextView> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.TextView() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -25,9 +25,6 @@ export default class TextView extends Widget {
         break
       case "extraMenu":
         this.node.setExtraMenu(newValue)
-        break
-      case "imModule":
-        this.node.setImModule(newValue)
         break
       case "indent":
         this.node.setIndent(newValue)
@@ -70,9 +67,6 @@ export default class TextView extends Widget {
         break
       case "wrapMode":
         this.node.setWrapMode(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "hadjustment":
         this.node.setHadjustment(newValue)

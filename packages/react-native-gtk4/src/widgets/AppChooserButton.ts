@@ -1,9 +1,11 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class AppChooserButton extends Widget {
-  createNode(container: Container) {
-    return new Gtk.AppChooserButton()
+export default class AppChooserButton<
+  T extends Gtk.AppChooserButton,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.AppChooserButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -19,12 +21,6 @@ export default class AppChooserButton extends Widget {
         break
       case "showDialogItem":
         this.node.setShowDialogItem(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
-      case "contentType":
-        this.node.setContentType(newValue)
         break
       case "onActivate":
         if (oldValue) {

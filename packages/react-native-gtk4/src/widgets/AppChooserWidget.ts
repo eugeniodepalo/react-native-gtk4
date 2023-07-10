@@ -1,9 +1,11 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class AppChooserWidget extends Widget {
-  createNode(container: Container) {
-    return new Gtk.AppChooserWidget()
+export default class AppChooserWidget<
+  T extends Gtk.AppChooserWidget,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.AppChooserWidget() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -25,12 +27,6 @@ export default class AppChooserWidget extends Widget {
         break
       case "showRecommended":
         this.node.setShowRecommended(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
-      case "contentType":
-        this.node.setContentType(newValue)
         break
       case "onApplicationActivated":
         if (oldValue) {

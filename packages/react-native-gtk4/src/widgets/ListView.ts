@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import ListBase from "./ListBase.js"
 
-export default class ListView extends ListBase {
-  createNode(container: Container) {
-    return new Gtk.ListView()
+export default class ListView<T extends Gtk.ListView> extends ListBase<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ListView() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -22,9 +22,6 @@ export default class ListView extends ListBase {
         break
       case "singleClickActivate":
         this.node.setSingleClickActivate(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

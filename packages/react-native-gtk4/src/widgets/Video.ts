@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Video extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Video()
+export default class Video<T extends Gtk.Video> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Video() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -19,9 +19,6 @@ export default class Video extends Widget {
         break
       case "mediaStream":
         this.node.setMediaStream(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

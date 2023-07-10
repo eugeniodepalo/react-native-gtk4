@@ -1,16 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Dialog from "./Dialog.js"
 
-export default class PageSetupUnixDialog extends Dialog {
-  createNode(container: Container) {
-    return new Gtk.PageSetupUnixDialog()
+export default class PageSetupUnixDialog<
+  T extends Gtk.PageSetupUnixDialog,
+> extends Dialog<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.PageSetupUnixDialog() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       default:
         break
     }

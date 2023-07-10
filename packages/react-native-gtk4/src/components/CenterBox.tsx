@@ -1,23 +1,30 @@
 import React from "react"
 import { useState, useCallback, forwardRef } from "react"
+import { Gtk } from "../index.js"
 
 const CenterBox = "CenterBox"
 
-export default forwardRef<any, JSX.IntrinsicElements["CenterBox"]>(
+export default forwardRef<Gtk.CenterBox, JSX.IntrinsicElements["CenterBox"]>(
   function CenterBoxComponent(
     { centerWidget, endWidget, startWidget, ...props },
     ref
   ) {
-    const [centerWidgetRef, setCenterWidgetRef] = useState<any>(null)
-    useCallback((node: any) => {
+    const [centerWidgetRef, setCenterWidgetRef] = useState<
+      Gtk.CenterBox | undefined
+    >()
+    useCallback((node: Gtk.CenterBox) => {
       setCenterWidgetRef(node)
     }, [])
-    const [endWidgetRef, setEndWidgetRef] = useState<any>(null)
-    useCallback((node: any) => {
+    const [endWidgetRef, setEndWidgetRef] = useState<
+      Gtk.CenterBox | undefined
+    >()
+    useCallback((node: Gtk.CenterBox) => {
       setEndWidgetRef(node)
     }, [])
-    const [startWidgetRef, setStartWidgetRef] = useState<any>(null)
-    useCallback((node: any) => {
+    const [startWidgetRef, setStartWidgetRef] = useState<
+      Gtk.CenterBox | undefined
+    >()
+    useCallback((node: Gtk.CenterBox) => {
       setStartWidgetRef(node)
     }, [])
     return (

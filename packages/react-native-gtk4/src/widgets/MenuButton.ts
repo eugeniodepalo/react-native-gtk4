@@ -1,14 +1,14 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class MenuButton extends Widget {
-  createNode(container: Container) {
-    return new Gtk.MenuButton()
+export default class MenuButton<T extends Gtk.MenuButton> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.MenuButton() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -43,9 +43,6 @@ export default class MenuButton extends Widget {
         break
       case "useUnderline":
         this.node.setUseUnderline(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onActivate":
         if (oldValue) {

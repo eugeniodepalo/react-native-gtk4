@@ -1,24 +1,20 @@
 import { Container, Gtk } from "../index.js"
 import Dialog from "./Dialog.js"
 
-export default class FontChooserDialog extends Dialog {
-  createNode(container: Container) {
-    return new Gtk.FontChooserDialog()
+export default class FontChooserDialog<
+  T extends Gtk.FontChooserDialog,
+> extends Dialog<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.FontChooserDialog() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "font":
         this.node.setFont(newValue)
         break
       case "fontDesc":
         this.node.setFontDesc(newValue)
-        break
-      case "fontFeatures":
-        this.node.setFontFeatures(newValue)
         break
       case "language":
         this.node.setLanguage(newValue)

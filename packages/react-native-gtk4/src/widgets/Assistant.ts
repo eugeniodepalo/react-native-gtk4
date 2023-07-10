@@ -1,22 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Window from "./Window.js"
 
-export default class Assistant extends Window {
-  createNode(container: Container) {
-    return new Gtk.Assistant()
+export default class Assistant<T extends Gtk.Assistant> extends Window<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Assistant() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "pages":
-        this.node.setPages(newValue)
-        break
-      case "useHeaderBar":
-        this.node.setUseHeaderBar(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "onApply":
         if (oldValue) {
           this.node.off("apply", oldValue)

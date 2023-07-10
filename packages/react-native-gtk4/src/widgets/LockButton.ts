@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Button from "./Button.js"
 
-export default class LockButton extends Button {
-  createNode(container: Container) {
-    return new Gtk.LockButton()
+export default class LockButton<T extends Gtk.LockButton> extends Button<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.LockButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -11,29 +11,11 @@ export default class LockButton extends Button {
       case "permission":
         this.node.setPermission(newValue)
         break
-      case "textLock":
-        this.node.setTextLock(newValue)
-        break
-      case "textUnlock":
-        this.node.setTextUnlock(newValue)
-        break
-      case "tooltipLock":
-        this.node.setTooltipLock(newValue)
-        break
-      case "tooltipNotAuthorized":
-        this.node.setTooltipNotAuthorized(newValue)
-        break
-      case "tooltipUnlock":
-        this.node.setTooltipUnlock(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "actionName":
         this.node.setActionName(newValue)
         break
       case "actionTarget":
-        this.node.setActionTarget(newValue)
+        this.node.setActionTargetValue(newValue)
         break
       default:
         break

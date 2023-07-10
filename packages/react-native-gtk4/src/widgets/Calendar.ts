@@ -1,19 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Calendar extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Calendar()
+export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Calendar() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "day":
-        this.node.setDay(newValue)
-        break
-      case "month":
-        this.node.setMonth(newValue)
-        break
       case "showDayNames":
         this.node.setShowDayNames(newValue)
         break
@@ -22,12 +16,6 @@ export default class Calendar extends Widget {
         break
       case "showWeekNumbers":
         this.node.setShowWeekNumbers(newValue)
-        break
-      case "year":
-        this.node.setYear(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onDaySelected":
         if (oldValue) {

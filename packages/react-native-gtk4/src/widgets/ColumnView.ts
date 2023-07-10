@@ -1,16 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ColumnView extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ColumnView()
+export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ColumnView() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "columns":
-        this.node.setColumns(newValue)
-        break
       case "enableRubberband":
         this.node.setEnableRubberband(newValue)
         break
@@ -28,12 +25,6 @@ export default class ColumnView extends Widget {
         break
       case "singleClickActivate":
         this.node.setSingleClickActivate(newValue)
-        break
-      case "sorter":
-        this.node.setSorter(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "hadjustment":
         this.node.setHadjustment(newValue)

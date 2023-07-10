@@ -1,19 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Window from "./Window.js"
 
-export default class Dialog extends Window {
-  createNode(container: Container) {
-    return new Gtk.Dialog()
+export default class Dialog<T extends Gtk.Dialog> extends Window<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Dialog() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "useHeaderBar":
-        this.node.setUseHeaderBar(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "onClose":
         if (oldValue) {
           this.node.off("close", oldValue)

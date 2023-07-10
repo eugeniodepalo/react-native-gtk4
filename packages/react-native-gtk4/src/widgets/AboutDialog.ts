@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Window from "./Window.js"
 
-export default class AboutDialog extends Window {
-  createNode(container: Container) {
-    return new Gtk.AboutDialog()
+export default class AboutDialog<T extends Gtk.AboutDialog> extends Window<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.AboutDialog() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -55,9 +55,6 @@ export default class AboutDialog extends Window {
         break
       case "wrapLicense":
         this.node.setWrapLicense(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onActivateLink":
         if (oldValue) {

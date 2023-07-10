@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Inscription extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Inscription()
+export default class Inscription<T extends Gtk.Inscription> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Inscription() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -40,9 +40,6 @@ export default class Inscription extends Widget {
         break
       case "yalign":
         this.node.setYalign(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

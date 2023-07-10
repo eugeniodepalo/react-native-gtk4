@@ -1,24 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Notebook extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Notebook()
+export default class Notebook<T extends Gtk.Notebook> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Notebook() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "enablePopup":
-        this.node.setEnablePopup(newValue)
-        break
       case "groupName":
         this.node.setGroupName(newValue)
-        break
-      case "page":
-        this.node.setPage(newValue)
-        break
-      case "pages":
-        this.node.setPages(newValue)
         break
       case "scrollable":
         this.node.setScrollable(newValue)
@@ -31,9 +22,6 @@ export default class Notebook extends Widget {
         break
       case "tabPos":
         this.node.setTabPos(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onChangeCurrentPage":
         if (oldValue) {

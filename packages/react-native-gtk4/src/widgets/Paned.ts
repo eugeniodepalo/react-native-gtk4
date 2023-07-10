@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Paned extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Paned()
+export default class Paned<T extends Gtk.Paned> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Paned() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -11,17 +11,8 @@ export default class Paned extends Widget {
       case "endChild":
         this.node.setEndChild(newValue)
         break
-      case "maxPosition":
-        this.node.setMaxPosition(newValue)
-        break
-      case "minPosition":
-        this.node.setMinPosition(newValue)
-        break
       case "position":
         this.node.setPosition(newValue)
-        break
-      case "positionSet":
-        this.node.setPositionSet(newValue)
         break
       case "resizeEndChild":
         this.node.setResizeEndChild(newValue)
@@ -40,9 +31,6 @@ export default class Paned extends Widget {
         break
       case "wideHandle":
         this.node.setWideHandle(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

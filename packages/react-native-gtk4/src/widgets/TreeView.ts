@@ -1,18 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class TreeView extends Widget {
-  createNode(container: Container) {
-    return new Gtk.TreeView()
+export default class TreeView<T extends Gtk.TreeView> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.TreeView() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "activateOnSingleClick":
         this.node.setActivateOnSingleClick(newValue)
-        break
-      case "enableGridLines":
-        this.node.setEnableGridLines(newValue)
         break
       case "enableSearch":
         this.node.setEnableSearch(newValue)
@@ -58,9 +55,6 @@ export default class TreeView extends Widget {
         break
       case "tooltipColumn":
         this.node.setTooltipColumn(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "hadjustment":
         this.node.setHadjustment(newValue)

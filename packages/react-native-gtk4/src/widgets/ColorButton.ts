@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ColorButton extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ColorButton()
+export default class ColorButton<T extends Gtk.ColorButton> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ColorButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -11,14 +11,8 @@ export default class ColorButton extends Widget {
       case "modal":
         this.node.setModal(newValue)
         break
-      case "showEditor":
-        this.node.setShowEditor(newValue)
-        break
       case "title":
         this.node.setTitle(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "rgba":
         this.node.setRgba(newValue)

@@ -7,18 +7,23 @@ import Widget from "./widget.js"
 type ElementType = keyof typeof registry
 type UpdatePayload = [string, string, any][]
 
+type WidgetConstructor = new (
+  container: Container,
+  props: Record<string, any>
+) => Widget<any>
+
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
   Container,
-  Widget,
-  Widget,
-  Widget,
-  Widget,
-  Widget,
+  Widget<any>,
+  Widget<any>,
+  Widget<any>,
+  Widget<any>,
+  Widget<any>,
   unknown,
   UpdatePayload,
-  Set<Widget>,
+  Set<Widget<any>>,
   ReturnType<typeof setTimeout>,
   -1
 > = {
@@ -28,8 +33,8 @@ const hostConfig: HostConfig<
   isPrimaryRenderer: true,
   noTimeout: -1,
   createInstance(type, props, rootContainer) {
-    const Element = registry[type]
-    return new Element(rootContainer, props)
+    const Widget = registry[type] as WidgetConstructor
+    return new Widget(rootContainer, props)
   },
   createTextInstance(text, rootContainer) {
     const Label = registry["Label"]

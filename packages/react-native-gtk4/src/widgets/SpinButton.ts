@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class SpinButton extends Widget {
-  createNode(container: Container) {
-    return new Gtk.SpinButton()
+export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.SpinButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -32,15 +32,6 @@ export default class SpinButton extends Widget {
       case "wrap":
         this.node.setWrap(newValue)
         break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
-      case "editingCanceled":
-        this.node.setEditingCanceled(newValue)
-        break
-      case "cursorPosition":
-        this.node.setCursorPosition(newValue)
-        break
       case "editable":
         this.node.setEditable(newValue)
         break
@@ -50,17 +41,11 @@ export default class SpinButton extends Widget {
       case "maxWidthChars":
         this.node.setMaxWidthChars(newValue)
         break
-      case "selectionBound":
-        this.node.setSelectionBound(newValue)
-        break
       case "text":
         this.node.setText(newValue)
         break
       case "widthChars":
         this.node.setWidthChars(newValue)
-        break
-      case "xalign":
-        this.node.setXalign(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

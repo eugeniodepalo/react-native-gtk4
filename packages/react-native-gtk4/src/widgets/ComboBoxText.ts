@@ -1,19 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import ComboBox from "./ComboBox.js"
 
-export default class ComboBoxText extends ComboBox {
-  createNode(container: Container) {
-    return new Gtk.ComboBoxText()
+export default class ComboBoxText<
+  T extends Gtk.ComboBoxText,
+> extends ComboBox<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ComboBoxText() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
-      case "editingCanceled":
-        this.node.setEditingCanceled(newValue)
-        break
       case "onEditingDone":
         if (oldValue) {
           this.node.off("editing-done", oldValue)

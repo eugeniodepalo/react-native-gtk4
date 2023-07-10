@@ -15,7 +15,7 @@ const typeMap = {
   gint: "number",
   gdouble: "number",
   gfloat: "number",
-  Widget: "React.ReactElement | null",
+  Widget: "Gtk.Widget",
 }
 
 async function parseGIR(file) {
@@ -110,6 +110,7 @@ async function getWidgetClasses(gir) {
           props: uniqueProps.map((prop) => ({
             name: prop.$.name,
             isArray: "array" in prop,
+            setter: prop.$.setter,
             type: (prop.array ? prop.array[0].type : prop.type)[0].$.name,
           })),
           signals: uniqueSignals.map((signal) => ({
@@ -139,24 +140,26 @@ function generateWidgetFile(widgetClass) {
   ts += `import { Container, Gtk } from "../index.js"\n`
 
   if (name === "Widget") {
-    ts += `import BaseWidget from "../widget.js"\n`
+    ts += `import AbstractWidget from "../widget.js"\n`
   } else {
     ts += `import ${parent} from "./${parent}.js"\n`
   }
 
+  const nodeType = `Gtk.${name}`
+  const genericType = `T extends ${nodeType}`
+  const parentClass = name === "Widget" ? "AbstractWidget" : parent
+
   ts += `\n`
-  ts += `export default class ${name} extends ${
-    name === "Widget" ? "BaseWidget" : parent
-  } {\n`
-  ts += `  createNode(container: Container) {\n`
-  ts += `    return new Gtk.${name}()\n`
+  ts += `export default class ${name}<${genericType}> extends ${parentClass}<T> {\n`
+  ts += `  createNode(container: Container, props: Record<string, any>) {\n`
+  ts += `    return new Gtk.${name}() as T\n`
   ts += `  }\n`
 
   if (props.map((prop) => prop.name).includes("child")) {
-    ts += `appendChild(child: Widget) {\n`
+    ts += `appendChild(child: Widget<any>) {\n`
     ts += `  this.node.setChild(child.node)\n`
     ts += `}\n`
-    ts += `removeChild(child: Widget) {\n`
+    ts += `removeChild(child: Widget<any>) {\n`
     ts += `  this.node.setChild(null)\n`
     ts += `}\n`
   }
@@ -165,13 +168,16 @@ function generateWidgetFile(widgetClass) {
   ts += `  super.set(propName, newValue, oldValue)\n`
   ts += `  switch (propName) {\n`
 
-  for (const { name: propName } of props) {
-    if (propName === "child") {
+  for (const { name: propName, setter } of props) {
+    if (propName === "child" || !setter) {
       continue
     }
 
+    const setterName =
+      setter === "set_action_target" ? "setActionTargetValue" : setter
+
     ts += `case "${camelize(propName)}":\n`
-    ts += `  this.node.${camelize(`set-${propName}`)}(newValue)\n`
+    ts += `  this.node.${camelize(setterName)}(newValue)\n`
     ts += `  break\n`
   }
 
@@ -200,7 +206,7 @@ function generateComponentsIndexFile(widgetClasses) {
 
   for (const { name, props } of widgetClasses) {
     const widgetTypeProps = props.filter(
-      (prop) => prop.type === "Widget" && prop.name !== "child"
+      (prop) => prop.type === "Widget" && prop.name !== "child" && prop.setter
     )
 
     if (widgetTypeProps.length === 0) {
@@ -250,9 +256,10 @@ function generateJSXDefinitionFile(widgetClasses) {
 
     if (name !== "Widget") {
       ts += `JSX.IntrinsicElements["${parent}"] & {\n`
+      ts += `ref?: React.Ref<Gtk.${name}>\n`
     } else {
       ts += `{\n`
-      ts += `ref?: React.Ref<any>\n`
+      ts += `ref?: React.Ref<Gtk.Widget>\n`
     }
 
     if (name === "Box") {
@@ -265,7 +272,7 @@ function generateJSXDefinitionFile(widgetClasses) {
 
     const uniqueProps = props.filter(
       (prop, index, self) =>
-        index === self.findIndex((p) => p.name === prop.name)
+        index === self.findIndex((p) => p.name === prop.name) && prop.setter
     )
 
     for (const { name: propName, type, isArray } of uniqueProps) {
@@ -314,7 +321,7 @@ function generateComponentFile(widgetClass) {
   const { name, props } = widgetClass
 
   const widgetTypeProps = props.filter(
-    (prop) => prop.type === "Widget" && prop.name !== "child"
+    (prop) => prop.type === "Widget" && prop.name !== "child" && prop.setter
   )
 
   if (widgetTypeProps.length === 0) {
@@ -324,10 +331,11 @@ function generateComponentFile(widgetClass) {
   let ts = ""
   ts += `import React from "react"\n`
   ts += `import { useState, useCallback, forwardRef } from "react"\n`
+  ts += `import { Gtk } from "../index.js"\n`
   ts += `\n`
   ts += `const ${name} = "${name}"\n`
   ts += `\n`
-  ts += `export default forwardRef<any, JSX.IntrinsicElements["${name}"]>(function ${name}Component({ `
+  ts += `export default forwardRef<Gtk.${name}, JSX.IntrinsicElements["${name}"]>(function ${name}Component({ `
   ts += widgetTypeProps.map((prop) => camelize(prop.name)).join(", ")
   ts += `, ...props }, ref) {\n`
 
@@ -335,8 +343,8 @@ function generateComponentFile(widgetClass) {
     const propName = camelize(rawPropName)
     ts += `const [${propName}Ref, ${camelize(
       `set-${propName}`
-    )}Ref] = useState<any>(null)\n`
-    ts += `useCallback((node: any) => {\n`
+    )}Ref] = useState<Gtk.${name} | undefined>()\n`
+    ts += `useCallback((node: Gtk.${name}) => {\n`
     ts += `  ${camelize(`set-${propName}`)}Ref(node)\n`
     ts += `}, [])\n`
   }

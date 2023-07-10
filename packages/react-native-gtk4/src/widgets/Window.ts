@@ -1,14 +1,14 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Window extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Window()
+export default class Window<T extends Gtk.Window> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Window() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -20,14 +20,8 @@ export default class Window extends Widget {
       case "decorated":
         this.node.setDecorated(newValue)
         break
-      case "defaultHeight":
-        this.node.setDefaultHeight(newValue)
-        break
       case "defaultWidget":
         this.node.setDefaultWidget(newValue)
-        break
-      case "defaultWidth":
-        this.node.setDefaultWidth(newValue)
         break
       case "deletable":
         this.node.setDeletable(newValue)
@@ -41,12 +35,6 @@ export default class Window extends Widget {
       case "focusVisible":
         this.node.setFocusVisible(newValue)
         break
-      case "focusWidget":
-        this.node.setFocusWidget(newValue)
-        break
-      case "fullscreened":
-        this.node.setFullscreened(newValue)
-        break
       case "handleMenubarAccel":
         this.node.setHandleMenubarAccel(newValue)
         break
@@ -55,12 +43,6 @@ export default class Window extends Widget {
         break
       case "iconName":
         this.node.setIconName(newValue)
-        break
-      case "isActive":
-        this.node.setIsActive(newValue)
-        break
-      case "maximized":
-        this.node.setMaximized(newValue)
         break
       case "mnemonicsVisible":
         this.node.setMnemonicsVisible(newValue)
@@ -82,9 +64,6 @@ export default class Window extends Widget {
         break
       case "transientFor":
         this.node.setTransientFor(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onActivateDefault":
         if (oldValue) {

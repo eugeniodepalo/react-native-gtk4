@@ -1,19 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Dialog from "./Dialog.js"
 
-export default class ColorChooserDialog extends Dialog {
-  createNode(container: Container) {
-    return new Gtk.ColorChooserDialog()
+export default class ColorChooserDialog<
+  T extends Gtk.ColorChooserDialog,
+> extends Dialog<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ColorChooserDialog() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "showEditor":
-        this.node.setShowEditor(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "rgba":
         this.node.setRgba(newValue)
         break

@@ -1,14 +1,14 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ComboBox extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ComboBox()
+export default class ComboBox<T extends Gtk.ComboBox> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ComboBox() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -26,12 +26,6 @@ export default class ComboBox extends Widget {
       case "entryTextColumn":
         this.node.setEntryTextColumn(newValue)
         break
-      case "hasEntry":
-        this.node.setHasEntry(newValue)
-        break
-      case "hasFrame":
-        this.node.setHasFrame(newValue)
-        break
       case "idColumn":
         this.node.setIdColumn(newValue)
         break
@@ -40,15 +34,6 @@ export default class ComboBox extends Widget {
         break
       case "popupFixedWidth":
         this.node.setPopupFixedWidth(newValue)
-        break
-      case "popupShown":
-        this.node.setPopupShown(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
-      case "editingCanceled":
-        this.node.setEditingCanceled(newValue)
         break
       case "onActivate":
         if (oldValue) {

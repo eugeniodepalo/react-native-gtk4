@@ -1,9 +1,11 @@
 import { Container, Gtk } from "../index.js"
 import Dialog from "./Dialog.js"
 
-export default class PrintUnixDialog extends Dialog {
-  createNode(container: Container) {
-    return new Gtk.PrintUnixDialog()
+export default class PrintUnixDialog<
+  T extends Gtk.PrintUnixDialog,
+> extends Dialog<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.PrintUnixDialog() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -23,17 +25,8 @@ export default class PrintUnixDialog extends Dialog {
       case "pageSetup":
         this.node.setPageSetup(newValue)
         break
-      case "printSettings":
-        this.node.setPrintSettings(newValue)
-        break
-      case "selectedPrinter":
-        this.node.setSelectedPrinter(newValue)
-        break
       case "supportSelection":
         this.node.setSupportSelection(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

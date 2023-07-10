@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class FontButton extends Widget {
-  createNode(container: Container) {
-    return new Gtk.FontButton()
+export default class FontButton<T extends Gtk.FontButton> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.FontButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -20,17 +20,11 @@ export default class FontButton extends Widget {
       case "useSize":
         this.node.setUseSize(newValue)
         break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "font":
         this.node.setFont(newValue)
         break
       case "fontDesc":
         this.node.setFontDesc(newValue)
-        break
-      case "fontFeatures":
-        this.node.setFontFeatures(newValue)
         break
       case "language":
         this.node.setLanguage(newValue)

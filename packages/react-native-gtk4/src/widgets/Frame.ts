@@ -1,14 +1,14 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Frame extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Frame()
+export default class Frame<T extends Gtk.Frame> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Frame() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -19,12 +19,6 @@ export default class Frame extends Widget {
         break
       case "labelWidget":
         this.node.setLabelWidget(newValue)
-        break
-      case "labelXalign":
-        this.node.setLabelXalign(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

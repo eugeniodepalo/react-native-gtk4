@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
-import BaseWidget from "../widget.js"
+import AbstractWidget from "../widget.js"
 
-export default class Widget extends BaseWidget {
-  createNode(container: Container) {
-    return new Gtk.Widget()
+export default class Widget<T extends Gtk.Widget> extends AbstractWidget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Widget() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -17,9 +17,6 @@ export default class Widget extends BaseWidget {
       case "cssClasses":
         this.node.setCssClasses(newValue)
         break
-      case "cssName":
-        this.node.setCssName(newValue)
-        break
       case "cursor":
         this.node.setCursor(newValue)
         break
@@ -32,17 +29,8 @@ export default class Widget extends BaseWidget {
       case "halign":
         this.node.setHalign(newValue)
         break
-      case "hasDefault":
-        this.node.setHasDefault(newValue)
-        break
-      case "hasFocus":
-        this.node.setHasFocus(newValue)
-        break
       case "hasTooltip":
         this.node.setHasTooltip(newValue)
-        break
-      case "heightRequest":
-        this.node.setHeightRequest(newValue)
         break
       case "hexpand":
         this.node.setHexpand(newValue)
@@ -74,17 +62,8 @@ export default class Widget extends BaseWidget {
       case "overflow":
         this.node.setOverflow(newValue)
         break
-      case "parent":
-        this.node.setParent(newValue)
-        break
       case "receivesDefault":
         this.node.setReceivesDefault(newValue)
-        break
-      case "root":
-        this.node.setRoot(newValue)
-        break
-      case "scaleFactor":
-        this.node.setScaleFactor(newValue)
         break
       case "sensitive":
         this.node.setSensitive(newValue)
@@ -106,12 +85,6 @@ export default class Widget extends BaseWidget {
         break
       case "visible":
         this.node.setVisible(newValue)
-        break
-      case "widthRequest":
-        this.node.setWidthRequest(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onDestroy":
         if (oldValue) {

@@ -1,19 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ColorChooserWidget extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ColorChooserWidget()
+export default class ColorChooserWidget<
+  T extends Gtk.ColorChooserWidget,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ColorChooserWidget() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "showEditor":
-        this.node.setShowEditor(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "rgba":
         this.node.setRgba(newValue)
         break

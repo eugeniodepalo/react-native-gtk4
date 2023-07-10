@@ -1,34 +1,28 @@
 import React from "react"
 import { useState, useCallback, forwardRef } from "react"
+import { Gtk } from "../index.js"
 
 const Window = "Window"
 
-export default forwardRef<any, JSX.IntrinsicElements["Window"]>(
-  function WindowComponent(
-    { defaultWidget, focusWidget, titlebar, ...props },
-    ref
-  ) {
-    const [defaultWidgetRef, setDefaultWidgetRef] = useState<any>(null)
-    useCallback((node: any) => {
+export default forwardRef<Gtk.Window, JSX.IntrinsicElements["Window"]>(
+  function WindowComponent({ defaultWidget, titlebar, ...props }, ref) {
+    const [defaultWidgetRef, setDefaultWidgetRef] = useState<
+      Gtk.Window | undefined
+    >()
+    useCallback((node: Gtk.Window) => {
       setDefaultWidgetRef(node)
     }, [])
-    const [focusWidgetRef, setFocusWidgetRef] = useState<any>(null)
-    useCallback((node: any) => {
-      setFocusWidgetRef(node)
-    }, [])
-    const [titlebarRef, setTitlebarRef] = useState<any>(null)
-    useCallback((node: any) => {
+    const [titlebarRef, setTitlebarRef] = useState<Gtk.Window | undefined>()
+    useCallback((node: Gtk.Window) => {
       setTitlebarRef(node)
     }, [])
     return (
       <>
         {defaultWidget}
-        {focusWidget}
         {titlebar}
         <Window
           ref={ref}
           defaultWidget={defaultWidgetRef}
-          focusWidget={focusWidgetRef}
           titlebar={titlebarRef}
           {...props}
         />

@@ -1,19 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class CellView extends Widget {
-  createNode(container: Container) {
-    return new Gtk.CellView()
+export default class CellView<T extends Gtk.CellView> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.CellView() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "cellArea":
-        this.node.setCellArea(newValue)
-        break
-      case "cellAreaContext":
-        this.node.setCellAreaContext(newValue)
-        break
       case "drawSensitive":
         this.node.setDrawSensitive(newValue)
         break
@@ -22,9 +16,6 @@ export default class CellView extends Widget {
         break
       case "model":
         this.node.setModel(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

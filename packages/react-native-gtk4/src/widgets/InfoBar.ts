@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class InfoBar extends Widget {
-  createNode(container: Container) {
-    return new Gtk.InfoBar()
+export default class InfoBar<T extends Gtk.InfoBar> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.InfoBar() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -16,9 +16,6 @@ export default class InfoBar extends Widget {
         break
       case "showCloseButton":
         this.node.setShowCloseButton(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onClose":
         if (oldValue) {

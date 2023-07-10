@@ -1,18 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class GLArea extends Widget {
-  createNode(container: Container) {
-    return new Gtk.GLArea()
+export default class GLArea<T extends Gtk.GLArea> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.GLArea() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "autoRender":
         this.node.setAutoRender(newValue)
-        break
-      case "context":
-        this.node.setContext(newValue)
         break
       case "hasDepthBuffer":
         this.node.setHasDepthBuffer(newValue)
@@ -22,9 +19,6 @@ export default class GLArea extends Widget {
         break
       case "useEs":
         this.node.setUseEs(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onCreateContext":
         if (oldValue) {

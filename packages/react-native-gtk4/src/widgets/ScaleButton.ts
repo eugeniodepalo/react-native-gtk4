@@ -1,16 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ScaleButton extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ScaleButton()
+export default class ScaleButton<T extends Gtk.ScaleButton> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ScaleButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "active":
-        this.node.setActive(newValue)
-        break
       case "adjustment":
         this.node.setAdjustment(newValue)
         break
@@ -19,9 +16,6 @@ export default class ScaleButton extends Widget {
         break
       case "value":
         this.node.setValue(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

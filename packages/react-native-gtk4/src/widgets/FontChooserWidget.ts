@@ -1,27 +1,20 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class FontChooserWidget extends Widget {
-  createNode(container: Container) {
-    return new Gtk.FontChooserWidget()
+export default class FontChooserWidget<
+  T extends Gtk.FontChooserWidget,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.FontChooserWidget() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "tweakAction":
-        this.node.setTweakAction(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "font":
         this.node.setFont(newValue)
         break
       case "fontDesc":
         this.node.setFontDesc(newValue)
-        break
-      case "fontFeatures":
-        this.node.setFontFeatures(newValue)
         break
       case "language":
         this.node.setLanguage(newValue)

@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class HeaderBar extends Widget {
-  createNode(container: Container) {
-    return new Gtk.HeaderBar()
+export default class HeaderBar<T extends Gtk.HeaderBar> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.HeaderBar() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -16,9 +16,6 @@ export default class HeaderBar extends Widget {
         break
       case "titleWidget":
         this.node.setTitleWidget(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

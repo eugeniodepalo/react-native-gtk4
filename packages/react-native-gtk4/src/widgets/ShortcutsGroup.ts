@@ -1,31 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Box from "./Box.js"
 
-export default class ShortcutsGroup extends Box {
-  createNode(container: Container) {
-    return new Gtk.ShortcutsGroup()
+export default class ShortcutsGroup<
+  T extends Gtk.ShortcutsGroup,
+> extends Box<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ShortcutsGroup() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "accelSizeGroup":
-        this.node.setAccelSizeGroup(newValue)
-        break
-      case "height":
-        this.node.setHeight(newValue)
-        break
-      case "title":
-        this.node.setTitle(newValue)
-        break
-      case "titleSizeGroup":
-        this.node.setTitleSizeGroup(newValue)
-        break
-      case "view":
-        this.node.setView(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

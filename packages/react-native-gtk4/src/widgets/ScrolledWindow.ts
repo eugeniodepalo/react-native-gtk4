@@ -1,14 +1,16 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ScrolledWindow extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ScrolledWindow()
+export default class ScrolledWindow<
+  T extends Gtk.ScrolledWindow,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ScrolledWindow() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -19,9 +21,6 @@ export default class ScrolledWindow extends Widget {
         break
       case "hasFrame":
         this.node.setHasFrame(newValue)
-        break
-      case "hscrollbarPolicy":
-        this.node.setHscrollbarPolicy(newValue)
         break
       case "kineticScrolling":
         this.node.setKineticScrolling(newValue)
@@ -49,15 +48,6 @@ export default class ScrolledWindow extends Widget {
         break
       case "vadjustment":
         this.node.setVadjustment(newValue)
-        break
-      case "vscrollbarPolicy":
-        this.node.setVscrollbarPolicy(newValue)
-        break
-      case "windowPlacement":
-        this.node.setWindowPlacement(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onEdgeOvershot":
         if (oldValue) {

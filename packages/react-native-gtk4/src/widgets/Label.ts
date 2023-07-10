@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Label extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Label()
+export default class Label<T extends Gtk.Label> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Label() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -28,9 +28,6 @@ export default class Label extends Widget {
         break
       case "maxWidthChars":
         this.node.setMaxWidthChars(newValue)
-        break
-      case "mnemonicKeyval":
-        this.node.setMnemonicKeyval(newValue)
         break
       case "mnemonicWidget":
         this.node.setMnemonicWidget(newValue)
@@ -67,9 +64,6 @@ export default class Label extends Widget {
         break
       case "yalign":
         this.node.setYalign(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onActivateCurrentLink":
         if (oldValue) {

@@ -1,9 +1,11 @@
 import { Container, Gtk } from "../index.js"
 import Button from "./Button.js"
 
-export default class ToggleButton extends Button {
-  createNode(container: Container) {
-    return new Gtk.ToggleButton()
+export default class ToggleButton<
+  T extends Gtk.ToggleButton,
+> extends Button<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ToggleButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -14,14 +16,11 @@ export default class ToggleButton extends Button {
       case "group":
         this.node.setGroup(newValue)
         break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "actionName":
         this.node.setActionName(newValue)
         break
       case "actionTarget":
-        this.node.setActionTarget(newValue)
+        this.node.setActionTargetValue(newValue)
         break
       case "onToggled":
         if (oldValue) {

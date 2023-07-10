@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class ProgressBar extends Widget {
-  createNode(container: Container) {
-    return new Gtk.ProgressBar()
+export default class ProgressBar<T extends Gtk.ProgressBar> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.ProgressBar() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -25,9 +25,6 @@ export default class ProgressBar extends Widget {
         break
       case "text":
         this.node.setText(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

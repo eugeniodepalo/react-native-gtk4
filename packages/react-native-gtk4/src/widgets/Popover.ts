@@ -1,14 +1,14 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Popover extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Popover()
+export default class Popover<T extends Gtk.Popover> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Popover() as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
   set(propName: string, newValue: any, oldValue: any) {
@@ -34,9 +34,6 @@ export default class Popover extends Widget {
         break
       case "position":
         this.node.setPosition(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "onActivateDefault":
         if (oldValue) {

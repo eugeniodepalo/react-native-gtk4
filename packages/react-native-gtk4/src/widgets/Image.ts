@@ -1,42 +1,18 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class Image extends Widget {
-  createNode(container: Container) {
-    return new Gtk.Image()
+export default class Image<T extends Gtk.Image> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Image() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "file":
-        this.node.setFile(newValue)
-        break
-      case "gicon":
-        this.node.setGicon(newValue)
-        break
-      case "iconName":
-        this.node.setIconName(newValue)
-        break
       case "iconSize":
         this.node.setIconSize(newValue)
         break
-      case "paintable":
-        this.node.setPaintable(newValue)
-        break
       case "pixelSize":
         this.node.setPixelSize(newValue)
-        break
-      case "resource":
-        this.node.setResource(newValue)
-        break
-      case "storageType":
-        this.node.setStorageType(newValue)
-        break
-      case "useFallback":
-        this.node.setUseFallback(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       default:
         break

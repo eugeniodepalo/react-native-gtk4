@@ -1,16 +1,13 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class FlowBox extends Widget {
-  createNode(container: Container) {
-    return new Gtk.FlowBox()
+export default class FlowBox<T extends Gtk.FlowBox> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.FlowBox() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "acceptUnpairedRelease":
-        this.node.setAcceptUnpairedRelease(newValue)
-        break
       case "activateOnSingleClick":
         this.node.setActivateOnSingleClick(newValue)
         break
@@ -31,9 +28,6 @@ export default class FlowBox extends Widget {
         break
       case "selectionMode":
         this.node.setSelectionMode(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

@@ -1,18 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class IconView extends Widget {
-  createNode(container: Container) {
-    return new Gtk.IconView()
+export default class IconView<T extends Gtk.IconView> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.IconView() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "activateOnSingleClick":
         this.node.setActivateOnSingleClick(newValue)
-        break
-      case "cellArea":
-        this.node.setCellArea(newValue)
         break
       case "columnSpacing":
         this.node.setColumnSpacing(newValue)
@@ -58,9 +55,6 @@ export default class IconView extends Widget {
         break
       case "tooltipColumn":
         this.node.setTooltipColumn(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "hadjustment":
         this.node.setHadjustment(newValue)

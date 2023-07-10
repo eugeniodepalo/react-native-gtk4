@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Button from "./Button.js"
 
-export default class LinkButton extends Button {
-  createNode(container: Container) {
-    return new Gtk.LinkButton()
+export default class LinkButton<T extends Gtk.LinkButton> extends Button<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.LinkButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -14,14 +14,11 @@ export default class LinkButton extends Button {
       case "visited":
         this.node.setVisited(newValue)
         break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
       case "actionName":
         this.node.setActionName(newValue)
         break
       case "actionTarget":
-        this.node.setActionTarget(newValue)
+        this.node.setActionTargetValue(newValue)
         break
       case "onActivateLink":
         if (oldValue) {

@@ -1,24 +1,17 @@
 import { Container, Gtk } from "../index.js"
 import Dialog from "./Dialog.js"
 
-export default class AppChooserDialog extends Dialog {
-  createNode(container: Container) {
-    return new Gtk.AppChooserDialog()
+export default class AppChooserDialog<
+  T extends Gtk.AppChooserDialog,
+> extends Dialog<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.AppChooserDialog() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "gfile":
-        this.node.setGfile(newValue)
-        break
       case "heading":
         this.node.setHeading(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
-      case "contentType":
-        this.node.setContentType(newValue)
         break
       default:
         break

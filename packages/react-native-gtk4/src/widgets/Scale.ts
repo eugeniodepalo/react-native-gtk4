@@ -1,9 +1,9 @@
 import { Container, Gtk } from "../index.js"
 import Range from "./Range.js"
 
-export default class Scale extends Range {
-  createNode(container: Container) {
-    return new Gtk.Scale()
+export default class Scale<T extends Gtk.Scale> extends Range<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.Scale() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -19,9 +19,6 @@ export default class Scale extends Range {
         break
       case "valuePos":
         this.node.setValuePos(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
         break
       case "orientation":
         this.node.setOrientation(newValue)

@@ -1,22 +1,15 @@
 import { Container, Gtk } from "../index.js"
 import Widget from "./Widget.js"
 
-export default class EditableLabel extends Widget {
-  createNode(container: Container) {
-    return new Gtk.EditableLabel()
+export default class EditableLabel<
+  T extends Gtk.EditableLabel,
+> extends Widget<T> {
+  createNode(container: Container, props: Record<string, any>) {
+    return new Gtk.EditableLabel() as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
-      case "editing":
-        this.node.setEditing(newValue)
-        break
-      case "accessibleRole":
-        this.node.setAccessibleRole(newValue)
-        break
-      case "cursorPosition":
-        this.node.setCursorPosition(newValue)
-        break
       case "editable":
         this.node.setEditable(newValue)
         break
@@ -26,17 +19,11 @@ export default class EditableLabel extends Widget {
       case "maxWidthChars":
         this.node.setMaxWidthChars(newValue)
         break
-      case "selectionBound":
-        this.node.setSelectionBound(newValue)
-        break
       case "text":
         this.node.setText(newValue)
         break
       case "widthChars":
         this.node.setWidthChars(newValue)
-        break
-      case "xalign":
-        this.node.setXalign(newValue)
         break
       case "onChanged":
         if (oldValue) {

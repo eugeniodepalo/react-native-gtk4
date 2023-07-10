@@ -1,0 +1,25 @@
+{
+  "name": "flatpak-example",
+  "version": "1.0.0",
+  "description": "A sample",
+  "main": "dist/index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "pnpm run build && node dist/index.js",
+    "flatpak:remote-add": "flatpak --user remote-add --no-gpg-verify example repo",
+    "flatpak:build": "flatpak-builder --repo=repo --force-clean build com.example.Example.yml",
+    "flatpak:install": "flatpak --user --reinstall -y install example com.example.Example",
+    "flatpak:run": "flatpak run com.example.Example"
+  },
+  "dependencies": {
+    "node-gtk": "^0.12.0",
+    "react": "^18.2.0",
+    "react-native-gtk4": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "typescript": "^5.1.6"
+  }
+}

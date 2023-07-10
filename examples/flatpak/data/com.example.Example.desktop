@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=React Native GTK4 Example
+Comment=A React Native GTK4 Example
+Exec=/app/bin/flatpak-example
+Icon=com.example.Example
+Terminal=false
+Categories=Application;Development;

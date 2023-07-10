@@ -1,0 +1,59 @@
+{
+  "app-id": "com.example.Example",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "44",
+  "sdk": "org.gnome.Sdk",
+  "command": "/app/bin/flatpak-example",
+  "finish-args":
+    [
+      "--share=ipc",
+      "--share=network",
+      "--socket=fallback-x11",
+      "--socket=wayland",
+      "--device=dri",
+      "--filesystem=host",
+    ],
+  "modules":
+    [
+      {
+        "name": "node",
+        "buildsystem": "simple",
+        "build-options": { "build-args": ["--share=network"] },
+        "cleanup": ["/include", "/lib/pkgconfig", "/share"],
+        "build-commands":
+          [
+            "echo $(case $(uname -m) in x86_64) echo x64 ;; aarch64) echo arm64 ;; esac) > ARCH",
+            "echo https://nodejs.org/dist/v18.16.1/node-v18.16.1-linux-$(cat ARCH).tar.xz > URL",
+            "curl -L $(cat URL) | tar -xJ --strip-components=1 -C /app/",
+            "rm ARCH URL",
+          ],
+      },
+      {
+        "name": "npm",
+        "buildsystem": "simple",
+        "build-options": { "build-args": ["--share=network"] },
+        "build-commands": ["/app/bin/npm install -g npm@latest"],
+      },
+      {
+        "name": "pnpm",
+        "buildsystem": "simple",
+        "build-options": { "build-args": ["--share=network"] },
+        "build-commands": ["/app/bin/npm install -g pnpm@latest"],
+      },
+      {
+        "name": "flatpak-example",
+        "build-options": { "build-args": ["--share=network"] },
+        "buildsystem": "simple",
+        "build-commands": ["examples/flatpak/scripts/build.sh"],
+        "cleanup":
+          [
+            "dist",
+            "node_modules",
+            "package-lock.json",
+            "pnpm-lock.yaml",
+            "data",
+          ],
+        "sources": [{ "type": "dir", "path": "../.." }],
+      },
+    ],
+}

@@ -1,10 +1,6 @@
 import { camelize } from "../../helpers.js"
 import { WidgetClass } from "../../index.js"
-import {
-  generateMethods,
-  generateSetMethod,
-  generateWidgetFile,
-} from "../widget.js"
+import { generateMethods, generateWidgetFile } from "../widget.js"
 
 interface Props {
   widgetClass: WidgetClass
@@ -15,6 +11,7 @@ export default function ({ widgetClass }: Props) {
   let createNodeMethod = `createNode(container: Container, props: Record<string, any>) {\n`
   createNodeMethod += `  return new Gtk.ApplicationWindow({\n`
   createNodeMethod += `    application: container.app,\n`
+
   for (const param of ((ctor.parameters || [])[0] || {}).parameter || []) {
     const { name } = param.$
     if (name === "..." || name === "application" || name === "parent") {

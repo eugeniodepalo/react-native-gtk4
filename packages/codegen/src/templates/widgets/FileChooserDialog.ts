@@ -1,10 +1,6 @@
 import { camelize } from "../../helpers.js"
 import { WidgetClass } from "../../index.js"
-import {
-  generateMethods,
-  generateSetMethod,
-  generateWidgetFile,
-} from "../widget.js"
+import { generateMethods, generateWidgetFile } from "../widget.js"
 
 interface Props {
   widgetClass: WidgetClass

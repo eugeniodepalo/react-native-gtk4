@@ -1,0 +1,32 @@
+{
+  "name": "codegen",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "generate": "./bin/generate"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugeniodepalo/react-native-gtk4.git"
+  },
+  "keywords": [
+    "react",
+    "gtk",
+    "node-gtk",
+    "native"
+  ],
+  "author": "Eugenio Depalo <eugeniodepalo@gmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/eugeniodepalo/react-native-gtk4/issues"
+  },
+  "homepage": "https://github.com/eugeniodepalo/react-native-gtk4",
+  "devDependencies": {
+    "@types/node": "^20.4.1",
+    "@types/xml2js": "^0.4.11",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6",
+    "xml2js": "^0.6.0"
+  }
+}

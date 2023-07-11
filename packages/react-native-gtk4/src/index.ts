@@ -7,11 +7,7 @@ import { GObject } from "@girs/node-gobject-2.0"
 import { Pango } from "@girs/node-pango-1.0"
 import Reconciler from "./reconciler.js"
 
-import "./jsx.js"
-export * from "./elements.js"
-export * from "./components.js"
-export { Gtk, Gio, GLib, GObject, Pango, Gdk }
-import "./overrides.js"
+import "./generated/jsx.js"
 
 export interface Container {
   app: Gtk.Application
@@ -44,3 +40,7 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
 
   app.run([])
 }
+
+export * from "./generated/intrinsics.js"
+export * from "./generated/components.js"
+export { Gtk, Gio, GLib, GObject, Pango, Gdk }

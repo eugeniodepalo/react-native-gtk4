@@ -10,8 +10,7 @@
     "strict": true,
     "skipLibCheck": true,
     "declaration": true,
-    "jsx": "react",
-    "baseUrl": "."
+    "jsx": "react"
   },
   "include": ["src"]
 }

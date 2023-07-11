@@ -1,10 +1,11 @@
 import Reconciler, { HostConfig } from "react-reconciler"
-import * as registry from "./registry.js"
+import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants.js"
 import { Container } from "./index.js"
 import Widget from "./widget.js"
+import Label from "./generated/widgets/Label.js"
 
-type ElementType = keyof typeof registry
+type ElementType = keyof typeof widgets
 type UpdatePayload = [string, string, any][]
 
 type WidgetConstructor = new (
@@ -33,11 +34,10 @@ const hostConfig: HostConfig<
   isPrimaryRenderer: true,
   noTimeout: -1,
   createInstance(type, props, rootContainer) {
-    const Widget = registry[type] as WidgetConstructor
+    const Widget = widgets[type] as WidgetConstructor
     return new Widget(rootContainer, props)
   },
   createTextInstance(text, rootContainer) {
-    const Label = registry["Label"]
     return new Label(rootContainer, { label: text })
   },
   appendInitialChild(parentInstance, child) {

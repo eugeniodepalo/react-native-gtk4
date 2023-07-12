@@ -35,9 +35,8 @@ export default function ({ widgetClass }: Props) {
   methodSection += `    if (this.container.app.getWindows().length === 1) {\n`
   methodSection += `      this.container.app.quit()\n`
   methodSection += `      this.container.loop.quit()\n`
-  methodSection += `      return false\n`
   methodSection += `    }\n`
-  methodSection += `    return true\n`
+  methodSection += `    return false\n`
   methodSection += `  })\n`
   methodSection += `}\n`
 

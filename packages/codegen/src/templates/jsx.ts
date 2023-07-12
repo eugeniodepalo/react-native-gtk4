@@ -131,7 +131,7 @@ export function generateJsxElementProps(
       }, `
     }
 
-    ts += `) => void\n`
+    ts += `) => boolean\n`
   }
 
   return ts

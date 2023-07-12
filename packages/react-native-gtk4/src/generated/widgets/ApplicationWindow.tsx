@@ -24,9 +24,8 @@ export default class ApplicationWindow<
       if (this.container.app.getWindows().length === 1) {
         this.container.app.quit()
         this.container.loop.quit()
-        return false
       }
-      return true
+      return false
     })
   }
 }

@@ -4,5 +4,5 @@ import App from "./components/App.js"
 
 render(
   <App />,
-  new Gtk.Application("com.example.simple", Gio.ApplicationFlags.FLAGS_NONE)
+  new Gtk.Application("com.example.simple", Gio.ApplicationFlags.DEFAULT_FLAGS)
 )

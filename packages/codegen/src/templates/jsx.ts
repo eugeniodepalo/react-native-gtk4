@@ -16,12 +16,10 @@ export function isPropNullable(prop: GirProperty, enums: string[]) {
   if (prop.array) {
     return true
   }
-  if (prop.type[0].$.name === "Widget") {
-    return true
-  }
 
   const type = fromCtype(prop.type[0].$.name)
-  if (["string", "number", "boolean"].includes(type)) {
+
+  if (["string", "number", "boolean", "Gtk.Widget"].includes(type)) {
     return true
   }
 
@@ -48,6 +46,7 @@ export function isPropNullable(prop: GirProperty, enums: string[]) {
     "allow-none": allowNone,
     "default-value": defaultValue,
   } = prop.$
+
   return !!(nullable === "1" || allowNone === "1" || defaultValue)
 }
 
@@ -60,6 +59,7 @@ export function paramsToJsxElementProps(
 
   for (const param of ((ctor.parameters || [])[0] || {}).parameter || []) {
     const { name } = param.$
+
     if (name === "...") {
       continue
     }
@@ -67,6 +67,7 @@ export function paramsToJsxElementProps(
     if (props.map((prop) => underscore(prop.name)).includes(underscore(name))) {
       continue
     }
+
     props.push({
       name,
       type: param.array
@@ -94,6 +95,7 @@ export function generateJsxElementProps(
 
   for (const prop of props) {
     const { name, nullable } = prop
+
     if (name === "child") {
       ts += `children${nullable ? "?" : ""}: React.ReactElement\n`
     }
@@ -113,13 +115,23 @@ export function generateJsxElementProps(
     if (propName === "child") {
       continue
     }
+
     ts += `${camelize(propName)}${nullable ? "?" : ""}: ${fromCtype(type)}${
       array ? "[]" : ""
     }\n`
   }
 
-  for (const { name: signalName } of signals) {
-    ts += `${camelize(`on_${signalName}`)}?: () => void\n`
+  for (const { name: signalName, params } of signals) {
+    ts += `${camelize(`on_${signalName}`)}?: (`
+
+    for (const param of params) {
+      const { name, type, array, nullable } = param
+      ts += `${camelize(name)}${nullable ? "?" : ""}: ${fromCtype(type)}${
+        array ? "[]" : ""
+      }, `
+    }
+
+    ts += `) => void\n`
   }
 
   return ts

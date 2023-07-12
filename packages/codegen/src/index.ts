@@ -19,8 +19,15 @@ export interface WidgetClassProperty {
   setter?: string
 }
 
+export interface WidgetClassSignalParam {
+  name: string
+  type: string
+  nullable: boolean
+  array: boolean
+}
 export interface WidgetClassSignal {
   name: string
+  params: WidgetClassSignalParam[]
 }
 
 export interface WidgetClass {
@@ -98,6 +105,18 @@ async function getWidgetClasses(
       })),
       signals: uniqueSignals.map((signal) => ({
         name: signal.$.name,
+        params: (((signal.parameters || [])[0] || {}).parameter || []).map(
+          (param) => ({
+            name: param.$.name,
+            array: param.array !== undefined,
+            nullable: !!(
+              param.$.nullable === "1" ||
+              param.$["allow-none"] === "1" ||
+              param.$["default-value"]
+            ),
+            type: (param.array ? param.array[0].type : param.type)[0].$.name,
+          })
+        ),
       })),
     }
 

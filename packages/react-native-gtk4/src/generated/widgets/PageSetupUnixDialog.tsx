@@ -7,9 +7,4 @@ export default class PageSetupUnixDialog<
   createNode(container: Container, props: Record<string, any>) {
     return new Gtk.PageSetupUnixDialog(props.title, props.parent) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
-    switch (propName) {
-    }
-  }
 }

@@ -7,6 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "lint": "eslint src",
     "codegen": "rm -rf src/generated && pnpm run --filter codegen generate &&  mv ../codegen/generated src/"
   },
   "repository": {
@@ -40,6 +41,10 @@
   "devDependencies": {
     "@types/react": "^18.2.14",
     "@types/react-reconciler": "^0.28.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.44.0",
+    "eslint-plugin-react": "^7.32.2",
     "prettier": "^3.0.0",
     "typescript": "^5.1.6"
   }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Container, Gtk } from "./index.js"
 
 export default abstract class Widget<T extends Gtk.Widget> {

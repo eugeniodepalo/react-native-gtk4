@@ -7,9 +7,4 @@ export default class ShortcutsShortcut<
   createNode(container: Container, props: Record<string, any>) {
     return new Gtk.ShortcutsShortcut() as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
-    switch (propName) {
-    }
-  }
 }

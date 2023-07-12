@@ -65,6 +65,15 @@ export function generateCreateNodeMethod(widgetClass: WidgetClass) {
 export function generateSetMethod(widgetClass: WidgetClass) {
   const { props, signals } = widgetClass
 
+  const propNames = [
+    ...props.filter((prop) => prop.name !== "child" && prop.setter),
+    ...signals,
+  ].map((prop) => prop.name)
+
+  if (propNames.length === 0) {
+    return ""
+  }
+
   let ts = ""
 
   ts += `  set(propName: string, newValue: any, oldValue: any) {\n`

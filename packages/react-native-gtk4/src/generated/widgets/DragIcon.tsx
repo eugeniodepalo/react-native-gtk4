@@ -12,9 +12,4 @@ export default class DragIcon<T extends Gtk.DragIcon> extends Widget<T> {
   removeChild(child: Widget<any>) {
     this.node.setChild(null)
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
-    switch (propName) {
-    }
-  }
 }

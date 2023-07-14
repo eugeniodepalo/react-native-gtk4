@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class Label<T extends Gtk.Label> extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.Label(props.str) as T
+  createNode() {
+    return new Gtk.Label(this.props.str) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

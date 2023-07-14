@@ -1,10 +1,10 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Button from "./Button.js"
 
 export default class ToggleButton<
   T extends Gtk.ToggleButton,
 > extends Button<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.ToggleButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

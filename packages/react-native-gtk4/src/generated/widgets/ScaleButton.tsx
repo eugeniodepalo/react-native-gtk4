@@ -1,13 +1,13 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class ScaleButton<T extends Gtk.ScaleButton> extends Widget<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.ScaleButton(
-      props.min,
-      props.max,
-      props.step,
-      props.icons
+      this.props.min,
+      this.props.max,
+      this.props.step,
+      this.props.icons
     ) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

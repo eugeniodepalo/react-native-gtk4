@@ -1,8 +1,8 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import BaseWidget from "../../widget.js"
 
 export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.Widget() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

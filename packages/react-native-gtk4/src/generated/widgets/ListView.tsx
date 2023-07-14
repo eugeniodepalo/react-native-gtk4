@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import ListBase from "./ListBase.js"
 
 export default class ListView<T extends Gtk.ListView> extends ListBase<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.ListView(props.model, props.factory) as T
+  createNode() {
+    return new Gtk.ListView(this.props.model, this.props.factory) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

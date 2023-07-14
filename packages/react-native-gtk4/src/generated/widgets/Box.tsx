@@ -1,27 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class Box<T extends Gtk.Box> extends Widget<T> {
-  children: Widget<any>[] = []
-  createNode(props: Record<string, any>) {
-    return new Gtk.Box(props.orientation, props.spacing) as T
-  }
-  appendChild(child: Widget<any>) {
-    this.node.append(child.node)
-  }
-  removeChild(child: Widget<any>) {
-    this.node.remove(child.node)
-  }
-  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
-    const beforeIndex = this.children.indexOf(beforeChild)
-    const afterIndex = beforeIndex - 1
-    if (afterIndex < 0) {
-      this.children.unshift(child)
-      this.node.prepend(child.node)
-      return
-    }
-    this.node.insertChildAfter(child.node, this.children[afterIndex].node)
-    this.children.splice(afterIndex, 0, child)
+  createNode() {
+    return new Gtk.Box(this.props.orientation, this.props.spacing) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

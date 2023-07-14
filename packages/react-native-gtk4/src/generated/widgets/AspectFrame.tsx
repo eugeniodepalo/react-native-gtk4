@@ -1,23 +1,14 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class AspectFrame<T extends Gtk.AspectFrame> extends Widget<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.AspectFrame(
-      props.xalign,
-      props.yalign,
-      props.ratio,
-      props.obeyChild
+      this.props.xalign,
+      this.props.yalign,
+      this.props.ratio,
+      this.props.obeyChild
     ) as T
-  }
-  appendChild(child: Widget<any>) {
-    this.node.setChild(child.node)
-  }
-  removeChild(child: Widget<any>) {
-    this.node.setChild(null)
-  }
-  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
-    this.node.setChild(child.node)
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

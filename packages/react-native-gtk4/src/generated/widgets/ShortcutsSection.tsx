@@ -1,10 +1,10 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Box from "./Box.js"
 
 export default class ShortcutsSection<
   T extends Gtk.ShortcutsSection,
 > extends Box<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.ShortcutsSection() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

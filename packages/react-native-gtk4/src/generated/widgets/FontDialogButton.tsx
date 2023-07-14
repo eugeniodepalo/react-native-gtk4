@@ -1,11 +1,11 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class FontDialogButton<
   T extends Gtk.FontDialogButton,
 > extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.FontDialogButton(props.dialog) as T
+  createNode() {
+    return new Gtk.FontDialogButton(this.props.dialog) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Button from "./Button.js"
 
 export default class LinkButton<T extends Gtk.LinkButton> extends Button<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.LinkButton(props.uri) as T
+  createNode() {
+    return new Gtk.LinkButton(this.props.uri) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -9,7 +9,7 @@ import {
   GirMethod,
 } from "./gir.js"
 import * as templates from "./templates.js"
-import { isPropNullable } from "./templates/jsx.js"
+import { isPropNullable } from "./helpers.js"
 
 export interface WidgetClassProperty {
   name: string

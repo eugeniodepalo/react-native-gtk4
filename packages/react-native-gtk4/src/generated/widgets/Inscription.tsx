@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class Inscription<T extends Gtk.Inscription> extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.Inscription(props.text) as T
+  createNode() {
+    return new Gtk.Inscription(this.props.text) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

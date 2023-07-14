@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class Paned<T extends Gtk.Paned> extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.Paned(props.orientation) as T
+  createNode() {
+    return new Gtk.Paned(this.props.orientation) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

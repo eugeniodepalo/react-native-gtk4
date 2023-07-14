@@ -1,11 +1,11 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class EditableLabel<
   T extends Gtk.EditableLabel,
 > extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.EditableLabel(props.str) as T
+  createNode() {
+    return new Gtk.EditableLabel(this.props.str) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -1,10 +1,10 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class StackSidebar<
   T extends Gtk.StackSidebar,
 > extends Widget<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.StackSidebar() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

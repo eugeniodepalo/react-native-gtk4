@@ -5,38 +5,27 @@ interface Props {
   widgetClass: WidgetClass
 }
 
-export interface WidgetTemplate {
+interface WidgetTemplate {
   widgetClass: WidgetClass
   parentClass?: string
   importSection?: string
   methodSection?: string
 }
 
-export interface WidgetMethodTemplate {
+interface WidgetMethodTemplate {
   widgetClass: WidgetClass
   createNodeMethodSection?: string
   setMethodSection?: string
 }
 
-export function isContainerWidget(widgetClass: WidgetClass) {
-  return (
-    widgetClass.methods.some((method) => method.$.name === "append") &&
-    widgetClass.methods.some((method) => method.$.name === "remove")
-  )
-}
-
-export function isSingleChildContainerWidget(widgetClass: WidgetClass) {
-  return widgetClass.methods.some((method) => method.$.name === "set_child")
-}
-
-export function generateNodeConstructorProps(widgetClass: WidgetClass) {
+function generateNodeConstructorProps(widgetClass: WidgetClass) {
   const { ctor } = widgetClass
 
   let ts = ""
 
   for (const param of ((ctor.parameters || [])[0] || {}).parameter || []) {
     const { name } = param.$
-    ts += `props.${camelize(name)},\n`
+    ts += `this.props.${camelize(name)},\n`
   }
 
   return ts
@@ -53,7 +42,7 @@ export function generateCreateNodeMethod(widgetClass: WidgetClass) {
 
   let ts = ""
 
-  ts += `  createNode(props: Record<string, any>) {\n`
+  ts += `  createNode() {\n`
   ts += `    return new ${type}(${generateNodeConstructorProps(
     widgetClass
   )}) as T\n`
@@ -117,41 +106,6 @@ export function generateMethods({
   let ts = ""
 
   ts += createNodeMethodSection
-
-  if (isSingleChildContainerWidget(widgetClass)) {
-    ts += `  appendChild(child: Widget<any>) {\n`
-    ts += `    this.node.setChild(child.node)\n`
-    ts += `  }\n`
-    ts += `  removeChild(child: Widget<any>) {\n`
-    ts += `    this.node.setChild(null)\n`
-    ts += `  }\n`
-    ts += `  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
-    ts += `    this.node.setChild(child.node)\n`
-    ts += `  }\n`
-  } else if (isContainerWidget(widgetClass)) {
-    ts += `  appendChild(child: Widget<any>) {\n`
-    ts += `    this.node.append(child.node)\n`
-    ts += `  }\n`
-    ts += `  removeChild(child: Widget<any>) {\n`
-    ts += `    this.node.remove(child.node)\n`
-    ts += `  }\n`
-    ts += `  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
-    ts += `    const beforeIndex = this.children.indexOf(beforeChild)\n`
-    ts += `    const afterIndex = beforeIndex - 1\n`
-    if (widgetClass.methods.some((method) => method.$.name === "insert")) {
-      ts += `this.node.insert(child.node, afterIndex)\n`
-    } else {
-      ts += `    if (afterIndex < 0) {\n`
-      ts += `      this.children.unshift(child)\n`
-      ts += `      this.node.prepend(child.node)\n`
-      ts += `      return\n`
-      ts += `    }\n`
-      ts += `    this.node.insertChildAfter(child.node, this.children[afterIndex].node)\n`
-    }
-    ts += `    this.children.splice(afterIndex, 0, child)\n`
-    ts += `  }\n`
-  }
-
   ts += setMethodSection
 
   return ts
@@ -161,7 +115,7 @@ export function generateImports(widgetClass: WidgetClass) {
   const { parent, name } = widgetClass
   const parentClass = name === "Widget" ? "BaseWidget" : parent
 
-  let ts = `import { Container, Gtk } from "../../index.js"\n`
+  let ts = `import { Gtk } from "../../index.js"\n`
 
   if (name === "Widget") {
     ts += `import BaseWidget from "../../widget.js"\n`
@@ -191,9 +145,6 @@ export function generateWidgetFile({
   ts += importSection
   ts += `\n`
   ts += `export default class ${widgetClass.name}<${genericType}> extends ${parentClass}<T> {\n`
-  if (isContainerWidget(widgetClass)) {
-    ts += `  children: Widget<any>[] = []\n`
-  }
   ts += methodSection
   ts += `\n`
   ts += `}\n`

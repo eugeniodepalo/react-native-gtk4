@@ -1,18 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class Viewport<T extends Gtk.Viewport> extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.Viewport(props.hadjustment, props.vadjustment) as T
-  }
-  appendChild(child: Widget<any>) {
-    this.node.setChild(child.node)
-  }
-  removeChild(child: Widget<any>) {
-    this.node.setChild(null)
-  }
-  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
-    this.node.setChild(child.node)
+  createNode() {
+    return new Gtk.Viewport(this.props.hadjustment, this.props.vadjustment) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

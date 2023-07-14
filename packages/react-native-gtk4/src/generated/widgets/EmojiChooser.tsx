@@ -1,10 +1,10 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Popover from "./Popover.js"
 
 export default class EmojiChooser<
   T extends Gtk.EmojiChooser,
 > extends Popover<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.EmojiChooser() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

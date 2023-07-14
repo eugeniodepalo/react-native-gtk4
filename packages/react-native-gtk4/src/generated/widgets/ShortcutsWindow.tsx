@@ -1,10 +1,10 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Window from "./Window.js"
 
 export default class ShortcutsWindow<
   T extends Gtk.ShortcutsWindow,
 > extends Window<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.ShortcutsWindow() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

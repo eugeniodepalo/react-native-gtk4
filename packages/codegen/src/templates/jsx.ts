@@ -1,47 +1,9 @@
-import { GirProperty } from "../gir.js"
-import { camelize, fromCtype, underscore } from "../helpers.js"
+import { camelize, fromCtype, isPropNullable, underscore } from "../helpers.js"
 import { WidgetClass, WidgetClassProperty } from "../index.js"
 
 interface Props {
   enums: string[]
   widgetClasses: WidgetClass[]
-}
-
-export function isPropNullable(prop: GirProperty, enums: string[]) {
-  if (prop.array) {
-    return true
-  }
-
-  const type = fromCtype(prop.type[0].$.name)
-
-  if (["string", "number", "boolean", "Gtk.Widget"].includes(type)) {
-    return true
-  }
-
-  if (
-    [
-      "cursor",
-      "layout_manager",
-      "root",
-      "display",
-      "action_target",
-      "transient_for",
-    ].includes(underscore(prop.$.name))
-  ) {
-    return true
-  }
-
-  if (enums.includes(prop.type[0].$.name)) {
-    return true
-  }
-
-  const {
-    nullable,
-    "allow-none": allowNone,
-    "default-value": defaultValue,
-  } = prop.$
-
-  return !!(nullable === "1" || allowNone === "1" || defaultValue)
 }
 
 export function paramsToJsxElementProps(
@@ -71,10 +33,7 @@ export function paramsToJsxElementProps(
   return props
 }
 
-export function generateJsxElementProps(
-  widgetClass: WidgetClass,
-  enums: string[]
-) {
+function generateJsxElementProps(widgetClass: WidgetClass, enums: string[]) {
   const { props, signals, name } = widgetClass
   const type = fromCtype(name)
   let ts = ""
@@ -131,13 +90,13 @@ export function generateJsxElementProps(
   return ts
 }
 
-export interface JsxElementTemplate {
+interface JsxElementTemplate {
   widgetClass: WidgetClass
   propsSection?: string
   enums: string[]
 }
 
-export function generateJsxElement({
+function generateJsxElement({
   widgetClass,
   enums,
   propsSection = generateJsxElementProps(widgetClass, enums),

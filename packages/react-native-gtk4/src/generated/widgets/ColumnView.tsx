@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.ColumnView(props.model) as T
+  createNode() {
+    return new Gtk.ColumnView(this.props.model) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -8,6 +8,7 @@ import { Pango } from "@girs/node-pango-1.0"
 import Reconciler from "./reconciler.js"
 
 import "./generated/jsx.js"
+import "./overrides.js"
 
 export interface Container {
   app: Gtk.Application

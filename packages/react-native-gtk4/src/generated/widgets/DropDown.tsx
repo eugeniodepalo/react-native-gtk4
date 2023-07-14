@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class DropDown<T extends Gtk.DropDown> extends Widget<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.DropDown(props.model, props.expression) as T
+  createNode() {
+    return new Gtk.DropDown(this.props.model, this.props.expression) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

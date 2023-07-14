@@ -1,12 +1,12 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.SpinButton(
-      props.adjustment,
-      props.climbRate,
-      props.digits
+      this.props.adjustment,
+      this.props.climbRate,
+      this.props.digits
     ) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

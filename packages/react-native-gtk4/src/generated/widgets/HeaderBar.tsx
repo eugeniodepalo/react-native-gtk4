@@ -1,8 +1,8 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class HeaderBar<T extends Gtk.HeaderBar> extends Widget<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.HeaderBar() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

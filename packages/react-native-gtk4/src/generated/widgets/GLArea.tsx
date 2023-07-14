@@ -1,8 +1,8 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class GLArea<T extends Gtk.GLArea> extends Widget<T> {
-  createNode(props: Record<string, any>) {
+  createNode() {
     return new Gtk.GLArea() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

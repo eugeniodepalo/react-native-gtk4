@@ -1,9 +1,9 @@
-import { Container, Gtk } from "../../index.js"
+import { Gtk } from "../../index.js"
 import Range from "./Range.js"
 
 export default class Scale<T extends Gtk.Scale> extends Range<T> {
-  createNode(props: Record<string, any>) {
-    return new Gtk.Scale(props.orientation, props.adjustment) as T
+  createNode() {
+    return new Gtk.Scale(this.props.orientation, this.props.adjustment) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

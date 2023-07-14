@@ -2,7 +2,10 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["SearchBar"] & {
+type Props = Omit<
+  JSX.IntrinsicElements["SearchBar"],
+  "keyCaptureWidget" | "ref"
+> & {
   keyCaptureWidget?: React.ReactElement
 }
 
@@ -16,7 +19,7 @@ export default forwardRef<Gtk.SearchBar, Props>(function SearchBarComponent(
     Gtk.Widget | undefined
   >()
   const keyCaptureWidgetRef = useCallback((node: Gtk.Widget) => {
-    setKeyCaptureWidgetNode(node)
+    setTimeout(() => setKeyCaptureWidgetNode(node))
   }, [])
   const keyCaptureWidgetElement = keyCaptureWidget
     ? React.cloneElement(keyCaptureWidget, {

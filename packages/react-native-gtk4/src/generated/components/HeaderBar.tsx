@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["HeaderBar"] & {
+type Props = Omit<JSX.IntrinsicElements["HeaderBar"], "titleWidget" | "ref"> & {
   titleWidget?: React.ReactElement
 }
 
@@ -16,7 +16,7 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
     Gtk.Widget | undefined
   >()
   const titleWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTitleWidgetNode(node)
+    setTimeout(() => setTitleWidgetNode(node))
   }, [])
   const titleWidgetElement = titleWidget
     ? React.cloneElement(titleWidget, {

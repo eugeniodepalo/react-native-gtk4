@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["Popover"] & {
+type Props = Omit<JSX.IntrinsicElements["Popover"], "defaultWidget" | "ref"> & {
   defaultWidget?: React.ReactElement
 }
 
@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
     Gtk.Widget | undefined
   >()
   const defaultWidgetRef = useCallback((node: Gtk.Widget) => {
-    setDefaultWidgetNode(node)
+    setTimeout(() => setDefaultWidgetNode(node))
   }, [])
   const defaultWidgetElement = defaultWidget
     ? React.cloneElement(defaultWidget, {

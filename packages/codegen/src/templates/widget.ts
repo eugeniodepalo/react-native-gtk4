@@ -119,20 +119,36 @@ export function generateMethods({
   ts += createNodeMethodSection
 
   if (isSingleChildContainerWidget(widgetClass)) {
-    ts += `\n`
     ts += `  appendChild(child: Widget<any>) {\n`
     ts += `    this.node.setChild(child.node)\n`
     ts += `  }\n`
     ts += `  removeChild(child: Widget<any>) {\n`
     ts += `    this.node.setChild(null)\n`
     ts += `  }\n`
+    ts += `  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
+    ts += `    this.node.setChild(child.node)\n`
+    ts += `  }\n`
   } else if (isContainerWidget(widgetClass)) {
-    ts += `\n`
     ts += `  appendChild(child: Widget<any>) {\n`
     ts += `    this.node.append(child.node)\n`
     ts += `  }\n`
     ts += `  removeChild(child: Widget<any>) {\n`
     ts += `    this.node.remove(child.node)\n`
+    ts += `  }\n`
+    ts += `  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
+    ts += `    const beforeIndex = this.children.indexOf(beforeChild)\n`
+    ts += `    const afterIndex = beforeIndex - 1\n`
+    if (widgetClass.methods.some((method) => method.$.name === "insert")) {
+      ts += `this.node.insert(child.node, afterIndex)\n`
+    } else {
+      ts += `    if (afterIndex < 0) {\n`
+      ts += `      this.children.unshift(child)\n`
+      ts += `      this.node.prepend(child.node)\n`
+      ts += `      return\n`
+      ts += `    }\n`
+      ts += `    this.node.insertChildAfter(child.node, this.children[afterIndex].node)\n`
+    }
+    ts += `    this.children.splice(afterIndex, 0, child)\n`
     ts += `  }\n`
   }
 
@@ -175,6 +191,9 @@ export function generateWidgetFile({
   ts += importSection
   ts += `\n`
   ts += `export default class ${widgetClass.name}<${genericType}> extends ${parentClass}<T> {\n`
+  if (isContainerWidget(widgetClass)) {
+    ts += `  children: Widget<any>[] = []\n`
+  }
   ts += methodSection
   ts += `\n`
   ts += `}\n`

@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["Expander"] & {
+type Props = Omit<JSX.IntrinsicElements["Expander"], "labelWidget" | "ref"> & {
   labelWidget?: React.ReactElement
 }
 
@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
     Gtk.Widget | undefined
   >()
   const labelWidgetRef = useCallback((node: Gtk.Widget) => {
-    setLabelWidgetNode(node)
+    setTimeout(() => setLabelWidgetNode(node))
   }, [])
   const labelWidgetElement = labelWidget
     ? React.cloneElement(labelWidget, {

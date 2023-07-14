@@ -7,11 +7,13 @@ export default class WindowHandle<
   createNode(props: Record<string, any>) {
     return new Gtk.WindowHandle() as T
   }
-
   appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
   removeChild(child: Widget<any>) {
     this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    this.node.setChild(child.node)
   }
 }

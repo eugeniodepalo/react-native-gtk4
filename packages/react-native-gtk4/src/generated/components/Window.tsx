@@ -2,7 +2,10 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["Window"] & {
+type Props = Omit<
+  JSX.IntrinsicElements["Window"],
+  "defaultWidget" | "titlebar" | "ref"
+> & {
   defaultWidget?: React.ReactElement
   titlebar?: React.ReactElement
 }
@@ -17,7 +20,7 @@ export default forwardRef<Gtk.Window, Props>(function WindowComponent(
     Gtk.Widget | undefined
   >()
   const defaultWidgetRef = useCallback((node: Gtk.Widget) => {
-    setDefaultWidgetNode(node)
+    setTimeout(() => setDefaultWidgetNode(node))
   }, [])
   const defaultWidgetElement = defaultWidget
     ? React.cloneElement(defaultWidget, {
@@ -26,7 +29,7 @@ export default forwardRef<Gtk.Window, Props>(function WindowComponent(
     : null
   const [titlebarNode, setTitlebarNode] = useState<Gtk.Widget | undefined>()
   const titlebarRef = useCallback((node: Gtk.Widget) => {
-    setTitlebarNode(node)
+    setTimeout(() => setTitlebarNode(node))
   }, [])
   const titlebarElement = titlebar
     ? React.cloneElement(titlebar, {

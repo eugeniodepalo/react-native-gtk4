@@ -31,7 +31,12 @@ export default function ({ widgetClass }: Props): string | undefined {
   ts += `import { useState, useCallback, forwardRef } from "react"\n`
   ts += `import { Gtk } from "../../index.js"\n`
   ts += `\n`
-  ts += `type Props = JSX.IntrinsicElements["${className}"] & {\n`
+  ts += `type Props = Omit<JSX.IntrinsicElements["${className}"], `
+  for (const { name } of widgetTypeProps) {
+    ts += `"${camelize(name)}" | `
+  }
+  ts += `"ref"> & {\n`
+  ts += `\n`
   for (const { name } of widgetTypeProps) {
     const propName = camelize(name)
     ts += `${propName}?: React.ReactElement\n`
@@ -51,25 +56,12 @@ export default function ({ widgetClass }: Props): string | undefined {
   for (const { name, type } of widgetTypeProps) {
     const propName = camelize(name)
     const propType = fromCtype(type)
-    //   const [centerWidgetStateRef, setCenterWidgetStateRef] = useState<
-    //   Gtk.Widget | undefined
-    // >()
-
-    // const centerWidgetRef = useCallback((node: Gtk.Widget) => {
-    //   setCenterWidgetStateRef(node)
-    // }, [])
-
-    // const centerWidgetElement = centerWidget
-    //   ? React.cloneElement(centerWidget, {
-    //       ref: centerWidgetRef,
-    //     })
-    //   : null
 
     ts += `const [${propName}Node, ${camelize(
       `set_${name}_node`
     )}] = useState<${propType} | undefined>()\n`
     ts += `const ${propName}Ref = useCallback((node: ${propType}) => {
-      ${camelize(`set_${name}_node`)}(node)
+      setTimeout(() => ${camelize(`set_${name}_node`)}(node))
     }, [])\n`
     ts += `const ${propName}Element = ${propName} ? React.cloneElement(${propName}, {
       ref: ${propName}Ref,

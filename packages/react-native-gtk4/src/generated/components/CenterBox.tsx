@@ -2,7 +2,10 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["CenterBox"] & {
+type Props = Omit<
+  JSX.IntrinsicElements["CenterBox"],
+  "centerWidget" | "endWidget" | "startWidget" | "ref"
+> & {
   centerWidget?: React.ReactElement
   endWidget?: React.ReactElement
   startWidget?: React.ReactElement
@@ -18,7 +21,7 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
     Gtk.Widget | undefined
   >()
   const centerWidgetRef = useCallback((node: Gtk.Widget) => {
-    setCenterWidgetNode(node)
+    setTimeout(() => setCenterWidgetNode(node))
   }, [])
   const centerWidgetElement = centerWidget
     ? React.cloneElement(centerWidget, {
@@ -27,7 +30,7 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
     : null
   const [endWidgetNode, setEndWidgetNode] = useState<Gtk.Widget | undefined>()
   const endWidgetRef = useCallback((node: Gtk.Widget) => {
-    setEndWidgetNode(node)
+    setTimeout(() => setEndWidgetNode(node))
   }, [])
   const endWidgetElement = endWidget
     ? React.cloneElement(endWidget, {
@@ -38,7 +41,7 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
     Gtk.Widget | undefined
   >()
   const startWidgetRef = useCallback((node: Gtk.Widget) => {
-    setStartWidgetNode(node)
+    setTimeout(() => setStartWidgetNode(node))
   }, [])
   const startWidgetElement = startWidget
     ? React.cloneElement(startWidget, {

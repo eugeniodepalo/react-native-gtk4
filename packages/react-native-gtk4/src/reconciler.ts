@@ -48,6 +48,9 @@ const hostConfig: HostConfig<
   removeChild(parentInstance, child) {
     parentInstance.removeChild(child)
   },
+  insertBefore(parentInstance, child, beforeChild) {
+    parentInstance.insertBefore(child, beforeChild)
+  },
   prepareUpdate(_instance, _type, oldProps, newProps) {
     return Object.keys(newProps).reduce((acc, propName) => {
       if (oldProps[propName] !== newProps[propName]) {

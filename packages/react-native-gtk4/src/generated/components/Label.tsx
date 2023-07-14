@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["Label"] & {
+type Props = Omit<JSX.IntrinsicElements["Label"], "mnemonicWidget" | "ref"> & {
   mnemonicWidget?: React.ReactElement
 }
 
@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Label, Props>(function LabelComponent(
     Gtk.Widget | undefined
   >()
   const mnemonicWidgetRef = useCallback((node: Gtk.Widget) => {
-    setMnemonicWidgetNode(node)
+    setTimeout(() => setMnemonicWidgetNode(node))
   }, [])
   const mnemonicWidgetElement = mnemonicWidget
     ? React.cloneElement(mnemonicWidget, {

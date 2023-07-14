@@ -5,12 +5,14 @@ export default class Expander<T extends Gtk.Expander> extends Widget<T> {
   createNode(props: Record<string, any>) {
     return new Gtk.Expander(props.label) as T
   }
-
   appendChild(child: Widget<any>) {
     this.node.setChild(child.node)
   }
   removeChild(child: Widget<any>) {
     this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    this.node.setChild(child.node)
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

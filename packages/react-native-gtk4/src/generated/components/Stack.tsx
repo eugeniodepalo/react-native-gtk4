@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
-type Props = JSX.IntrinsicElements["Stack"] & {
+type Props = Omit<JSX.IntrinsicElements["Stack"], "visibleChild" | "ref"> & {
   visibleChild?: React.ReactElement
 }
 
@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Stack, Props>(function StackComponent(
     Gtk.Widget | undefined
   >()
   const visibleChildRef = useCallback((node: Gtk.Widget) => {
-    setVisibleChildNode(node)
+    setTimeout(() => setVisibleChildNode(node))
   }, [])
   const visibleChildElement = visibleChild
     ? React.cloneElement(visibleChild, {

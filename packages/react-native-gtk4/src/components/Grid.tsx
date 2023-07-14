@@ -6,10 +6,9 @@ import React, {
   useState,
 } from "react"
 import { forwardRef } from "react"
-import { Gtk, Box } from "../index.js"
+import { Gtk } from "../index.js"
 
 const Grid = "Grid"
-
 const GridContext = React.createContext<Gtk.Grid | undefined>(undefined)
 
 type Props = JSX.IntrinsicElements["Grid"] & {
@@ -22,26 +21,18 @@ const GridComponent = forwardRef<Gtk.Grid, Props>(function GridComponent(
 ) {
   const [gridNode, setGridNode] = useState<Gtk.Grid | undefined>(undefined)
 
-  useImperativeHandle(ref, () => {
-    if (!gridNode) {
-      throw new Error("gridRef is undefined")
-    }
-
-    return gridNode
-  })
+  useImperativeHandle(ref, () => gridNode!)
 
   const gridRef = useCallback((node: Gtk.Grid) => {
     setGridNode(node)
   }, [])
 
   return (
-    <Box>
-      <GridContext.Provider value={gridNode}>
-        <Grid ref={gridRef} {...props}>
-          {children}
-        </Grid>
-      </GridContext.Provider>
-    </Box>
+    <GridContext.Provider value={gridNode}>
+      <Grid ref={gridRef} {...props}>
+        {children}
+      </Grid>
+    </GridContext.Provider>
   )
 })
 
@@ -60,26 +51,26 @@ const GridItem = function GridItem({
   width = 1,
   height = 1,
 }: ItemProps) {
-  const gridRef = useContext(GridContext)
-  const [childRef, setChildRef] = useState<Gtk.Widget | undefined>(undefined)
+  const gridNode = useContext(GridContext)
+  const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
 
   const childWithRef = React.cloneElement(children, {
     ref: (node: Gtk.Widget) => {
-      setChildRef(node)
+      setChildNode(node)
     },
   })
 
   useEffect(() => {
-    if (!gridRef || !childRef) {
+    if (!gridNode || !childNode) {
       return
     }
 
-    gridRef.attach(childRef, left, top, width, height)
+    gridNode.attach(childNode, left, top, width, height)
 
     return () => {
-      gridRef.remove(childRef)
+      gridNode.remove(childNode)
     }
-  }, [gridRef, childRef, left, top, width, height])
+  }, [gridNode, childNode, left, top, width, height])
 
   return childWithRef
 }

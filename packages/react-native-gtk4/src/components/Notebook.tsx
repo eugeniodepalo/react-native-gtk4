@@ -6,11 +6,10 @@ import React, {
   useState,
 } from "react"
 import { forwardRef } from "react"
-import { Gtk, Box } from "../index.js"
+import { Gtk } from "../index.js"
 
 const Notebook = "Notebook"
 const Label = "Label"
-
 const NotebookContext = React.createContext<Gtk.Notebook | undefined>(undefined)
 
 type Props = JSX.IntrinsicElements["Notebook"] & {
@@ -23,26 +22,18 @@ const NotebookComponent = forwardRef<Gtk.Notebook, Props>(
       undefined
     )
 
-    useImperativeHandle(ref, () => {
-      if (!notebookNode) {
-        throw new Error("notebookRef is undefined")
-      }
-
-      return notebookNode
-    })
+    useImperativeHandle(ref, () => notebookNode!)
 
     const notebookRef = useCallback((node: Gtk.Notebook) => {
       setNotebookNode(node)
     }, [])
 
     return (
-      <Box>
-        <NotebookContext.Provider value={notebookNode}>
-          <Notebook ref={notebookRef} {...props}>
-            {children}
-          </Notebook>
-        </NotebookContext.Provider>
-      </Box>
+      <NotebookContext.Provider value={notebookNode}>
+        <Notebook ref={notebookRef} {...props}>
+          {children}
+        </Notebook>
+      </NotebookContext.Provider>
     )
   }
 )
@@ -53,7 +44,7 @@ interface TabProps {
 }
 
 const NotebookTab = function NotebookItem({ children, label }: TabProps) {
-  const notebookRef = useContext(NotebookContext)
+  const notebookNode = useContext(NotebookContext)
   const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
   const [labelNode, setLabelNode] = useState<Gtk.Label | undefined>(undefined)
 
@@ -68,16 +59,16 @@ const NotebookTab = function NotebookItem({ children, label }: TabProps) {
   }, [])
 
   useEffect(() => {
-    if (!notebookRef || !childNode) {
+    if (!notebookNode || !childNode) {
       return
     }
 
-    notebookRef.appendPage(childNode, labelNode ?? null)
+    notebookNode.appendPage(childNode, labelNode ?? null)
 
     return () => {
-      notebookRef.removePage(notebookRef.pageNum(childNode))
+      notebookNode.removePage(notebookNode.pageNum(childNode))
     }
-  }, [notebookRef, childNode, labelNode])
+  }, [notebookNode, childNode, labelNode])
 
   return (
     <>

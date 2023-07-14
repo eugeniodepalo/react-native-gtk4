@@ -1,23 +1,49 @@
-import React from "react"
+import React, { useCallback } from "react"
 import {
   ApplicationWindow,
   Box,
   Button,
   Grid,
   Gtk,
-  HeaderBar,
+  Label,
   Notebook,
+  Overlay,
+  Stack,
+  StackSidebar,
 } from "react-native-gtk4"
 import { application } from "../app.js"
 
 export default function App() {
   const [count, setCount] = React.useState(0)
+  const [stackNode, setStackNode] = React.useState<Gtk.Stack | undefined>(
+    undefined
+  )
+  const stackRef = useCallback((node: Gtk.Stack) => {
+    setStackNode(node)
+  }, [])
 
   return (
     <ApplicationWindow title="Kitchen Sink" application={application}>
       <Grid.Container>
         <Grid.Item left={0} top={0} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
+            {stackNode ? <StackSidebar stack={stackNode} /> : null}
+            <Stack.Container visibleChildName="child1" ref={stackRef}>
+              <Stack.Item name="child1">
+                <Button label="Switch 1" />
+              </Stack.Item>
+              <Stack.Item name="child2">
+                <Button label="Switch 2" />
+              </Stack.Item>
+            </Stack.Container>
+            <Overlay.Container>
+              <Overlay.Child>
+                <Button label="Button 1" />
+              </Overlay.Child>
+              <Overlay.Item>
+                <Label label="Label 1" />
+              </Overlay.Item>
+            </Overlay.Container>
             <Notebook.Container>
               <Notebook.Tab label="Tab 1">
                 <Button label="Button 1" />
@@ -26,11 +52,6 @@ export default function App() {
                 <Button label="Button 2" />
               </Notebook.Tab>
             </Notebook.Container>
-            <HeaderBar
-              titleWidget={
-                count % 2 === 0 ? <Button label="Button Text" /> : undefined
-              }
-            />
             <Button
               label="Button 1"
               onClicked={() => {

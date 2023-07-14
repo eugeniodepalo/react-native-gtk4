@@ -139,16 +139,8 @@ async function main() {
       `widgets/${widgetClass.name}.tsx`,
       templates.widget({ widgetClass })
     )
-    writeToGeneratedFile(
-      `components/${widgetClass.name}.tsx`,
-      templates.component({ widgetClass })
-    )
   }
 
-  writeToGeneratedFile(
-    "components.ts",
-    templates.componentIndex({ widgetClasses })
-  )
   writeToGeneratedFile("intrinsics.ts", templates.intrinsics({ widgetClasses }))
   writeToGeneratedFile("jsx.ts", templates.jsx({ widgetClasses }))
   writeToGeneratedFile("widgets.ts", templates.widgetIndex({ widgetClasses }))

@@ -29,14 +29,14 @@ Box.prototype.insertBefore = function <T extends Gtk.Box>(
   child: Widget<any>,
   beforeChild: Widget<any>
 ) {
-  parent.insertBefore.call(this, child, beforeChild)
   const afterIndex = this.children.indexOf(beforeChild) - 1
 
   if (afterIndex < 0) {
     this.node.prepend(child.node)
-    return
+  } else {
+    const afterChild = this.children[afterIndex]
+    this.node.insertChildAfter(child.node, afterChild.node)
   }
 
-  const afterChild = this.children[afterIndex]
-  this.node.insertChildAfter(child.node, afterChild.node)
+  parent.insertBefore.call(this, child, beforeChild)
 }

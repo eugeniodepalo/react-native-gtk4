@@ -1,11 +1,5 @@
 import React from "react"
-import {
-  ApplicationWindow,
-  Box,
-  Button,
-  Gtk,
-  HeaderBar,
-} from "react-native-gtk4"
+import { ApplicationWindow, Box, Button, Gtk } from "react-native-gtk4"
 import { application } from "../app.js"
 
 export default function App() {

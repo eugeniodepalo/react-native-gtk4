@@ -12,6 +12,12 @@ import {
   ListBox,
   ListBoxRow,
   StackSidebar,
+  Paned,
+  Expander,
+  HeaderBar,
+  Frame,
+  Popover,
+  Revealer,
 } from "react-native-gtk4"
 import { application } from "../app.js"
 
@@ -23,6 +29,7 @@ export default function App() {
   const stackRef = useCallback((node: Gtk.Stack) => {
     setStackNode(node)
   }, [])
+  const [revealed, setRevealed] = React.useState(false)
 
   return (
     <ApplicationWindow title="Kitchen Sink" application={application}>
@@ -79,11 +86,35 @@ export default function App() {
         <Grid.Item left={0} top={1} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
             <Button label="Button 3" />
+            <Paned.Container>
+              <Paned.Item start>
+                <Button label="Start" />
+              </Paned.Item>
+              <Paned.Item end>
+                <Button label="End" />
+              </Paned.Item>
+            </Paned.Container>
           </Box>
         </Grid.Item>
         <Grid.Item left={1} top={1} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
-            <Button label="Button 4" />
+            <Expander>
+              <Button label="Button 4" />
+            </Expander>
+            <HeaderBar>
+              <Label label="Header Bar" />
+              <Button label="Button 5" />
+            </HeaderBar>
+            <Button
+              onClicked={() => {
+                setRevealed(!revealed)
+                return false
+              }}
+              label="Reveal"
+            />
+            <Revealer revealChild={revealed}>
+              <Label label="Revealer" />
+            </Revealer>
           </Box>
         </Grid.Item>
       </Grid.Container>

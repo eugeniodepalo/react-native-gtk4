@@ -50,6 +50,8 @@ export {
   Notebook,
   Stack,
   Overlay,
+  Paned,
+  Popover,
 } from "./components.js"
 
 export { Gtk, Gio, GLib, GObject, Pango, Gdk }

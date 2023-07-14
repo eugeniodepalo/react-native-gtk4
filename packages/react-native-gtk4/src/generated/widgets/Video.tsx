@@ -2,7 +2,7 @@ import { Container, Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class Video<T extends Gtk.Video> extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.Video() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

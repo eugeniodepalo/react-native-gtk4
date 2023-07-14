@@ -70,6 +70,7 @@ export interface GirInterface {
 export interface GirClass {
   $: GirAttributes & {
     parent?: string
+    deprecated?: string
   }
   implements?: GirInterface[]
   ctor?: GirMethod[]
@@ -122,6 +123,27 @@ function isDescendantOfWidget(
   return isDescendantOfWidget(classesByName, parentClassName)
 }
 
+function isDeprecated(
+  classesByName: Record<string, GirClass>,
+  className: string
+) {
+  const klass = classesByName[className]
+  if (className === "Widget") {
+    return false
+  }
+
+  if (klass.$.deprecated === "1") {
+    return true
+  }
+
+  const parentClassName = klass.$.parent
+  if (!parentClassName) {
+    return false
+  }
+
+  return isDeprecated(classesByName, parentClassName)
+}
+
 export function getGirWidgetClasses(gir: Gir) {
   const classesByName: Record<string, GirClass> = {}
 
@@ -132,7 +154,9 @@ export function getGirWidgetClasses(gir: Gir) {
   }
 
   const widgetClasses = (gir.repository.namespace[0].class || []).filter(
-    (klass) => isDescendantOfWidget(classesByName, klass.$.name)
+    (klass) =>
+      isDescendantOfWidget(classesByName, klass.$.name) &&
+      !isDeprecated(classesByName, klass.$.name)
   )
 
   return widgetClasses

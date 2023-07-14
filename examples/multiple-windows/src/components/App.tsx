@@ -1,12 +1,13 @@
 import React from "react"
 import { ApplicationWindow, Box, Button, Gtk } from "react-native-gtk4"
+import { application } from "../app.js"
 
 export default function App() {
   const [count, setCount] = React.useState(0)
 
   return (
     <>
-      <ApplicationWindow title="Increment">
+      <ApplicationWindow title="Increment" application={application}>
         <Box orientation={Gtk.Orientation.VERTICAL}>
           <>Shared counter: {count}</>
           <Button
@@ -18,7 +19,7 @@ export default function App() {
           />
         </Box>
       </ApplicationWindow>
-      <ApplicationWindow title="Decrement">
+      <ApplicationWindow title="Decrement" application={application}>
         <Box orientation={Gtk.Orientation.VERTICAL}>
           <>Shared counter: {count}</>
           <Button

@@ -7,11 +7,7 @@ import Label from "./generated/widgets/Label.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, string, any][]
-
-type WidgetConstructor = new (
-  container: Container,
-  props: Record<string, any>
-) => Widget<any>
+type WidgetConstructor = new (props: Record<string, any>) => Widget<any>
 
 const hostConfig: HostConfig<
   ElementType,
@@ -33,12 +29,12 @@ const hostConfig: HostConfig<
   supportsHydration: false,
   isPrimaryRenderer: true,
   noTimeout: -1,
-  createInstance(type, props, rootContainer) {
+  createInstance(type, props) {
     const Widget = widgets[type] as WidgetConstructor
-    return new Widget(rootContainer, props)
+    return new Widget(props)
   },
-  createTextInstance(text, rootContainer) {
-    return new Label(rootContainer, { label: text })
+  createTextInstance(text) {
+    return new Label({ label: text })
   },
   appendInitialChild(parentInstance, child) {
     parentInstance.appendChild(child)

@@ -1,18 +1,5 @@
 import { camelize, fromCtype } from "../helpers.js"
 import { WidgetClass } from "../index.js"
-import BoxTemplate from "./widgets/Box.js"
-import WidgetTemplate from "./widgets/Widget.js"
-import ApplicationWindowTemplate from "./widgets/ApplicationWindow.js"
-import FileChooserDialogTemplate from "./widgets/FileChooserDialog.js"
-import MessageDialogTemplate from "./widgets/MessageDialog.js"
-
-const templates = {
-  Box: BoxTemplate,
-  Widget: WidgetTemplate,
-  ApplicationWindow: ApplicationWindowTemplate,
-  FileChooserDialog: FileChooserDialogTemplate,
-  MessageDialog: MessageDialogTemplate,
-} as const
 
 interface Props {
   widgetClass: WidgetClass
@@ -31,6 +18,17 @@ export interface WidgetMethodTemplate {
   setMethodSection?: string
 }
 
+export function isContainerWidget(widgetClass: WidgetClass) {
+  return (
+    widgetClass.methods.some((method) => method.$.name === "append") &&
+    widgetClass.methods.some((method) => method.$.name === "remove")
+  )
+}
+
+export function isSingleChildContainerWidget(widgetClass: WidgetClass) {
+  return widgetClass.methods.some((method) => method.$.name === "set_child")
+}
+
 export function generateNodeConstructorProps(widgetClass: WidgetClass) {
   const { ctor } = widgetClass
 
@@ -38,13 +36,15 @@ export function generateNodeConstructorProps(widgetClass: WidgetClass) {
 
   for (const param of ((ctor.parameters || [])[0] || {}).parameter || []) {
     const { name } = param.$
-    if (name === "...") {
-      continue
-    }
     ts += `props.${camelize(name)},\n`
   }
 
   return ts
+}
+
+function getSettableProps(widgetClass: WidgetClass) {
+  const { props } = widgetClass
+  return props.filter((prop) => prop.name !== "child" && prop.setter)
 }
 
 export function generateCreateNodeMethod(widgetClass: WidgetClass) {
@@ -53,7 +53,7 @@ export function generateCreateNodeMethod(widgetClass: WidgetClass) {
 
   let ts = ""
 
-  ts += `  createNode(container: Container, props: Record<string, any>) {\n`
+  ts += `  createNode(props: Record<string, any>) {\n`
   ts += `    return new ${type}(${generateNodeConstructorProps(
     widgetClass
   )}) as T\n`
@@ -65,10 +65,9 @@ export function generateCreateNodeMethod(widgetClass: WidgetClass) {
 export function generateSetMethod(widgetClass: WidgetClass) {
   const { props, signals } = widgetClass
 
-  const propNames = [
-    ...props.filter((prop) => prop.name !== "child" && prop.setter),
-    ...signals,
-  ].map((prop) => prop.name)
+  const propNames = [...getSettableProps(widgetClass), ...signals].map(
+    (prop) => prop.name
+  )
 
   if (propNames.length === 0) {
     return ""
@@ -81,7 +80,7 @@ export function generateSetMethod(widgetClass: WidgetClass) {
   ts += `    switch (propName) {\n`
 
   for (const { name, setter } of props) {
-    if (name === "child" || !setter) {
+    if (!propNames.includes(name) || !setter) {
       continue
     }
 
@@ -119,13 +118,21 @@ export function generateMethods({
 
   ts += createNodeMethodSection
 
-  if (widgetClass.props.filter((prop) => prop.name === "child").length !== 0) {
+  if (isSingleChildContainerWidget(widgetClass)) {
     ts += `\n`
     ts += `  appendChild(child: Widget<any>) {\n`
     ts += `    this.node.setChild(child.node)\n`
     ts += `  }\n`
     ts += `  removeChild(child: Widget<any>) {\n`
     ts += `    this.node.setChild(null)\n`
+    ts += `  }\n`
+  } else if (isContainerWidget(widgetClass)) {
+    ts += `\n`
+    ts += `  appendChild(child: Widget<any>) {\n`
+    ts += `    this.node.append(child.node)\n`
+    ts += `  }\n`
+    ts += `  removeChild(child: Widget<any>) {\n`
+    ts += `    this.node.remove(child.node)\n`
     ts += `  }\n`
   }
 
@@ -135,21 +142,27 @@ export function generateMethods({
 }
 
 export function generateImports(widgetClass: WidgetClass) {
-  const { parent } = widgetClass
-  const parentClass = camelize(parent ?? "widget")
+  const { parent, name } = widgetClass
+  const parentClass = name === "Widget" ? "BaseWidget" : parent
 
-  let ts = ""
+  let ts = `import { Container, Gtk } from "../../index.js"\n`
 
-  ts += `import { Container, Gtk } from "../../index.js"\n`
-  ts += `import ${parentClass} from "./${parentClass}.js"\n`
-  ts += `\n`
+  if (name === "Widget") {
+    ts += `import BaseWidget from "../../widget.js"\n`
+    ts += `\n`
+  } else {
+    ts += `import ${parentClass} from "./${parentClass}.js"\n`
+    ts += `\n`
+  }
 
   return ts
 }
 
 export function generateWidgetFile({
   widgetClass,
-  parentClass = camelize(widgetClass.parent ?? "widget"),
+  parentClass = widgetClass.name === "Widget"
+    ? "BaseWidget"
+    : widgetClass.parent,
   importSection = generateImports(widgetClass),
   methodSection = generateMethods({ widgetClass }),
 }: WidgetTemplate) {
@@ -171,12 +184,5 @@ export function generateWidgetFile({
 }
 
 export default function ({ widgetClass }: Props) {
-  const templateName = widgetClass.name as keyof typeof templates
-  const template = templates[templateName]
-
-  if (template) {
-    return template({ widgetClass })
-  }
-
   return generateWidgetFile({ widgetClass })
 }

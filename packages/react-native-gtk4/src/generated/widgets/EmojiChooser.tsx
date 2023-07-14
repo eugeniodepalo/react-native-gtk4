@@ -4,7 +4,7 @@ import Popover from "./Popover.js"
 export default class EmojiChooser<
   T extends Gtk.EmojiChooser,
 > extends Popover<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.EmojiChooser() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

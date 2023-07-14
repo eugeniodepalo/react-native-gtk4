@@ -4,7 +4,7 @@ import Widget from "./Widget.js"
 export default class StackSwitcher<
   T extends Gtk.StackSwitcher,
 > extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.StackSwitcher() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

@@ -1,4 +1,4 @@
-import { Gtk, Gdk, Gio, GLib, Pango } from "../index.js"
+import { Gtk, Gdk, GLib, Gio, Pango } from "../index.js"
 import React from "react"
 
 declare global {
@@ -30,44 +30,9 @@ declare global {
         revealed?: boolean
         accessibleRole?: Gtk.AccessibleRole
       }
-      AppChooserButton: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.AppChooserButton>
-        contentType?: string
-        heading?: string
-        modal?: boolean
-        showDefaultItem?: boolean
-        showDialogItem?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        onActivate?: () => boolean
-        onChanged?: () => boolean
-        onCustomItemActivated?: (itemName: string) => boolean
-      }
-      AppChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-        ref?: React.Ref<Gtk.AppChooserDialog>
-        parent?: Gtk.Window
-        flags: Gtk.DialogFlags
-        file: Gio.File
-        gfile: Gio.File
-        heading?: string
-        accessibleRole?: Gtk.AccessibleRole
-        contentType?: string
-      }
-      AppChooserWidget: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.AppChooserWidget>
-        contentType?: string
-        defaultText?: string
-        showAll?: boolean
-        showDefault?: boolean
-        showFallback?: boolean
-        showOther?: boolean
-        showRecommended?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        onApplicationActivated?: (application: Gio.AppInfo) => boolean
-        onApplicationSelected?: (application: Gio.AppInfo) => boolean
-      }
       ApplicationWindow: JSX.IntrinsicElements["Window"] & {
         ref?: React.Ref<Gtk.ApplicationWindow>
-        application?: Gtk.Application
+        application: Gtk.Application
         showMenubar?: boolean
         accessibleRole?: Gtk.AccessibleRole
       }
@@ -80,25 +45,14 @@ declare global {
         obeyChild?: boolean
         accessibleRole?: Gtk.AccessibleRole
       }
-      Assistant: JSX.IntrinsicElements["Window"] & {
-        ref?: React.Ref<Gtk.Assistant>
-        pages: Gio.ListModel
-        useHeaderBar?: number
-        accessibleRole?: Gtk.AccessibleRole
-        onApply?: () => boolean
-        onCancel?: () => boolean
-        onClose?: () => boolean
-        onEscape?: () => boolean
-        onPrepare?: (page: Gtk.Widget) => boolean
-      }
       Box: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Box>
+        children?: React.ReactNode
         orientation?: Gtk.Orientation
         spacing?: number
         baselinePosition?: Gtk.BaselinePosition
         homogeneous?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        children?: React.ReactNode
       }
       Button: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Button>
@@ -128,16 +82,6 @@ declare global {
         onPrevMonth?: () => boolean
         onPrevYear?: () => boolean
       }
-      CellView: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.CellView>
-        cellArea: Gtk.CellArea
-        cellAreaContext: Gtk.CellAreaContext
-        drawSensitive?: boolean
-        fitModel?: boolean
-        model: Gtk.TreeModel
-        accessibleRole?: Gtk.AccessibleRole
-        orientation?: Gtk.Orientation
-      }
       CenterBox: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.CenterBox>
         baselinePosition?: Gtk.BaselinePosition
@@ -161,36 +105,6 @@ declare global {
         onActivate?: () => boolean
         onToggled?: () => boolean
       }
-      ColorButton: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.ColorButton>
-        modal?: boolean
-        showEditor?: boolean
-        title?: string
-        accessibleRole?: Gtk.AccessibleRole
-        rgba: Gdk.RGBA
-        useAlpha?: boolean
-        onActivate?: () => boolean
-        onColorSet?: () => boolean
-        onColorActivated?: (color: Gdk.RGBA) => boolean
-      }
-      ColorChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-        ref?: React.Ref<Gtk.ColorChooserDialog>
-        title?: string
-        parent?: Gtk.Window
-        showEditor?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        rgba: Gdk.RGBA
-        useAlpha?: boolean
-        onColorActivated?: (color: Gdk.RGBA) => boolean
-      }
-      ColorChooserWidget: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.ColorChooserWidget>
-        showEditor?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        rgba: Gdk.RGBA
-        useAlpha?: boolean
-        onColorActivated?: (color: Gdk.RGBA) => boolean
-      }
       ColorDialogButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ColorDialogButton>
         dialog?: Gtk.ColorDialog
@@ -213,44 +127,6 @@ declare global {
         vadjustment: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
         onActivate?: (position: number) => boolean
-      }
-      ComboBox: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.ComboBox>
-        children?: React.ReactElement
-        active?: number
-        activeId?: string
-        buttonSensitivity?: Gtk.SensitivityType
-        entryTextColumn?: number
-        hasEntry?: boolean
-        hasFrame?: boolean
-        idColumn?: number
-        model: Gtk.TreeModel
-        popupFixedWidth?: boolean
-        popupShown?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        editingCanceled?: boolean
-        onActivate?: () => boolean
-        onChanged?: () => boolean
-        onFormatEntryText?: (path: string) => boolean
-        onMoveActive?: (scrollType: Gtk.ScrollType) => boolean
-        onPopdown?: () => boolean
-        onPopup?: () => boolean
-        onEditingDone?: () => boolean
-        onRemoveWidget?: () => boolean
-      }
-      ComboBoxText: JSX.IntrinsicElements["ComboBox"] & {
-        ref?: React.Ref<Gtk.ComboBoxText>
-        accessibleRole?: Gtk.AccessibleRole
-        editingCanceled?: boolean
-        onEditingDone?: () => boolean
-        onRemoveWidget?: () => boolean
-      }
-      Dialog: JSX.IntrinsicElements["Window"] & {
-        ref?: React.Ref<Gtk.Dialog>
-        useHeaderBar?: number
-        accessibleRole?: Gtk.AccessibleRole
-        onClose?: () => boolean
-        onResponse?: (responseId: Gtk.ResponseType) => boolean
       }
       DragIcon: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.DragIcon>
@@ -379,50 +255,13 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: () => boolean
       }
-      FileChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-        ref?: React.Ref<Gtk.FileChooserDialog>
-        title?: string
-        parent?: Gtk.Window
-        action?: Gtk.FileChooserAction
-        firstButtonText?: string
-        accessibleRole?: Gtk.AccessibleRole
-        createFolders?: boolean
-        filter: Gtk.FileFilter
-        filters: Gio.ListModel
-        selectMultiple?: boolean
-        shortcutFolders: Gio.ListModel
-      }
-      FileChooserWidget: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.FileChooserWidget>
-        action?: Gtk.FileChooserAction
-        searchMode?: boolean
-        showTime?: boolean
-        subtitle?: string
-        accessibleRole?: Gtk.AccessibleRole
-        createFolders?: boolean
-        filter: Gtk.FileFilter
-        filters: Gio.ListModel
-        selectMultiple?: boolean
-        shortcutFolders: Gio.ListModel
-        onDesktopFolder?: () => boolean
-        onDownFolder?: () => boolean
-        onHomeFolder?: () => boolean
-        onLocationPopup?: (path: string) => boolean
-        onLocationPopupOnPaste?: () => boolean
-        onLocationTogglePopup?: () => boolean
-        onPlacesShortcut?: () => boolean
-        onQuickBookmark?: (bookmarkIndex: number) => boolean
-        onRecentShortcut?: () => boolean
-        onSearchShortcut?: () => boolean
-        onShowHidden?: () => boolean
-        onUpFolder?: () => boolean
-      }
       Fixed: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Fixed>
         accessibleRole?: Gtk.AccessibleRole
       }
       FlowBox: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FlowBox>
+        children?: React.ReactNode
         acceptUnpairedRelease?: boolean
         activateOnSingleClick?: boolean
         columnSpacing?: number
@@ -451,51 +290,6 @@ declare global {
         children?: React.ReactElement
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: () => boolean
-      }
-      FontButton: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.FontButton>
-        modal?: boolean
-        title?: string
-        useFont?: boolean
-        useSize?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        font?: string
-        fontDesc: Pango.FontDescription
-        fontFeatures?: string
-        language?: string
-        level?: Gtk.FontChooserLevel
-        previewText?: string
-        showPreviewEntry?: boolean
-        onActivate?: () => boolean
-        onFontSet?: () => boolean
-        onFontActivated?: (fontname: string) => boolean
-      }
-      FontChooserDialog: JSX.IntrinsicElements["Dialog"] & {
-        ref?: React.Ref<Gtk.FontChooserDialog>
-        title?: string
-        parent?: Gtk.Window
-        accessibleRole?: Gtk.AccessibleRole
-        font?: string
-        fontDesc: Pango.FontDescription
-        fontFeatures?: string
-        language?: string
-        level?: Gtk.FontChooserLevel
-        previewText?: string
-        showPreviewEntry?: boolean
-        onFontActivated?: (fontname: string) => boolean
-      }
-      FontChooserWidget: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.FontChooserWidget>
-        tweakAction: Gio.Action
-        accessibleRole?: Gtk.AccessibleRole
-        font?: string
-        fontDesc: Pango.FontDescription
-        fontFeatures?: string
-        language?: string
-        level?: Gtk.FontChooserLevel
-        previewText?: string
-        showPreviewEntry?: boolean
-        onFontActivated?: (fontname: string) => boolean
       }
       FontDialogButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FontDialogButton>
@@ -561,44 +355,6 @@ declare global {
         titleWidget?: Gtk.Widget
         accessibleRole?: Gtk.AccessibleRole
       }
-      IconView: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.IconView>
-        activateOnSingleClick?: boolean
-        cellArea: Gtk.CellArea
-        columnSpacing?: number
-        columns?: number
-        itemOrientation?: Gtk.Orientation
-        itemPadding?: number
-        itemWidth?: number
-        margin?: number
-        markupColumn?: number
-        model: Gtk.TreeModel
-        pixbufColumn?: number
-        reorderable?: boolean
-        rowSpacing?: number
-        selectionMode?: Gtk.SelectionMode
-        spacing?: number
-        textColumn?: number
-        tooltipColumn?: number
-        accessibleRole?: Gtk.AccessibleRole
-        hadjustment: Gtk.Adjustment
-        hscrollPolicy?: Gtk.ScrollablePolicy
-        vadjustment: Gtk.Adjustment
-        vscrollPolicy?: Gtk.ScrollablePolicy
-        onActivateCursorItem?: () => boolean
-        onItemActivated?: (path: Gtk.TreePath) => boolean
-        onMoveCursor?: (
-          step: Gtk.MovementStep,
-          count: number,
-          extend: boolean,
-          modify: boolean
-        ) => boolean
-        onSelectAll?: () => boolean
-        onSelectCursorItem?: () => boolean
-        onSelectionChanged?: () => boolean
-        onToggleCursorItem?: () => boolean
-        onUnselectAll?: () => boolean
-      }
       Image: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Image>
         file?: string
@@ -611,15 +367,6 @@ declare global {
         storageType?: Gtk.ImageType
         useFallback?: boolean
         accessibleRole?: Gtk.AccessibleRole
-      }
-      InfoBar: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.InfoBar>
-        messageType?: Gtk.MessageType
-        revealed?: boolean
-        showCloseButton?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        onClose?: () => boolean
-        onResponse?: (responseId: Gtk.ResponseType) => boolean
       }
       Inscription: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Inscription>
@@ -700,6 +447,7 @@ declare global {
       }
       ListBox: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ListBox>
+        children?: React.ReactNode
         acceptUnpairedRelease?: boolean
         activateOnSingleClick?: boolean
         selectionMode?: Gtk.SelectionMode
@@ -744,18 +492,6 @@ declare global {
         vscrollPolicy?: Gtk.ScrollablePolicy
         onActivate?: (position: number) => boolean
       }
-      LockButton: JSX.IntrinsicElements["Button"] & {
-        ref?: React.Ref<Gtk.LockButton>
-        permission?: Gio.Permission
-        textLock?: string
-        textUnlock?: string
-        tooltipLock?: string
-        tooltipNotAuthorized?: string
-        tooltipUnlock?: string
-        accessibleRole?: Gtk.AccessibleRole
-        actionName?: string
-        actionTarget?: GLib.Variant
-      }
       MediaControls: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.MediaControls>
         stream?: Gtk.MediaStream
@@ -777,21 +513,6 @@ declare global {
         useUnderline?: boolean
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: () => boolean
-      }
-      MessageDialog: JSX.IntrinsicElements["Dialog"] & {
-        ref?: React.Ref<Gtk.MessageDialog>
-        parent?: Gtk.Window
-        flags: Gtk.DialogFlags
-        type?: Gtk.MessageType
-        buttons?: Gtk.ButtonsType
-        messageFormat?: string
-        messageArea?: Gtk.Widget
-        messageType?: Gtk.MessageType
-        secondaryText?: string
-        secondaryUseMarkup?: boolean
-        text?: string
-        useMarkup?: boolean
-        accessibleRole?: Gtk.AccessibleRole
       }
       Notebook: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Notebook>
@@ -823,12 +544,6 @@ declare global {
           widget: Gtk.Widget,
           allocation: Gdk.Rectangle
         ) => boolean
-      }
-      PageSetupUnixDialog: JSX.IntrinsicElements["Dialog"] & {
-        ref?: React.Ref<Gtk.PageSetupUnixDialog>
-        title?: string
-        parent?: Gtk.Window
-        accessibleRole?: Gtk.AccessibleRole
       }
       Paned: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Paned>
@@ -911,20 +626,6 @@ declare global {
         ref?: React.Ref<Gtk.PopoverMenuBar>
         model?: Gio.MenuModel
         menuModel: Gio.MenuModel
-        accessibleRole?: Gtk.AccessibleRole
-      }
-      PrintUnixDialog: JSX.IntrinsicElements["Dialog"] & {
-        ref?: React.Ref<Gtk.PrintUnixDialog>
-        title?: string
-        parent?: Gtk.Window
-        currentPage?: number
-        embedPageSetup?: boolean
-        hasSelection?: boolean
-        manualCapabilities?: Gtk.PrintCapabilities
-        pageSetup: Gtk.PageSetup
-        printSettings: Gtk.PrintSettings
-        selectedPrinter: Gtk.Printer
-        supportSelection?: boolean
         accessibleRole?: Gtk.AccessibleRole
       }
       ProgressBar: JSX.IntrinsicElements["Widget"] & {
@@ -1171,12 +872,6 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
       }
-      Statusbar: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.Statusbar>
-        accessibleRole?: Gtk.AccessibleRole
-        onTextPopped?: (contextId: number, text: string) => boolean
-        onTextPushed?: (contextId: number, text: string) => boolean
-      }
       Switch: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Switch>
         active?: boolean
@@ -1311,58 +1006,6 @@ declare global {
         listRow: Gtk.TreeListRow
         accessibleRole?: Gtk.AccessibleRole
       }
-      TreeView: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.TreeView>
-        activateOnSingleClick?: boolean
-        enableGridLines?: Gtk.TreeViewGridLines
-        enableSearch?: boolean
-        enableTreeLines?: boolean
-        expanderColumn: Gtk.TreeViewColumn
-        fixedHeightMode?: boolean
-        headersClickable?: boolean
-        headersVisible?: boolean
-        hoverExpand?: boolean
-        hoverSelection?: boolean
-        levelIndentation?: number
-        model: Gtk.TreeModel
-        reorderable?: boolean
-        rubberBanding?: boolean
-        searchColumn?: number
-        showExpanders?: boolean
-        tooltipColumn?: number
-        accessibleRole?: Gtk.AccessibleRole
-        hadjustment: Gtk.Adjustment
-        hscrollPolicy?: Gtk.ScrollablePolicy
-        vadjustment: Gtk.Adjustment
-        vscrollPolicy?: Gtk.ScrollablePolicy
-        onColumnsChanged?: () => boolean
-        onCursorChanged?: () => boolean
-        onExpandCollapseCursorRow?: (
-          object: boolean,
-          p0: boolean,
-          p1: boolean
-        ) => boolean
-        onMoveCursor?: (
-          step: Gtk.MovementStep,
-          direction: number,
-          extend: boolean,
-          modify: boolean
-        ) => boolean
-        onRowActivated?: (
-          path: Gtk.TreePath,
-          column?: Gtk.TreeViewColumn
-        ) => boolean
-        onRowCollapsed?: (iter: Gtk.TreeIter, path: Gtk.TreePath) => boolean
-        onRowExpanded?: (iter: Gtk.TreeIter, path: Gtk.TreePath) => boolean
-        onSelectAll?: () => boolean
-        onSelectCursorParent?: () => boolean
-        onSelectCursorRow?: (object: boolean) => boolean
-        onStartInteractiveSearch?: () => boolean
-        onTestCollapseRow?: (iter: Gtk.TreeIter, path: Gtk.TreePath) => boolean
-        onTestExpandRow?: (iter: Gtk.TreeIter, path: Gtk.TreePath) => boolean
-        onToggleCursorRow?: () => boolean
-        onUnselectAll?: () => boolean
-      }
       Video: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Video>
         autoplay?: boolean
@@ -1380,12 +1023,6 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         hscrollPolicy?: Gtk.ScrollablePolicy
         vscrollPolicy?: Gtk.ScrollablePolicy
-      }
-      VolumeButton: JSX.IntrinsicElements["ScaleButton"] & {
-        ref?: React.Ref<Gtk.VolumeButton>
-        useSymbolic?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        orientation?: Gtk.Orientation
       }
       Widget: {
         ref?: React.Ref<Gtk.Widget>
@@ -1446,7 +1083,7 @@ declare global {
       Window: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Window>
         children?: React.ReactElement
-        application?: Gtk.Application
+        application: Gtk.Application
         decorated?: boolean
         defaultHeight?: number
         defaultWidget?: Gtk.Widget

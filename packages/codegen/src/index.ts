@@ -34,6 +34,7 @@ export interface WidgetClass {
   name: string
   ctor: GirMethod
   parent?: string
+  methods: GirMethod[]
   props: WidgetClassProperty[]
   signals: WidgetClassSignal[]
 }
@@ -94,6 +95,7 @@ async function getWidgetClasses(
 
     const widgetClass: WidgetClass = {
       name: klass.$.name,
+      methods: klass.method || [],
       ctor: (klass.ctor || [])[0] || {},
       parent: klass.$.name === "Widget" ? undefined : klass.$.parent,
       props: uniqueProps.map((prop) => ({

@@ -14,7 +14,6 @@
     "flatpak:run": "flatpak run com.example.Example"
   },
   "dependencies": {
-    "node-gtk": "^0.12.0",
     "react": "^18.2.0",
     "react-native-gtk4": "workspace:*"
   },

@@ -2,21 +2,31 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
+type Props = JSX.IntrinsicElements["Frame"] & {
+  labelWidget?: React.ReactElement
+}
+
 const Frame = "Frame"
 
-export default forwardRef<Gtk.Frame, JSX.IntrinsicElements["Frame"]>(
-  function FrameComponent({ labelWidget, ...props }, ref) {
-    const [labelWidgetRef, setLabelWidgetRef] = useState<
-      Gtk.Widget | undefined
-    >()
-    useCallback((node: Gtk.Widget) => {
-      setLabelWidgetRef(node)
-    }, [])
-    return (
-      <>
-        {labelWidget}
-        <Frame ref={ref} labelWidget={labelWidgetRef} {...props} />
-      </>
-    )
-  }
-)
+export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
+  { labelWidget, ...props },
+  ref
+) {
+  const [labelWidgetNode, setLabelWidgetNode] = useState<
+    Gtk.Widget | undefined
+  >()
+  const labelWidgetRef = useCallback((node: Gtk.Widget) => {
+    setLabelWidgetNode(node)
+  }, [])
+  const labelWidgetElement = labelWidget
+    ? React.cloneElement(labelWidget, {
+        ref: labelWidgetRef,
+      })
+    : null
+  return (
+    <>
+      {labelWidgetElement}
+      <Frame ref={ref} labelWidget={labelWidgetNode} {...props} />
+    </>
+  )
+})

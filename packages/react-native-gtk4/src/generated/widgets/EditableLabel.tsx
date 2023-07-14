@@ -4,7 +4,7 @@ import Widget from "./Widget.js"
 export default class EditableLabel<
   T extends Gtk.EditableLabel,
 > extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.EditableLabel(props.str) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

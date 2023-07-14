@@ -2,7 +2,7 @@ import { Container, Gtk } from "../../index.js"
 import ListBase from "./ListBase.js"
 
 export default class ListView<T extends Gtk.ListView> extends ListBase<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.ListView(props.model, props.factory) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

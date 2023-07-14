@@ -2,7 +2,7 @@ import { Container, Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class ListBase<T extends Gtk.ListBase> extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.ListBase() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

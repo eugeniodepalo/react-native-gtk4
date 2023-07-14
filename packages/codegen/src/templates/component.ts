@@ -5,9 +5,7 @@ interface Props {
   widgetClass: WidgetClass
 }
 
-export function getWidgetTypeProps({
-  widgetClass,
-}: Props): WidgetClassProperty[] {
+function getWidgetTypeProps({ widgetClass }: Props): WidgetClassProperty[] {
   return widgetClass.props.filter(
     (prop) => prop.type === "Widget" && prop.name !== "child" && prop.setter
   )
@@ -33,9 +31,16 @@ export default function ({ widgetClass }: Props): string | undefined {
   ts += `import { useState, useCallback, forwardRef } from "react"\n`
   ts += `import { Gtk } from "../../index.js"\n`
   ts += `\n`
+  ts += `type Props = JSX.IntrinsicElements["${className}"] & {\n`
+  for (const { name } of widgetTypeProps) {
+    const propName = camelize(name)
+    ts += `${propName}?: React.ReactElement\n`
+  }
+  ts += `}\n`
+  ts += `\n`
   ts += `const ${className} = "${className}"\n`
   ts += `\n`
-  ts += `export default forwardRef<${type}, JSX.IntrinsicElements["${className}"]>(function ${className}Component({`
+  ts += `export default forwardRef<${type}, Props>(function ${className}Component({`
 
   for (const { name } of widgetTypeProps) {
     ts += `${camelize(name)},`
@@ -46,26 +51,43 @@ export default function ({ widgetClass }: Props): string | undefined {
   for (const { name, type } of widgetTypeProps) {
     const propName = camelize(name)
     const propType = fromCtype(type)
-    ts += `const [${propName}Ref, ${camelize(
-      `set_${name}`
-    )}Ref] = useState<${propType} | undefined>()\n`
-    ts += `useCallback((node: ${propType}) => {
-      ${camelize(`set_${name}`)}Ref(node)
+    //   const [centerWidgetStateRef, setCenterWidgetStateRef] = useState<
+    //   Gtk.Widget | undefined
+    // >()
+
+    // const centerWidgetRef = useCallback((node: Gtk.Widget) => {
+    //   setCenterWidgetStateRef(node)
+    // }, [])
+
+    // const centerWidgetElement = centerWidget
+    //   ? React.cloneElement(centerWidget, {
+    //       ref: centerWidgetRef,
+    //     })
+    //   : null
+
+    ts += `const [${propName}Node, ${camelize(
+      `set_${name}_node`
+    )}] = useState<${propType} | undefined>()\n`
+    ts += `const ${propName}Ref = useCallback((node: ${propType}) => {
+      ${camelize(`set_${name}_node`)}(node)
     }, [])\n`
+    ts += `const ${propName}Element = ${propName} ? React.cloneElement(${propName}, {
+      ref: ${propName}Ref,
+    }) : null\n`
   }
 
   ts += `return (<>`
 
   for (const { name } of widgetTypeProps) {
     const propName = camelize(name)
-    ts += `{${propName}}`
+    ts += `{${propName}Element}`
   }
 
   ts += `<${className} ref={ref} `
 
   for (const { name } of widgetTypeProps) {
     const propName = camelize(name)
-    ts += `${propName}={${propName}Ref}`
+    ts += `${propName}={${propName}Node}`
   }
 
   ts += `{...props} />`

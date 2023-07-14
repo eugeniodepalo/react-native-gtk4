@@ -2,7 +2,7 @@ import { Container, Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class CheckButton<T extends Gtk.CheckButton> extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.CheckButton() as T
   }
 

@@ -39,6 +39,7 @@
     "react-reconciler": "^0.29.0"
   },
   "devDependencies": {
+    "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",
     "@types/react-reconciler": "^0.28.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

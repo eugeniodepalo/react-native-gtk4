@@ -13,6 +13,7 @@ const typeMap = {
   gint: "number",
   gdouble: "number",
   gfloat: "number",
+  filename: "string",
   "utf8[]": "string[]",
   "GObject.Object": "any",
 }

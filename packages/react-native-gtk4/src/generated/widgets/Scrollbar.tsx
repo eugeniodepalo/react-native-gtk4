@@ -2,7 +2,7 @@ import { Container, Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class Scrollbar<T extends Gtk.Scrollbar> extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.Scrollbar(props.orientation, props.adjustment) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

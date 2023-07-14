@@ -1,11 +1,7 @@
 import { GirProperty } from "../gir.js"
 import { camelize, fromCtype, underscore } from "../helpers.js"
 import { WidgetClass, WidgetClassProperty } from "../index.js"
-import BoxTemplate from "./jsx/Box.js"
-
-const templates = {
-  Box: BoxTemplate,
-} as const
+import { isContainerWidget, isSingleChildContainerWidget } from "./widget.js"
 
 interface Props {
   enums: string[]
@@ -28,7 +24,6 @@ export function isPropNullable(prop: GirProperty, enums: string[]) {
       "cursor",
       "layout_manager",
       "root",
-      "application",
       "display",
       "action_target",
       "transient_for",
@@ -60,10 +55,6 @@ export function paramsToJsxElementProps(
   for (const param of ((ctor.parameters || [])[0] || {}).parameter || []) {
     const { name } = param.$
 
-    if (name === "...") {
-      continue
-    }
-
     if (props.map((prop) => underscore(prop.name)).includes(underscore(name))) {
       continue
     }
@@ -91,13 +82,19 @@ export function generateJsxElementProps(
 
   ts += `ref?: React.Ref<${type}>\n`
 
+  if (isContainerWidget(widgetClass)) {
+    ts += `children?: React.ReactNode\n`
+  } else if (isSingleChildContainerWidget(widgetClass)) {
+    ts += `children?: React.ReactElement\n`
+  }
+
   const uniqueProps = paramsToJsxElementProps(widgetClass, enums)
 
   for (const prop of props) {
-    const { name, nullable } = prop
+    const { name } = prop
 
     if (name === "child") {
-      ts += `children${nullable ? "?" : ""}: React.ReactElement\n`
+      continue
     }
 
     if (
@@ -205,15 +202,6 @@ export default function ({ widgetClasses, enums }: Props) {
   ts += `    interface IntrinsicElements {\n`
 
   for (const widgetClass of widgetClasses) {
-    const { name } = widgetClass
-    const templateName = camelize(name) as keyof typeof templates
-    const template = templates[templateName]
-
-    if (template) {
-      ts += template({ widgetClass, enums })
-      continue
-    }
-
     ts += generateJsxElement({ widgetClass, enums })
   }
 

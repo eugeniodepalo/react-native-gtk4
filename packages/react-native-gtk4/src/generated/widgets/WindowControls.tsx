@@ -4,7 +4,7 @@ import Widget from "./Widget.js"
 export default class WindowControls<
   T extends Gtk.WindowControls,
 > extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.WindowControls(props.side) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

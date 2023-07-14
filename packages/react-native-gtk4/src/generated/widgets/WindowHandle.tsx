@@ -4,7 +4,7 @@ import Widget from "./Widget.js"
 export default class WindowHandle<
   T extends Gtk.WindowHandle,
 > extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.WindowHandle() as T
   }
 

@@ -10,9 +10,6 @@ importers:
 
   examples/flatpak:
     dependencies:
-      node-gtk:
-        specifier: ^0.12.0
-        version: 0.12.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -110,6 +107,9 @@ importers:
         specifier: ^0.29.0
         version: 0.29.0(react@18.2.0)
     devDependencies:
+      '@types/node':
+        specifier: ^20.4.1
+        version: 20.4.1
       '@types/react':
         specifier: ^18.2.14
         version: 18.2.14

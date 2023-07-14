@@ -2,29 +2,45 @@ import React from "react"
 import { useState, useCallback, forwardRef } from "react"
 import { Gtk } from "../../index.js"
 
+type Props = JSX.IntrinsicElements["Paned"] & {
+  endChild?: React.ReactElement
+  startChild?: React.ReactElement
+}
+
 const Paned = "Paned"
 
-export default forwardRef<Gtk.Paned, JSX.IntrinsicElements["Paned"]>(
-  function PanedComponent({ endChild, startChild, ...props }, ref) {
-    const [endChildRef, setEndChildRef] = useState<Gtk.Widget | undefined>()
-    useCallback((node: Gtk.Widget) => {
-      setEndChildRef(node)
-    }, [])
-    const [startChildRef, setStartChildRef] = useState<Gtk.Widget | undefined>()
-    useCallback((node: Gtk.Widget) => {
-      setStartChildRef(node)
-    }, [])
-    return (
-      <>
-        {endChild}
-        {startChild}
-        <Paned
-          ref={ref}
-          endChild={endChildRef}
-          startChild={startChildRef}
-          {...props}
-        />
-      </>
-    )
-  }
-)
+export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
+  { endChild, startChild, ...props },
+  ref
+) {
+  const [endChildNode, setEndChildNode] = useState<Gtk.Widget | undefined>()
+  const endChildRef = useCallback((node: Gtk.Widget) => {
+    setEndChildNode(node)
+  }, [])
+  const endChildElement = endChild
+    ? React.cloneElement(endChild, {
+        ref: endChildRef,
+      })
+    : null
+  const [startChildNode, setStartChildNode] = useState<Gtk.Widget | undefined>()
+  const startChildRef = useCallback((node: Gtk.Widget) => {
+    setStartChildNode(node)
+  }, [])
+  const startChildElement = startChild
+    ? React.cloneElement(startChild, {
+        ref: startChildRef,
+      })
+    : null
+  return (
+    <>
+      {endChildElement}
+      {startChildElement}
+      <Paned
+        ref={ref}
+        endChild={endChildNode}
+        startChild={startChildNode}
+        {...props}
+      />
+    </>
+  )
+})

@@ -4,7 +4,7 @@ import Button from "./Button.js"
 export default class ToggleButton<
   T extends Gtk.ToggleButton,
 > extends Button<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.ToggleButton() as T
   }
   set(propName: string, newValue: any, oldValue: any) {

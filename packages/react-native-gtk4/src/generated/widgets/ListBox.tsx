@@ -2,8 +2,15 @@ import { Container, Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.ListBox() as T
+  }
+
+  appendChild(child: Widget<any>) {
+    this.node.append(child.node)
+  }
+  removeChild(child: Widget<any>) {
+    this.node.remove(child.node)
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

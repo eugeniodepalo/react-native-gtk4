@@ -4,7 +4,7 @@ import Widget from "./Widget.js"
 export default class MediaControls<
   T extends Gtk.MediaControls,
 > extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.MediaControls(props.stream) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

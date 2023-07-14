@@ -2,7 +2,7 @@ import { Container, Gtk } from "../../index.js"
 import ListBase from "./ListBase.js"
 
 export default class GridView<T extends Gtk.GridView> extends ListBase<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.GridView(props.model, props.factory) as T
   }
   set(propName: string, newValue: any, oldValue: any) {

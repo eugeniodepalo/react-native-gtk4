@@ -4,7 +4,7 @@ import Widget from "./Widget.js"
 export default class ScrolledWindow<
   T extends Gtk.ScrolledWindow,
 > extends Widget<T> {
-  createNode(container: Container, props: Record<string, any>) {
+  createNode(props: Record<string, any>) {
     return new Gtk.ScrolledWindow() as T
   }
 

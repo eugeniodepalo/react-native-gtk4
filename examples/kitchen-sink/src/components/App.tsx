@@ -9,6 +9,8 @@ import {
   Notebook,
   Overlay,
   Stack,
+  ListBox,
+  ListBoxRow,
   StackSidebar,
 } from "react-native-gtk4"
 import { application } from "../app.js"
@@ -64,6 +66,14 @@ export default function App() {
         <Grid.Item left={1} top={0} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
             <Button label="Button 2" />
+            <ListBox>
+              <ListBoxRow>
+                <Label label="Row 1" />
+              </ListBoxRow>
+              <ListBoxRow>
+                <Label label="Row 2" />
+              </ListBoxRow>
+            </ListBox>
           </Box>
         </Grid.Item>
         <Grid.Item left={0} top={1} width={1} height={1}>

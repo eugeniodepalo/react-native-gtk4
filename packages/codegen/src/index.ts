@@ -37,10 +37,7 @@ export interface WidgetClass {
   signals: WidgetClassSignal[]
 }
 
-async function getWidgetClasses(
-  gir: Gir,
-  enums: string[]
-): Promise<WidgetClass[]> {
+async function getWidgetClasses(gir: Gir): Promise<WidgetClass[]> {
   const girWidgetClasses = getGirWidgetClasses(gir)
   const interfacesByName: Record<string, GirInterface> = {}
 
@@ -135,11 +132,7 @@ function writeToGeneratedFile(path: string, content: string | undefined) {
 async function main() {
   const gir = await parseGir()
 
-  const enums = (gir.repository.namespace[0].enumeration || []).map(
-    (enumeration) => enumeration.$.name
-  )
-
-  const widgetClasses = await getWidgetClasses(gir, enums)
+  const widgetClasses = await getWidgetClasses(gir)
 
   for (const widgetClass of widgetClasses) {
     writeToGeneratedFile(
@@ -157,7 +150,7 @@ async function main() {
     templates.componentIndex({ widgetClasses })
   )
   writeToGeneratedFile("intrinsics.ts", templates.intrinsics({ widgetClasses }))
-  writeToGeneratedFile("jsx.ts", templates.jsx({ widgetClasses, enums }))
+  writeToGeneratedFile("jsx.ts", templates.jsx({ widgetClasses }))
   writeToGeneratedFile("widgets.ts", templates.widgetIndex({ widgetClasses }))
 }
 

@@ -2,13 +2,11 @@ import { camelize, fromCtype, underscore } from "../helpers.js"
 import { WidgetClass, WidgetClassProperty } from "../index.js"
 
 interface Props {
-  enums: string[]
   widgetClasses: WidgetClass[]
 }
 
 export function paramsToJsxElementProps(
-  widgetClass: WidgetClass,
-  enums: string[]
+  widgetClass: WidgetClass
 ): WidgetClassProperty[] {
   const props: WidgetClassProperty[] = []
   const { ctor } = widgetClass
@@ -32,7 +30,7 @@ export function paramsToJsxElementProps(
   return props
 }
 
-function generateJsxElementProps(widgetClass: WidgetClass, enums: string[]) {
+function generateJsxElementProps(widgetClass: WidgetClass) {
   const { props, signals, name } = widgetClass
   const type = fromCtype(name)
   let ts = ""
@@ -43,7 +41,7 @@ function generateJsxElementProps(widgetClass: WidgetClass, enums: string[]) {
     ts += `children?: React.ReactNode\n`
   }
 
-  const uniqueProps = paramsToJsxElementProps(widgetClass, enums)
+  const uniqueProps = paramsToJsxElementProps(widgetClass)
 
   for (const prop of props) {
     const { name } = prop
@@ -90,13 +88,11 @@ function generateJsxElementProps(widgetClass: WidgetClass, enums: string[]) {
 interface JsxElementTemplate {
   widgetClass: WidgetClass
   propsSection?: string
-  enums: string[]
 }
 
 function generateJsxElement({
   widgetClass,
-  enums,
-  propsSection = generateJsxElementProps(widgetClass, enums),
+  propsSection = generateJsxElementProps(widgetClass),
 }: JsxElementTemplate) {
   const { name, parent } = widgetClass
   const parentName = camelize(parent ?? "")
@@ -116,7 +112,7 @@ function generateJsxElement({
   return ts
 }
 
-export default function ({ widgetClasses, enums }: Props) {
+export default function ({ widgetClasses }: Props) {
   let ts = ""
 
   const requiredImports = new Set<string>()
@@ -131,7 +127,7 @@ export default function ({ widgetClasses, enums }: Props) {
       }
     }
 
-    for (const { type } of paramsToJsxElementProps(widgetClass, enums)) {
+    for (const { type } of paramsToJsxElementProps(widgetClass)) {
       const importName = fromCtype(type)
       if (importName.includes(".")) {
         requiredImports.add(importName.split(".")[0])
@@ -155,7 +151,7 @@ export default function ({ widgetClasses, enums }: Props) {
   ts += `    interface IntrinsicElements {\n`
 
   for (const widgetClass of widgetClasses) {
-    ts += generateJsxElement({ widgetClass, enums })
+    ts += generateJsxElement({ widgetClass })
   }
 
   ts += `}\n`

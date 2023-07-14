@@ -28,10 +28,6 @@ export interface GirProperty {
   }
 }
 
-export interface GirEnumeration {
-  $: GirAttributes
-}
-
 export interface GirParameters {
   parameter: GirParameter[]
 }
@@ -81,7 +77,6 @@ export interface GirNamespace {
   $: GirAttributes
   interface?: GirInterface[]
   class?: GirClass[]
-  enumeration?: GirEnumeration[]
 }
 
 export interface Gir {

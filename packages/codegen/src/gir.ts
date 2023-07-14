@@ -24,9 +24,6 @@ export interface GirProperty {
   array?: GirArray[]
   type: GirType[]
   $: GirAttributes & {
-    "default-value"?: string
-    "allow-none"?: string
-    nullable?: string
     setter?: string
   }
 }

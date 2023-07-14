@@ -1,4 +1,4 @@
-import { camelize, fromCtype, isPropNullable, underscore } from "../helpers.js"
+import { camelize, fromCtype, underscore } from "../helpers.js"
 import { WidgetClass, WidgetClassProperty } from "../index.js"
 
 interface Props {
@@ -25,7 +25,6 @@ export function paramsToJsxElementProps(
       type: param.array
         ? `${param.array[0].type[0].$.name}[]`
         : param.type[0].$.name,
-      nullable: isPropNullable(param, enums),
       array: !!param.array,
     })
   }
@@ -64,14 +63,12 @@ function generateJsxElementProps(widgetClass: WidgetClass, enums: string[]) {
     uniqueProps.push(prop)
   }
 
-  for (const { name: propName, type, array, nullable } of uniqueProps) {
+  for (const { name: propName, type, array } of uniqueProps) {
     if (propName === "child") {
       continue
     }
 
-    ts += `${camelize(propName)}${nullable ? "?" : ""}: ${fromCtype(type)}${
-      array ? "[]" : ""
-    }\n`
+    ts += `${camelize(propName)}?: ${fromCtype(type)}${array ? "[]" : ""}\n`
   }
 
   for (const { name: signalName, params } of signals) {

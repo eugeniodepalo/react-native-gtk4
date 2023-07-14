@@ -9,12 +9,10 @@ import {
   GirMethod,
 } from "./gir.js"
 import * as templates from "./templates.js"
-import { isPropNullable } from "./helpers.js"
 
 export interface WidgetClassProperty {
   name: string
   type: string
-  nullable: boolean
   array: boolean
   setter?: string
 }
@@ -102,7 +100,6 @@ async function getWidgetClasses(
         name: prop.$.name,
         array: prop.array !== undefined,
         setter: prop.$.setter,
-        nullable: isPropNullable(prop, enums),
         type: (prop.array ? prop.array[0].type : prop.type)[0].$.name,
       })),
       signals: uniqueSignals.map((signal) => ({

@@ -13,7 +13,7 @@ declare global {
         documenters?: string[]
         license?: string
         licenseType?: Gtk.License
-        logo: Gdk.Paintable
+        logo?: Gdk.Paintable
         logoIconName?: string
         programName?: string
         systemInformation?: string
@@ -32,7 +32,7 @@ declare global {
       }
       ApplicationWindow: JSX.IntrinsicElements["Window"] & {
         ref?: React.Ref<Gtk.ApplicationWindow>
-        application: Gtk.Application
+        application?: Gtk.Application
         showMenubar?: boolean
         accessibleRole?: Gtk.AccessibleRole
       }
@@ -91,7 +91,7 @@ declare global {
       CheckButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.CheckButton>
         active?: boolean
-        group: Gtk.CheckButton
+        group?: Gtk.CheckButton
         inconsistent?: boolean
         label?: string
         useUnderline?: boolean
@@ -104,23 +104,23 @@ declare global {
       ColorDialogButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ColorDialogButton>
         dialog?: Gtk.ColorDialog
-        rgba: Gdk.RGBA
+        rgba?: Gdk.RGBA
         accessibleRole?: Gtk.AccessibleRole
       }
       ColumnView: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ColumnView>
         model?: Gtk.SelectionModel
-        columns: Gio.ListModel
+        columns?: Gio.ListModel
         enableRubberband?: boolean
         reorderable?: boolean
         showColumnSeparators?: boolean
         showRowSeparators?: boolean
         singleClickActivate?: boolean
-        sorter: Gtk.Sorter
+        sorter?: Gtk.Sorter
         accessibleRole?: Gtk.AccessibleRole
-        hadjustment: Gtk.Adjustment
+        hadjustment?: Gtk.Adjustment
         hscrollPolicy?: Gtk.ScrollablePolicy
-        vadjustment: Gtk.Adjustment
+        vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
         onActivate?: (position: number) => boolean
       }
@@ -140,10 +140,10 @@ declare global {
         model?: Gio.ListModel
         expression?: Gtk.Expression
         enableSearch?: boolean
-        factory: Gtk.ListItemFactory
-        listFactory: Gtk.ListItemFactory
+        factory?: Gtk.ListItemFactory
+        listFactory?: Gtk.ListItemFactory
         selected?: number
-        selectedItem: any
+        selectedItem?: any
         showArrow?: boolean
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: () => boolean
@@ -177,11 +177,11 @@ declare global {
       Entry: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Entry>
         activatesDefault?: boolean
-        attributes: Pango.AttrList
-        buffer: Gtk.EntryBuffer
-        completion: Gtk.EntryCompletion
+        attributes?: Pango.AttrList
+        buffer?: Gtk.EntryBuffer
+        completion?: Gtk.EntryCompletion
         enableEmojiCompletion?: boolean
-        extraMenu: Gio.MenuModel
+        extraMenu?: Gio.MenuModel
         hasFrame?: boolean
         imModule?: string
         inputHints?: Gtk.InputHints
@@ -192,9 +192,9 @@ declare global {
         overwriteMode?: boolean
         placeholderText?: string
         primaryIconActivatable?: boolean
-        primaryIconGicon: Gio.Icon
+        primaryIconGicon?: Gio.Icon
         primaryIconName?: string
-        primaryIconPaintable: Gdk.Paintable
+        primaryIconPaintable?: Gdk.Paintable
         primaryIconSensitive?: boolean
         primaryIconStorageType?: Gtk.ImageType
         primaryIconTooltipMarkup?: string
@@ -203,15 +203,15 @@ declare global {
         progressPulseStep?: number
         scrollOffset?: number
         secondaryIconActivatable?: boolean
-        secondaryIconGicon: Gio.Icon
+        secondaryIconGicon?: Gio.Icon
         secondaryIconName?: string
-        secondaryIconPaintable: Gdk.Paintable
+        secondaryIconPaintable?: Gdk.Paintable
         secondaryIconSensitive?: boolean
         secondaryIconStorageType?: Gtk.ImageType
         secondaryIconTooltipMarkup?: string
         secondaryIconTooltipText?: string
         showEmojiIcon?: boolean
-        tabs: Pango.TabArray
+        tabs?: Pango.TabArray
         textLength?: number
         truncateMultiline?: boolean
         visibility?: boolean
@@ -286,9 +286,9 @@ declare global {
       FontDialogButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FontDialogButton>
         dialog?: Gtk.FontDialog
-        fontDesc: Pango.FontDescription
+        fontDesc?: Pango.FontDescription
         fontFeatures?: string
-        language: Pango.Language
+        language?: Pango.Language
         level?: Gtk.FontLevel
         useFont?: boolean
         useSize?: boolean
@@ -304,7 +304,7 @@ declare global {
       GLArea: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.GLArea>
         autoRender?: boolean
-        context: Gdk.GLContext
+        context?: Gdk.GLContext
         hasDepthBuffer?: boolean
         hasStencilBuffer?: boolean
         useEs?: boolean
@@ -333,9 +333,9 @@ declare global {
         singleClickActivate?: boolean
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
-        hadjustment: Gtk.Adjustment
+        hadjustment?: Gtk.Adjustment
         hscrollPolicy?: Gtk.ScrollablePolicy
-        vadjustment: Gtk.Adjustment
+        vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
         onActivate?: (position: number) => boolean
       }
@@ -349,10 +349,10 @@ declare global {
       Image: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Image>
         file?: string
-        gicon: Gio.Icon
+        gicon?: Gio.Icon
         iconName?: string
         iconSize?: Gtk.IconSize
-        paintable: Gdk.Paintable
+        paintable?: Gdk.Paintable
         pixelSize?: number
         resource?: string
         storageType?: Gtk.ImageType
@@ -362,7 +362,7 @@ declare global {
       Inscription: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Inscription>
         text?: string
-        attributes: Pango.AttrList
+        attributes?: Pango.AttrList
         markup?: string
         minChars?: number
         minLines?: number
@@ -377,9 +377,9 @@ declare global {
       Label: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Label>
         str?: string
-        attributes: Pango.AttrList
+        attributes?: Pango.AttrList
         ellipsize?: Pango.EllipsizeMode
-        extraMenu: Gio.MenuModel
+        extraMenu?: Gio.MenuModel
         justify?: Gtk.Justification
         label?: string
         lines?: number
@@ -389,7 +389,7 @@ declare global {
         naturalWrapMode?: Gtk.NaturalWrapMode
         selectable?: boolean
         singleLineMode?: boolean
-        tabs: Pango.TabArray
+        tabs?: Pango.TabArray
         useMarkup?: boolean
         useUnderline?: boolean
         widthChars?: number
@@ -431,9 +431,9 @@ declare global {
         ref?: React.Ref<Gtk.ListBase>
         orientation?: Gtk.Orientation
         accessibleRole?: Gtk.AccessibleRole
-        hadjustment: Gtk.Adjustment
+        hadjustment?: Gtk.Adjustment
         hscrollPolicy?: Gtk.ScrollablePolicy
-        vadjustment: Gtk.Adjustment
+        vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
       }
       ListBox: JSX.IntrinsicElements["Widget"] & {
@@ -475,16 +475,16 @@ declare global {
         singleClickActivate?: boolean
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
-        hadjustment: Gtk.Adjustment
+        hadjustment?: Gtk.Adjustment
         hscrollPolicy?: Gtk.ScrollablePolicy
-        vadjustment: Gtk.Adjustment
+        vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
         onActivate?: (position: number) => boolean
       }
       MediaControls: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.MediaControls>
         stream?: Gtk.MediaStream
-        mediaStream: Gtk.MediaStream
+        mediaStream?: Gtk.MediaStream
         accessibleRole?: Gtk.AccessibleRole
       }
       MenuButton: JSX.IntrinsicElements["Widget"] & {
@@ -495,8 +495,8 @@ declare global {
         hasFrame?: boolean
         iconName?: string
         label?: string
-        menuModel: Gio.MenuModel
-        popover: Gtk.Popover
+        menuModel?: Gio.MenuModel
+        popover?: Gtk.Popover
         primary?: boolean
         useUnderline?: boolean
         accessibleRole?: Gtk.AccessibleRole
@@ -507,7 +507,7 @@ declare global {
         enablePopup?: boolean
         groupName?: string
         page?: number
-        pages: Gio.ListModel
+        pages?: Gio.ListModel
         scrollable?: boolean
         showBorder?: boolean
         showTabs?: boolean
@@ -557,7 +557,7 @@ declare global {
       PasswordEntry: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.PasswordEntry>
         activatesDefault?: boolean
-        extraMenu: Gio.MenuModel
+        extraMenu?: Gio.MenuModel
         placeholderText?: string
         showPeekIcon?: boolean
         accessibleRole?: Gtk.AccessibleRole
@@ -583,9 +583,9 @@ declare global {
         alternativeText?: string
         canShrink?: boolean
         contentFit?: Gtk.ContentFit
-        file: Gio.File
+        file?: Gio.File
         keepAspectRatio?: boolean
-        paintable: Gdk.Paintable
+        paintable?: Gdk.Paintable
         accessibleRole?: Gtk.AccessibleRole
       }
       Popover: JSX.IntrinsicElements["Widget"] & {
@@ -595,7 +595,7 @@ declare global {
         defaultWidget?: Gtk.Widget
         hasArrow?: boolean
         mnemonicsVisible?: boolean
-        pointingTo: Gdk.Rectangle
+        pointingTo?: Gdk.Rectangle
         position?: Gtk.PositionType
         accessibleRole?: Gtk.AccessibleRole
         onActivateDefault?: () => boolean
@@ -604,14 +604,14 @@ declare global {
       PopoverMenu: JSX.IntrinsicElements["Popover"] & {
         ref?: React.Ref<Gtk.PopoverMenu>
         model?: Gio.MenuModel
-        menuModel: Gio.MenuModel
+        menuModel?: Gio.MenuModel
         visibleSubmenu?: string
         accessibleRole?: Gtk.AccessibleRole
       }
       PopoverMenuBar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.PopoverMenuBar>
         model?: Gio.MenuModel
-        menuModel: Gio.MenuModel
+        menuModel?: Gio.MenuModel
         accessibleRole?: Gtk.AccessibleRole
       }
       ProgressBar: JSX.IntrinsicElements["Widget"] & {
@@ -627,7 +627,7 @@ declare global {
       }
       Range: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Range>
-        adjustment: Gtk.Adjustment
+        adjustment?: Gtk.Adjustment
         fillLevel?: number
         inverted?: boolean
         restrictToFillLevel?: boolean
@@ -665,7 +665,7 @@ declare global {
         step?: number
         icons?: string[][]
         active?: boolean
-        adjustment: Gtk.Adjustment
+        adjustment?: Gtk.Adjustment
         value?: number
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
@@ -681,7 +681,7 @@ declare global {
       }
       ScrolledWindow: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ScrolledWindow>
-        hadjustment: Gtk.Adjustment
+        hadjustment?: Gtk.Adjustment
         hasFrame?: boolean
         hscrollbarPolicy?: Gtk.PolicyType
         kineticScrolling?: boolean
@@ -692,7 +692,7 @@ declare global {
         overlayScrolling?: boolean
         propagateNaturalHeight?: boolean
         propagateNaturalWidth?: boolean
-        vadjustment: Gtk.Adjustment
+        vadjustment?: Gtk.Adjustment
         vscrollbarPolicy?: Gtk.PolicyType
         windowPlacement?: Gtk.CornerType
         accessibleRole?: Gtk.AccessibleRole
@@ -749,10 +749,10 @@ declare global {
       }
       ShortcutsGroup: JSX.IntrinsicElements["Box"] & {
         ref?: React.Ref<Gtk.ShortcutsGroup>
-        accelSizeGroup: Gtk.SizeGroup
+        accelSizeGroup?: Gtk.SizeGroup
         height?: number
         title?: string
-        titleSizeGroup: Gtk.SizeGroup
+        titleSizeGroup?: Gtk.SizeGroup
         view?: string
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
@@ -769,17 +769,17 @@ declare global {
       }
       ShortcutsShortcut: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ShortcutsShortcut>
-        accelSizeGroup: Gtk.SizeGroup
+        accelSizeGroup?: Gtk.SizeGroup
         accelerator?: string
         actionName?: string
         direction?: Gtk.TextDirection
-        icon: Gio.Icon
+        icon?: Gio.Icon
         iconSet?: boolean
         shortcutType?: Gtk.ShortcutType
         subtitle?: string
         subtitleSet?: boolean
         title?: string
-        titleSizeGroup: Gtk.SizeGroup
+        titleSizeGroup?: Gtk.SizeGroup
         accessibleRole?: Gtk.AccessibleRole
       }
       ShortcutsWindow: JSX.IntrinsicElements["Window"] & {
@@ -835,7 +835,7 @@ declare global {
         ref?: React.Ref<Gtk.Stack>
         hhomogeneous?: boolean
         interpolateSize?: boolean
-        pages: Gtk.SelectionModel
+        pages?: Gtk.SelectionModel
         transitionDuration?: number
         transitionRunning?: boolean
         transitionType?: Gtk.StackTransitionType
@@ -846,12 +846,12 @@ declare global {
       }
       StackSidebar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.StackSidebar>
-        stack: Gtk.Stack
+        stack?: Gtk.Stack
         accessibleRole?: Gtk.AccessibleRole
       }
       StackSwitcher: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.StackSwitcher>
-        stack: Gtk.Stack
+        stack?: Gtk.Stack
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
       }
@@ -868,10 +868,10 @@ declare global {
       Text: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Text>
         activatesDefault?: boolean
-        attributes: Pango.AttrList
-        buffer: Gtk.EntryBuffer
+        attributes?: Pango.AttrList
+        buffer?: Gtk.EntryBuffer
         enableEmojiCompletion?: boolean
-        extraMenu: Gio.MenuModel
+        extraMenu?: Gio.MenuModel
         imModule?: string
         inputHints?: Gtk.InputHints
         inputPurpose?: Gtk.InputPurpose
@@ -882,7 +882,7 @@ declare global {
         placeholderText?: string
         propagateTextWidth?: boolean
         scrollOffset?: number
-        tabs: Pango.TabArray
+        tabs?: Pango.TabArray
         truncateMultiline?: boolean
         visibility?: boolean
         accessibleRole?: Gtk.AccessibleRole
@@ -921,10 +921,10 @@ declare global {
         ref?: React.Ref<Gtk.TextView>
         acceptsTab?: boolean
         bottomMargin?: number
-        buffer: Gtk.TextBuffer
+        buffer?: Gtk.TextBuffer
         cursorVisible?: boolean
         editable?: boolean
-        extraMenu: Gio.MenuModel
+        extraMenu?: Gio.MenuModel
         imModule?: string
         indent?: number
         inputHints?: Gtk.InputHints
@@ -937,13 +937,13 @@ declare global {
         pixelsBelowLines?: number
         pixelsInsideWrap?: number
         rightMargin?: number
-        tabs: Pango.TabArray
+        tabs?: Pango.TabArray
         topMargin?: number
         wrapMode?: Gtk.WrapMode
         accessibleRole?: Gtk.AccessibleRole
-        hadjustment: Gtk.Adjustment
+        hadjustment?: Gtk.Adjustment
         hscrollPolicy?: Gtk.ScrollablePolicy
-        vadjustment: Gtk.Adjustment
+        vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
         onBackspace?: () => boolean
         onCopyClipboard?: () => boolean
@@ -973,7 +973,7 @@ declare global {
       ToggleButton: JSX.IntrinsicElements["Button"] & {
         ref?: React.Ref<Gtk.ToggleButton>
         active?: boolean
-        group: Gtk.ToggleButton
+        group?: Gtk.ToggleButton
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
         actionTarget?: GLib.Variant
@@ -984,16 +984,16 @@ declare global {
         hideExpander?: boolean
         indentForDepth?: boolean
         indentForIcon?: boolean
-        item: any
-        listRow: Gtk.TreeListRow
+        item?: any
+        listRow?: Gtk.TreeListRow
         accessibleRole?: Gtk.AccessibleRole
       }
       Video: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Video>
         autoplay?: boolean
-        file: Gio.File
+        file?: Gio.File
         loop?: boolean
-        mediaStream: Gtk.MediaStream
+        mediaStream?: Gtk.MediaStream
         accessibleRole?: Gtk.AccessibleRole
       }
       Viewport: JSX.IntrinsicElements["Widget"] & {
@@ -1064,7 +1064,7 @@ declare global {
       }
       Window: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Window>
-        application: Gtk.Application
+        application?: Gtk.Application
         decorated?: boolean
         defaultHeight?: number
         defaultWidget?: Gtk.Widget

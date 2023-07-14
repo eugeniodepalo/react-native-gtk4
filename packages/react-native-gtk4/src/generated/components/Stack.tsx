@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Stack, Props>(function StackComponent(
     Gtk.Widget | undefined
   >()
   const visibleChildRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setVisibleChildNode(node))
+    setVisibleChildNode(node)
   }, [])
   const visibleChildElement = visibleChild
     ? React.cloneElement(visibleChild, {
@@ -24,9 +24,8 @@ export default forwardRef<Gtk.Stack, Props>(function StackComponent(
       })
     : null
   return (
-    <>
+    <Stack ref={ref} visibleChild={visibleChildNode} {...props}>
       {visibleChildElement}
-      <Stack ref={ref} visibleChild={visibleChildNode} {...props} />
-    </>
+    </Stack>
   )
 })

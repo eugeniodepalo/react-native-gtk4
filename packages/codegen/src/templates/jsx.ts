@@ -1,7 +1,6 @@
 import { GirProperty } from "../gir.js"
 import { camelize, fromCtype, underscore } from "../helpers.js"
 import { WidgetClass, WidgetClassProperty } from "../index.js"
-import { isContainerWidget, isSingleChildContainerWidget } from "./widget.js"
 
 interface Props {
   enums: string[]
@@ -82,10 +81,8 @@ export function generateJsxElementProps(
 
   ts += `ref?: React.Ref<${type}>\n`
 
-  if (isContainerWidget(widgetClass)) {
+  if (name === "Widget") {
     ts += `children?: React.ReactNode\n`
-  } else if (isSingleChildContainerWidget(widgetClass)) {
-    ts += `children?: React.ReactElement\n`
   }
 
   const uniqueProps = paramsToJsxElementProps(widgetClass, enums)

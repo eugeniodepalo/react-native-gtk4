@@ -1,0 +1,20 @@
+{
+  "name": "kitchen-sink",
+  "version": "1.0.0",
+  "description": "An example of a React Native GTK4 app showcasing most of the components",
+  "main": "dist/index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "pnpm run build && node dist/index.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native-gtk4": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "typescript": "^5.1.6"
+  }
+}

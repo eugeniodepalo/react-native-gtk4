@@ -20,7 +20,7 @@ export default forwardRef<Gtk.Window, Props>(function WindowComponent(
     Gtk.Widget | undefined
   >()
   const defaultWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setDefaultWidgetNode(node))
+    setDefaultWidgetNode(node)
   }, [])
   const defaultWidgetElement = defaultWidget
     ? React.cloneElement(defaultWidget, {
@@ -29,7 +29,7 @@ export default forwardRef<Gtk.Window, Props>(function WindowComponent(
     : null
   const [titlebarNode, setTitlebarNode] = useState<Gtk.Widget | undefined>()
   const titlebarRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setTitlebarNode(node))
+    setTitlebarNode(node)
   }, [])
   const titlebarElement = titlebar
     ? React.cloneElement(titlebar, {
@@ -37,15 +37,14 @@ export default forwardRef<Gtk.Window, Props>(function WindowComponent(
       })
     : null
   return (
-    <>
+    <Window
+      ref={ref}
+      defaultWidget={defaultWidgetNode}
+      titlebar={titlebarNode}
+      {...props}
+    >
       {defaultWidgetElement}
       {titlebarElement}
-      <Window
-        ref={ref}
-        defaultWidget={defaultWidgetNode}
-        titlebar={titlebarNode}
-        {...props}
-      />
-    </>
+    </Window>
   )
 })

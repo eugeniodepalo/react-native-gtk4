@@ -16,7 +16,7 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
     Gtk.Widget | undefined
   >()
   const titleWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setTitleWidgetNode(node))
+    setTitleWidgetNode(node)
   }, [])
   const titleWidgetElement = titleWidget
     ? React.cloneElement(titleWidget, {
@@ -24,9 +24,8 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
       })
     : null
   return (
-    <>
+    <HeaderBar ref={ref} titleWidget={titleWidgetNode} {...props}>
       {titleWidgetElement}
-      <HeaderBar ref={ref} titleWidget={titleWidgetNode} {...props} />
-    </>
+    </HeaderBar>
   )
 })

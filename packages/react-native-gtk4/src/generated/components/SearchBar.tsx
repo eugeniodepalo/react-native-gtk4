@@ -19,7 +19,7 @@ export default forwardRef<Gtk.SearchBar, Props>(function SearchBarComponent(
     Gtk.Widget | undefined
   >()
   const keyCaptureWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setKeyCaptureWidgetNode(node))
+    setKeyCaptureWidgetNode(node)
   }, [])
   const keyCaptureWidgetElement = keyCaptureWidget
     ? React.cloneElement(keyCaptureWidget, {
@@ -27,9 +27,8 @@ export default forwardRef<Gtk.SearchBar, Props>(function SearchBarComponent(
       })
     : null
   return (
-    <>
+    <SearchBar ref={ref} keyCaptureWidget={keyCaptureWidgetNode} {...props}>
       {keyCaptureWidgetElement}
-      <SearchBar ref={ref} keyCaptureWidget={keyCaptureWidgetNode} {...props} />
-    </>
+    </SearchBar>
   )
 })

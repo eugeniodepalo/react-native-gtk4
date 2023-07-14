@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
     Gtk.Widget | undefined
   >()
   const labelWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setLabelWidgetNode(node))
+    setLabelWidgetNode(node)
   }, [])
   const labelWidgetElement = labelWidget
     ? React.cloneElement(labelWidget, {
@@ -24,9 +24,8 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
       })
     : null
   return (
-    <>
+    <Expander ref={ref} labelWidget={labelWidgetNode} {...props}>
       {labelWidgetElement}
-      <Expander ref={ref} labelWidget={labelWidgetNode} {...props} />
-    </>
+    </Expander>
   )
 })

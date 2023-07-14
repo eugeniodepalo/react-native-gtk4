@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
     Gtk.Widget | undefined
   >()
   const labelWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setLabelWidgetNode(node))
+    setLabelWidgetNode(node)
   }, [])
   const labelWidgetElement = labelWidget
     ? React.cloneElement(labelWidget, {
@@ -24,9 +24,8 @@ export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
       })
     : null
   return (
-    <>
+    <Frame ref={ref} labelWidget={labelWidgetNode} {...props}>
       {labelWidgetElement}
-      <Frame ref={ref} labelWidget={labelWidgetNode} {...props} />
-    </>
+    </Frame>
   )
 })

@@ -61,29 +61,28 @@ export default function ({ widgetClass }: Props): string | undefined {
       `set_${name}_node`
     )}] = useState<${propType} | undefined>()\n`
     ts += `const ${propName}Ref = useCallback((node: ${propType}) => {
-      setTimeout(() => ${camelize(`set_${name}_node`)}(node))
+     ${camelize(`set_${name}_node`)}(node)
     }, [])\n`
     ts += `const ${propName}Element = ${propName} ? React.cloneElement(${propName}, {
       ref: ${propName}Ref,
     }) : null\n`
   }
 
-  ts += `return (<>`
-
-  for (const { name } of widgetTypeProps) {
-    const propName = camelize(name)
-    ts += `{${propName}Element}`
-  }
-
-  ts += `<${className} ref={ref} `
+  ts += `return (<${className} ref={ref} `
 
   for (const { name } of widgetTypeProps) {
     const propName = camelize(name)
     ts += `${propName}={${propName}Node}`
   }
 
-  ts += `{...props} />`
-  ts += `</>)`
+  ts += `{...props}>\n`
+
+  for (const { name } of widgetTypeProps) {
+    const propName = camelize(name)
+    ts += `{${propName}Element}\n`
+  }
+
+  ts += `</${className}>)`
   ts += `})`
 
   return ts

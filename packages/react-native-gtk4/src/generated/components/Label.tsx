@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Label, Props>(function LabelComponent(
     Gtk.Widget | undefined
   >()
   const mnemonicWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setMnemonicWidgetNode(node))
+    setMnemonicWidgetNode(node)
   }, [])
   const mnemonicWidgetElement = mnemonicWidget
     ? React.cloneElement(mnemonicWidget, {
@@ -24,9 +24,8 @@ export default forwardRef<Gtk.Label, Props>(function LabelComponent(
       })
     : null
   return (
-    <>
+    <Label ref={ref} mnemonicWidget={mnemonicWidgetNode} {...props}>
       {mnemonicWidgetElement}
-      <Label ref={ref} mnemonicWidget={mnemonicWidgetNode} {...props} />
-    </>
+    </Label>
   )
 })

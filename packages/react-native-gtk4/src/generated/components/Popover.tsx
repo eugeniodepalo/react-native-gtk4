@@ -16,7 +16,7 @@ export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
     Gtk.Widget | undefined
   >()
   const defaultWidgetRef = useCallback((node: Gtk.Widget) => {
-    setTimeout(() => setDefaultWidgetNode(node))
+    setDefaultWidgetNode(node)
   }, [])
   const defaultWidgetElement = defaultWidget
     ? React.cloneElement(defaultWidget, {
@@ -24,9 +24,8 @@ export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
       })
     : null
   return (
-    <>
+    <Popover ref={ref} defaultWidget={defaultWidgetNode} {...props}>
       {defaultWidgetElement}
-      <Popover ref={ref} defaultWidget={defaultWidgetNode} {...props} />
-    </>
+    </Popover>
   )
 })

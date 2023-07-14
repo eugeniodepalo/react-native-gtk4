@@ -38,7 +38,6 @@ declare global {
       }
       AspectFrame: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.AspectFrame>
-        children?: React.ReactElement
         xalign?: number
         yalign?: number
         ratio?: number
@@ -47,7 +46,6 @@ declare global {
       }
       Box: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Box>
-        children?: React.ReactNode
         orientation?: Gtk.Orientation
         spacing?: number
         baselinePosition?: Gtk.BaselinePosition
@@ -56,7 +54,6 @@ declare global {
       }
       Button: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Button>
-        children?: React.ReactElement
         hasFrame?: boolean
         iconName?: string
         label?: string
@@ -93,7 +90,6 @@ declare global {
       }
       CheckButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.CheckButton>
-        children?: React.ReactElement
         active?: boolean
         group: Gtk.CheckButton
         inconsistent?: boolean
@@ -130,7 +126,6 @@ declare global {
       }
       DragIcon: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.DragIcon>
-        children?: React.ReactElement
         accessibleRole?: Gtk.AccessibleRole
       }
       DrawingArea: JSX.IntrinsicElements["Widget"] & {
@@ -245,7 +240,6 @@ declare global {
       }
       Expander: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Expander>
-        children?: React.ReactElement
         label?: string
         expanded?: boolean
         labelWidget?: Gtk.Widget
@@ -261,7 +255,6 @@ declare global {
       }
       FlowBox: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FlowBox>
-        children?: React.ReactNode
         acceptUnpairedRelease?: boolean
         activateOnSingleClick?: boolean
         columnSpacing?: number
@@ -287,7 +280,6 @@ declare global {
       }
       FlowBoxChild: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FlowBoxChild>
-        children?: React.ReactElement
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: () => boolean
       }
@@ -304,7 +296,6 @@ declare global {
       }
       Frame: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Frame>
-        children?: React.ReactElement
         label?: string
         labelWidget?: Gtk.Widget
         labelXalign?: number
@@ -447,7 +438,6 @@ declare global {
       }
       ListBox: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ListBox>
-        children?: React.ReactNode
         acceptUnpairedRelease?: boolean
         activateOnSingleClick?: boolean
         selectionMode?: Gtk.SelectionMode
@@ -469,7 +459,6 @@ declare global {
       }
       ListBoxRow: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ListBoxRow>
-        children?: React.ReactElement
         activatable?: boolean
         selectable?: boolean
         accessibleRole?: Gtk.AccessibleRole
@@ -500,7 +489,6 @@ declare global {
       }
       MenuButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.MenuButton>
-        children?: React.ReactElement
         active?: boolean
         alwaysShowArrow?: boolean
         direction?: Gtk.ArrowType
@@ -538,7 +526,6 @@ declare global {
       }
       Overlay: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Overlay>
-        children?: React.ReactElement
         accessibleRole?: Gtk.AccessibleRole
         onGetChildPosition?: (
           widget: Gtk.Widget,
@@ -603,7 +590,6 @@ declare global {
       }
       Popover: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Popover>
-        children?: React.ReactElement
         autohide?: boolean
         cascadePopdown?: boolean
         defaultWidget?: Gtk.Widget
@@ -656,7 +642,6 @@ declare global {
       }
       Revealer: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Revealer>
-        children?: React.ReactElement
         childRevealed?: boolean
         revealChild?: boolean
         transitionDuration?: number
@@ -696,7 +681,6 @@ declare global {
       }
       ScrolledWindow: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ScrolledWindow>
-        children?: React.ReactElement
         hadjustment: Gtk.Adjustment
         hasFrame?: boolean
         hscrollbarPolicy?: Gtk.PolicyType
@@ -719,7 +703,6 @@ declare global {
       }
       SearchBar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.SearchBar>
-        children?: React.ReactElement
         keyCaptureWidget?: Gtk.Widget
         searchModeEnabled?: boolean
         showCloseButton?: boolean
@@ -998,7 +981,6 @@ declare global {
       }
       TreeExpander: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.TreeExpander>
-        children?: React.ReactElement
         hideExpander?: boolean
         indentForDepth?: boolean
         indentForIcon?: boolean
@@ -1016,7 +998,6 @@ declare global {
       }
       Viewport: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Viewport>
-        children?: React.ReactElement
         hadjustment?: Gtk.Adjustment
         vadjustment?: Gtk.Adjustment
         scrollToFocus?: boolean
@@ -1026,6 +1007,7 @@ declare global {
       }
       Widget: {
         ref?: React.Ref<Gtk.Widget>
+        children?: React.ReactNode
         canFocus?: boolean
         canTarget?: boolean
         cssClasses?: string[]
@@ -1082,7 +1064,6 @@ declare global {
       }
       Window: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Window>
-        children?: React.ReactElement
         application: Gtk.Application
         decorated?: boolean
         defaultHeight?: number
@@ -1122,7 +1103,6 @@ declare global {
       }
       WindowHandle: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.WindowHandle>
-        children?: React.ReactElement
         accessibleRole?: Gtk.AccessibleRole
       }
     }

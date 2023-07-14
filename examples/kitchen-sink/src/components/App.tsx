@@ -30,6 +30,7 @@ export default function App() {
     setStackNode(node)
   }, [])
   const [revealed, setRevealed] = React.useState(false)
+  const [popoverOpen, setPopoverOpen] = React.useState(false)
 
   return (
     <ApplicationWindow title="Kitchen Sink" application={application}>
@@ -115,6 +116,20 @@ export default function App() {
             <Revealer revealChild={revealed}>
               <Label label="Revealer" />
             </Revealer>
+            <Popover.Container open={popoverOpen}>
+              <Popover.Parent>
+                <Button
+                  label="Popover"
+                  onClicked={() => {
+                    setPopoverOpen(!popoverOpen)
+                    return false
+                  }}
+                />
+              </Popover.Parent>
+              <Popover.Child>
+                <Label label="Popover" />
+              </Popover.Child>
+            </Popover.Container>
           </Box>
         </Grid.Item>
       </Grid.Container>

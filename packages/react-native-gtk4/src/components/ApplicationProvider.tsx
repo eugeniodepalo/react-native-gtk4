@@ -18,3 +18,12 @@ export default function ApplicationProvider({
     </ApplicationContext.Provider>
   )
 }
+
+export function withApplicationContext(
+  element: React.ReactNode,
+  application: Gtk.Application
+) {
+  return (
+    <ApplicationProvider value={application}>{element}</ApplicationProvider>
+  )
+}

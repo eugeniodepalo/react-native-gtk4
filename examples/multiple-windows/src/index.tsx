@@ -1,15 +1,11 @@
 import React from "react"
-import render, { ApplicationProvider, Gio, Gtk } from "react-native-gtk4"
+import render, { Gio, Gtk } from "react-native-gtk4"
 import App from "./components/App.js"
 
-const app = new Gtk.Application(
-  "com.example.multiple-windows",
-  Gio.ApplicationFlags.DEFAULT_FLAGS
-)
-
 render(
-  <ApplicationProvider value={app}>
-    <App />
-  </ApplicationProvider>,
-  app
+  <App />,
+  new Gtk.Application(
+    "com.example.multiple-windows",
+    Gio.ApplicationFlags.DEFAULT_FLAGS
+  )
 )

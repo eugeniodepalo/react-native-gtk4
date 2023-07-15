@@ -9,6 +9,7 @@ import Reconciler from "./reconciler.js"
 
 import "./generated/jsx.js"
 import "./overrides.js"
+import { withApplicationContext } from "./components/ApplicationProvider.js"
 
 export interface Container {
   app: Gtk.Application
@@ -34,7 +35,14 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
       () => {},
       null
     )
-    Reconciler.updateContainer(element, container, null, () => {})
+
+    Reconciler.updateContainer(
+      withApplicationContext(element, app),
+      container,
+      null,
+      () => {}
+    )
+
     setTimeout(gi.startLoop)
     loop.run()
   })
@@ -48,7 +56,6 @@ export * from "./hooks.js"
 export {
   AboutDialog,
   ApplicationWindow,
-  ApplicationProvider,
   Grid,
   Notebook,
   Overlay,

@@ -32,6 +32,30 @@ export default class Range<T extends Gtk.Range> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyAdjustment":
+        this.setHandler("notify::adjustment", newValue)
+        break
+      case "onNotifyFillLevel":
+        this.setHandler("notify::fill-level", newValue)
+        break
+      case "onNotifyInverted":
+        this.setHandler("notify::inverted", newValue)
+        break
+      case "onNotifyRestrictToFillLevel":
+        this.setHandler("notify::restrict-to-fill-level", newValue)
+        break
+      case "onNotifyRoundDigits":
+        this.setHandler("notify::round-digits", newValue)
+        break
+      case "onNotifyShowFillLevel":
+        this.setHandler("notify::show-fill-level", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
       case "onAdjustBounds":
         this.setHandler("adjust-bounds", newValue)
         break

@@ -29,6 +29,27 @@ export default class Picture<T extends Gtk.Picture> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyAlternativeText":
+        this.setHandler("notify::alternative-text", newValue)
+        break
+      case "onNotifyCanShrink":
+        this.setHandler("notify::can-shrink", newValue)
+        break
+      case "onNotifyContentFit":
+        this.setHandler("notify::content-fit", newValue)
+        break
+      case "onNotifyFile":
+        this.setHandler("notify::file", newValue)
+        break
+      case "onNotifyKeepAspectRatio":
+        this.setHandler("notify::keep-aspect-ratio", newValue)
+        break
+      case "onNotifyPaintable":
+        this.setHandler("notify::paintable", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

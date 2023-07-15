@@ -32,6 +32,33 @@ export default class DropDown<T extends Gtk.DropDown> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyEnableSearch":
+        this.setHandler("notify::enable-search", newValue)
+        break
+      case "onNotifyExpression":
+        this.setHandler("notify::expression", newValue)
+        break
+      case "onNotifyFactory":
+        this.setHandler("notify::factory", newValue)
+        break
+      case "onNotifyListFactory":
+        this.setHandler("notify::list-factory", newValue)
+        break
+      case "onNotifyModel":
+        this.setHandler("notify::model", newValue)
+        break
+      case "onNotifySelected":
+        this.setHandler("notify::selected", newValue)
+        break
+      case "onNotifySelectedItem":
+        this.setHandler("notify::selected-item", newValue)
+        break
+      case "onNotifyShowArrow":
+        this.setHandler("notify::show-arrow", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
       case "onActivate":
         this.setHandler("activate", newValue)
         break

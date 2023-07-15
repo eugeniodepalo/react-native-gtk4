@@ -16,6 +16,12 @@ export default class ApplicationWindow<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyShowMenubar":
+        this.setHandler("notify::show-menubar", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

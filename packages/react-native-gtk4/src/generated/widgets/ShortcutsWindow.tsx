@@ -19,6 +19,15 @@ export default class ShortcutsWindow<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifySectionName":
+        this.setHandler("notify::section-name", newValue)
+        break
+      case "onNotifyViewName":
+        this.setHandler("notify::view-name", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
       case "onClose":
         this.setHandler("close", newValue)
         break

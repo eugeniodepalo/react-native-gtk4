@@ -43,15 +43,19 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
 }
 
 export * from "./generated/intrinsics.js"
+export * from "./hooks.js"
 
 export {
+  AboutDialog,
   ApplicationWindow,
+  ApplicationProvider,
   Grid,
   Notebook,
-  Stack,
   Overlay,
   Paned,
   Popover,
+  PopoverMenu,
+  Stack,
 } from "./components.js"
 
 export { Gtk, Gio, GLib, GObject, Pango, Gdk }

@@ -41,6 +41,45 @@ export default class Paned<T extends Gtk.Paned> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyEndChild":
+        this.setHandler("notify::end-child", newValue)
+        break
+      case "onNotifyMaxPosition":
+        this.setHandler("notify::max-position", newValue)
+        break
+      case "onNotifyMinPosition":
+        this.setHandler("notify::min-position", newValue)
+        break
+      case "onNotifyPosition":
+        this.setHandler("notify::position", newValue)
+        break
+      case "onNotifyPositionSet":
+        this.setHandler("notify::position-set", newValue)
+        break
+      case "onNotifyResizeEndChild":
+        this.setHandler("notify::resize-end-child", newValue)
+        break
+      case "onNotifyResizeStartChild":
+        this.setHandler("notify::resize-start-child", newValue)
+        break
+      case "onNotifyShrinkEndChild":
+        this.setHandler("notify::shrink-end-child", newValue)
+        break
+      case "onNotifyShrinkStartChild":
+        this.setHandler("notify::shrink-start-child", newValue)
+        break
+      case "onNotifyStartChild":
+        this.setHandler("notify::start-child", newValue)
+        break
+      case "onNotifyWideHandle":
+        this.setHandler("notify::wide-handle", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
       case "onAcceptPosition":
         this.setHandler("accept-position", newValue)
         break

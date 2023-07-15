@@ -34,6 +34,36 @@ export default class EditableLabel<
       case "xalign":
         this.node.xalign = newValue
         break
+      case "onNotifyEditing":
+        this.setHandler("notify::editing", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyCursorPosition":
+        this.setHandler("notify::cursor-position", newValue)
+        break
+      case "onNotifyEditable":
+        this.setHandler("notify::editable", newValue)
+        break
+      case "onNotifyEnableUndo":
+        this.setHandler("notify::enable-undo", newValue)
+        break
+      case "onNotifyMaxWidthChars":
+        this.setHandler("notify::max-width-chars", newValue)
+        break
+      case "onNotifySelectionBound":
+        this.setHandler("notify::selection-bound", newValue)
+        break
+      case "onNotifyText":
+        this.setHandler("notify::text", newValue)
+        break
+      case "onNotifyWidthChars":
+        this.setHandler("notify::width-chars", newValue)
+        break
+      case "onNotifyXalign":
+        this.setHandler("notify::xalign", newValue)
+        break
       case "onChanged":
         this.setHandler("changed", newValue)
         break

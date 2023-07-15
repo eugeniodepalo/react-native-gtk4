@@ -19,6 +19,18 @@ export default class WindowControls<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyDecorationLayout":
+        this.setHandler("notify::decoration-layout", newValue)
+        break
+      case "onNotifyEmpty":
+        this.setHandler("notify::empty", newValue)
+        break
+      case "onNotifySide":
+        this.setHandler("notify::side", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

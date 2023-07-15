@@ -38,6 +38,36 @@ export default class FlowBox<T extends Gtk.FlowBox> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyAcceptUnpairedRelease":
+        this.setHandler("notify::accept-unpaired-release", newValue)
+        break
+      case "onNotifyActivateOnSingleClick":
+        this.setHandler("notify::activate-on-single-click", newValue)
+        break
+      case "onNotifyColumnSpacing":
+        this.setHandler("notify::column-spacing", newValue)
+        break
+      case "onNotifyHomogeneous":
+        this.setHandler("notify::homogeneous", newValue)
+        break
+      case "onNotifyMaxChildrenPerLine":
+        this.setHandler("notify::max-children-per-line", newValue)
+        break
+      case "onNotifyMinChildrenPerLine":
+        this.setHandler("notify::min-children-per-line", newValue)
+        break
+      case "onNotifyRowSpacing":
+        this.setHandler("notify::row-spacing", newValue)
+        break
+      case "onNotifySelectionMode":
+        this.setHandler("notify::selection-mode", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
       case "onActivateCursorChild":
         this.setHandler("activate-cursor-child", newValue)
         break

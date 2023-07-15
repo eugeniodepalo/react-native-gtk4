@@ -16,6 +16,12 @@ export default class MediaControls<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyMediaStream":
+        this.setHandler("notify::media-stream", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

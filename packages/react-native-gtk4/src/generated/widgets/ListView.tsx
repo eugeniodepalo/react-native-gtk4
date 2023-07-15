@@ -41,6 +41,39 @@ export default class ListView<T extends Gtk.ListView> extends ListBase<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onNotifyEnableRubberband":
+        this.setHandler("notify::enable-rubberband", newValue)
+        break
+      case "onNotifyFactory":
+        this.setHandler("notify::factory", newValue)
+        break
+      case "onNotifyModel":
+        this.setHandler("notify::model", newValue)
+        break
+      case "onNotifyShowSeparators":
+        this.setHandler("notify::show-separators", newValue)
+        break
+      case "onNotifySingleClickActivate":
+        this.setHandler("notify::single-click-activate", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
+      case "onNotifyHadjustment":
+        this.setHandler("notify::hadjustment", newValue)
+        break
+      case "onNotifyHscrollPolicy":
+        this.setHandler("notify::hscroll-policy", newValue)
+        break
+      case "onNotifyVadjustment":
+        this.setHandler("notify::vadjustment", newValue)
+        break
+      case "onNotifyVscrollPolicy":
+        this.setHandler("notify::vscroll-policy", newValue)
+        break
       case "onActivate":
         this.setHandler("activate", newValue)
         break

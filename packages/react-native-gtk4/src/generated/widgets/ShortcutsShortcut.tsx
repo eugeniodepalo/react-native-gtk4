@@ -46,6 +46,42 @@ export default class ShortcutsShortcut<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyAccelSizeGroup":
+        this.setHandler("notify::accel-size-group", newValue)
+        break
+      case "onNotifyAccelerator":
+        this.setHandler("notify::accelerator", newValue)
+        break
+      case "onNotifyActionName":
+        this.setHandler("notify::action-name", newValue)
+        break
+      case "onNotifyDirection":
+        this.setHandler("notify::direction", newValue)
+        break
+      case "onNotifyIcon":
+        this.setHandler("notify::icon", newValue)
+        break
+      case "onNotifyIconSet":
+        this.setHandler("notify::icon-set", newValue)
+        break
+      case "onNotifyShortcutType":
+        this.setHandler("notify::shortcut-type", newValue)
+        break
+      case "onNotifySubtitle":
+        this.setHandler("notify::subtitle", newValue)
+        break
+      case "onNotifySubtitleSet":
+        this.setHandler("notify::subtitle-set", newValue)
+        break
+      case "onNotifyTitle":
+        this.setHandler("notify::title", newValue)
+        break
+      case "onNotifyTitleSizeGroup":
+        this.setHandler("notify::title-size-group", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

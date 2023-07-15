@@ -29,6 +29,27 @@ export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyDay":
+        this.setHandler("notify::day", newValue)
+        break
+      case "onNotifyMonth":
+        this.setHandler("notify::month", newValue)
+        break
+      case "onNotifyShowDayNames":
+        this.setHandler("notify::show-day-names", newValue)
+        break
+      case "onNotifyShowHeading":
+        this.setHandler("notify::show-heading", newValue)
+        break
+      case "onNotifyShowWeekNumbers":
+        this.setHandler("notify::show-week-numbers", newValue)
+        break
+      case "onNotifyYear":
+        this.setHandler("notify::year", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
       case "onDaySelected":
         this.setHandler("day-selected", newValue)
         break

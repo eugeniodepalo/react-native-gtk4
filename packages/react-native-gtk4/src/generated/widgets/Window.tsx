@@ -5,6 +5,18 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
   createNode() {
     return new Gtk.Window({}) as T
   }
+  appendChild(child: Widget<any>) {
+    super.appendChild(child)
+    this.node.setChild(child.node)
+  }
+  removeChild(child: Widget<any>) {
+    super.removeChild(child)
+    this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    super.insertBefore(child, beforeChild)
+    this.node.setChild(child.node)
+  }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
@@ -76,6 +88,81 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onNotifyApplication":
+        this.setHandler("notify::application", newValue)
+        break
+      case "onNotifyChild":
+        this.setHandler("notify::child", newValue)
+        break
+      case "onNotifyDecorated":
+        this.setHandler("notify::decorated", newValue)
+        break
+      case "onNotifyDefaultHeight":
+        this.setHandler("notify::default-height", newValue)
+        break
+      case "onNotifyDefaultWidget":
+        this.setHandler("notify::default-widget", newValue)
+        break
+      case "onNotifyDefaultWidth":
+        this.setHandler("notify::default-width", newValue)
+        break
+      case "onNotifyDeletable":
+        this.setHandler("notify::deletable", newValue)
+        break
+      case "onNotifyDestroyWithParent":
+        this.setHandler("notify::destroy-with-parent", newValue)
+        break
+      case "onNotifyDisplay":
+        this.setHandler("notify::display", newValue)
+        break
+      case "onNotifyFocusVisible":
+        this.setHandler("notify::focus-visible", newValue)
+        break
+      case "onNotifyFocusWidget":
+        this.setHandler("notify::focus-widget", newValue)
+        break
+      case "onNotifyFullscreened":
+        this.setHandler("notify::fullscreened", newValue)
+        break
+      case "onNotifyHandleMenubarAccel":
+        this.setHandler("notify::handle-menubar-accel", newValue)
+        break
+      case "onNotifyHideOnClose":
+        this.setHandler("notify::hide-on-close", newValue)
+        break
+      case "onNotifyIconName":
+        this.setHandler("notify::icon-name", newValue)
+        break
+      case "onNotifyIsActive":
+        this.setHandler("notify::is-active", newValue)
+        break
+      case "onNotifyMaximized":
+        this.setHandler("notify::maximized", newValue)
+        break
+      case "onNotifyMnemonicsVisible":
+        this.setHandler("notify::mnemonics-visible", newValue)
+        break
+      case "onNotifyModal":
+        this.setHandler("notify::modal", newValue)
+        break
+      case "onNotifyResizable":
+        this.setHandler("notify::resizable", newValue)
+        break
+      case "onNotifyStartupId":
+        this.setHandler("notify::startup-id", newValue)
+        break
+      case "onNotifyTitle":
+        this.setHandler("notify::title", newValue)
+        break
+      case "onNotifyTitlebar":
+        this.setHandler("notify::titlebar", newValue)
+        break
+      case "onNotifyTransientFor":
+        this.setHandler("notify::transient-for", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
       case "onActivateDefault":
         this.setHandler("activate-default", newValue)

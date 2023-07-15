@@ -95,6 +95,111 @@ export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyCanFocus":
+        this.setHandler("notify::can-focus", newValue)
+        break
+      case "onNotifyCanTarget":
+        this.setHandler("notify::can-target", newValue)
+        break
+      case "onNotifyCssClasses":
+        this.setHandler("notify::css-classes", newValue)
+        break
+      case "onNotifyCssName":
+        this.setHandler("notify::css-name", newValue)
+        break
+      case "onNotifyCursor":
+        this.setHandler("notify::cursor", newValue)
+        break
+      case "onNotifyFocusOnClick":
+        this.setHandler("notify::focus-on-click", newValue)
+        break
+      case "onNotifyFocusable":
+        this.setHandler("notify::focusable", newValue)
+        break
+      case "onNotifyHalign":
+        this.setHandler("notify::halign", newValue)
+        break
+      case "onNotifyHasDefault":
+        this.setHandler("notify::has-default", newValue)
+        break
+      case "onNotifyHasFocus":
+        this.setHandler("notify::has-focus", newValue)
+        break
+      case "onNotifyHasTooltip":
+        this.setHandler("notify::has-tooltip", newValue)
+        break
+      case "onNotifyHeightRequest":
+        this.setHandler("notify::height-request", newValue)
+        break
+      case "onNotifyHexpand":
+        this.setHandler("notify::hexpand", newValue)
+        break
+      case "onNotifyHexpandSet":
+        this.setHandler("notify::hexpand-set", newValue)
+        break
+      case "onNotifyLayoutManager":
+        this.setHandler("notify::layout-manager", newValue)
+        break
+      case "onNotifyMarginBottom":
+        this.setHandler("notify::margin-bottom", newValue)
+        break
+      case "onNotifyMarginEnd":
+        this.setHandler("notify::margin-end", newValue)
+        break
+      case "onNotifyMarginStart":
+        this.setHandler("notify::margin-start", newValue)
+        break
+      case "onNotifyMarginTop":
+        this.setHandler("notify::margin-top", newValue)
+        break
+      case "onNotifyName":
+        this.setHandler("notify::name", newValue)
+        break
+      case "onNotifyOpacity":
+        this.setHandler("notify::opacity", newValue)
+        break
+      case "onNotifyOverflow":
+        this.setHandler("notify::overflow", newValue)
+        break
+      case "onNotifyParent":
+        this.setHandler("notify::parent", newValue)
+        break
+      case "onNotifyReceivesDefault":
+        this.setHandler("notify::receives-default", newValue)
+        break
+      case "onNotifyRoot":
+        this.setHandler("notify::root", newValue)
+        break
+      case "onNotifyScaleFactor":
+        this.setHandler("notify::scale-factor", newValue)
+        break
+      case "onNotifySensitive":
+        this.setHandler("notify::sensitive", newValue)
+        break
+      case "onNotifyTooltipMarkup":
+        this.setHandler("notify::tooltip-markup", newValue)
+        break
+      case "onNotifyTooltipText":
+        this.setHandler("notify::tooltip-text", newValue)
+        break
+      case "onNotifyValign":
+        this.setHandler("notify::valign", newValue)
+        break
+      case "onNotifyVexpand":
+        this.setHandler("notify::vexpand", newValue)
+        break
+      case "onNotifyVexpandSet":
+        this.setHandler("notify::vexpand-set", newValue)
+        break
+      case "onNotifyVisible":
+        this.setHandler("notify::visible", newValue)
+        break
+      case "onNotifyWidthRequest":
+        this.setHandler("notify::width-request", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
       case "onDestroy":
         this.setHandler("destroy", newValue)
         break

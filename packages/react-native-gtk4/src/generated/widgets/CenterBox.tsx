@@ -26,6 +26,24 @@ export default class CenterBox<T extends Gtk.CenterBox> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyBaselinePosition":
+        this.setHandler("notify::baseline-position", newValue)
+        break
+      case "onNotifyCenterWidget":
+        this.setHandler("notify::center-widget", newValue)
+        break
+      case "onNotifyEndWidget":
+        this.setHandler("notify::end-widget", newValue)
+        break
+      case "onNotifyStartWidget":
+        this.setHandler("notify::start-widget", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
     }
   }
 }

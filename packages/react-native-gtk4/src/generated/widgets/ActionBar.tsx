@@ -14,6 +14,12 @@ export default class ActionBar<T extends Gtk.ActionBar> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyRevealed":
+        this.setHandler("notify::revealed", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

@@ -5,6 +5,18 @@ export default class AspectFrame<T extends Gtk.AspectFrame> extends Widget<T> {
   createNode() {
     return new Gtk.AspectFrame({}) as T
   }
+  appendChild(child: Widget<any>) {
+    super.appendChild(child)
+    this.node.setChild(child.node)
+  }
+  removeChild(child: Widget<any>) {
+    super.removeChild(child)
+    this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    super.insertBefore(child, beforeChild)
+    this.node.setChild(child.node)
+  }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
@@ -22,6 +34,24 @@ export default class AspectFrame<T extends Gtk.AspectFrame> extends Widget<T> {
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onNotifyChild":
+        this.setHandler("notify::child", newValue)
+        break
+      case "onNotifyObeyChild":
+        this.setHandler("notify::obey-child", newValue)
+        break
+      case "onNotifyRatio":
+        this.setHandler("notify::ratio", newValue)
+        break
+      case "onNotifyXalign":
+        this.setHandler("notify::xalign", newValue)
+        break
+      case "onNotifyYalign":
+        this.setHandler("notify::yalign", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
     }
   }

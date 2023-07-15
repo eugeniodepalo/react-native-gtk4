@@ -23,6 +23,21 @@ export default class Video<T extends Gtk.Video> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyAutoplay":
+        this.setHandler("notify::autoplay", newValue)
+        break
+      case "onNotifyFile":
+        this.setHandler("notify::file", newValue)
+        break
+      case "onNotifyLoop":
+        this.setHandler("notify::loop", newValue)
+        break
+      case "onNotifyMediaStream":
+        this.setHandler("notify::media-stream", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

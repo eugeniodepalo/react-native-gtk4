@@ -29,6 +29,27 @@ export default class Grid<T extends Gtk.Grid> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyBaselineRow":
+        this.setHandler("notify::baseline-row", newValue)
+        break
+      case "onNotifyColumnHomogeneous":
+        this.setHandler("notify::column-homogeneous", newValue)
+        break
+      case "onNotifyColumnSpacing":
+        this.setHandler("notify::column-spacing", newValue)
+        break
+      case "onNotifyRowHomogeneous":
+        this.setHandler("notify::row-homogeneous", newValue)
+        break
+      case "onNotifyRowSpacing":
+        this.setHandler("notify::row-spacing", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
     }
   }
 }

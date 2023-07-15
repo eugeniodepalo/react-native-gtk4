@@ -5,6 +5,18 @@ export default class Revealer<T extends Gtk.Revealer> extends Widget<T> {
   createNode() {
     return new Gtk.Revealer({}) as T
   }
+  appendChild(child: Widget<any>) {
+    super.appendChild(child)
+    this.node.setChild(child.node)
+  }
+  removeChild(child: Widget<any>) {
+    super.removeChild(child)
+    this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    super.insertBefore(child, beforeChild)
+    this.node.setChild(child.node)
+  }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
@@ -19,6 +31,24 @@ export default class Revealer<T extends Gtk.Revealer> extends Widget<T> {
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onNotifyChild":
+        this.setHandler("notify::child", newValue)
+        break
+      case "onNotifyChildRevealed":
+        this.setHandler("notify::child-revealed", newValue)
+        break
+      case "onNotifyRevealChild":
+        this.setHandler("notify::reveal-child", newValue)
+        break
+      case "onNotifyTransitionDuration":
+        this.setHandler("notify::transition-duration", newValue)
+        break
+      case "onNotifyTransitionType":
+        this.setHandler("notify::transition-type", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
     }
   }

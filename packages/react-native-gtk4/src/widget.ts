@@ -53,7 +53,7 @@ export default abstract class Widget<T extends Gtk.Widget> {
 
     if (handler) {
       const newHandler = (...args: any[]) => {
-        handler(this.node, ...args)
+        return handler(this.node, ...args)
       }
 
       this.node.on(handlerName, newHandler)

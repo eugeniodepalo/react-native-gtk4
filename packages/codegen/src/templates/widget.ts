@@ -1,4 +1,4 @@
-import { camelize, fromCtype } from "../helpers.js"
+import { camelize, fromCtype, underscore } from "../helpers.js"
 import { WidgetClass } from "../index.js"
 
 interface Props {
@@ -58,10 +58,6 @@ export function generateSetMethod(widgetClass: WidgetClass) {
     (prop) => prop.name
   )
 
-  if (propNames.length === 0) {
-    return ""
-  }
-
   let ts = ""
 
   ts += `  set(propName: string, newValue: any, oldValue: any) {\n`
@@ -87,6 +83,12 @@ export function generateSetMethod(widgetClass: WidgetClass) {
     }
   }
 
+  for (const { name } of props) {
+    ts += `      case "${camelize(`on_notify_${name}`)}":\n`
+    ts += `        this.setHandler("notify::${name}", newValue)\n`
+    ts += `        break\n`
+  }
+
   for (const { name } of signals) {
     ts += `      case "${camelize(`on_${name}`)}":\n`
     ts += `        this.setHandler("${name}", newValue)\n`
@@ -107,6 +109,22 @@ export function generateMethods({
   let ts = ""
 
   ts += createNodeMethodSection
+
+  if (widgetClass.methods.find((method) => method.$.name === "set_child")) {
+    ts += `  appendChild(child: Widget<any>) {\n`
+    ts += `    super.appendChild(child)\n`
+    ts += `    this.node.setChild(child.node)\n`
+    ts += `  }\n`
+    ts += `  removeChild(child: Widget<any>) {\n`
+    ts += `    super.removeChild(child)\n`
+    ts += `    this.node.setChild(null)\n`
+    ts += `  }\n`
+    ts += `  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
+    ts += `    super.insertBefore(child, beforeChild)\n`
+    ts += `    this.node.setChild(child.node)\n`
+    ts += `  }\n`
+  }
+
   ts += setMethodSection
 
   return ts

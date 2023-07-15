@@ -59,6 +59,63 @@ export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyAdjustment":
+        this.setHandler("notify::adjustment", newValue)
+        break
+      case "onNotifyClimbRate":
+        this.setHandler("notify::climb-rate", newValue)
+        break
+      case "onNotifyDigits":
+        this.setHandler("notify::digits", newValue)
+        break
+      case "onNotifyNumeric":
+        this.setHandler("notify::numeric", newValue)
+        break
+      case "onNotifySnapToTicks":
+        this.setHandler("notify::snap-to-ticks", newValue)
+        break
+      case "onNotifyUpdatePolicy":
+        this.setHandler("notify::update-policy", newValue)
+        break
+      case "onNotifyValue":
+        this.setHandler("notify::value", newValue)
+        break
+      case "onNotifyWrap":
+        this.setHandler("notify::wrap", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyEditingCanceled":
+        this.setHandler("notify::editing-canceled", newValue)
+        break
+      case "onNotifyCursorPosition":
+        this.setHandler("notify::cursor-position", newValue)
+        break
+      case "onNotifyEditable":
+        this.setHandler("notify::editable", newValue)
+        break
+      case "onNotifyEnableUndo":
+        this.setHandler("notify::enable-undo", newValue)
+        break
+      case "onNotifyMaxWidthChars":
+        this.setHandler("notify::max-width-chars", newValue)
+        break
+      case "onNotifySelectionBound":
+        this.setHandler("notify::selection-bound", newValue)
+        break
+      case "onNotifyText":
+        this.setHandler("notify::text", newValue)
+        break
+      case "onNotifyWidthChars":
+        this.setHandler("notify::width-chars", newValue)
+        break
+      case "onNotifyXalign":
+        this.setHandler("notify::xalign", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
       case "onChangeValue":
         this.setHandler("change-value", newValue)
         break

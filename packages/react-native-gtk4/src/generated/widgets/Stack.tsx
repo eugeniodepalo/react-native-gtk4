@@ -32,6 +32,36 @@ export default class Stack<T extends Gtk.Stack> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyHhomogeneous":
+        this.setHandler("notify::hhomogeneous", newValue)
+        break
+      case "onNotifyInterpolateSize":
+        this.setHandler("notify::interpolate-size", newValue)
+        break
+      case "onNotifyPages":
+        this.setHandler("notify::pages", newValue)
+        break
+      case "onNotifyTransitionDuration":
+        this.setHandler("notify::transition-duration", newValue)
+        break
+      case "onNotifyTransitionRunning":
+        this.setHandler("notify::transition-running", newValue)
+        break
+      case "onNotifyTransitionType":
+        this.setHandler("notify::transition-type", newValue)
+        break
+      case "onNotifyVhomogeneous":
+        this.setHandler("notify::vhomogeneous", newValue)
+        break
+      case "onNotifyVisibleChild":
+        this.setHandler("notify::visible-child", newValue)
+        break
+      case "onNotifyVisibleChildName":
+        this.setHandler("notify::visible-child-name", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

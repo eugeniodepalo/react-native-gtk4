@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useState } from "react"
 import {
   ApplicationWindow,
   Box,
@@ -26,8 +26,8 @@ import {
   Spinner,
   Switch,
   TextView,
+  AboutDialog,
 } from "react-native-gtk4"
-import { application } from "../app.js"
 
 export default function App() {
   const [count, setCount] = useState(0)
@@ -38,24 +38,32 @@ export default function App() {
   const [searchText, setSearchText] = useState("")
   const [switchActive, setSwitchActive] = useState(false)
   const [searchModeEnabled, setSearchModeEnabled] = useState(false)
+  const [showAboutDialog, setShowAboutDialog] = useState(false)
+  const [stackVisibleChildName, setStackVisibleChildName] = useState("child1")
+  const [notebookPage, setNotebookPage] = useState(0)
 
-  const stackRef = useCallback((node: Gtk.Stack | null) => {
+  const stackRef = (node: Gtk.Stack | null) => {
     setStackNode(node)
-  }, [])
+  }
 
   return (
     <ApplicationWindow
       title="Kitchen Sink"
-      application={application}
       defaultWidth={800}
       defaultHeight={600}
     >
       <Grid.Container vexpand hexpand>
         <Grid.Item col={0} row={0} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
-            {stackNode ? <StackSidebar stack={stackNode} /> : null}
+            {stackNode ? (
+              <StackSidebar stack={stackNode} vexpand hexpand />
+            ) : null}
             <Stack.Container
-              visibleChildName="child1"
+              visibleChildName={stackVisibleChildName ?? ""}
+              onNotifyVisibleChildName={(stack) => {
+                setStackVisibleChildName(stack.visibleChildName ?? "")
+                return false
+              }}
               ref={stackRef}
               vexpand
               hexpand
@@ -67,20 +75,29 @@ export default function App() {
                 <Label label="Stack 2" vexpand hexpand />
               </Stack.Item>
             </Stack.Container>
-            <Overlay.Container vexpand hexpand>
-              <Overlay.Child>
+            <Overlay
+              vexpand
+              hexpand
+              content={
                 <Image
                   iconName="face-smile"
                   iconSize={Gtk.IconSize.LARGE}
                   vexpand
                   hexpand
                 />
-              </Overlay.Child>
-              <Overlay.Item>
-                <Label label="Label 1" vexpand hexpand />
-              </Overlay.Item>
-            </Overlay.Container>
-            <Notebook.Container vexpand hexpand>
+              }
+            >
+              <Label label="Label 1" vexpand hexpand />
+            </Overlay>
+            <Notebook.Container
+              vexpand
+              hexpand
+              page={notebookPage}
+              onChangeCurrentPage={(notebook) => {
+                setNotebookPage(notebook.getCurrentPage())
+                return false
+              }}
+            >
               <Notebook.Tab label="Tab 1">
                 <Label label="Notebook 1" vexpand hexpand />
               </Notebook.Tab>
@@ -179,18 +196,9 @@ export default function App() {
             <Revealer revealChild={revealed} vexpand hexpand>
               <Label label="Revealer" vexpand hexpand />
             </Revealer>
-            <Popover.Container
+            <Popover
               open={popoverOpen}
-              onShow={() => {
-                setPopoverOpen(true)
-                return false
-              }}
-              onHide={() => {
-                setPopoverOpen(false)
-                return false
-              }}
-            >
-              <Popover.Parent>
+              content={
                 <Button
                   label="Popover"
                   vexpand
@@ -200,14 +208,50 @@ export default function App() {
                     return false
                   }}
                 />
-              </Popover.Parent>
-              <Popover.Child>
-                <Label label="Popover" vexpand hexpand />
-              </Popover.Child>
-            </Popover.Container>
+              }
+              onShow={() => {
+                setPopoverOpen(true)
+                return false
+              }}
+              onHide={() => {
+                setPopoverOpen(false)
+                return false
+              }}
+            >
+              <Label label="Popover" vexpand hexpand />
+            </Popover>
+            <Button
+              label={
+                showAboutDialog ? "Hide About Dialog" : "Show About Dialog"
+              }
+              vexpand
+              hexpand
+              onClicked={() => {
+                setShowAboutDialog(true)
+                return false
+              }}
+            />
           </Box>
         </Grid.Item>
       </Grid.Container>
+      {showAboutDialog ? (
+        <AboutDialog
+          artists={["Artist 1", "Artist 2"]}
+          authors={["Author 1", "Author 2"]}
+          comments="Comments"
+          copyright="Copyright"
+          onCloseRequest={() => {
+            setShowAboutDialog(false)
+            return false
+          }}
+          creditSections={[
+            {
+              sectionName: "Section 1",
+              people: ["Person 1", "Person 2"],
+            },
+          ]}
+        />
+      ) : null}
     </ApplicationWindow>
   )
 }

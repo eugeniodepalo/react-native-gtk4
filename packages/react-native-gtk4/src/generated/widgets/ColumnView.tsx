@@ -41,6 +41,45 @@ export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onNotifyColumns":
+        this.setHandler("notify::columns", newValue)
+        break
+      case "onNotifyEnableRubberband":
+        this.setHandler("notify::enable-rubberband", newValue)
+        break
+      case "onNotifyModel":
+        this.setHandler("notify::model", newValue)
+        break
+      case "onNotifyReorderable":
+        this.setHandler("notify::reorderable", newValue)
+        break
+      case "onNotifyShowColumnSeparators":
+        this.setHandler("notify::show-column-separators", newValue)
+        break
+      case "onNotifyShowRowSeparators":
+        this.setHandler("notify::show-row-separators", newValue)
+        break
+      case "onNotifySingleClickActivate":
+        this.setHandler("notify::single-click-activate", newValue)
+        break
+      case "onNotifySorter":
+        this.setHandler("notify::sorter", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyHadjustment":
+        this.setHandler("notify::hadjustment", newValue)
+        break
+      case "onNotifyHscrollPolicy":
+        this.setHandler("notify::hscroll-policy", newValue)
+        break
+      case "onNotifyVadjustment":
+        this.setHandler("notify::vadjustment", newValue)
+        break
+      case "onNotifyVscrollPolicy":
+        this.setHandler("notify::vscroll-policy", newValue)
+        break
       case "onActivate":
         this.setHandler("activate", newValue)
         break

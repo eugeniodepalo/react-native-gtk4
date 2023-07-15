@@ -23,6 +23,24 @@ export default class GLArea<T extends Gtk.GLArea> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyAutoRender":
+        this.setHandler("notify::auto-render", newValue)
+        break
+      case "onNotifyContext":
+        this.setHandler("notify::context", newValue)
+        break
+      case "onNotifyHasDepthBuffer":
+        this.setHandler("notify::has-depth-buffer", newValue)
+        break
+      case "onNotifyHasStencilBuffer":
+        this.setHandler("notify::has-stencil-buffer", newValue)
+        break
+      case "onNotifyUseEs":
+        this.setHandler("notify::use-es", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
       case "onCreateContext":
         this.setHandler("create-context", newValue)
         break

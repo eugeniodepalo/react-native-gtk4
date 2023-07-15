@@ -19,6 +19,15 @@ export default class StackSwitcher<
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyStack":
+        this.setHandler("notify::stack", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
     }
   }
 }

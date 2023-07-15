@@ -7,6 +7,18 @@ export default class TreeExpander<
   createNode() {
     return new Gtk.TreeExpander({}) as T
   }
+  appendChild(child: Widget<any>) {
+    super.appendChild(child)
+    this.node.setChild(child.node)
+  }
+  removeChild(child: Widget<any>) {
+    super.removeChild(child)
+    this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    super.insertBefore(child, beforeChild)
+    this.node.setChild(child.node)
+  }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
@@ -24,6 +36,27 @@ export default class TreeExpander<
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onNotifyChild":
+        this.setHandler("notify::child", newValue)
+        break
+      case "onNotifyHideExpander":
+        this.setHandler("notify::hide-expander", newValue)
+        break
+      case "onNotifyIndentForDepth":
+        this.setHandler("notify::indent-for-depth", newValue)
+        break
+      case "onNotifyIndentForIcon":
+        this.setHandler("notify::indent-for-icon", newValue)
+        break
+      case "onNotifyItem":
+        this.setHandler("notify::item", newValue)
+        break
+      case "onNotifyListRow":
+        this.setHandler("notify::list-row", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
     }
   }

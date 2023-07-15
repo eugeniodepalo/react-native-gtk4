@@ -38,6 +38,42 @@ export default class SearchEntry<T extends Gtk.SearchEntry> extends Widget<T> {
       case "xalign":
         this.node.xalign = newValue
         break
+      case "onNotifyActivatesDefault":
+        this.setHandler("notify::activates-default", newValue)
+        break
+      case "onNotifyPlaceholderText":
+        this.setHandler("notify::placeholder-text", newValue)
+        break
+      case "onNotifySearchDelay":
+        this.setHandler("notify::search-delay", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyCursorPosition":
+        this.setHandler("notify::cursor-position", newValue)
+        break
+      case "onNotifyEditable":
+        this.setHandler("notify::editable", newValue)
+        break
+      case "onNotifyEnableUndo":
+        this.setHandler("notify::enable-undo", newValue)
+        break
+      case "onNotifyMaxWidthChars":
+        this.setHandler("notify::max-width-chars", newValue)
+        break
+      case "onNotifySelectionBound":
+        this.setHandler("notify::selection-bound", newValue)
+        break
+      case "onNotifyText":
+        this.setHandler("notify::text", newValue)
+        break
+      case "onNotifyWidthChars":
+        this.setHandler("notify::width-chars", newValue)
+        break
+      case "onNotifyXalign":
+        this.setHandler("notify::xalign", newValue)
+        break
       case "onActivate":
         this.setHandler("activate", newValue)
         break

@@ -16,6 +16,12 @@ export default class StackSidebar<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyStack":
+        this.setHandler("notify::stack", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

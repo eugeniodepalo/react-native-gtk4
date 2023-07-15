@@ -1,5 +1,4 @@
 import React, {
-  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -15,7 +14,7 @@ type Props = JSX.IntrinsicElements["Grid"] & {
   children: React.ReactNode
 }
 
-const GridComponent = forwardRef<Gtk.Grid, Props>(function GridComponent(
+const GridContainer = forwardRef<Gtk.Grid, Props>(function GridContainer(
   { children, ...props },
   ref
 ) {
@@ -23,9 +22,9 @@ const GridComponent = forwardRef<Gtk.Grid, Props>(function GridComponent(
 
   useImperativeHandle(ref, () => gridNode!)
 
-  const gridRef = useCallback((node: Gtk.Grid | null) => {
+  const gridRef = (node: Gtk.Grid | null) => {
     setGridNode(node)
-  }, [])
+  }
 
   return (
     <GridContext.Provider value={gridNode}>
@@ -54,15 +53,9 @@ const GridItem = function GridItem({
   const gridNode = useContext(GridContext)
   const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
-  const childRef = useCallback((node: Gtk.Widget | null) => {
+  const childRef = (node: Gtk.Widget | null) => {
     setChildNode(node)
-
-    if (!gridNode || !node) {
-      return
-    }
-
-    gridNode.attach(node, col, row, width, height)
-  }, [])
+  }
 
   const childWithRef = React.cloneElement(children, {
     ref: childRef,
@@ -84,6 +77,6 @@ const GridItem = function GridItem({
 }
 
 export default {
-  Container: GridComponent,
+  Container: GridContainer,
   Item: GridItem,
 }

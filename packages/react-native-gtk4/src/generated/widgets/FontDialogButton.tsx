@@ -34,6 +34,30 @@ export default class FontDialogButton<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyDialog":
+        this.setHandler("notify::dialog", newValue)
+        break
+      case "onNotifyFontDesc":
+        this.setHandler("notify::font-desc", newValue)
+        break
+      case "onNotifyFontFeatures":
+        this.setHandler("notify::font-features", newValue)
+        break
+      case "onNotifyLanguage":
+        this.setHandler("notify::language", newValue)
+        break
+      case "onNotifyLevel":
+        this.setHandler("notify::level", newValue)
+        break
+      case "onNotifyUseFont":
+        this.setHandler("notify::use-font", newValue)
+        break
+      case "onNotifyUseSize":
+        this.setHandler("notify::use-size", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

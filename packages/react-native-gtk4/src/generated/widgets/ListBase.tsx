@@ -26,6 +26,24 @@ export default class ListBase<T extends Gtk.ListBase> extends Widget<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyHadjustment":
+        this.setHandler("notify::hadjustment", newValue)
+        break
+      case "onNotifyHscrollPolicy":
+        this.setHandler("notify::hscroll-policy", newValue)
+        break
+      case "onNotifyVadjustment":
+        this.setHandler("notify::vadjustment", newValue)
+        break
+      case "onNotifyVscrollPolicy":
+        this.setHandler("notify::vscroll-policy", newValue)
+        break
     }
   }
 }

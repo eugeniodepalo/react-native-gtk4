@@ -86,6 +86,84 @@ export default class TextView<T extends Gtk.TextView> extends Widget<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onNotifyAcceptsTab":
+        this.setHandler("notify::accepts-tab", newValue)
+        break
+      case "onNotifyBottomMargin":
+        this.setHandler("notify::bottom-margin", newValue)
+        break
+      case "onNotifyBuffer":
+        this.setHandler("notify::buffer", newValue)
+        break
+      case "onNotifyCursorVisible":
+        this.setHandler("notify::cursor-visible", newValue)
+        break
+      case "onNotifyEditable":
+        this.setHandler("notify::editable", newValue)
+        break
+      case "onNotifyExtraMenu":
+        this.setHandler("notify::extra-menu", newValue)
+        break
+      case "onNotifyImModule":
+        this.setHandler("notify::im-module", newValue)
+        break
+      case "onNotifyIndent":
+        this.setHandler("notify::indent", newValue)
+        break
+      case "onNotifyInputHints":
+        this.setHandler("notify::input-hints", newValue)
+        break
+      case "onNotifyInputPurpose":
+        this.setHandler("notify::input-purpose", newValue)
+        break
+      case "onNotifyJustification":
+        this.setHandler("notify::justification", newValue)
+        break
+      case "onNotifyLeftMargin":
+        this.setHandler("notify::left-margin", newValue)
+        break
+      case "onNotifyMonospace":
+        this.setHandler("notify::monospace", newValue)
+        break
+      case "onNotifyOverwrite":
+        this.setHandler("notify::overwrite", newValue)
+        break
+      case "onNotifyPixelsAboveLines":
+        this.setHandler("notify::pixels-above-lines", newValue)
+        break
+      case "onNotifyPixelsBelowLines":
+        this.setHandler("notify::pixels-below-lines", newValue)
+        break
+      case "onNotifyPixelsInsideWrap":
+        this.setHandler("notify::pixels-inside-wrap", newValue)
+        break
+      case "onNotifyRightMargin":
+        this.setHandler("notify::right-margin", newValue)
+        break
+      case "onNotifyTabs":
+        this.setHandler("notify::tabs", newValue)
+        break
+      case "onNotifyTopMargin":
+        this.setHandler("notify::top-margin", newValue)
+        break
+      case "onNotifyWrapMode":
+        this.setHandler("notify::wrap-mode", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyHadjustment":
+        this.setHandler("notify::hadjustment", newValue)
+        break
+      case "onNotifyHscrollPolicy":
+        this.setHandler("notify::hscroll-policy", newValue)
+        break
+      case "onNotifyVadjustment":
+        this.setHandler("notify::vadjustment", newValue)
+        break
+      case "onNotifyVscrollPolicy":
+        this.setHandler("notify::vscroll-policy", newValue)
+        break
       case "onBackspace":
         this.setHandler("backspace", newValue)
         break

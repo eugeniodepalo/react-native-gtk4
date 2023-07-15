@@ -12,16 +12,22 @@ Window.prototype.appendChild = function <T extends Gtk.Window>(
   this: Window<T>,
   child: Widget<any>
 ) {
+  if (child.node instanceof Gtk.Window) {
+    return
+  }
+
   parent.appendChild.call(this, child)
-  this.node.setChild(child.node)
 }
 
 Window.prototype.removeChild = function <T extends Gtk.Window>(
   this: Window<T>,
   child: Widget<any>
 ) {
+  if (child.node instanceof Gtk.Window) {
+    return
+  }
+
   parent.removeChild.call(this, child)
-  this.node.setChild(null)
 }
 
 Window.prototype.insertBefore = function <T extends Gtk.Window>(
@@ -29,6 +35,9 @@ Window.prototype.insertBefore = function <T extends Gtk.Window>(
   child: Widget<any>,
   beforeChild: Widget<any>
 ) {
+  if (child.node instanceof Gtk.Window) {
+    return
+  }
+
   parent.insertBefore.call(this, child, beforeChild)
-  this.node.setChild(child.node)
 }

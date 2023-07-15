@@ -7,6 +7,18 @@ export default class ScrolledWindow<
   createNode() {
     return new Gtk.ScrolledWindow({}) as T
   }
+  appendChild(child: Widget<any>) {
+    super.appendChild(child)
+    this.node.setChild(child.node)
+  }
+  removeChild(child: Widget<any>) {
+    super.removeChild(child)
+    this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    super.insertBefore(child, beforeChild)
+    this.node.setChild(child.node)
+  }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
@@ -54,6 +66,54 @@ export default class ScrolledWindow<
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onNotifyChild":
+        this.setHandler("notify::child", newValue)
+        break
+      case "onNotifyHadjustment":
+        this.setHandler("notify::hadjustment", newValue)
+        break
+      case "onNotifyHasFrame":
+        this.setHandler("notify::has-frame", newValue)
+        break
+      case "onNotifyHscrollbarPolicy":
+        this.setHandler("notify::hscrollbar-policy", newValue)
+        break
+      case "onNotifyKineticScrolling":
+        this.setHandler("notify::kinetic-scrolling", newValue)
+        break
+      case "onNotifyMaxContentHeight":
+        this.setHandler("notify::max-content-height", newValue)
+        break
+      case "onNotifyMaxContentWidth":
+        this.setHandler("notify::max-content-width", newValue)
+        break
+      case "onNotifyMinContentHeight":
+        this.setHandler("notify::min-content-height", newValue)
+        break
+      case "onNotifyMinContentWidth":
+        this.setHandler("notify::min-content-width", newValue)
+        break
+      case "onNotifyOverlayScrolling":
+        this.setHandler("notify::overlay-scrolling", newValue)
+        break
+      case "onNotifyPropagateNaturalHeight":
+        this.setHandler("notify::propagate-natural-height", newValue)
+        break
+      case "onNotifyPropagateNaturalWidth":
+        this.setHandler("notify::propagate-natural-width", newValue)
+        break
+      case "onNotifyVadjustment":
+        this.setHandler("notify::vadjustment", newValue)
+        break
+      case "onNotifyVscrollbarPolicy":
+        this.setHandler("notify::vscrollbar-policy", newValue)
+        break
+      case "onNotifyWindowPlacement":
+        this.setHandler("notify::window-placement", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
       case "onEdgeOvershot":
         this.setHandler("edge-overshot", newValue)

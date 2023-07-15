@@ -16,6 +16,12 @@ export default class PopoverMenuBar<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyMenuModel":
+        this.setHandler("notify::menu-model", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

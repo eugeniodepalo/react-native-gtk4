@@ -85,6 +85,17 @@ function generateJsxElementProps(widgetClass: WidgetClass) {
     ts += `) => boolean\n`
   }
 
+  for (const { name: propName, type: propType, array } of props) {
+    if (propName === "child") {
+      continue
+    }
+
+    ts += `${camelize(`on_notify_${propName}`)}?: (`
+    ts += `node: ${type}, `
+    ts += `${camelize(propName)}: ${fromCtype(propType)}${array ? "[]" : ""}`
+    ts += `) => void\n`
+  }
+
   return ts
 }
 

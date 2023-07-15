@@ -25,6 +25,21 @@ export default class ToggleButton<
       case "actionTarget":
         this.node.setActionTargetValue(newValue)
         break
+      case "onNotifyActive":
+        this.setHandler("notify::active", newValue)
+        break
+      case "onNotifyGroup":
+        this.setHandler("notify::group", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyActionName":
+        this.setHandler("notify::action-name", newValue)
+        break
+      case "onNotifyActionTarget":
+        this.setHandler("notify::action-target", newValue)
+        break
       case "onToggled":
         this.setHandler("toggled", newValue)
         break

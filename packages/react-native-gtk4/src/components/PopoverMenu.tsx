@@ -2,19 +2,21 @@ import React, { useEffect, useImperativeHandle, useState } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
-const Popover = "Popover"
+const PopoverMenu = "PopoverMenu"
 
-type Props = JSX.IntrinsicElements["Popover"] & {
+type Props = JSX.IntrinsicElements["PopoverMenu"] & {
   children: React.ReactNode
   content: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   open?: boolean
 }
 
-export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
+export default forwardRef<Gtk.PopoverMenu, Props>(function PopoverMenuComponent(
   { children, content, open = false, ...props },
   ref
 ) {
-  const [popoverNode, setPopoverNode] = useState<Gtk.Popover | null>(null)
+  const [popoverMenuNode, setPopoverMenuNode] =
+    useState<Gtk.PopoverMenu | null>(null)
+
   const [contentNode, setContentNode] = useState<Gtk.Widget | null>(null)
 
   const contentRef = (node: Gtk.Widget | null) => {
@@ -25,29 +27,29 @@ export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
     ref: contentRef,
   })
 
-  useImperativeHandle(ref, () => popoverNode!)
+  useImperativeHandle(ref, () => popoverMenuNode!)
 
-  const popoverRef = (node: Gtk.Popover | null) => {
-    setPopoverNode(node)
+  const popoverMenuRef = (node: Gtk.PopoverMenu | null) => {
+    setPopoverMenuNode(node)
   }
 
   useEffect(() => {
-    if (!popoverNode || !contentNode || !popoverNode.child) {
+    if (!popoverMenuNode || !contentNode || !popoverMenuNode.child) {
       return
     }
 
     if (open) {
-      popoverNode.popup()
+      popoverMenuNode.popup()
     } else {
-      popoverNode.popdown()
+      popoverMenuNode.popdown()
     }
-  }, [popoverNode, contentNode, open])
+  }, [popoverMenuNode, contentNode, open])
 
   return (
     <>
-      <Popover ref={popoverRef} {...props}>
+      <PopoverMenu ref={popoverMenuRef} {...props}>
         {children}
-      </Popover>
+      </PopoverMenu>
       {contentWithRef}
     </>
   )

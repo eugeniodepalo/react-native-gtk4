@@ -32,6 +32,30 @@ export default class ProgressBar<T extends Gtk.ProgressBar> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyEllipsize":
+        this.setHandler("notify::ellipsize", newValue)
+        break
+      case "onNotifyFraction":
+        this.setHandler("notify::fraction", newValue)
+        break
+      case "onNotifyInverted":
+        this.setHandler("notify::inverted", newValue)
+        break
+      case "onNotifyPulseStep":
+        this.setHandler("notify::pulse-step", newValue)
+        break
+      case "onNotifyShowText":
+        this.setHandler("notify::show-text", newValue)
+        break
+      case "onNotifyText":
+        this.setHandler("notify::text", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
     }
   }
 }

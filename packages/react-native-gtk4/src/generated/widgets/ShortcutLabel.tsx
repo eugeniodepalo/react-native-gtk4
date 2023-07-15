@@ -19,6 +19,15 @@ export default class ShortcutLabel<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyAccelerator":
+        this.setHandler("notify::accelerator", newValue)
+        break
+      case "onNotifyDisabledText":
+        this.setHandler("notify::disabled-text", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
     }
   }
 }

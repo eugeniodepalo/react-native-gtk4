@@ -1,6 +1,15 @@
 import React from "react"
-import render from "react-native-gtk4"
+import render, { ApplicationProvider, Gio, Gtk } from "react-native-gtk4"
 import App from "./components/App.js"
-import { application } from "./app.js"
 
-render(<App />, application)
+const app = new Gtk.Application(
+  "com.example.simple",
+  Gio.ApplicationFlags.DEFAULT_FLAGS
+)
+
+render(
+  <ApplicationProvider value={app}>
+    <App />
+  </ApplicationProvider>,
+  app
+)

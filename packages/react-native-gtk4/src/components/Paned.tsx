@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react"
+import React, { useEffect, useImperativeHandle, useState } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
@@ -28,13 +23,13 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
 
   const [startChild, endChild] = children
 
-  const startChildRef = useCallback((node: Gtk.Widget | null) => {
+  const startChildRef = (node: Gtk.Widget | null) => {
     setStartChildNode(node)
-  }, [])
+  }
 
-  const endChildRef = useCallback((node: Gtk.Widget | null) => {
+  const endChildRef = (node: Gtk.Widget | null) => {
     setEndChildNode(node)
-  }, [])
+  }
 
   const startChildWithRef = React.cloneElement(startChild, {
     ref: startChildRef,
@@ -44,9 +39,9 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
     ref: endChildRef,
   })
 
-  const panedRef = useCallback((node: Gtk.Paned | null) => {
+  const panedRef = (node: Gtk.Paned | null) => {
     setPanedNode(node)
-  }, [])
+  }
 
   useEffect(() => {
     if (!panedNode || !startChildNode || !endChildNode) {

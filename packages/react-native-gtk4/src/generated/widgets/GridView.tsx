@@ -44,6 +44,42 @@ export default class GridView<T extends Gtk.GridView> extends ListBase<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onNotifyEnableRubberband":
+        this.setHandler("notify::enable-rubberband", newValue)
+        break
+      case "onNotifyFactory":
+        this.setHandler("notify::factory", newValue)
+        break
+      case "onNotifyMaxColumns":
+        this.setHandler("notify::max-columns", newValue)
+        break
+      case "onNotifyMinColumns":
+        this.setHandler("notify::min-columns", newValue)
+        break
+      case "onNotifyModel":
+        this.setHandler("notify::model", newValue)
+        break
+      case "onNotifySingleClickActivate":
+        this.setHandler("notify::single-click-activate", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
+      case "onNotifyHadjustment":
+        this.setHandler("notify::hadjustment", newValue)
+        break
+      case "onNotifyHscrollPolicy":
+        this.setHandler("notify::hscroll-policy", newValue)
+        break
+      case "onNotifyVadjustment":
+        this.setHandler("notify::vadjustment", newValue)
+        break
+      case "onNotifyVscrollPolicy":
+        this.setHandler("notify::vscroll-policy", newValue)
+        break
       case "onActivate":
         this.setHandler("activate", newValue)
         break

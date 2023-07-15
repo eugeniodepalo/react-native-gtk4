@@ -26,6 +26,24 @@ export default class Scale<T extends Gtk.Scale> extends Range<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyDigits":
+        this.setHandler("notify::digits", newValue)
+        break
+      case "onNotifyDrawValue":
+        this.setHandler("notify::draw-value", newValue)
+        break
+      case "onNotifyHasOrigin":
+        this.setHandler("notify::has-origin", newValue)
+        break
+      case "onNotifyValuePos":
+        this.setHandler("notify::value-pos", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
     }
   }
 }

@@ -17,6 +17,15 @@ export default class DrawingArea<T extends Gtk.DrawingArea> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onNotifyContentHeight":
+        this.setHandler("notify::content-height", newValue)
+        break
+      case "onNotifyContentWidth":
+        this.setHandler("notify::content-width", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
       case "onResize":
         this.setHandler("resize", newValue)
         break

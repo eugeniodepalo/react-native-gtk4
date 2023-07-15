@@ -28,6 +28,27 @@ export default class ShortcutsGroup<
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyAccelSizeGroup":
+        this.setHandler("notify::accel-size-group", newValue)
+        break
+      case "onNotifyHeight":
+        this.setHandler("notify::height", newValue)
+        break
+      case "onNotifyTitle":
+        this.setHandler("notify::title", newValue)
+        break
+      case "onNotifyTitleSizeGroup":
+        this.setHandler("notify::title-size-group", newValue)
+        break
+      case "onNotifyView":
+        this.setHandler("notify::view", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
     }
   }
 }

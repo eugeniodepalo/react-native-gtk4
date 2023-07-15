@@ -5,6 +5,18 @@ export default class Frame<T extends Gtk.Frame> extends Widget<T> {
   createNode() {
     return new Gtk.Frame({}) as T
   }
+  appendChild(child: Widget<any>) {
+    super.appendChild(child)
+    this.node.setChild(child.node)
+  }
+  removeChild(child: Widget<any>) {
+    super.removeChild(child)
+    this.node.setChild(null)
+  }
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+    super.insertBefore(child, beforeChild)
+    this.node.setChild(child.node)
+  }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
@@ -19,6 +31,21 @@ export default class Frame<T extends Gtk.Frame> extends Widget<T> {
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onNotifyChild":
+        this.setHandler("notify::child", newValue)
+        break
+      case "onNotifyLabel":
+        this.setHandler("notify::label", newValue)
+        break
+      case "onNotifyLabelWidget":
+        this.setHandler("notify::label-widget", newValue)
+        break
+      case "onNotifyLabelXalign":
+        this.setHandler("notify::label-xalign", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
     }
   }

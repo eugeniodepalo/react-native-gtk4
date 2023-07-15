@@ -1,5 +1,4 @@
 import React, {
-  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -16,15 +15,15 @@ type Props = JSX.IntrinsicElements["Notebook"] & {
   children: React.ReactNode
 }
 
-const NotebookComponent = forwardRef<Gtk.Notebook, Props>(
-  function NotebookComponent({ children, ...props }, ref) {
+const NotebookContainer = forwardRef<Gtk.Notebook, Props>(
+  function NotebookContainer({ children, ...props }, ref) {
     const [notebookNode, setNotebookNode] = useState<Gtk.Notebook | null>(null)
 
     useImperativeHandle(ref, () => notebookNode!)
 
-    const notebookRef = useCallback((node: Gtk.Notebook | null) => {
+    const notebookRef = (node: Gtk.Notebook | null) => {
       setNotebookNode(node)
-    }, [])
+    }
 
     return (
       <NotebookContext.Provider value={notebookNode}>
@@ -46,17 +45,17 @@ const NotebookTab = function NotebookItem({ children, label }: TabProps) {
   const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
   const [labelNode, setLabelNode] = useState<Gtk.Label | null>(null)
 
-  const childRef = useCallback((node: Gtk.Widget | null) => {
+  const childRef = (node: Gtk.Widget | null) => {
     setChildNode(node)
-  }, [])
+  }
 
   const childWithRef = React.cloneElement(children, {
     ref: childRef,
   })
 
-  const labelRef = useCallback((node: Gtk.Label | null) => {
+  const labelRef = (node: Gtk.Label | null) => {
     setLabelNode(node)
-  }, [])
+  }
 
   useEffect(() => {
     if (!notebookNode || !childNode) {
@@ -79,6 +78,6 @@ const NotebookTab = function NotebookItem({ children, label }: TabProps) {
 }
 
 export default {
-  Container: NotebookComponent,
+  Container: NotebookContainer,
   Tab: NotebookTab,
 }

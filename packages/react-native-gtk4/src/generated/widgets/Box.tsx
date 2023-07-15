@@ -23,6 +23,21 @@ export default class Box<T extends Gtk.Box> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onNotifyBaselinePosition":
+        this.setHandler("notify::baseline-position", newValue)
+        break
+      case "onNotifyHomogeneous":
+        this.setHandler("notify::homogeneous", newValue)
+        break
+      case "onNotifySpacing":
+        this.setHandler("notify::spacing", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
+        break
+      case "onNotifyOrientation":
+        this.setHandler("notify::orientation", newValue)
+        break
     }
   }
 }

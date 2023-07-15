@@ -1,27 +1,27 @@
 import React from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
+import useApplication from "../hooks/useApplication.js"
 
 const ApplicationWindow = "ApplicationWindow"
 
-type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "application"> & {
-  application: Gtk.Application
-}
+export default forwardRef<
+  Gtk.ApplicationWindow,
+  JSX.IntrinsicElements["ApplicationWindow"]
+>(function ApplicationWindowComponent(props, ref) {
+  const application = useApplication()
 
-export default forwardRef<Gtk.ApplicationWindow, Props>(
-  function ApplicationWindowComponent({ application, ...props }, ref) {
-    return (
-      <ApplicationWindow
-        ref={ref}
-        application={application}
-        onCloseRequest={() => {
-          if (application.getWindows().length === 1) {
-            process.exit(0)
-          }
-          return false
-        }}
-        {...props}
-      />
-    )
-  }
-)
+  return (
+    <ApplicationWindow
+      ref={ref}
+      application={application}
+      onCloseRequest={() => {
+        if (application.getWindows().length === 1) {
+          process.exit(0)
+        }
+        return false
+      }}
+      {...props}
+    />
+  )
+})

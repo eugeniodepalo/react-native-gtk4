@@ -15,7 +15,6 @@ import {
   Paned,
   Expander,
   HeaderBar,
-  Frame,
   Popover,
   Revealer,
 } from "react-native-gtk4"
@@ -23,10 +22,8 @@ import { application } from "../app.js"
 
 export default function App() {
   const [count, setCount] = React.useState(0)
-  const [stackNode, setStackNode] = React.useState<Gtk.Stack | undefined>(
-    undefined
-  )
-  const stackRef = useCallback((node: Gtk.Stack) => {
+  const [stackNode, setStackNode] = React.useState<Gtk.Stack | null>(null)
+  const stackRef = useCallback((node: Gtk.Stack | null) => {
     setStackNode(node)
   }, [])
   const [revealed, setRevealed] = React.useState(false)
@@ -35,7 +32,7 @@ export default function App() {
   return (
     <ApplicationWindow title="Kitchen Sink" application={application}>
       <Grid.Container>
-        <Grid.Item left={0} top={0} width={1} height={1}>
+        <Grid.Item col={0} row={0} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
             {stackNode ? <StackSidebar stack={stackNode} /> : null}
             <Stack.Container visibleChildName="child1" ref={stackRef}>
@@ -71,7 +68,7 @@ export default function App() {
             />
           </Box>
         </Grid.Item>
-        <Grid.Item left={1} top={0} width={1} height={1}>
+        <Grid.Item col={1} row={0} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
             <Button label="Button 2" />
             <ListBox>
@@ -84,20 +81,16 @@ export default function App() {
             </ListBox>
           </Box>
         </Grid.Item>
-        <Grid.Item left={0} top={1} width={1} height={1}>
+        <Grid.Item col={0} row={1} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
             <Button label="Button 3" />
-            <Paned.Container>
-              <Paned.Item start>
-                <Button label="Start" />
-              </Paned.Item>
-              <Paned.Item end>
-                <Button label="End" />
-              </Paned.Item>
-            </Paned.Container>
+            <Paned>
+              <Button label="Start" />
+              <Button label="End" />
+            </Paned>
           </Box>
         </Grid.Item>
-        <Grid.Item left={1} top={1} width={1} height={1}>
+        <Grid.Item col={1} row={1} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL}>
             <Expander>
               <Button label="Button 4" />
@@ -116,7 +109,17 @@ export default function App() {
             <Revealer revealChild={revealed}>
               <Label label="Revealer" />
             </Revealer>
-            <Popover.Container open={popoverOpen}>
+            <Popover.Container
+              open={popoverOpen}
+              onShow={() => {
+                setPopoverOpen(true)
+                return false
+              }}
+              onHide={() => {
+                setPopoverOpen(false)
+                return false
+              }}
+            >
               <Popover.Parent>
                 <Button
                   label="Popover"

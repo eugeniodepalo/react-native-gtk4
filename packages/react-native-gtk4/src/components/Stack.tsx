@@ -9,7 +9,7 @@ import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
 const Stack = "Stack"
-const StackContext = React.createContext<Gtk.Stack | undefined>(undefined)
+const StackContext = React.createContext<Gtk.Stack | null>(null)
 
 type Props = JSX.IntrinsicElements["Stack"] & {
   children: React.ReactNode
@@ -19,7 +19,7 @@ const StackComponent = forwardRef<Gtk.Stack, Props>(function StackComponent(
   { children, visibleChildName: visibleChildNameProp, ...props },
   ref
 ) {
-  const [stackNode, setStackNode] = useState<Gtk.Stack | undefined>(undefined)
+  const [stackNode, setStackNode] = useState<Gtk.Stack | null>(null)
   const [visibleChildName, setVisibleChildName] = useState<string | undefined>(
     undefined
   )
@@ -34,7 +34,7 @@ const StackComponent = forwardRef<Gtk.Stack, Props>(function StackComponent(
 
   useImperativeHandle(ref, () => stackNode!)
 
-  const stackRef = useCallback((node: Gtk.Stack) => {
+  const stackRef = useCallback((node: Gtk.Stack | null) => {
     setStackNode(node)
   }, [])
 
@@ -59,10 +59,10 @@ interface ItemProps {
 
 const StackItem = function StackItem({ children, name, title }: ItemProps) {
   const stackNode = useContext(StackContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
+  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget) => {
+    ref: (node: Gtk.Widget | null) => {
       setChildNode(node)
     },
   })

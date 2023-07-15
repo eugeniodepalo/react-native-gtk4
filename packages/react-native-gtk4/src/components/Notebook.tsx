@@ -10,7 +10,7 @@ import { Gtk } from "../index.js"
 
 const Notebook = "Notebook"
 const Label = "Label"
-const NotebookContext = React.createContext<Gtk.Notebook | undefined>(undefined)
+const NotebookContext = React.createContext<Gtk.Notebook | null>(null)
 
 type Props = JSX.IntrinsicElements["Notebook"] & {
   children: React.ReactNode
@@ -18,13 +18,11 @@ type Props = JSX.IntrinsicElements["Notebook"] & {
 
 const NotebookComponent = forwardRef<Gtk.Notebook, Props>(
   function NotebookComponent({ children, ...props }, ref) {
-    const [notebookNode, setNotebookNode] = useState<Gtk.Notebook | undefined>(
-      undefined
-    )
+    const [notebookNode, setNotebookNode] = useState<Gtk.Notebook | null>(null)
 
     useImperativeHandle(ref, () => notebookNode!)
 
-    const notebookRef = useCallback((node: Gtk.Notebook) => {
+    const notebookRef = useCallback((node: Gtk.Notebook | null) => {
       setNotebookNode(node)
     }, [])
 
@@ -45,16 +43,18 @@ interface TabProps {
 
 const NotebookTab = function NotebookItem({ children, label }: TabProps) {
   const notebookNode = useContext(NotebookContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
-  const [labelNode, setLabelNode] = useState<Gtk.Label | undefined>(undefined)
+  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
+  const [labelNode, setLabelNode] = useState<Gtk.Label | null>(null)
+
+  const childRef = useCallback((node: Gtk.Widget | null) => {
+    setChildNode(node)
+  }, [])
 
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget) => {
-      setChildNode(node)
-    },
+    ref: childRef,
   })
 
-  const labelRef = useCallback((node: Gtk.Label) => {
+  const labelRef = useCallback((node: Gtk.Label | null) => {
     setLabelNode(node)
   }, [])
 
@@ -63,7 +63,7 @@ const NotebookTab = function NotebookItem({ children, label }: TabProps) {
       return
     }
 
-    notebookNode.appendPage(childNode, labelNode ?? null)
+    notebookNode.appendPage(childNode, labelNode)
 
     return () => {
       notebookNode.removePage(notebookNode.pageNum(childNode))

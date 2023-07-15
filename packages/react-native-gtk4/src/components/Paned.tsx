@@ -1,6 +1,5 @@
 import React, {
   useCallback,
-  useContext,
   useEffect,
   useImperativeHandle,
   useState,
@@ -9,77 +8,64 @@ import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
 const Paned = "Paned"
-const PanedContext = React.createContext<Gtk.Paned | undefined>(undefined)
 
-type Props = JSX.IntrinsicElements["Paned"] & {
-  children: React.ReactNode
+type Props = Omit<JSX.IntrinsicElements["Paned"], "children"> & {
+  children: [
+    React.ReactElement<JSX.IntrinsicElements["Widget"]>,
+    React.ReactElement<JSX.IntrinsicElements["Widget"]>,
+  ]
 }
 
-const PanedComponent = forwardRef<Gtk.Paned, Props>(function PanedComponent(
+export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
   { children, ...props },
   ref
 ) {
-  const [panedNode, setPanedNode] = useState<Gtk.Paned | undefined>(undefined)
+  const [panedNode, setPanedNode] = useState<Gtk.Paned | null>(null)
+  const [startChildNode, setStartChildNode] = useState<Gtk.Widget | null>(null)
+  const [endChildNode, setEndChildNode] = useState<Gtk.Widget | null>(null)
 
   useImperativeHandle(ref, () => panedNode!)
 
-  const panedRef = useCallback((node: Gtk.Paned) => {
+  const [startChild, endChild] = children
+
+  const startChildRef = useCallback((node: Gtk.Widget | null) => {
+    setStartChildNode(node)
+  }, [])
+
+  const endChildRef = useCallback((node: Gtk.Widget | null) => {
+    setEndChildNode(node)
+  }, [])
+
+  const startChildWithRef = React.cloneElement(startChild, {
+    ref: startChildRef,
+  })
+
+  const endChildWithRef = React.cloneElement(endChild, {
+    ref: endChildRef,
+  })
+
+  const panedRef = useCallback((node: Gtk.Paned | null) => {
     setPanedNode(node)
   }, [])
 
-  return (
-    <PanedContext.Provider value={panedNode}>
-      <Paned ref={panedRef} {...props}>
-        {children}
-      </Paned>
-    </PanedContext.Provider>
-  )
-})
-
-interface ItemProps {
-  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  start?: boolean
-  end?: boolean
-}
-
-const PanedItem = function PanedItem({
-  children,
-  start = false,
-  end = false,
-}: ItemProps) {
-  const panedNode = useContext(PanedContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
-
-  const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget) => {
-      setChildNode(node)
-    },
-  })
-
   useEffect(() => {
-    if (!panedNode || !childNode) {
+    if (!panedNode || !startChildNode || !endChildNode) {
       return
     }
 
-    if (start) {
-      panedNode.setStartChild(childNode)
-    } else if (end) {
-      panedNode.setEndChild(childNode)
-    }
+    panedNode.setStartChild(startChildNode)
+    panedNode.setEndChild(endChildNode)
 
     return () => {
-      if (start) {
-        panedNode.setStartChild(null)
-      } else if (end) {
-        panedNode.setEndChild(null)
-      }
+      panedNode.setStartChild(null)
+      panedNode.setEndChild(null)
     }
-  }, [panedNode, childNode, start, end])
+  }, [panedNode, startChildNode, endChildNode])
 
-  return childWithRef
-}
-
-export default {
-  Container: PanedComponent,
-  Item: PanedItem,
-}
+  return (
+    <Paned ref={panedRef} {...props}>
+      {startChildWithRef}
+      {endChildWithRef}
+    </Paned>
+  )
+})

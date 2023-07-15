@@ -9,7 +9,7 @@ import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
 const Grid = "Grid"
-const GridContext = React.createContext<Gtk.Grid | undefined>(undefined)
+const GridContext = React.createContext<Gtk.Grid | null>(null)
 
 type Props = JSX.IntrinsicElements["Grid"] & {
   children: React.ReactNode
@@ -19,11 +19,11 @@ const GridComponent = forwardRef<Gtk.Grid, Props>(function GridComponent(
   { children, ...props },
   ref
 ) {
-  const [gridNode, setGridNode] = useState<Gtk.Grid | undefined>(undefined)
+  const [gridNode, setGridNode] = useState<Gtk.Grid | null>(null)
 
   useImperativeHandle(ref, () => gridNode!)
 
-  const gridRef = useCallback((node: Gtk.Grid) => {
+  const gridRef = useCallback((node: Gtk.Grid | null) => {
     setGridNode(node)
   }, [])
 
@@ -38,26 +38,34 @@ const GridComponent = forwardRef<Gtk.Grid, Props>(function GridComponent(
 
 interface ItemProps {
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  left?: number
-  top?: number
+  col?: number
+  row?: number
   width?: number
   height?: number
 }
 
 const GridItem = function GridItem({
   children,
-  left = 0,
-  top = 0,
+  col = 0,
+  row = 0,
   width = 1,
   height = 1,
 }: ItemProps) {
   const gridNode = useContext(GridContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
+  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
+
+  const childRef = useCallback((node: Gtk.Widget | null) => {
+    setChildNode(node)
+
+    if (!gridNode || !node) {
+      return
+    }
+
+    gridNode.attach(node, col, row, width, height)
+  }, [])
 
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget) => {
-      setChildNode(node)
-    },
+    ref: childRef,
   })
 
   useEffect(() => {
@@ -65,12 +73,12 @@ const GridItem = function GridItem({
       return
     }
 
-    gridNode.attach(childNode, left, top, width, height)
+    gridNode.attach(childNode, col, row, width, height)
 
     return () => {
       gridNode.remove(childNode)
     }
-  }, [gridNode, childNode, left, top, width, height])
+  }, [gridNode, childNode, col, row, width, height])
 
   return childWithRef
 }

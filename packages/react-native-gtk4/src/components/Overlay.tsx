@@ -9,7 +9,7 @@ import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
 const Overlay = "Overlay"
-const OverlayContext = React.createContext<Gtk.Overlay | undefined>(undefined)
+const OverlayContext = React.createContext<Gtk.Overlay | null>(null)
 
 type Props = JSX.IntrinsicElements["Overlay"] & {
   children: React.ReactNode
@@ -17,13 +17,11 @@ type Props = JSX.IntrinsicElements["Overlay"] & {
 
 const OverlayComponent = forwardRef<Gtk.Overlay, Props>(
   function OverlayComponent({ children, ...props }, ref) {
-    const [overlayNode, setOverlayNode] = useState<Gtk.Overlay | undefined>(
-      undefined
-    )
+    const [overlayNode, setOverlayNode] = useState<Gtk.Overlay | null>(null)
 
     useImperativeHandle(ref, () => overlayNode!)
 
-    const overlayRef = useCallback((node: Gtk.Overlay) => {
+    const overlayRef = useCallback((node: Gtk.Overlay | null) => {
       setOverlayNode(node)
     }, [])
 
@@ -43,10 +41,10 @@ interface ChildProps {
 
 const OverlayChild = function OverlayChild({ children }: ChildProps) {
   const overlayNode = useContext(OverlayContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
+  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget) => {
+    ref: (node: Gtk.Widget | null) => {
       setChildNode(node)
     },
   })
@@ -72,10 +70,10 @@ interface ItemProps {
 
 const OverlayItem = function OverlayItem({ children }: ItemProps) {
   const overlayNode = useContext(OverlayContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | undefined>(undefined)
+  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget) => {
+    ref: (node: Gtk.Widget | null) => {
       setChildNode(node)
     },
   })

@@ -33,36 +33,16 @@ export default class Range<T extends Gtk.Range> extends Widget<T> {
         this.node.setOrientation(newValue)
         break
       case "onAdjustBounds":
-        if (oldValue) {
-          this.node.off("adjust-bounds", oldValue)
-        }
-        if (newValue) {
-          this.node.on("adjust-bounds", newValue)
-        }
+        this.setHandler("adjust-bounds", newValue)
         break
       case "onChangeValue":
-        if (oldValue) {
-          this.node.off("change-value", oldValue)
-        }
-        if (newValue) {
-          this.node.on("change-value", newValue)
-        }
+        this.setHandler("change-value", newValue)
         break
       case "onMoveSlider":
-        if (oldValue) {
-          this.node.off("move-slider", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-slider", newValue)
-        }
+        this.setHandler("move-slider", newValue)
         break
       case "onValueChanged":
-        if (oldValue) {
-          this.node.off("value-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("value-changed", newValue)
-        }
+        this.setHandler("value-changed", newValue)
         break
     }
   }

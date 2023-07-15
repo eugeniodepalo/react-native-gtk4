@@ -24,28 +24,13 @@ export default class ScaleButton<T extends Gtk.ScaleButton> extends Widget<T> {
         this.node.setOrientation(newValue)
         break
       case "onPopdown":
-        if (oldValue) {
-          this.node.off("popdown", oldValue)
-        }
-        if (newValue) {
-          this.node.on("popdown", newValue)
-        }
+        this.setHandler("popdown", newValue)
         break
       case "onPopup":
-        if (oldValue) {
-          this.node.off("popup", oldValue)
-        }
-        if (newValue) {
-          this.node.on("popup", newValue)
-        }
+        this.setHandler("popup", newValue)
         break
       case "onValueChanged":
-        if (oldValue) {
-          this.node.off("value-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("value-changed", newValue)
-        }
+        this.setHandler("value-changed", newValue)
         break
     }
   }

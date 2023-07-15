@@ -87,124 +87,49 @@ export default class TextView<T extends Gtk.TextView> extends Widget<T> {
         this.node.setVscrollPolicy(newValue)
         break
       case "onBackspace":
-        if (oldValue) {
-          this.node.off("backspace", oldValue)
-        }
-        if (newValue) {
-          this.node.on("backspace", newValue)
-        }
+        this.setHandler("backspace", newValue)
         break
       case "onCopyClipboard":
-        if (oldValue) {
-          this.node.off("copy-clipboard", oldValue)
-        }
-        if (newValue) {
-          this.node.on("copy-clipboard", newValue)
-        }
+        this.setHandler("copy-clipboard", newValue)
         break
       case "onCutClipboard":
-        if (oldValue) {
-          this.node.off("cut-clipboard", oldValue)
-        }
-        if (newValue) {
-          this.node.on("cut-clipboard", newValue)
-        }
+        this.setHandler("cut-clipboard", newValue)
         break
       case "onDeleteFromCursor":
-        if (oldValue) {
-          this.node.off("delete-from-cursor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("delete-from-cursor", newValue)
-        }
+        this.setHandler("delete-from-cursor", newValue)
         break
       case "onExtendSelection":
-        if (oldValue) {
-          this.node.off("extend-selection", oldValue)
-        }
-        if (newValue) {
-          this.node.on("extend-selection", newValue)
-        }
+        this.setHandler("extend-selection", newValue)
         break
       case "onInsertAtCursor":
-        if (oldValue) {
-          this.node.off("insert-at-cursor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-at-cursor", newValue)
-        }
+        this.setHandler("insert-at-cursor", newValue)
         break
       case "onInsertEmoji":
-        if (oldValue) {
-          this.node.off("insert-emoji", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-emoji", newValue)
-        }
+        this.setHandler("insert-emoji", newValue)
         break
       case "onMoveCursor":
-        if (oldValue) {
-          this.node.off("move-cursor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-cursor", newValue)
-        }
+        this.setHandler("move-cursor", newValue)
         break
       case "onMoveViewport":
-        if (oldValue) {
-          this.node.off("move-viewport", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-viewport", newValue)
-        }
+        this.setHandler("move-viewport", newValue)
         break
       case "onPasteClipboard":
-        if (oldValue) {
-          this.node.off("paste-clipboard", oldValue)
-        }
-        if (newValue) {
-          this.node.on("paste-clipboard", newValue)
-        }
+        this.setHandler("paste-clipboard", newValue)
         break
       case "onPreeditChanged":
-        if (oldValue) {
-          this.node.off("preedit-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("preedit-changed", newValue)
-        }
+        this.setHandler("preedit-changed", newValue)
         break
       case "onSelectAll":
-        if (oldValue) {
-          this.node.off("select-all", oldValue)
-        }
-        if (newValue) {
-          this.node.on("select-all", newValue)
-        }
+        this.setHandler("select-all", newValue)
         break
       case "onSetAnchor":
-        if (oldValue) {
-          this.node.off("set-anchor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("set-anchor", newValue)
-        }
+        this.setHandler("set-anchor", newValue)
         break
       case "onToggleCursorVisible":
-        if (oldValue) {
-          this.node.off("toggle-cursor-visible", oldValue)
-        }
-        if (newValue) {
-          this.node.on("toggle-cursor-visible", newValue)
-        }
+        this.setHandler("toggle-cursor-visible", newValue)
         break
       case "onToggleOverwrite":
-        if (oldValue) {
-          this.node.off("toggle-overwrite", oldValue)
-        }
-        if (newValue) {
-          this.node.on("toggle-overwrite", newValue)
-        }
+        this.setHandler("toggle-overwrite", newValue)
         break
     }
   }

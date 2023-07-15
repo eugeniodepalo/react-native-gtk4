@@ -20,20 +20,10 @@ export default class ShortcutsWindow<
         this.node.accessibleRole = newValue
         break
       case "onClose":
-        if (oldValue) {
-          this.node.off("close", oldValue)
-        }
-        if (newValue) {
-          this.node.on("close", newValue)
-        }
+        this.setHandler("close", newValue)
         break
       case "onSearch":
-        if (oldValue) {
-          this.node.off("search", oldValue)
-        }
-        if (newValue) {
-          this.node.on("search", newValue)
-        }
+        this.setHandler("search", newValue)
         break
     }
   }

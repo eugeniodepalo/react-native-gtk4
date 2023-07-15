@@ -39,76 +39,31 @@ export default class SearchEntry<T extends Gtk.SearchEntry> extends Widget<T> {
         this.node.xalign = newValue
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
       case "onNextMatch":
-        if (oldValue) {
-          this.node.off("next-match", oldValue)
-        }
-        if (newValue) {
-          this.node.on("next-match", newValue)
-        }
+        this.setHandler("next-match", newValue)
         break
       case "onPreviousMatch":
-        if (oldValue) {
-          this.node.off("previous-match", oldValue)
-        }
-        if (newValue) {
-          this.node.on("previous-match", newValue)
-        }
+        this.setHandler("previous-match", newValue)
         break
       case "onSearchChanged":
-        if (oldValue) {
-          this.node.off("search-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("search-changed", newValue)
-        }
+        this.setHandler("search-changed", newValue)
         break
       case "onSearchStarted":
-        if (oldValue) {
-          this.node.off("search-started", oldValue)
-        }
-        if (newValue) {
-          this.node.on("search-started", newValue)
-        }
+        this.setHandler("search-started", newValue)
         break
       case "onStopSearch":
-        if (oldValue) {
-          this.node.off("stop-search", oldValue)
-        }
-        if (newValue) {
-          this.node.on("stop-search", newValue)
-        }
+        this.setHandler("stop-search", newValue)
         break
       case "onChanged":
-        if (oldValue) {
-          this.node.off("changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("changed", newValue)
-        }
+        this.setHandler("changed", newValue)
         break
       case "onDeleteText":
-        if (oldValue) {
-          this.node.off("delete-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("delete-text", newValue)
-        }
+        this.setHandler("delete-text", newValue)
         break
       case "onInsertText":
-        if (oldValue) {
-          this.node.off("insert-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-text", newValue)
-        }
+        this.setHandler("insert-text", newValue)
         break
     }
   }

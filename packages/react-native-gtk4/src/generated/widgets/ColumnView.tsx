@@ -42,12 +42,7 @@ export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
         this.node.setVscrollPolicy(newValue)
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
     }
   }

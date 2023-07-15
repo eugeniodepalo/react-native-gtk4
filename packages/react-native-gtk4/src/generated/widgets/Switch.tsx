@@ -24,20 +24,10 @@ export default class Switch<T extends Gtk.Switch> extends Widget<T> {
         this.node.setActionTargetValue(newValue)
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
       case "onStateSet":
-        if (oldValue) {
-          this.node.off("state-set", oldValue)
-        }
-        if (newValue) {
-          this.node.on("state-set", newValue)
-        }
+        this.setHandler("state-set", newValue)
         break
     }
   }

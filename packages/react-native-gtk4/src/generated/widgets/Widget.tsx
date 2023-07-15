@@ -96,108 +96,43 @@ export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
         this.node.accessibleRole = newValue
         break
       case "onDestroy":
-        if (oldValue) {
-          this.node.off("destroy", oldValue)
-        }
-        if (newValue) {
-          this.node.on("destroy", newValue)
-        }
+        this.setHandler("destroy", newValue)
         break
       case "onDirectionChanged":
-        if (oldValue) {
-          this.node.off("direction-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("direction-changed", newValue)
-        }
+        this.setHandler("direction-changed", newValue)
         break
       case "onHide":
-        if (oldValue) {
-          this.node.off("hide", oldValue)
-        }
-        if (newValue) {
-          this.node.on("hide", newValue)
-        }
+        this.setHandler("hide", newValue)
         break
       case "onKeynavFailed":
-        if (oldValue) {
-          this.node.off("keynav-failed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("keynav-failed", newValue)
-        }
+        this.setHandler("keynav-failed", newValue)
         break
       case "onMap":
-        if (oldValue) {
-          this.node.off("map", oldValue)
-        }
-        if (newValue) {
-          this.node.on("map", newValue)
-        }
+        this.setHandler("map", newValue)
         break
       case "onMnemonicActivate":
-        if (oldValue) {
-          this.node.off("mnemonic-activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("mnemonic-activate", newValue)
-        }
+        this.setHandler("mnemonic-activate", newValue)
         break
       case "onMoveFocus":
-        if (oldValue) {
-          this.node.off("move-focus", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-focus", newValue)
-        }
+        this.setHandler("move-focus", newValue)
         break
       case "onQueryTooltip":
-        if (oldValue) {
-          this.node.off("query-tooltip", oldValue)
-        }
-        if (newValue) {
-          this.node.on("query-tooltip", newValue)
-        }
+        this.setHandler("query-tooltip", newValue)
         break
       case "onRealize":
-        if (oldValue) {
-          this.node.off("realize", oldValue)
-        }
-        if (newValue) {
-          this.node.on("realize", newValue)
-        }
+        this.setHandler("realize", newValue)
         break
       case "onShow":
-        if (oldValue) {
-          this.node.off("show", oldValue)
-        }
-        if (newValue) {
-          this.node.on("show", newValue)
-        }
+        this.setHandler("show", newValue)
         break
       case "onStateFlagsChanged":
-        if (oldValue) {
-          this.node.off("state-flags-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("state-flags-changed", newValue)
-        }
+        this.setHandler("state-flags-changed", newValue)
         break
       case "onUnmap":
-        if (oldValue) {
-          this.node.off("unmap", oldValue)
-        }
-        if (newValue) {
-          this.node.on("unmap", newValue)
-        }
+        this.setHandler("unmap", newValue)
         break
       case "onUnrealize":
-        if (oldValue) {
-          this.node.off("unrealize", oldValue)
-        }
-        if (newValue) {
-          this.node.on("unrealize", newValue)
-        }
+        this.setHandler("unrealize", newValue)
         break
     }
   }

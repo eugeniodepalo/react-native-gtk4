@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useState } from "react"
 import {
   ApplicationWindow,
   Box,
@@ -15,20 +15,33 @@ import {
   StackSidebar,
   Paned,
   Expander,
+  CheckButton,
   HeaderBar,
   Popover,
   Revealer,
+  Entry,
+  ProgressBar,
+  Scale,
+  SearchBar,
+  Spinner,
+  Switch,
+  TextView,
 } from "react-native-gtk4"
 import { application } from "../app.js"
 
 export default function App() {
-  const [count, setCount] = React.useState(0)
-  const [stackNode, setStackNode] = React.useState<Gtk.Stack | null>(null)
+  const [count, setCount] = useState(0)
+  const [stackNode, setStackNode] = useState<Gtk.Stack | null>(null)
+  const [revealed, setRevealed] = useState(false)
+  const [popoverOpen, setPopoverOpen] = useState(false)
+  const [entryText, setEntryText] = useState("")
+  const [searchText, setSearchText] = useState("")
+  const [switchActive, setSwitchActive] = useState(false)
+  const [searchModeEnabled, setSearchModeEnabled] = useState(false)
+
   const stackRef = useCallback((node: Gtk.Stack | null) => {
     setStackNode(node)
   }, [])
-  const [revealed, setRevealed] = React.useState(false)
-  const [popoverOpen, setPopoverOpen] = React.useState(false)
 
   return (
     <ApplicationWindow
@@ -96,6 +109,45 @@ export default function App() {
                 <Label label="List Box 2" vexpand hexpand />
               </ListBoxRow>
             </ListBox>
+            <Spinner />
+            <ProgressBar fraction={0.5} showText />
+            <Scale digits={1} drawValue hexpand />
+            <SearchBar hexpand vexpand searchModeEnabled={searchModeEnabled}>
+              <Entry
+                text={searchText}
+                onChanged={(entry) => {
+                  setSearchText(entry.text ?? "")
+                  return false
+                }}
+              />
+            </SearchBar>
+            <Button
+              label="Toggle Search Mode"
+              vexpand
+              hexpand
+              onClicked={() => {
+                setSearchModeEnabled(!searchModeEnabled)
+                return false
+              }}
+            />
+            <Entry
+              text={entryText}
+              onChanged={(entry) => {
+                setEntryText(entry.text ?? "")
+                return false
+              }}
+              placeholderText="Type here..."
+            />
+            <TextView vexpand hexpand />
+            <CheckButton label="Radio Button 1" active />
+            <CheckButton label="Radio Button 2" />
+            <Switch
+              active={switchActive}
+              onActivate={(node) => {
+                setSwitchActive(node.active)
+                return false
+              }}
+            />
           </Box>
         </Grid.Item>
         <Grid.Item col={0} row={1} width={1} height={1}>

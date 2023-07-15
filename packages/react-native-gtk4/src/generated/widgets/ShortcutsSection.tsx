@@ -29,12 +29,7 @@ export default class ShortcutsSection<
         this.node.setOrientation(newValue)
         break
       case "onChangeCurrentPage":
-        if (oldValue) {
-          this.node.off("change-current-page", oldValue)
-        }
-        if (newValue) {
-          this.node.on("change-current-page", newValue)
-        }
+        this.setHandler("change-current-page", newValue)
         break
     }
   }

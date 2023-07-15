@@ -89,12 +89,7 @@ export function generateSetMethod(widgetClass: WidgetClass) {
 
   for (const { name } of signals) {
     ts += `      case "${camelize(`on_${name}`)}":\n`
-    ts += `        if (oldValue) {\n`
-    ts += `          this.node.off("${name}", oldValue)\n`
-    ts += `        }\n`
-    ts += `        if (newValue) {\n`
-    ts += `          this.node.on("${name}", newValue)\n`
-    ts += `        }\n`
+    ts += `        this.setHandler("${name}", newValue)\n`
     ts += `        break\n`
   }
 

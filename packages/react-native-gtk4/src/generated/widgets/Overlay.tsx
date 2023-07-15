@@ -12,12 +12,7 @@ export default class Overlay<T extends Gtk.Overlay> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onGetChildPosition":
-        if (oldValue) {
-          this.node.off("get-child-position", oldValue)
-        }
-        if (newValue) {
-          this.node.on("get-child-position", newValue)
-        }
+        this.setHandler("get-child-position", newValue)
         break
     }
   }

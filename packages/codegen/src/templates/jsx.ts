@@ -73,6 +73,7 @@ function generateJsxElementProps(widgetClass: WidgetClass) {
 
   for (const { name: signalName, params } of signals) {
     ts += `${camelize(`on_${signalName}`)}?: (`
+    ts += `node: ${type}, `
 
     for (const param of params) {
       const { name, type, array, nullable } = param

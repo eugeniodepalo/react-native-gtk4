@@ -33,20 +33,10 @@ export default class Popover<T extends Gtk.Popover> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onActivateDefault":
-        if (oldValue) {
-          this.node.off("activate-default", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate-default", newValue)
-        }
+        this.setHandler("activate-default", newValue)
         break
       case "onClosed":
-        if (oldValue) {
-          this.node.off("closed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("closed", newValue)
-        }
+        this.setHandler("closed", newValue)
         break
     }
   }

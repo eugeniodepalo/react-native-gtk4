@@ -30,44 +30,19 @@ export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onDaySelected":
-        if (oldValue) {
-          this.node.off("day-selected", oldValue)
-        }
-        if (newValue) {
-          this.node.on("day-selected", newValue)
-        }
+        this.setHandler("day-selected", newValue)
         break
       case "onNextMonth":
-        if (oldValue) {
-          this.node.off("next-month", oldValue)
-        }
-        if (newValue) {
-          this.node.on("next-month", newValue)
-        }
+        this.setHandler("next-month", newValue)
         break
       case "onNextYear":
-        if (oldValue) {
-          this.node.off("next-year", oldValue)
-        }
-        if (newValue) {
-          this.node.on("next-year", newValue)
-        }
+        this.setHandler("next-year", newValue)
         break
       case "onPrevMonth":
-        if (oldValue) {
-          this.node.off("prev-month", oldValue)
-        }
-        if (newValue) {
-          this.node.on("prev-month", newValue)
-        }
+        this.setHandler("prev-month", newValue)
         break
       case "onPrevYear":
-        if (oldValue) {
-          this.node.off("prev-year", oldValue)
-        }
-        if (newValue) {
-          this.node.on("prev-year", newValue)
-        }
+        this.setHandler("prev-year", newValue)
         break
     }
   }

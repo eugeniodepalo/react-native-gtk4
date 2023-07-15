@@ -42,52 +42,22 @@ export default class Paned<T extends Gtk.Paned> extends Widget<T> {
         this.node.setOrientation(newValue)
         break
       case "onAcceptPosition":
-        if (oldValue) {
-          this.node.off("accept-position", oldValue)
-        }
-        if (newValue) {
-          this.node.on("accept-position", newValue)
-        }
+        this.setHandler("accept-position", newValue)
         break
       case "onCancelPosition":
-        if (oldValue) {
-          this.node.off("cancel-position", oldValue)
-        }
-        if (newValue) {
-          this.node.on("cancel-position", newValue)
-        }
+        this.setHandler("cancel-position", newValue)
         break
       case "onCycleChildFocus":
-        if (oldValue) {
-          this.node.off("cycle-child-focus", oldValue)
-        }
-        if (newValue) {
-          this.node.on("cycle-child-focus", newValue)
-        }
+        this.setHandler("cycle-child-focus", newValue)
         break
       case "onCycleHandleFocus":
-        if (oldValue) {
-          this.node.off("cycle-handle-focus", oldValue)
-        }
-        if (newValue) {
-          this.node.on("cycle-handle-focus", newValue)
-        }
+        this.setHandler("cycle-handle-focus", newValue)
         break
       case "onMoveHandle":
-        if (oldValue) {
-          this.node.off("move-handle", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-handle", newValue)
-        }
+        this.setHandler("move-handle", newValue)
         break
       case "onToggleHandleFocus":
-        if (oldValue) {
-          this.node.off("toggle-handle-focus", oldValue)
-        }
-        if (newValue) {
-          this.node.on("toggle-handle-focus", newValue)
-        }
+        this.setHandler("toggle-handle-focus", newValue)
         break
     }
   }

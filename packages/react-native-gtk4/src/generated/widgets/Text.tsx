@@ -81,116 +81,46 @@ export default class Text<T extends Gtk.Text> extends Widget<T> {
         this.node.xalign = newValue
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
       case "onBackspace":
-        if (oldValue) {
-          this.node.off("backspace", oldValue)
-        }
-        if (newValue) {
-          this.node.on("backspace", newValue)
-        }
+        this.setHandler("backspace", newValue)
         break
       case "onCopyClipboard":
-        if (oldValue) {
-          this.node.off("copy-clipboard", oldValue)
-        }
-        if (newValue) {
-          this.node.on("copy-clipboard", newValue)
-        }
+        this.setHandler("copy-clipboard", newValue)
         break
       case "onCutClipboard":
-        if (oldValue) {
-          this.node.off("cut-clipboard", oldValue)
-        }
-        if (newValue) {
-          this.node.on("cut-clipboard", newValue)
-        }
+        this.setHandler("cut-clipboard", newValue)
         break
       case "onDeleteFromCursor":
-        if (oldValue) {
-          this.node.off("delete-from-cursor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("delete-from-cursor", newValue)
-        }
+        this.setHandler("delete-from-cursor", newValue)
         break
       case "onInsertAtCursor":
-        if (oldValue) {
-          this.node.off("insert-at-cursor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-at-cursor", newValue)
-        }
+        this.setHandler("insert-at-cursor", newValue)
         break
       case "onInsertEmoji":
-        if (oldValue) {
-          this.node.off("insert-emoji", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-emoji", newValue)
-        }
+        this.setHandler("insert-emoji", newValue)
         break
       case "onMoveCursor":
-        if (oldValue) {
-          this.node.off("move-cursor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-cursor", newValue)
-        }
+        this.setHandler("move-cursor", newValue)
         break
       case "onPasteClipboard":
-        if (oldValue) {
-          this.node.off("paste-clipboard", oldValue)
-        }
-        if (newValue) {
-          this.node.on("paste-clipboard", newValue)
-        }
+        this.setHandler("paste-clipboard", newValue)
         break
       case "onPreeditChanged":
-        if (oldValue) {
-          this.node.off("preedit-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("preedit-changed", newValue)
-        }
+        this.setHandler("preedit-changed", newValue)
         break
       case "onToggleOverwrite":
-        if (oldValue) {
-          this.node.off("toggle-overwrite", oldValue)
-        }
-        if (newValue) {
-          this.node.on("toggle-overwrite", newValue)
-        }
+        this.setHandler("toggle-overwrite", newValue)
         break
       case "onChanged":
-        if (oldValue) {
-          this.node.off("changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("changed", newValue)
-        }
+        this.setHandler("changed", newValue)
         break
       case "onDeleteText":
-        if (oldValue) {
-          this.node.off("delete-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("delete-text", newValue)
-        }
+        this.setHandler("delete-text", newValue)
         break
       case "onInsertText":
-        if (oldValue) {
-          this.node.off("insert-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-text", newValue)
-        }
+        this.setHandler("insert-text", newValue)
         break
     }
   }

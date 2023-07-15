@@ -60,84 +60,34 @@ export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
         this.node.setOrientation(newValue)
         break
       case "onChangeValue":
-        if (oldValue) {
-          this.node.off("change-value", oldValue)
-        }
-        if (newValue) {
-          this.node.on("change-value", newValue)
-        }
+        this.setHandler("change-value", newValue)
         break
       case "onInput":
-        if (oldValue) {
-          this.node.off("input", oldValue)
-        }
-        if (newValue) {
-          this.node.on("input", newValue)
-        }
+        this.setHandler("input", newValue)
         break
       case "onOutput":
-        if (oldValue) {
-          this.node.off("output", oldValue)
-        }
-        if (newValue) {
-          this.node.on("output", newValue)
-        }
+        this.setHandler("output", newValue)
         break
       case "onValueChanged":
-        if (oldValue) {
-          this.node.off("value-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("value-changed", newValue)
-        }
+        this.setHandler("value-changed", newValue)
         break
       case "onWrapped":
-        if (oldValue) {
-          this.node.off("wrapped", oldValue)
-        }
-        if (newValue) {
-          this.node.on("wrapped", newValue)
-        }
+        this.setHandler("wrapped", newValue)
         break
       case "onEditingDone":
-        if (oldValue) {
-          this.node.off("editing-done", oldValue)
-        }
-        if (newValue) {
-          this.node.on("editing-done", newValue)
-        }
+        this.setHandler("editing-done", newValue)
         break
       case "onRemoveWidget":
-        if (oldValue) {
-          this.node.off("remove-widget", oldValue)
-        }
-        if (newValue) {
-          this.node.on("remove-widget", newValue)
-        }
+        this.setHandler("remove-widget", newValue)
         break
       case "onChanged":
-        if (oldValue) {
-          this.node.off("changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("changed", newValue)
-        }
+        this.setHandler("changed", newValue)
         break
       case "onDeleteText":
-        if (oldValue) {
-          this.node.off("delete-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("delete-text", newValue)
-        }
+        this.setHandler("delete-text", newValue)
         break
       case "onInsertText":
-        if (oldValue) {
-          this.node.off("insert-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-text", newValue)
-        }
+        this.setHandler("insert-text", newValue)
         break
     }
   }

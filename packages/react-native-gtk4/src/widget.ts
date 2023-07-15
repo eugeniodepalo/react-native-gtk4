@@ -4,6 +4,7 @@ import { Gtk } from "./index.js"
 export default abstract class Widget<T extends Gtk.Widget> {
   node: T
   children: Widget<any>[] = []
+  handlers: Record<string, any> = {}
   props: Record<string, any> = {}
 
   constructor(props: Record<string, any>) {
@@ -41,5 +42,22 @@ export default abstract class Widget<T extends Gtk.Widget> {
 
   commitMount(): void {
     this.node.show()
+  }
+
+  setHandler(handlerName: string, handler: any): void {
+    const oldHandler = this.handlers[handlerName]
+
+    if (oldHandler) {
+      this.node.off(handlerName, oldHandler)
+    }
+
+    if (handler) {
+      const newHandler = (...args: any[]) => {
+        handler(this.node, ...args)
+      }
+
+      this.node.on(handlerName, newHandler)
+      this.handlers[handlerName] = newHandler
+    }
   }
 }

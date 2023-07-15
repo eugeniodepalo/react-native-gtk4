@@ -33,84 +33,34 @@ export default class Notebook<T extends Gtk.Notebook> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onChangeCurrentPage":
-        if (oldValue) {
-          this.node.off("change-current-page", oldValue)
-        }
-        if (newValue) {
-          this.node.on("change-current-page", newValue)
-        }
+        this.setHandler("change-current-page", newValue)
         break
       case "onCreateWindow":
-        if (oldValue) {
-          this.node.off("create-window", oldValue)
-        }
-        if (newValue) {
-          this.node.on("create-window", newValue)
-        }
+        this.setHandler("create-window", newValue)
         break
       case "onFocusTab":
-        if (oldValue) {
-          this.node.off("focus-tab", oldValue)
-        }
-        if (newValue) {
-          this.node.on("focus-tab", newValue)
-        }
+        this.setHandler("focus-tab", newValue)
         break
       case "onMoveFocusOut":
-        if (oldValue) {
-          this.node.off("move-focus-out", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-focus-out", newValue)
-        }
+        this.setHandler("move-focus-out", newValue)
         break
       case "onPageAdded":
-        if (oldValue) {
-          this.node.off("page-added", oldValue)
-        }
-        if (newValue) {
-          this.node.on("page-added", newValue)
-        }
+        this.setHandler("page-added", newValue)
         break
       case "onPageRemoved":
-        if (oldValue) {
-          this.node.off("page-removed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("page-removed", newValue)
-        }
+        this.setHandler("page-removed", newValue)
         break
       case "onPageReordered":
-        if (oldValue) {
-          this.node.off("page-reordered", oldValue)
-        }
-        if (newValue) {
-          this.node.on("page-reordered", newValue)
-        }
+        this.setHandler("page-reordered", newValue)
         break
       case "onReorderTab":
-        if (oldValue) {
-          this.node.off("reorder-tab", oldValue)
-        }
-        if (newValue) {
-          this.node.on("reorder-tab", newValue)
-        }
+        this.setHandler("reorder-tab", newValue)
         break
       case "onSelectPage":
-        if (oldValue) {
-          this.node.off("select-page", oldValue)
-        }
-        if (newValue) {
-          this.node.on("select-page", newValue)
-        }
+        this.setHandler("select-page", newValue)
         break
       case "onSwitchPage":
-        if (oldValue) {
-          this.node.off("switch-page", oldValue)
-        }
-        if (newValue) {
-          this.node.on("switch-page", newValue)
-        }
+        this.setHandler("switch-page", newValue)
         break
     }
   }

@@ -42,12 +42,7 @@ export default class MenuButton<T extends Gtk.MenuButton> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
     }
   }

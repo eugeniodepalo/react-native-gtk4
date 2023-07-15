@@ -26,12 +26,7 @@ export default class ToggleButton<
         this.node.setActionTargetValue(newValue)
         break
       case "onToggled":
-        if (oldValue) {
-          this.node.off("toggled", oldValue)
-        }
-        if (newValue) {
-          this.node.on("toggled", newValue)
-        }
+        this.setHandler("toggled", newValue)
         break
     }
   }

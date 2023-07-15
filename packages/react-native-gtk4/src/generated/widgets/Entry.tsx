@@ -138,68 +138,28 @@ export default class Entry<T extends Gtk.Entry> extends Widget<T> {
         this.node.xalign = newValue
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
       case "onIconPress":
-        if (oldValue) {
-          this.node.off("icon-press", oldValue)
-        }
-        if (newValue) {
-          this.node.on("icon-press", newValue)
-        }
+        this.setHandler("icon-press", newValue)
         break
       case "onIconRelease":
-        if (oldValue) {
-          this.node.off("icon-release", oldValue)
-        }
-        if (newValue) {
-          this.node.on("icon-release", newValue)
-        }
+        this.setHandler("icon-release", newValue)
         break
       case "onEditingDone":
-        if (oldValue) {
-          this.node.off("editing-done", oldValue)
-        }
-        if (newValue) {
-          this.node.on("editing-done", newValue)
-        }
+        this.setHandler("editing-done", newValue)
         break
       case "onRemoveWidget":
-        if (oldValue) {
-          this.node.off("remove-widget", oldValue)
-        }
-        if (newValue) {
-          this.node.on("remove-widget", newValue)
-        }
+        this.setHandler("remove-widget", newValue)
         break
       case "onChanged":
-        if (oldValue) {
-          this.node.off("changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("changed", newValue)
-        }
+        this.setHandler("changed", newValue)
         break
       case "onDeleteText":
-        if (oldValue) {
-          this.node.off("delete-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("delete-text", newValue)
-        }
+        this.setHandler("delete-text", newValue)
         break
       case "onInsertText":
-        if (oldValue) {
-          this.node.off("insert-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-text", newValue)
-        }
+        this.setHandler("insert-text", newValue)
         break
     }
   }

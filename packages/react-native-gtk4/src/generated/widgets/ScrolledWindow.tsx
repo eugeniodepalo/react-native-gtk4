@@ -56,36 +56,16 @@ export default class ScrolledWindow<
         this.node.accessibleRole = newValue
         break
       case "onEdgeOvershot":
-        if (oldValue) {
-          this.node.off("edge-overshot", oldValue)
-        }
-        if (newValue) {
-          this.node.on("edge-overshot", newValue)
-        }
+        this.setHandler("edge-overshot", newValue)
         break
       case "onEdgeReached":
-        if (oldValue) {
-          this.node.off("edge-reached", oldValue)
-        }
-        if (newValue) {
-          this.node.on("edge-reached", newValue)
-        }
+        this.setHandler("edge-reached", newValue)
         break
       case "onMoveFocusOut":
-        if (oldValue) {
-          this.node.off("move-focus-out", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-focus-out", newValue)
-        }
+        this.setHandler("move-focus-out", newValue)
         break
       case "onScrollChild":
-        if (oldValue) {
-          this.node.off("scroll-child", oldValue)
-        }
-        if (newValue) {
-          this.node.on("scroll-child", newValue)
-        }
+        this.setHandler("scroll-child", newValue)
         break
     }
   }

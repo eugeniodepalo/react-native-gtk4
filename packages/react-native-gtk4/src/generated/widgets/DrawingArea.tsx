@@ -18,12 +18,7 @@ export default class DrawingArea<T extends Gtk.DrawingArea> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onResize":
-        if (oldValue) {
-          this.node.off("resize", oldValue)
-        }
-        if (newValue) {
-          this.node.on("resize", newValue)
-        }
+        this.setHandler("resize", newValue)
         break
     }
   }

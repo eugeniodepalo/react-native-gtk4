@@ -14,12 +14,7 @@ export default class EmojiChooser<
         this.node.accessibleRole = newValue
         break
       case "onEmojiPicked":
-        if (oldValue) {
-          this.node.off("emoji-picked", oldValue)
-        }
-        if (newValue) {
-          this.node.on("emoji-picked", newValue)
-        }
+        this.setHandler("emoji-picked", newValue)
         break
     }
   }

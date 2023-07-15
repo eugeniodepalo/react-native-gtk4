@@ -44,36 +44,16 @@ export default class PasswordEntry<
         this.node.xalign = newValue
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
       case "onChanged":
-        if (oldValue) {
-          this.node.off("changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("changed", newValue)
-        }
+        this.setHandler("changed", newValue)
         break
       case "onDeleteText":
-        if (oldValue) {
-          this.node.off("delete-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("delete-text", newValue)
-        }
+        this.setHandler("delete-text", newValue)
         break
       case "onInsertText":
-        if (oldValue) {
-          this.node.off("insert-text", oldValue)
-        }
-        if (newValue) {
-          this.node.on("insert-text", newValue)
-        }
+        this.setHandler("insert-text", newValue)
         break
     }
   }

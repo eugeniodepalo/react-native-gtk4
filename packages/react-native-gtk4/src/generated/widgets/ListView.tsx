@@ -42,12 +42,7 @@ export default class ListView<T extends Gtk.ListView> extends ListBase<T> {
         this.node.setVscrollPolicy(newValue)
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
     }
   }

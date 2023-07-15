@@ -24,12 +24,7 @@ export default class LinkButton<T extends Gtk.LinkButton> extends Button<T> {
         this.node.setActionTargetValue(newValue)
         break
       case "onActivateLink":
-        if (oldValue) {
-          this.node.off("activate-link", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate-link", newValue)
-        }
+        this.setHandler("activate-link", newValue)
         break
     }
   }

@@ -60,12 +60,7 @@ export default class AboutDialog<T extends Gtk.AboutDialog> extends Window<T> {
         this.node.accessibleRole = newValue
         break
       case "onActivateLink":
-        if (oldValue) {
-          this.node.off("activate-link", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate-link", newValue)
-        }
+        this.setHandler("activate-link", newValue)
         break
     }
   }

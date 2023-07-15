@@ -30,20 +30,10 @@ export default class Button<T extends Gtk.Button> extends Widget<T> {
         this.node.setActionTargetValue(newValue)
         break
       case "onActivate":
-        if (oldValue) {
-          this.node.off("activate", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate", newValue)
-        }
+        this.setHandler("activate", newValue)
         break
       case "onClicked":
-        if (oldValue) {
-          this.node.off("clicked", oldValue)
-        }
-        if (newValue) {
-          this.node.on("clicked", newValue)
-        }
+        this.setHandler("clicked", newValue)
         break
     }
   }

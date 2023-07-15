@@ -24,68 +24,28 @@ export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onActivateCursorRow":
-        if (oldValue) {
-          this.node.off("activate-cursor-row", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate-cursor-row", newValue)
-        }
+        this.setHandler("activate-cursor-row", newValue)
         break
       case "onMoveCursor":
-        if (oldValue) {
-          this.node.off("move-cursor", oldValue)
-        }
-        if (newValue) {
-          this.node.on("move-cursor", newValue)
-        }
+        this.setHandler("move-cursor", newValue)
         break
       case "onRowActivated":
-        if (oldValue) {
-          this.node.off("row-activated", oldValue)
-        }
-        if (newValue) {
-          this.node.on("row-activated", newValue)
-        }
+        this.setHandler("row-activated", newValue)
         break
       case "onRowSelected":
-        if (oldValue) {
-          this.node.off("row-selected", oldValue)
-        }
-        if (newValue) {
-          this.node.on("row-selected", newValue)
-        }
+        this.setHandler("row-selected", newValue)
         break
       case "onSelectAll":
-        if (oldValue) {
-          this.node.off("select-all", oldValue)
-        }
-        if (newValue) {
-          this.node.on("select-all", newValue)
-        }
+        this.setHandler("select-all", newValue)
         break
       case "onSelectedRowsChanged":
-        if (oldValue) {
-          this.node.off("selected-rows-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("selected-rows-changed", newValue)
-        }
+        this.setHandler("selected-rows-changed", newValue)
         break
       case "onToggleCursorRow":
-        if (oldValue) {
-          this.node.off("toggle-cursor-row", oldValue)
-        }
-        if (newValue) {
-          this.node.on("toggle-cursor-row", newValue)
-        }
+        this.setHandler("toggle-cursor-row", newValue)
         break
       case "onUnselectAll":
-        if (oldValue) {
-          this.node.off("unselect-all", oldValue)
-        }
-        if (newValue) {
-          this.node.on("unselect-all", newValue)
-        }
+        this.setHandler("unselect-all", newValue)
         break
     }
   }

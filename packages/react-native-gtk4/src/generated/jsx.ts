@@ -23,7 +23,7 @@ declare global {
         websiteLabel?: string
         wrapLicense?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        onActivateLink?: (uri: string) => boolean
+        onActivateLink?: (node: Gtk.AboutDialog, uri: string) => boolean
       }
       ActionBar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ActionBar>
@@ -61,8 +61,8 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
         actionTarget?: GLib.Variant
-        onActivate?: () => boolean
-        onClicked?: () => boolean
+        onActivate?: (node: Gtk.Button) => boolean
+        onClicked?: (node: Gtk.Button) => boolean
       }
       Calendar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Calendar>
@@ -73,11 +73,11 @@ declare global {
         showWeekNumbers?: boolean
         year?: number
         accessibleRole?: Gtk.AccessibleRole
-        onDaySelected?: () => boolean
-        onNextMonth?: () => boolean
-        onNextYear?: () => boolean
-        onPrevMonth?: () => boolean
-        onPrevYear?: () => boolean
+        onDaySelected?: (node: Gtk.Calendar) => boolean
+        onNextMonth?: (node: Gtk.Calendar) => boolean
+        onNextYear?: (node: Gtk.Calendar) => boolean
+        onPrevMonth?: (node: Gtk.Calendar) => boolean
+        onPrevYear?: (node: Gtk.Calendar) => boolean
       }
       CenterBox: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.CenterBox>
@@ -98,8 +98,8 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
         actionTarget?: GLib.Variant
-        onActivate?: () => boolean
-        onToggled?: () => boolean
+        onActivate?: (node: Gtk.CheckButton) => boolean
+        onToggled?: (node: Gtk.CheckButton) => boolean
       }
       ColorDialogButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ColorDialogButton>
@@ -122,7 +122,7 @@ declare global {
         hscrollPolicy?: Gtk.ScrollablePolicy
         vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
-        onActivate?: (position: number) => boolean
+        onActivate?: (node: Gtk.ColumnView, position: number) => boolean
       }
       DragIcon: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.DragIcon>
@@ -133,7 +133,11 @@ declare global {
         contentHeight?: number
         contentWidth?: number
         accessibleRole?: Gtk.AccessibleRole
-        onResize?: (width: number, height: number) => boolean
+        onResize?: (
+          node: Gtk.DrawingArea,
+          width: number,
+          height: number
+        ) => boolean
       }
       DropDown: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.DropDown>
@@ -146,7 +150,7 @@ declare global {
         selectedItem?: any
         showArrow?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        onActivate?: () => boolean
+        onActivate?: (node: Gtk.DropDown) => boolean
       }
       EditableLabel: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.EditableLabel>
@@ -161,9 +165,14 @@ declare global {
         text?: string
         widthChars?: number
         xalign?: number
-        onChanged?: () => boolean
-        onDeleteText?: (startPos: number, endPos: number) => boolean
+        onChanged?: (node: Gtk.EditableLabel) => boolean
+        onDeleteText?: (
+          node: Gtk.EditableLabel,
+          startPos: number,
+          endPos: number
+        ) => boolean
         onInsertText?: (
+          node: Gtk.EditableLabel,
           text: string,
           length: number,
           position: number
@@ -172,7 +181,7 @@ declare global {
       EmojiChooser: JSX.IntrinsicElements["Popover"] & {
         ref?: React.Ref<Gtk.EmojiChooser>
         accessibleRole?: Gtk.AccessibleRole
-        onEmojiPicked?: (text: string) => boolean
+        onEmojiPicked?: (node: Gtk.EmojiChooser, text: string) => boolean
       }
       Entry: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Entry>
@@ -225,14 +234,25 @@ declare global {
         text?: string
         widthChars?: number
         xalign?: number
-        onActivate?: () => boolean
-        onIconPress?: (iconPos: Gtk.EntryIconPosition) => boolean
-        onIconRelease?: (iconPos: Gtk.EntryIconPosition) => boolean
-        onEditingDone?: () => boolean
-        onRemoveWidget?: () => boolean
-        onChanged?: () => boolean
-        onDeleteText?: (startPos: number, endPos: number) => boolean
+        onActivate?: (node: Gtk.Entry) => boolean
+        onIconPress?: (
+          node: Gtk.Entry,
+          iconPos: Gtk.EntryIconPosition
+        ) => boolean
+        onIconRelease?: (
+          node: Gtk.Entry,
+          iconPos: Gtk.EntryIconPosition
+        ) => boolean
+        onEditingDone?: (node: Gtk.Entry) => boolean
+        onRemoveWidget?: (node: Gtk.Entry) => boolean
+        onChanged?: (node: Gtk.Entry) => boolean
+        onDeleteText?: (
+          node: Gtk.Entry,
+          startPos: number,
+          endPos: number
+        ) => boolean
         onInsertText?: (
+          node: Gtk.Entry,
           text: string,
           length: number,
           position: number
@@ -247,7 +267,7 @@ declare global {
         useMarkup?: boolean
         useUnderline?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        onActivate?: () => boolean
+        onActivate?: (node: Gtk.Expander) => boolean
       }
       Fixed: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Fixed>
@@ -265,23 +285,27 @@ declare global {
         selectionMode?: Gtk.SelectionMode
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
-        onActivateCursorChild?: () => boolean
-        onChildActivated?: (child: Gtk.FlowBoxChild) => boolean
+        onActivateCursorChild?: (node: Gtk.FlowBox) => boolean
+        onChildActivated?: (
+          node: Gtk.FlowBox,
+          child: Gtk.FlowBoxChild
+        ) => boolean
         onMoveCursor?: (
+          node: Gtk.FlowBox,
           step: Gtk.MovementStep,
           count: number,
           extend: boolean,
           modify: boolean
         ) => boolean
-        onSelectAll?: () => boolean
-        onSelectedChildrenChanged?: () => boolean
-        onToggleCursorChild?: () => boolean
-        onUnselectAll?: () => boolean
+        onSelectAll?: (node: Gtk.FlowBox) => boolean
+        onSelectedChildrenChanged?: (node: Gtk.FlowBox) => boolean
+        onToggleCursorChild?: (node: Gtk.FlowBox) => boolean
+        onUnselectAll?: (node: Gtk.FlowBox) => boolean
       }
       FlowBoxChild: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FlowBoxChild>
         accessibleRole?: Gtk.AccessibleRole
-        onActivate?: () => boolean
+        onActivate?: (node: Gtk.FlowBoxChild) => boolean
       }
       FontDialogButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FontDialogButton>
@@ -309,9 +333,9 @@ declare global {
         hasStencilBuffer?: boolean
         useEs?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        onCreateContext?: () => boolean
-        onRender?: (context: Gdk.GLContext) => boolean
-        onResize?: (width: number, height: number) => boolean
+        onCreateContext?: (node: Gtk.GLArea) => boolean
+        onRender?: (node: Gtk.GLArea, context: Gdk.GLContext) => boolean
+        onResize?: (node: Gtk.GLArea, width: number, height: number) => boolean
       }
       Grid: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Grid>
@@ -337,7 +361,7 @@ declare global {
         hscrollPolicy?: Gtk.ScrollablePolicy
         vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
-        onActivate?: (position: number) => boolean
+        onActivate?: (node: Gtk.GridView, position: number) => boolean
       }
       HeaderBar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.HeaderBar>
@@ -398,10 +422,11 @@ declare global {
         xalign?: number
         yalign?: number
         accessibleRole?: Gtk.AccessibleRole
-        onActivateCurrentLink?: () => boolean
-        onActivateLink?: (uri: string) => boolean
-        onCopyClipboard?: () => boolean
+        onActivateCurrentLink?: (node: Gtk.Label) => boolean
+        onActivateLink?: (node: Gtk.Label, uri: string) => boolean
+        onCopyClipboard?: (node: Gtk.Label) => boolean
         onMoveCursor?: (
+          node: Gtk.Label,
           step: Gtk.MovementStep,
           count: number,
           extendSelection: boolean
@@ -416,7 +441,7 @@ declare global {
         value?: number
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
-        onOffsetChanged?: (name: string) => boolean
+        onOffsetChanged?: (node: Gtk.LevelBar, name: string) => boolean
       }
       LinkButton: JSX.IntrinsicElements["Button"] & {
         ref?: React.Ref<Gtk.LinkButton>
@@ -425,7 +450,7 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
         actionTarget?: GLib.Variant
-        onActivateLink?: () => boolean
+        onActivateLink?: (node: Gtk.LinkButton) => boolean
       }
       ListBase: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ListBase>
@@ -443,19 +468,20 @@ declare global {
         selectionMode?: Gtk.SelectionMode
         showSeparators?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        onActivateCursorRow?: () => boolean
+        onActivateCursorRow?: (node: Gtk.ListBox) => boolean
         onMoveCursor?: (
+          node: Gtk.ListBox,
           object: Gtk.MovementStep,
           p0: number,
           p1: boolean,
           p2: boolean
         ) => boolean
-        onRowActivated?: (row: Gtk.ListBoxRow) => boolean
-        onRowSelected?: (row?: Gtk.ListBoxRow) => boolean
-        onSelectAll?: () => boolean
-        onSelectedRowsChanged?: () => boolean
-        onToggleCursorRow?: () => boolean
-        onUnselectAll?: () => boolean
+        onRowActivated?: (node: Gtk.ListBox, row: Gtk.ListBoxRow) => boolean
+        onRowSelected?: (node: Gtk.ListBox, row?: Gtk.ListBoxRow) => boolean
+        onSelectAll?: (node: Gtk.ListBox) => boolean
+        onSelectedRowsChanged?: (node: Gtk.ListBox) => boolean
+        onToggleCursorRow?: (node: Gtk.ListBox) => boolean
+        onUnselectAll?: (node: Gtk.ListBox) => boolean
       }
       ListBoxRow: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ListBoxRow>
@@ -464,7 +490,7 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
         actionTarget?: GLib.Variant
-        onActivate?: () => boolean
+        onActivate?: (node: Gtk.ListBoxRow) => boolean
       }
       ListView: JSX.IntrinsicElements["ListBase"] & {
         ref?: React.Ref<Gtk.ListView>
@@ -479,7 +505,7 @@ declare global {
         hscrollPolicy?: Gtk.ScrollablePolicy
         vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
-        onActivate?: (position: number) => boolean
+        onActivate?: (node: Gtk.ListView, position: number) => boolean
       }
       MediaControls: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.MediaControls>
@@ -500,7 +526,7 @@ declare global {
         primary?: boolean
         useUnderline?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        onActivate?: () => boolean
+        onActivate?: (node: Gtk.MenuButton) => boolean
       }
       Notebook: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Notebook>
@@ -513,21 +539,45 @@ declare global {
         showTabs?: boolean
         tabPos?: Gtk.PositionType
         accessibleRole?: Gtk.AccessibleRole
-        onChangeCurrentPage?: (object: number) => boolean
-        onCreateWindow?: (page: Gtk.Widget) => boolean
-        onFocusTab?: (object: Gtk.NotebookTab) => boolean
-        onMoveFocusOut?: (object: Gtk.DirectionType) => boolean
-        onPageAdded?: (child: Gtk.Widget, pageNum: number) => boolean
-        onPageRemoved?: (child: Gtk.Widget, pageNum: number) => boolean
-        onPageReordered?: (child: Gtk.Widget, pageNum: number) => boolean
-        onReorderTab?: (object: Gtk.DirectionType, p0: boolean) => boolean
-        onSelectPage?: (object: boolean) => boolean
-        onSwitchPage?: (page: Gtk.Widget, pageNum: number) => boolean
+        onChangeCurrentPage?: (node: Gtk.Notebook, object: number) => boolean
+        onCreateWindow?: (node: Gtk.Notebook, page: Gtk.Widget) => boolean
+        onFocusTab?: (node: Gtk.Notebook, object: Gtk.NotebookTab) => boolean
+        onMoveFocusOut?: (
+          node: Gtk.Notebook,
+          object: Gtk.DirectionType
+        ) => boolean
+        onPageAdded?: (
+          node: Gtk.Notebook,
+          child: Gtk.Widget,
+          pageNum: number
+        ) => boolean
+        onPageRemoved?: (
+          node: Gtk.Notebook,
+          child: Gtk.Widget,
+          pageNum: number
+        ) => boolean
+        onPageReordered?: (
+          node: Gtk.Notebook,
+          child: Gtk.Widget,
+          pageNum: number
+        ) => boolean
+        onReorderTab?: (
+          node: Gtk.Notebook,
+          object: Gtk.DirectionType,
+          p0: boolean
+        ) => boolean
+        onSelectPage?: (node: Gtk.Notebook, object: boolean) => boolean
+        onSwitchPage?: (
+          node: Gtk.Notebook,
+          page: Gtk.Widget,
+          pageNum: number
+        ) => boolean
       }
       Overlay: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Overlay>
         accessibleRole?: Gtk.AccessibleRole
         onGetChildPosition?: (
+          node: Gtk.Overlay,
           widget: Gtk.Widget,
           allocation: Gdk.Rectangle
         ) => boolean
@@ -547,12 +597,12 @@ declare global {
         startChild?: Gtk.Widget
         wideHandle?: boolean
         accessibleRole?: Gtk.AccessibleRole
-        onAcceptPosition?: () => boolean
-        onCancelPosition?: () => boolean
-        onCycleChildFocus?: (reversed: boolean) => boolean
-        onCycleHandleFocus?: (reversed: boolean) => boolean
-        onMoveHandle?: (scrollType: Gtk.ScrollType) => boolean
-        onToggleHandleFocus?: () => boolean
+        onAcceptPosition?: (node: Gtk.Paned) => boolean
+        onCancelPosition?: (node: Gtk.Paned) => boolean
+        onCycleChildFocus?: (node: Gtk.Paned, reversed: boolean) => boolean
+        onCycleHandleFocus?: (node: Gtk.Paned, reversed: boolean) => boolean
+        onMoveHandle?: (node: Gtk.Paned, scrollType: Gtk.ScrollType) => boolean
+        onToggleHandleFocus?: (node: Gtk.Paned) => boolean
       }
       PasswordEntry: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.PasswordEntry>
@@ -569,10 +619,15 @@ declare global {
         text?: string
         widthChars?: number
         xalign?: number
-        onActivate?: () => boolean
-        onChanged?: () => boolean
-        onDeleteText?: (startPos: number, endPos: number) => boolean
+        onActivate?: (node: Gtk.PasswordEntry) => boolean
+        onChanged?: (node: Gtk.PasswordEntry) => boolean
+        onDeleteText?: (
+          node: Gtk.PasswordEntry,
+          startPos: number,
+          endPos: number
+        ) => boolean
         onInsertText?: (
+          node: Gtk.PasswordEntry,
           text: string,
           length: number,
           position: number
@@ -598,8 +653,8 @@ declare global {
         pointingTo?: Gdk.Rectangle
         position?: Gtk.PositionType
         accessibleRole?: Gtk.AccessibleRole
-        onActivateDefault?: () => boolean
-        onClosed?: () => boolean
+        onActivateDefault?: (node: Gtk.Popover) => boolean
+        onClosed?: (node: Gtk.Popover) => boolean
       }
       PopoverMenu: JSX.IntrinsicElements["Popover"] & {
         ref?: React.Ref<Gtk.PopoverMenu>
@@ -635,10 +690,14 @@ declare global {
         showFillLevel?: boolean
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
-        onAdjustBounds?: (value: number) => boolean
-        onChangeValue?: (scroll: Gtk.ScrollType, value: number) => boolean
-        onMoveSlider?: (step: Gtk.ScrollType) => boolean
-        onValueChanged?: () => boolean
+        onAdjustBounds?: (node: Gtk.Range, value: number) => boolean
+        onChangeValue?: (
+          node: Gtk.Range,
+          scroll: Gtk.ScrollType,
+          value: number
+        ) => boolean
+        onMoveSlider?: (node: Gtk.Range, step: Gtk.ScrollType) => boolean
+        onValueChanged?: (node: Gtk.Range) => boolean
       }
       Revealer: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Revealer>
@@ -669,9 +728,9 @@ declare global {
         value?: number
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
-        onPopdown?: () => boolean
-        onPopup?: () => boolean
-        onValueChanged?: (value: number) => boolean
+        onPopdown?: (node: Gtk.ScaleButton) => boolean
+        onPopup?: (node: Gtk.ScaleButton) => boolean
+        onValueChanged?: (node: Gtk.ScaleButton, value: number) => boolean
       }
       Scrollbar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Scrollbar>
@@ -696,10 +755,23 @@ declare global {
         vscrollbarPolicy?: Gtk.PolicyType
         windowPlacement?: Gtk.CornerType
         accessibleRole?: Gtk.AccessibleRole
-        onEdgeOvershot?: (pos: Gtk.PositionType) => boolean
-        onEdgeReached?: (pos: Gtk.PositionType) => boolean
-        onMoveFocusOut?: (directionType: Gtk.DirectionType) => boolean
-        onScrollChild?: (scroll: Gtk.ScrollType, horizontal: boolean) => boolean
+        onEdgeOvershot?: (
+          node: Gtk.ScrolledWindow,
+          pos: Gtk.PositionType
+        ) => boolean
+        onEdgeReached?: (
+          node: Gtk.ScrolledWindow,
+          pos: Gtk.PositionType
+        ) => boolean
+        onMoveFocusOut?: (
+          node: Gtk.ScrolledWindow,
+          directionType: Gtk.DirectionType
+        ) => boolean
+        onScrollChild?: (
+          node: Gtk.ScrolledWindow,
+          scroll: Gtk.ScrollType,
+          horizontal: boolean
+        ) => boolean
       }
       SearchBar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.SearchBar>
@@ -722,15 +794,20 @@ declare global {
         text?: string
         widthChars?: number
         xalign?: number
-        onActivate?: () => boolean
-        onNextMatch?: () => boolean
-        onPreviousMatch?: () => boolean
-        onSearchChanged?: () => boolean
-        onSearchStarted?: () => boolean
-        onStopSearch?: () => boolean
-        onChanged?: () => boolean
-        onDeleteText?: (startPos: number, endPos: number) => boolean
+        onActivate?: (node: Gtk.SearchEntry) => boolean
+        onNextMatch?: (node: Gtk.SearchEntry) => boolean
+        onPreviousMatch?: (node: Gtk.SearchEntry) => boolean
+        onSearchChanged?: (node: Gtk.SearchEntry) => boolean
+        onSearchStarted?: (node: Gtk.SearchEntry) => boolean
+        onStopSearch?: (node: Gtk.SearchEntry) => boolean
+        onChanged?: (node: Gtk.SearchEntry) => boolean
+        onDeleteText?: (
+          node: Gtk.SearchEntry,
+          startPos: number,
+          endPos: number
+        ) => boolean
         onInsertText?: (
+          node: Gtk.SearchEntry,
           text: string,
           length: number,
           position: number
@@ -765,7 +842,10 @@ declare global {
         viewName?: string
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
-        onChangeCurrentPage?: (object: number) => boolean
+        onChangeCurrentPage?: (
+          node: Gtk.ShortcutsSection,
+          object: number
+        ) => boolean
       }
       ShortcutsShortcut: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ShortcutsShortcut>
@@ -787,8 +867,8 @@ declare global {
         sectionName?: string
         viewName?: string
         accessibleRole?: Gtk.AccessibleRole
-        onClose?: () => boolean
-        onSearch?: () => boolean
+        onClose?: (node: Gtk.ShortcutsWindow) => boolean
+        onSearch?: (node: Gtk.ShortcutsWindow) => boolean
       }
       SpinButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.SpinButton>
@@ -811,16 +891,24 @@ declare global {
         widthChars?: number
         xalign?: number
         orientation?: Gtk.Orientation
-        onChangeValue?: (scroll: Gtk.ScrollType) => boolean
-        onInput?: (newValue: number) => boolean
-        onOutput?: () => boolean
-        onValueChanged?: () => boolean
-        onWrapped?: () => boolean
-        onEditingDone?: () => boolean
-        onRemoveWidget?: () => boolean
-        onChanged?: () => boolean
-        onDeleteText?: (startPos: number, endPos: number) => boolean
+        onChangeValue?: (
+          node: Gtk.SpinButton,
+          scroll: Gtk.ScrollType
+        ) => boolean
+        onInput?: (node: Gtk.SpinButton, newValue: number) => boolean
+        onOutput?: (node: Gtk.SpinButton) => boolean
+        onValueChanged?: (node: Gtk.SpinButton) => boolean
+        onWrapped?: (node: Gtk.SpinButton) => boolean
+        onEditingDone?: (node: Gtk.SpinButton) => boolean
+        onRemoveWidget?: (node: Gtk.SpinButton) => boolean
+        onChanged?: (node: Gtk.SpinButton) => boolean
+        onDeleteText?: (
+          node: Gtk.SpinButton,
+          startPos: number,
+          endPos: number
+        ) => boolean
         onInsertText?: (
+          node: Gtk.SpinButton,
           text: string,
           length: number,
           position: number
@@ -862,8 +950,8 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
         actionTarget?: GLib.Variant
-        onActivate?: () => boolean
-        onStateSet?: (state: boolean) => boolean
+        onActivate?: (node: Gtk.Switch) => boolean
+        onStateSet?: (node: Gtk.Switch, state: boolean) => boolean
       }
       Text: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Text>
@@ -894,24 +982,34 @@ declare global {
         text?: string
         widthChars?: number
         xalign?: number
-        onActivate?: () => boolean
-        onBackspace?: () => boolean
-        onCopyClipboard?: () => boolean
-        onCutClipboard?: () => boolean
-        onDeleteFromCursor?: (type: Gtk.DeleteType, count: number) => boolean
-        onInsertAtCursor?: (string: string) => boolean
-        onInsertEmoji?: () => boolean
+        onActivate?: (node: Gtk.Text) => boolean
+        onBackspace?: (node: Gtk.Text) => boolean
+        onCopyClipboard?: (node: Gtk.Text) => boolean
+        onCutClipboard?: (node: Gtk.Text) => boolean
+        onDeleteFromCursor?: (
+          node: Gtk.Text,
+          type: Gtk.DeleteType,
+          count: number
+        ) => boolean
+        onInsertAtCursor?: (node: Gtk.Text, string: string) => boolean
+        onInsertEmoji?: (node: Gtk.Text) => boolean
         onMoveCursor?: (
+          node: Gtk.Text,
           step: Gtk.MovementStep,
           count: number,
           extend: boolean
         ) => boolean
-        onPasteClipboard?: () => boolean
-        onPreeditChanged?: (preedit: string) => boolean
-        onToggleOverwrite?: () => boolean
-        onChanged?: () => boolean
-        onDeleteText?: (startPos: number, endPos: number) => boolean
+        onPasteClipboard?: (node: Gtk.Text) => boolean
+        onPreeditChanged?: (node: Gtk.Text, preedit: string) => boolean
+        onToggleOverwrite?: (node: Gtk.Text) => boolean
+        onChanged?: (node: Gtk.Text) => boolean
+        onDeleteText?: (
+          node: Gtk.Text,
+          startPos: number,
+          endPos: number
+        ) => boolean
         onInsertText?: (
+          node: Gtk.Text,
           text: string,
           length: number,
           position: number
@@ -945,30 +1043,40 @@ declare global {
         hscrollPolicy?: Gtk.ScrollablePolicy
         vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
-        onBackspace?: () => boolean
-        onCopyClipboard?: () => boolean
-        onCutClipboard?: () => boolean
-        onDeleteFromCursor?: (type: Gtk.DeleteType, count: number) => boolean
+        onBackspace?: (node: Gtk.TextView) => boolean
+        onCopyClipboard?: (node: Gtk.TextView) => boolean
+        onCutClipboard?: (node: Gtk.TextView) => boolean
+        onDeleteFromCursor?: (
+          node: Gtk.TextView,
+          type: Gtk.DeleteType,
+          count: number
+        ) => boolean
         onExtendSelection?: (
+          node: Gtk.TextView,
           granularity: Gtk.TextExtendSelection,
           location: Gtk.TextIter,
           start: Gtk.TextIter,
           end: Gtk.TextIter
         ) => boolean
-        onInsertAtCursor?: (string: string) => boolean
-        onInsertEmoji?: () => boolean
+        onInsertAtCursor?: (node: Gtk.TextView, string: string) => boolean
+        onInsertEmoji?: (node: Gtk.TextView) => boolean
         onMoveCursor?: (
+          node: Gtk.TextView,
           step: Gtk.MovementStep,
           count: number,
           extendSelection: boolean
         ) => boolean
-        onMoveViewport?: (step: Gtk.ScrollStep, count: number) => boolean
-        onPasteClipboard?: () => boolean
-        onPreeditChanged?: (preedit: string) => boolean
-        onSelectAll?: (select: boolean) => boolean
-        onSetAnchor?: () => boolean
-        onToggleCursorVisible?: () => boolean
-        onToggleOverwrite?: () => boolean
+        onMoveViewport?: (
+          node: Gtk.TextView,
+          step: Gtk.ScrollStep,
+          count: number
+        ) => boolean
+        onPasteClipboard?: (node: Gtk.TextView) => boolean
+        onPreeditChanged?: (node: Gtk.TextView, preedit: string) => boolean
+        onSelectAll?: (node: Gtk.TextView, select: boolean) => boolean
+        onSetAnchor?: (node: Gtk.TextView) => boolean
+        onToggleCursorVisible?: (node: Gtk.TextView) => boolean
+        onToggleOverwrite?: (node: Gtk.TextView) => boolean
       }
       ToggleButton: JSX.IntrinsicElements["Button"] & {
         ref?: React.Ref<Gtk.ToggleButton>
@@ -977,7 +1085,7 @@ declare global {
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
         actionTarget?: GLib.Variant
-        onToggled?: () => boolean
+        onToggled?: (node: Gtk.ToggleButton) => boolean
       }
       TreeExpander: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.TreeExpander>
@@ -1043,24 +1151,40 @@ declare global {
         visible?: boolean
         widthRequest?: number
         accessibleRole?: Gtk.AccessibleRole
-        onDestroy?: () => boolean
-        onDirectionChanged?: (previousDirection: Gtk.TextDirection) => boolean
-        onHide?: () => boolean
-        onKeynavFailed?: (direction: Gtk.DirectionType) => boolean
-        onMap?: () => boolean
-        onMnemonicActivate?: (groupCycling: boolean) => boolean
-        onMoveFocus?: (direction: Gtk.DirectionType) => boolean
+        onDestroy?: (node: Gtk.Widget) => boolean
+        onDirectionChanged?: (
+          node: Gtk.Widget,
+          previousDirection: Gtk.TextDirection
+        ) => boolean
+        onHide?: (node: Gtk.Widget) => boolean
+        onKeynavFailed?: (
+          node: Gtk.Widget,
+          direction: Gtk.DirectionType
+        ) => boolean
+        onMap?: (node: Gtk.Widget) => boolean
+        onMnemonicActivate?: (
+          node: Gtk.Widget,
+          groupCycling: boolean
+        ) => boolean
+        onMoveFocus?: (
+          node: Gtk.Widget,
+          direction: Gtk.DirectionType
+        ) => boolean
         onQueryTooltip?: (
+          node: Gtk.Widget,
           x: number,
           y: number,
           keyboardMode: boolean,
           tooltip: Gtk.Tooltip
         ) => boolean
-        onRealize?: () => boolean
-        onShow?: () => boolean
-        onStateFlagsChanged?: (flags: Gtk.StateFlags) => boolean
-        onUnmap?: () => boolean
-        onUnrealize?: () => boolean
+        onRealize?: (node: Gtk.Widget) => boolean
+        onShow?: (node: Gtk.Widget) => boolean
+        onStateFlagsChanged?: (
+          node: Gtk.Widget,
+          flags: Gtk.StateFlags
+        ) => boolean
+        onUnmap?: (node: Gtk.Widget) => boolean
+        onUnrealize?: (node: Gtk.Widget) => boolean
       }
       Window: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Window>
@@ -1088,11 +1212,11 @@ declare global {
         titlebar?: Gtk.Widget
         transientFor?: Gtk.Window
         accessibleRole?: Gtk.AccessibleRole
-        onActivateDefault?: () => boolean
-        onActivateFocus?: () => boolean
-        onCloseRequest?: () => boolean
-        onEnableDebugging?: (toggle: boolean) => boolean
-        onKeysChanged?: () => boolean
+        onActivateDefault?: (node: Gtk.Window) => boolean
+        onActivateFocus?: (node: Gtk.Window) => boolean
+        onCloseRequest?: (node: Gtk.Window) => boolean
+        onEnableDebugging?: (node: Gtk.Window, toggle: boolean) => boolean
+        onKeysChanged?: (node: Gtk.Window) => boolean
       }
       WindowControls: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.WindowControls>

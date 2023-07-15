@@ -78,44 +78,19 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
         this.node.accessibleRole = newValue
         break
       case "onActivateDefault":
-        if (oldValue) {
-          this.node.off("activate-default", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate-default", newValue)
-        }
+        this.setHandler("activate-default", newValue)
         break
       case "onActivateFocus":
-        if (oldValue) {
-          this.node.off("activate-focus", oldValue)
-        }
-        if (newValue) {
-          this.node.on("activate-focus", newValue)
-        }
+        this.setHandler("activate-focus", newValue)
         break
       case "onCloseRequest":
-        if (oldValue) {
-          this.node.off("close-request", oldValue)
-        }
-        if (newValue) {
-          this.node.on("close-request", newValue)
-        }
+        this.setHandler("close-request", newValue)
         break
       case "onEnableDebugging":
-        if (oldValue) {
-          this.node.off("enable-debugging", oldValue)
-        }
-        if (newValue) {
-          this.node.on("enable-debugging", newValue)
-        }
+        this.setHandler("enable-debugging", newValue)
         break
       case "onKeysChanged":
-        if (oldValue) {
-          this.node.off("keys-changed", oldValue)
-        }
-        if (newValue) {
-          this.node.on("keys-changed", newValue)
-        }
+        this.setHandler("keys-changed", newValue)
         break
     }
   }

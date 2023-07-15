@@ -10,6 +10,12 @@ export default class EditableLabel<
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "editing":
+        this.node.editing = newValue
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "editable":
         this.node.setEditable(newValue)
         break
@@ -24,6 +30,9 @@ export default class EditableLabel<
         break
       case "widthChars":
         this.node.setWidthChars(newValue)
+        break
+      case "xalign":
+        this.node.xalign = newValue
         break
       case "onChanged":
         if (oldValue) {

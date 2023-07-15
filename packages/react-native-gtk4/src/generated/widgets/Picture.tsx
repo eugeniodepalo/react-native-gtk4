@@ -26,6 +26,9 @@ export default class Picture<T extends Gtk.Picture> extends Widget<T> {
       case "paintable":
         this.node.setPaintable(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

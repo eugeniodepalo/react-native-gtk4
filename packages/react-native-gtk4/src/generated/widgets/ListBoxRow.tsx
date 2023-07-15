@@ -14,6 +14,9 @@ export default class ListBoxRow<T extends Gtk.ListBoxRow> extends Widget<T> {
       case "selectable":
         this.node.setSelectable(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "actionName":
         this.node.setActionName(newValue)
         break

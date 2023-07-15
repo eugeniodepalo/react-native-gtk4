@@ -17,6 +17,9 @@ export default class Revealer<T extends Gtk.Revealer> extends Widget<T> {
       case "transitionType":
         this.node.setTransitionType(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

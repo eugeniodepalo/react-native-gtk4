@@ -4,6 +4,5 @@ pnpm run build
 rm -rf generated
 mkdir generated
 mkdir generated/widgets
-mkdir generated/components
 node dist/index.js
 pnpm exec prettier --write 'generated/**/*.{ts,tsx}'

@@ -56,6 +56,9 @@ export default class AboutDialog<T extends Gtk.AboutDialog> extends Window<T> {
       case "wrapLicense":
         this.node.setWrapLicense(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onActivateLink":
         if (oldValue) {
           this.node.off("activate-link", oldValue)

@@ -11,6 +11,9 @@ export default class Viewport<T extends Gtk.Viewport> extends Widget<T> {
       case "scrollToFocus":
         this.node.setScrollToFocus(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "hadjustment":
         this.node.setHadjustment(newValue)
         break

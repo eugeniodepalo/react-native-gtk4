@@ -26,6 +26,9 @@ export default class Range<T extends Gtk.Range> extends Widget<T> {
       case "showFillLevel":
         this.node.setShowFillLevel(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

@@ -8,6 +8,9 @@ export default class Separator<T extends Gtk.Separator> extends Widget<T> {
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

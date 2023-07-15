@@ -16,6 +16,9 @@ export default class ToggleButton<
       case "group":
         this.node.setGroup(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "actionName":
         this.node.setActionName(newValue)
         break

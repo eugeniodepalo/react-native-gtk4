@@ -23,6 +23,9 @@ export default class Text<T extends Gtk.Text> extends Widget<T> {
       case "extraMenu":
         this.node.setExtraMenu(newValue)
         break
+      case "imModule":
+        this.node.imModule = newValue
+        break
       case "inputHints":
         this.node.setInputHints(newValue)
         break
@@ -31,6 +34,9 @@ export default class Text<T extends Gtk.Text> extends Widget<T> {
         break
       case "invisibleChar":
         this.node.setInvisibleChar(newValue)
+        break
+      case "invisibleCharSet":
+        this.node.invisibleCharSet = newValue
         break
       case "maxLength":
         this.node.setMaxLength(newValue)
@@ -53,6 +59,9 @@ export default class Text<T extends Gtk.Text> extends Widget<T> {
       case "visibility":
         this.node.setVisibility(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "editable":
         this.node.setEditable(newValue)
         break
@@ -67,6 +76,9 @@ export default class Text<T extends Gtk.Text> extends Widget<T> {
         break
       case "widthChars":
         this.node.setWidthChars(newValue)
+        break
+      case "xalign":
+        this.node.xalign = newValue
         break
       case "onActivate":
         if (oldValue) {

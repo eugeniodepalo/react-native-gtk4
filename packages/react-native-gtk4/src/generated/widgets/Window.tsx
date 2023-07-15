@@ -14,8 +14,14 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
       case "decorated":
         this.node.setDecorated(newValue)
         break
+      case "defaultHeight":
+        this.node.defaultHeight = newValue
+        break
       case "defaultWidget":
         this.node.setDefaultWidget(newValue)
+        break
+      case "defaultWidth":
+        this.node.defaultWidth = newValue
         break
       case "deletable":
         this.node.setDeletable(newValue)
@@ -29,6 +35,12 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
       case "focusVisible":
         this.node.setFocusVisible(newValue)
         break
+      case "focusWidget":
+        this.node.focusWidget = newValue
+        break
+      case "fullscreened":
+        this.node.fullscreened = newValue
+        break
       case "handleMenubarAccel":
         this.node.setHandleMenubarAccel(newValue)
         break
@@ -37,6 +49,9 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
         break
       case "iconName":
         this.node.setIconName(newValue)
+        break
+      case "maximized":
+        this.node.maximized = newValue
         break
       case "mnemonicsVisible":
         this.node.setMnemonicsVisible(newValue)
@@ -58,6 +73,9 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
         break
       case "transientFor":
         this.node.setTransientFor(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "onActivateDefault":
         if (oldValue) {

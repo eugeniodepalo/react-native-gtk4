@@ -26,6 +26,9 @@ export default class ProgressBar<T extends Gtk.ProgressBar> extends Widget<T> {
       case "text":
         this.node.setText(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

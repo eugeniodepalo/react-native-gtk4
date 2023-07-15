@@ -24,6 +24,8 @@ export function paramsToJsxElementProps(
         ? `${param.array[0].type[0].$.name}[]`
         : param.type[0].$.name,
       array: !!param.array,
+      writable: true,
+      constructOnly: false,
     })
   }
 
@@ -120,9 +122,9 @@ export default function ({ widgetClasses }: Props) {
   for (const widgetClass of widgetClasses) {
     const { props } = widgetClass
 
-    for (const { type, setter } of props) {
+    for (const { type, writable } of props) {
       const importName = fromCtype(type)
-      if (importName.includes(".") && setter) {
+      if (importName.includes(".") && writable) {
         requiredImports.add(importName.split(".")[0])
       }
     }

@@ -10,6 +10,9 @@ export default class EmojiChooser<
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onEmojiPicked":
         if (oldValue) {
           this.node.off("emoji-picked", oldValue)

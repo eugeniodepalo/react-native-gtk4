@@ -13,6 +13,9 @@ export default class ApplicationWindow<
       case "showMenubar":
         this.node.setShowMenubar(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

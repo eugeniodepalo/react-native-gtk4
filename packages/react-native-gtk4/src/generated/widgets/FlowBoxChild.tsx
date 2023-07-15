@@ -10,6 +10,9 @@ export default class FlowBoxChild<
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onActivate":
         if (oldValue) {
           this.node.off("activate", oldValue)

@@ -16,6 +16,9 @@ export default class WindowControls<
       case "side":
         this.node.setSide(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

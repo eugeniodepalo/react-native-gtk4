@@ -26,6 +26,9 @@ export default class GridView<T extends Gtk.GridView> extends ListBase<T> {
       case "singleClickActivate":
         this.node.setSingleClickActivate(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

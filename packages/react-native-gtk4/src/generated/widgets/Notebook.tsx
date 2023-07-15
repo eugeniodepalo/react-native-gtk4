@@ -8,8 +8,14 @@ export default class Notebook<T extends Gtk.Notebook> extends Widget<T> {
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "enablePopup":
+        this.node.enablePopup = newValue
+        break
       case "groupName":
         this.node.setGroupName(newValue)
+        break
+      case "page":
+        this.node.page = newValue
         break
       case "scrollable":
         this.node.setScrollable(newValue)
@@ -22,6 +28,9 @@ export default class Notebook<T extends Gtk.Notebook> extends Widget<T> {
         break
       case "tabPos":
         this.node.setTabPos(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "onChangeCurrentPage":
         if (oldValue) {

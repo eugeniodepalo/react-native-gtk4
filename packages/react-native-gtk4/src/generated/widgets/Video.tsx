@@ -20,6 +20,9 @@ export default class Video<T extends Gtk.Video> extends Widget<T> {
       case "mediaStream":
         this.node.setMediaStream(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

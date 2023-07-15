@@ -22,6 +22,9 @@ export default class ScaleButton<T extends Gtk.ScaleButton> extends Widget<T> {
       case "value":
         this.node.setValue(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

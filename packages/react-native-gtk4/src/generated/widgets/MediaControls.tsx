@@ -13,6 +13,9 @@ export default class MediaControls<
       case "mediaStream":
         this.node.setMediaStream(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

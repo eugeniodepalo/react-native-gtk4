@@ -26,6 +26,9 @@ export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
       case "singleClickActivate":
         this.node.setSingleClickActivate(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "hadjustment":
         this.node.setHadjustment(newValue)
         break

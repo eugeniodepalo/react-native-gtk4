@@ -11,6 +11,9 @@ export default class Scrollbar<T extends Gtk.Scrollbar> extends Widget<T> {
       case "adjustment":
         this.node.setAdjustment(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

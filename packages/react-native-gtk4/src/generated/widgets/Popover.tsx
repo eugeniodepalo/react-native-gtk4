@@ -29,6 +29,9 @@ export default class Popover<T extends Gtk.Popover> extends Widget<T> {
       case "position":
         this.node.setPosition(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onActivateDefault":
         if (oldValue) {
           this.node.off("activate-default", oldValue)

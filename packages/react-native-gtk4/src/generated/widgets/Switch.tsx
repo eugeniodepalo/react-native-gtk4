@@ -14,6 +14,9 @@ export default class Switch<T extends Gtk.Switch> extends Widget<T> {
       case "state":
         this.node.setState(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "actionName":
         this.node.setActionName(newValue)
         break

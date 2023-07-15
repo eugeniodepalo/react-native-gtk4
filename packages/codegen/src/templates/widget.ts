@@ -33,7 +33,7 @@ function generateNodeConstructorProps(widgetClass: WidgetClass) {
 
 function getSettableProps(widgetClass: WidgetClass) {
   const { props } = widgetClass
-  return props.filter((prop) => prop.name !== "child" && prop.setter)
+  return props.filter((prop) => prop.name !== "child" && prop.writable)
 }
 
 export function generateCreateNodeMethod(widgetClass: WidgetClass) {
@@ -68,8 +68,8 @@ export function generateSetMethod(widgetClass: WidgetClass) {
   ts += `    super.set(propName, newValue, oldValue)\n`
   ts += `    switch (propName) {\n`
 
-  for (const { name, setter } of props) {
-    if (!propNames.includes(name) || !setter) {
+  for (const { name, setter, writable, constructOnly } of props) {
+    if (!propNames.includes(name) || !writable || constructOnly) {
       continue
     }
 
@@ -77,8 +77,14 @@ export function generateSetMethod(widgetClass: WidgetClass) {
       setter === "set_action_target" ? `${setter}_value` : setter
 
     ts += `      case "${camelize(name)}":\n`
-    ts += `        this.node.${camelize(setterName)}(newValue)\n`
-    ts += `        break\n`
+
+    if (setterName) {
+      ts += `        this.node.${camelize(setterName)}(newValue)\n`
+      ts += `        break\n`
+    } else {
+      ts += `        this.node.${camelize(name)} = newValue\n`
+      ts += `        break\n`
+    }
   }
 
   for (const { name } of signals) {

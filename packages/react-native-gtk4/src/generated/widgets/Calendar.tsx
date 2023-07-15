@@ -8,6 +8,12 @@ export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "day":
+        this.node.day = newValue
+        break
+      case "month":
+        this.node.month = newValue
+        break
       case "showDayNames":
         this.node.setShowDayNames(newValue)
         break
@@ -16,6 +22,12 @@ export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
         break
       case "showWeekNumbers":
         this.node.setShowWeekNumbers(newValue)
+        break
+      case "year":
+        this.node.year = newValue
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "onDaySelected":
         if (oldValue) {

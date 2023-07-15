@@ -14,6 +14,9 @@ export default class LinkButton<T extends Gtk.LinkButton> extends Button<T> {
       case "visited":
         this.node.setVisited(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "actionName":
         this.node.setActionName(newValue)
         break

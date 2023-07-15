@@ -13,6 +13,9 @@ export default class StackSwitcher<
       case "stack":
         this.node.setStack(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

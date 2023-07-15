@@ -14,6 +14,9 @@ export default class Paned<T extends Gtk.Paned> extends Widget<T> {
       case "position":
         this.node.setPosition(newValue)
         break
+      case "positionSet":
+        this.node.positionSet = newValue
+        break
       case "resizeEndChild":
         this.node.setResizeEndChild(newValue)
         break
@@ -31,6 +34,9 @@ export default class Paned<T extends Gtk.Paned> extends Widget<T> {
         break
       case "wideHandle":
         this.node.setWideHandle(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "orientation":
         this.node.setOrientation(newValue)

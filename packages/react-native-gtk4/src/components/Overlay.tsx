@@ -43,10 +43,12 @@ const OverlayChild = function OverlayChild({ children }: ChildProps) {
   const overlayNode = useContext(OverlayContext)
   const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
+  const childRef = useCallback((node: Gtk.Widget | null) => {
+    setChildNode(node)
+  }, [])
+
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget | null) => {
-      setChildNode(node)
-    },
+    ref: childRef,
   })
 
   useEffect(() => {
@@ -72,10 +74,12 @@ const OverlayItem = function OverlayItem({ children }: ItemProps) {
   const overlayNode = useContext(OverlayContext)
   const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
+  const childRef = useCallback((node: Gtk.Widget | null) => {
+    setChildNode(node)
+  }, [])
+
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget | null) => {
-      setChildNode(node)
-    },
+    ref: childRef,
   })
 
   useEffect(() => {

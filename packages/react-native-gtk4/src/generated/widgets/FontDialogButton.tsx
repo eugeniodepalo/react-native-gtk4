@@ -31,6 +31,9 @@ export default class FontDialogButton<
       case "useSize":
         this.node.setUseSize(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

@@ -22,6 +22,9 @@ export default class TreeExpander<
       case "listRow":
         this.node.setListRow(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

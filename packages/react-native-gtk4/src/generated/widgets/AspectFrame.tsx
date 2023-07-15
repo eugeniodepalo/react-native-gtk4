@@ -25,6 +25,9 @@ export default class AspectFrame<T extends Gtk.AspectFrame> extends Widget<T> {
       case "yalign":
         this.node.setYalign(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

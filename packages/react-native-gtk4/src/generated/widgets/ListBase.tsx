@@ -8,6 +8,12 @@ export default class ListBase<T extends Gtk.ListBase> extends Widget<T> {
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "orientation":
+        this.node.orientation = newValue
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "hadjustment":
         this.node.setHadjustment(newValue)
         break

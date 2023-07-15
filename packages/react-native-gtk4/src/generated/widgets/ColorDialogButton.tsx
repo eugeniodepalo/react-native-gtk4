@@ -16,6 +16,9 @@ export default class ColorDialogButton<
       case "rgba":
         this.node.setRgba(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

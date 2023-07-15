@@ -11,6 +11,7 @@ import {
   Stack,
   ListBox,
   ListBoxRow,
+  Image,
   StackSidebar,
   Paned,
   Expander,
@@ -30,37 +31,54 @@ export default function App() {
   const [popoverOpen, setPopoverOpen] = React.useState(false)
 
   return (
-    <ApplicationWindow title="Kitchen Sink" application={application}>
-      <Grid.Container>
+    <ApplicationWindow
+      title="Kitchen Sink"
+      application={application}
+      defaultWidth={800}
+      defaultHeight={600}
+    >
+      <Grid.Container vexpand hexpand>
         <Grid.Item col={0} row={0} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL}>
+          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
             {stackNode ? <StackSidebar stack={stackNode} /> : null}
-            <Stack.Container visibleChildName="child1" ref={stackRef}>
+            <Stack.Container
+              visibleChildName="child1"
+              ref={stackRef}
+              vexpand
+              hexpand
+            >
               <Stack.Item name="child1">
-                <Button label="Switch 1" />
+                <Label label="Stack 1" vexpand hexpand />
               </Stack.Item>
               <Stack.Item name="child2">
-                <Button label="Switch 2" />
+                <Label label="Stack 2" vexpand hexpand />
               </Stack.Item>
             </Stack.Container>
-            <Overlay.Container>
+            <Overlay.Container vexpand hexpand>
               <Overlay.Child>
-                <Button label="Button 1" />
+                <Image
+                  iconName="face-smile"
+                  iconSize={Gtk.IconSize.LARGE}
+                  vexpand
+                  hexpand
+                />
               </Overlay.Child>
               <Overlay.Item>
-                <Label label="Label 1" />
+                <Label label="Label 1" vexpand hexpand />
               </Overlay.Item>
             </Overlay.Container>
-            <Notebook.Container>
+            <Notebook.Container vexpand hexpand>
               <Notebook.Tab label="Tab 1">
-                <Button label="Button 1" />
+                <Label label="Notebook 1" vexpand hexpand />
               </Notebook.Tab>
               <Notebook.Tab label="Tab 2">
-                <Button label="Button 2" />
+                <Label label="Notebook 2" vexpand hexpand />
               </Notebook.Tab>
             </Notebook.Container>
             <Button
-              label="Button 1"
+              vexpand
+              hexpand
+              label={`Button ${count}`}
               onClicked={() => {
                 setCount(count + 1)
                 return false
@@ -69,35 +87,33 @@ export default function App() {
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={0} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL}>
-            <Button label="Button 2" />
-            <ListBox>
-              <ListBoxRow>
-                <Label label="Row 1" />
+          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
+            <ListBox vexpand hexpand>
+              <ListBoxRow vexpand hexpand>
+                <Label label="List Box 1" vexpand hexpand />
               </ListBoxRow>
-              <ListBoxRow>
-                <Label label="Row 2" />
+              <ListBoxRow vexpand hexpand>
+                <Label label="List Box 2" vexpand hexpand />
               </ListBoxRow>
             </ListBox>
           </Box>
         </Grid.Item>
         <Grid.Item col={0} row={1} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL}>
-            <Button label="Button 3" />
-            <Paned>
-              <Button label="Start" />
-              <Button label="End" />
+          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
+            <Paned vexpand hexpand>
+              <Label label="Paned Start" vexpand hexpand />
+              <Label label="Paned End" vexpand hexpand />
             </Paned>
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={1} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL}>
-            <Expander>
-              <Button label="Button 4" />
+          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
+            <Expander vexpand hexpand>
+              <Label label="Expander" vexpand hexpand />
             </Expander>
-            <HeaderBar>
-              <Label label="Header Bar" />
-              <Button label="Button 5" />
+            <HeaderBar vexpand hexpand>
+              <Label label="Header Bar 1" vexpand hexpand />
+              <Button label="Header Bar 2" vexpand hexpand />
             </HeaderBar>
             <Button
               onClicked={() => {
@@ -105,9 +121,11 @@ export default function App() {
                 return false
               }}
               label="Reveal"
+              vexpand
+              hexpand
             />
-            <Revealer revealChild={revealed}>
-              <Label label="Revealer" />
+            <Revealer revealChild={revealed} vexpand hexpand>
+              <Label label="Revealer" vexpand hexpand />
             </Revealer>
             <Popover.Container
               open={popoverOpen}
@@ -123,6 +141,8 @@ export default function App() {
               <Popover.Parent>
                 <Button
                   label="Popover"
+                  vexpand
+                  hexpand
                   onClicked={() => {
                     setPopoverOpen(!popoverOpen)
                     return false
@@ -130,7 +150,7 @@ export default function App() {
                 />
               </Popover.Parent>
               <Popover.Child>
-                <Label label="Popover" />
+                <Label label="Popover" vexpand hexpand />
               </Popover.Child>
             </Popover.Container>
           </Box>

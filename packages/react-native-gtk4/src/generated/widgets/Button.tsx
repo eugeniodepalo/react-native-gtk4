@@ -20,6 +20,9 @@ export default class Button<T extends Gtk.Button> extends Widget<T> {
       case "useUnderline":
         this.node.setUseUnderline(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "actionName":
         this.node.setActionName(newValue)
         break

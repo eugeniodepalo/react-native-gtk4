@@ -11,6 +11,9 @@ export default class Spinner<T extends Gtk.Spinner> extends Widget<T> {
       case "spinning":
         this.node.setSpinning(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

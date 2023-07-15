@@ -29,6 +29,9 @@ export default class Stack<T extends Gtk.Stack> extends Widget<T> {
       case "visibleChildName":
         this.node.setVisibleChildName(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

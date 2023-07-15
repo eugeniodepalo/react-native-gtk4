@@ -17,6 +17,9 @@ export default class Box<T extends Gtk.Box> extends Widget<T> {
       case "spacing":
         this.node.setSpacing(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

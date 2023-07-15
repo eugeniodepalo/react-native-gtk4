@@ -38,6 +38,9 @@ export default class MenuButton<T extends Gtk.MenuButton> extends Widget<T> {
       case "useUnderline":
         this.node.setUseUnderline(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onActivate":
         if (oldValue) {
           this.node.off("activate", oldValue)

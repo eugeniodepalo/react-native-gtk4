@@ -41,6 +41,9 @@ export default class Inscription<T extends Gtk.Inscription> extends Widget<T> {
       case "yalign":
         this.node.setYalign(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

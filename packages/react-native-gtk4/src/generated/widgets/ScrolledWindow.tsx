@@ -16,6 +16,9 @@ export default class ScrolledWindow<
       case "hasFrame":
         this.node.setHasFrame(newValue)
         break
+      case "hscrollbarPolicy":
+        this.node.hscrollbarPolicy = newValue
+        break
       case "kineticScrolling":
         this.node.setKineticScrolling(newValue)
         break
@@ -42,6 +45,15 @@ export default class ScrolledWindow<
         break
       case "vadjustment":
         this.node.setVadjustment(newValue)
+        break
+      case "vscrollbarPolicy":
+        this.node.vscrollbarPolicy = newValue
+        break
+      case "windowPlacement":
+        this.node.windowPlacement = newValue
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "onEdgeOvershot":
         if (oldValue) {

@@ -16,21 +16,10 @@ type Props = JSX.IntrinsicElements["Stack"] & {
 }
 
 const StackComponent = forwardRef<Gtk.Stack, Props>(function StackComponent(
-  { children, visibleChildName: visibleChildNameProp, ...props },
+  { children, visibleChildName, ...props },
   ref
 ) {
   const [stackNode, setStackNode] = useState<Gtk.Stack | null>(null)
-  const [visibleChildName, setVisibleChildName] = useState<string | undefined>(
-    undefined
-  )
-
-  useEffect(() => {
-    if (!stackNode) {
-      return
-    }
-
-    setVisibleChildName(visibleChildNameProp)
-  }, [children, stackNode, visibleChildNameProp])
 
   useImperativeHandle(ref, () => stackNode!)
 
@@ -38,13 +27,19 @@ const StackComponent = forwardRef<Gtk.Stack, Props>(function StackComponent(
     setStackNode(node)
   }, [])
 
+  useEffect(() => {
+    if (!stackNode) {
+      return
+    }
+
+    if (visibleChildName) {
+      stackNode.setVisibleChildName(visibleChildName)
+    }
+  }, [stackNode, visibleChildName])
+
   return (
     <StackContext.Provider value={stackNode}>
-      <Stack
-        ref={stackRef}
-        {...props}
-        {...(visibleChildName ? { visibleChildName } : {})}
-      >
+      <Stack ref={stackRef} {...props}>
         {children}
       </Stack>
     </StackContext.Provider>
@@ -61,10 +56,12 @@ const StackItem = function StackItem({ children, name, title }: ItemProps) {
   const stackNode = useContext(StackContext)
   const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
+  const childRef = useCallback((node: Gtk.Widget | null) => {
+    setChildNode(node)
+  }, [])
+
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget | null) => {
-      setChildNode(node)
-    },
+    ref: childRef,
   })
 
   useEffect(() => {

@@ -14,6 +14,12 @@ export default class Frame<T extends Gtk.Frame> extends Widget<T> {
       case "labelWidget":
         this.node.setLabelWidget(newValue)
         break
+      case "labelXalign":
+        this.node.labelXalign = newValue
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

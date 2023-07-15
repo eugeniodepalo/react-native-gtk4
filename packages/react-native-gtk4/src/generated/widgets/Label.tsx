@@ -65,6 +65,9 @@ export default class Label<T extends Gtk.Label> extends Widget<T> {
       case "yalign":
         this.node.setYalign(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onActivateCurrentLink":
         if (oldValue) {
           this.node.off("activate-current-link", oldValue)

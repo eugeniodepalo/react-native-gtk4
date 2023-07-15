@@ -15,6 +15,8 @@ export interface WidgetClassProperty {
   type: string
   array: boolean
   setter?: string
+  writable: boolean
+  constructOnly: boolean
 }
 
 export interface WidgetClassSignalParam {
@@ -97,6 +99,8 @@ async function getWidgetClasses(gir: Gir): Promise<WidgetClass[]> {
         name: prop.$.name,
         array: prop.array !== undefined,
         setter: prop.$.setter,
+        writable: prop.$.writable === "1",
+        constructOnly: prop.$["construct-only"] === "1",
         type: (prop.array ? prop.array[0].type : prop.type)[0].$.name,
       })),
       signals: uniqueSignals.map((signal) => ({

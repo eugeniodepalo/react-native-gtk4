@@ -16,6 +16,9 @@ export default class ShortcutLabel<
       case "disabledText":
         this.node.setDisabledText(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

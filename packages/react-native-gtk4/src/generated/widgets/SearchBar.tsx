@@ -11,8 +11,14 @@ export default class SearchBar<T extends Gtk.SearchBar> extends Widget<T> {
       case "keyCaptureWidget":
         this.node.setKeyCaptureWidget(newValue)
         break
+      case "searchModeEnabled":
+        this.node.searchModeEnabled = newValue
+        break
       case "showCloseButton":
         this.node.setShowCloseButton(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
     }
   }

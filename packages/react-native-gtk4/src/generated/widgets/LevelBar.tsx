@@ -23,6 +23,9 @@ export default class LevelBar<T extends Gtk.LevelBar> extends Widget<T> {
       case "value":
         this.node.setValue(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

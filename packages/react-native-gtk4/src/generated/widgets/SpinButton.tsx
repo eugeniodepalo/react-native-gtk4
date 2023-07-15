@@ -36,6 +36,12 @@ export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
       case "wrap":
         this.node.setWrap(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
+      case "editingCanceled":
+        this.node.editingCanceled = newValue
+        break
       case "editable":
         this.node.setEditable(newValue)
         break
@@ -50,6 +56,9 @@ export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
         break
       case "widthChars":
         this.node.setWidthChars(newValue)
+        break
+      case "xalign":
+        this.node.xalign = newValue
         break
       case "orientation":
         this.node.setOrientation(newValue)

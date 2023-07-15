@@ -17,6 +17,9 @@ export default class HeaderBar<T extends Gtk.HeaderBar> extends Widget<T> {
       case "titleWidget":
         this.node.setTitleWidget(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

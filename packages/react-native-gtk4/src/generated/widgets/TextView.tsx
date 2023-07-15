@@ -26,6 +26,9 @@ export default class TextView<T extends Gtk.TextView> extends Widget<T> {
       case "extraMenu":
         this.node.setExtraMenu(newValue)
         break
+      case "imModule":
+        this.node.imModule = newValue
+        break
       case "indent":
         this.node.setIndent(newValue)
         break
@@ -67,6 +70,9 @@ export default class TextView<T extends Gtk.TextView> extends Widget<T> {
         break
       case "wrapMode":
         this.node.setWrapMode(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "hadjustment":
         this.node.setHadjustment(newValue)

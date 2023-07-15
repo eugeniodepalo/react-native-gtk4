@@ -13,6 +13,9 @@ export default class PopoverMenuBar<
       case "menuModel":
         this.node.setMenuModel(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

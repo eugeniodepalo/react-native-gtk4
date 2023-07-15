@@ -7,4 +7,12 @@ export default class WindowHandle<
   createNode() {
     return new Gtk.WindowHandle() as T
   }
+  set(propName: string, newValue: any, oldValue: any) {
+    super.set(propName, newValue, oldValue)
+    switch (propName) {
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
+    }
+  }
 }

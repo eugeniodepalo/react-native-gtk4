@@ -20,6 +20,9 @@ export default class GLArea<T extends Gtk.GLArea> extends Widget<T> {
       case "useEs":
         this.node.setUseEs(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onCreateContext":
         if (oldValue) {
           this.node.off("create-context", oldValue)

@@ -11,6 +11,12 @@ export default class PopoverMenu<T extends Gtk.PopoverMenu> extends Popover<T> {
       case "menuModel":
         this.node.setMenuModel(newValue)
         break
+      case "visibleSubmenu":
+        this.node.visibleSubmenu = newValue
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

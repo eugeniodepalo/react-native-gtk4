@@ -8,6 +8,9 @@ export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "acceptUnpairedRelease":
+        this.node.acceptUnpairedRelease = newValue
+        break
       case "activateOnSingleClick":
         this.node.setActivateOnSingleClick(newValue)
         break
@@ -16,6 +19,9 @@ export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
         break
       case "showSeparators":
         this.node.setShowSeparators(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "onActivateCursorRow":
         if (oldValue) {

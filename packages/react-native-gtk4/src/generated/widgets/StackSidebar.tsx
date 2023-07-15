@@ -13,6 +13,9 @@ export default class StackSidebar<
       case "stack":
         this.node.setStack(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

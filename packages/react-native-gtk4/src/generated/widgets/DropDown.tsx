@@ -29,6 +29,9 @@ export default class DropDown<T extends Gtk.DropDown> extends Widget<T> {
       case "showArrow":
         this.node.setShowArrow(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onActivate":
         if (oldValue) {
           this.node.off("activate", oldValue)

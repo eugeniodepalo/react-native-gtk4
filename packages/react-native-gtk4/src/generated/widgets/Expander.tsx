@@ -26,6 +26,9 @@ export default class Expander<T extends Gtk.Expander> extends Widget<T> {
       case "useUnderline":
         this.node.setUseUnderline(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "onActivate":
         if (oldValue) {
           this.node.off("activate", oldValue)

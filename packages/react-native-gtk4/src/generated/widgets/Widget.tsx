@@ -32,6 +32,9 @@ export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
       case "hasTooltip":
         this.node.setHasTooltip(newValue)
         break
+      case "heightRequest":
+        this.node.heightRequest = newValue
+        break
       case "hexpand":
         this.node.setHexpand(newValue)
         break
@@ -85,6 +88,12 @@ export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
         break
       case "visible":
         this.node.setVisible(newValue)
+        break
+      case "widthRequest":
+        this.node.widthRequest = newValue
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "onDestroy":
         if (oldValue) {

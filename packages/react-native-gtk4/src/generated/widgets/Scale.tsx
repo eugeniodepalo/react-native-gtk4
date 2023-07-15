@@ -20,6 +20,9 @@ export default class Scale<T extends Gtk.Scale> extends Range<T> {
       case "valuePos":
         this.node.setValuePos(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
       case "orientation":
         this.node.setOrientation(newValue)
         break

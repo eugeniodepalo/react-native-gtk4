@@ -8,11 +8,17 @@ export default class SearchEntry<T extends Gtk.SearchEntry> extends Widget<T> {
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "activatesDefault":
+        this.node.activatesDefault = newValue
+        break
       case "placeholderText":
         this.node.setPlaceholderText(newValue)
         break
       case "searchDelay":
         this.node.setSearchDelay(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "editable":
         this.node.setEditable(newValue)
@@ -28,6 +34,9 @@ export default class SearchEntry<T extends Gtk.SearchEntry> extends Widget<T> {
         break
       case "widthChars":
         this.node.setWidthChars(newValue)
+        break
+      case "xalign":
+        this.node.xalign = newValue
         break
       case "onActivate":
         if (oldValue) {

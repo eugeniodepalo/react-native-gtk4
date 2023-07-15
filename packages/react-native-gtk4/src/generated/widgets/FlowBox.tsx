@@ -8,6 +8,9 @@ export default class FlowBox<T extends Gtk.FlowBox> extends Widget<T> {
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
     switch (propName) {
+      case "acceptUnpairedRelease":
+        this.node.acceptUnpairedRelease = newValue
+        break
       case "activateOnSingleClick":
         this.node.setActivateOnSingleClick(newValue)
         break
@@ -28,6 +31,9 @@ export default class FlowBox<T extends Gtk.FlowBox> extends Widget<T> {
         break
       case "selectionMode":
         this.node.setSelectionMode(newValue)
+        break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
         break
       case "orientation":
         this.node.setOrientation(newValue)

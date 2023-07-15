@@ -11,6 +11,9 @@ export default class ActionBar<T extends Gtk.ActionBar> extends Widget<T> {
       case "revealed":
         this.node.setRevealed(newValue)
         break
+      case "accessibleRole":
+        this.node.accessibleRole = newValue
+        break
     }
   }
 }

@@ -10,14 +10,7 @@ import { Gtk } from "../index.js"
 
 const Popover = "Popover"
 
-interface PopoverContext {
-  setChildNode: (node: Gtk.Widget | null) => void
-  setParentNode: (node: Gtk.Widget | null) => void
-}
-
-const PopoverContext = React.createContext<PopoverContext | undefined>(
-  undefined
-)
+const PopoverContext = React.createContext<Gtk.Popover | null>(null)
 
 type Props = JSX.IntrinsicElements["Popover"] & {
   children: React.ReactNode
@@ -27,8 +20,6 @@ type Props = JSX.IntrinsicElements["Popover"] & {
 const PopoverComponent = forwardRef<Gtk.Popover, Props>(
   function PopoverComponent({ children, open = false, ...props }, ref) {
     const [popoverNode, setPopoverNode] = useState<Gtk.Popover | null>(null)
-    const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
-    const [parentNode, setParentNode] = useState<Gtk.Widget | null>(null)
 
     useImperativeHandle(ref, () => popoverNode!)
 
@@ -37,17 +28,7 @@ const PopoverComponent = forwardRef<Gtk.Popover, Props>(
     }, [])
 
     useEffect(() => {
-      if (!popoverNode || !childNode || !parentNode) {
-        return
-      }
-
-      childNode.unparent()
-      popoverNode.setParent(parentNode)
-      popoverNode.setChild(childNode)
-    }, [popoverNode, childNode, parentNode])
-
-    useEffect(() => {
-      if (!popoverNode || !childNode || !parentNode) {
+      if (!popoverNode || !popoverNode.child || !popoverNode.parent) {
         return
       }
 
@@ -56,15 +37,10 @@ const PopoverComponent = forwardRef<Gtk.Popover, Props>(
       } else {
         popoverNode.popdown()
       }
-    }, [popoverNode, childNode, parentNode, open])
+    }, [popoverNode, open])
 
     return (
-      <PopoverContext.Provider
-        value={{
-          setChildNode,
-          setParentNode,
-        }}
-      >
+      <PopoverContext.Provider value={popoverNode}>
         <Popover ref={popoverRef} {...props} />
         {children}
       </PopoverContext.Provider>
@@ -77,16 +53,24 @@ interface ChildProps {
 }
 
 const PopoverChild = function PopoverChild({ children }: ChildProps) {
-  const popover = useContext(PopoverContext)
+  const popoverNode = useContext(PopoverContext)
+  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
 
-  if (!popover) {
-    throw new Error("Popover child must be inside a popover container")
-  }
+  const childRef = useCallback((node: Gtk.Widget | null) => {
+    setChildNode(node)
+  }, [])
+
+  useEffect(() => {
+    if (!popoverNode || !childNode) {
+      return
+    }
+
+    childNode.unparent()
+    popoverNode.setChild(childNode)
+  }, [popoverNode, childNode])
 
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget | null) => {
-      popover.setChildNode(node)
-    },
+    ref: childRef,
   })
 
   return childWithRef
@@ -98,15 +82,22 @@ interface ParentProps {
 
 const PopoverParent = function PopoverParent({ children }: ParentProps) {
   const popover = useContext(PopoverContext)
+  const [parentNode, setParentNode] = useState<Gtk.Widget | null>(null)
 
-  if (!popover) {
-    throw new Error("Popover parent must be inside a popover container")
-  }
+  const childRef = useCallback((node: Gtk.Widget | null) => {
+    setParentNode(node)
+  }, [])
+
+  useEffect(() => {
+    if (!popover || !parentNode) {
+      return
+    }
+
+    popover.setParent(parentNode)
+  }, [popover, parentNode])
 
   const childWithRef = React.cloneElement(children, {
-    ref: (node: Gtk.Widget | null) => {
-      popover.setParentNode(node)
-    },
+    ref: childRef,
   })
 
   return childWithRef

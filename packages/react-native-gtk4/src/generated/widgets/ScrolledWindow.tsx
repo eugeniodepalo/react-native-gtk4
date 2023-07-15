@@ -5,7 +5,7 @@ export default class ScrolledWindow<
   T extends Gtk.ScrolledWindow,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.ScrolledWindow() as T
+    return new Gtk.ScrolledWindow({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

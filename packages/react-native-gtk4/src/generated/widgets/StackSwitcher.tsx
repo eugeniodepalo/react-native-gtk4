@@ -5,7 +5,7 @@ export default class StackSwitcher<
   T extends Gtk.StackSwitcher,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.StackSwitcher() as T
+    return new Gtk.StackSwitcher({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

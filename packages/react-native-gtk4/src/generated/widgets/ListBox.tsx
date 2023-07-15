@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
   createNode() {
-    return new Gtk.ListBox() as T
+    return new Gtk.ListBox({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

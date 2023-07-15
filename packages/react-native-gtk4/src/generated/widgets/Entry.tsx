@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Entry<T extends Gtk.Entry> extends Widget<T> {
   createNode() {
-    return new Gtk.Entry() as T
+    return new Gtk.Entry({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

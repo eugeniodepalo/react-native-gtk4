@@ -5,7 +5,7 @@ export default class ShortcutsSection<
   T extends Gtk.ShortcutsSection,
 > extends Box<T> {
   createNode() {
-    return new Gtk.ShortcutsSection() as T
+    return new Gtk.ShortcutsSection({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

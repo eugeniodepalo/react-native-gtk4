@@ -5,7 +5,7 @@ export default class MediaControls<
   T extends Gtk.MediaControls,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.MediaControls(this.props.stream) as T
+    return new Gtk.MediaControls({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

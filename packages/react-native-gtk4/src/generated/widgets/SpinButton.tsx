@@ -3,11 +3,7 @@ import Widget from "./Widget.js"
 
 export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
   createNode() {
-    return new Gtk.SpinButton(
-      this.props.adjustment,
-      this.props.climbRate,
-      this.props.digits
-    ) as T
+    return new Gtk.SpinButton({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

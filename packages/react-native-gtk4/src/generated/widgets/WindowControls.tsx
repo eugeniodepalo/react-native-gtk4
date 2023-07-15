@@ -5,7 +5,7 @@ export default class WindowControls<
   T extends Gtk.WindowControls,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.WindowControls(this.props.side) as T
+    return new Gtk.WindowControls({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -19,13 +19,13 @@ interface WidgetMethodTemplate {
 }
 
 function generateNodeConstructorProps(widgetClass: WidgetClass) {
-  const { ctor } = widgetClass
-
   let ts = ""
 
-  for (const param of ((ctor.parameters || [])[0] || {}).parameter || []) {
-    const { name } = param.$
-    ts += `this.props.${camelize(name)},\n`
+  for (const prop of widgetClass.props) {
+    if (prop.constructOnly) {
+      const name = camelize(prop.name)
+      ts += `${name}: this.props.${name},\n`
+    }
   }
 
   return ts
@@ -43,9 +43,9 @@ export function generateCreateNodeMethod(widgetClass: WidgetClass) {
   let ts = ""
 
   ts += `  createNode() {\n`
-  ts += `    return new ${type}(${generateNodeConstructorProps(
+  ts += `    return new ${type}({${generateNodeConstructorProps(
     widgetClass
-  )}) as T\n`
+  )}}) as T\n`
   ts += `  }\n`
 
   return ts

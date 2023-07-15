@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class LevelBar<T extends Gtk.LevelBar> extends Widget<T> {
   createNode() {
-    return new Gtk.LevelBar() as T
+    return new Gtk.LevelBar({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

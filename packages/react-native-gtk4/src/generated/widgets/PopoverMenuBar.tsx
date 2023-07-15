@@ -5,7 +5,7 @@ export default class PopoverMenuBar<
   T extends Gtk.PopoverMenuBar,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.PopoverMenuBar(this.props.model) as T
+    return new Gtk.PopoverMenuBar({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

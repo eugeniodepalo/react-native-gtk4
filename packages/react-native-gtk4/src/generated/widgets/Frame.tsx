@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Frame<T extends Gtk.Frame> extends Widget<T> {
   createNode() {
-    return new Gtk.Frame(this.props.label) as T
+    return new Gtk.Frame({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

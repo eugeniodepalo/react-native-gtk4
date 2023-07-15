@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Viewport<T extends Gtk.Viewport> extends Widget<T> {
   createNode() {
-    return new Gtk.Viewport(this.props.hadjustment, this.props.vadjustment) as T
+    return new Gtk.Viewport({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

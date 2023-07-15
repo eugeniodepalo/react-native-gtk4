@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Revealer<T extends Gtk.Revealer> extends Widget<T> {
   createNode() {
-    return new Gtk.Revealer() as T
+    return new Gtk.Revealer({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -3,7 +3,7 @@ import Window from "./Window.js"
 
 export default class AboutDialog<T extends Gtk.AboutDialog> extends Window<T> {
   createNode() {
-    return new Gtk.AboutDialog() as T
+    return new Gtk.AboutDialog({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

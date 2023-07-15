@@ -3,12 +3,7 @@ import Widget from "./Widget.js"
 
 export default class ScaleButton<T extends Gtk.ScaleButton> extends Widget<T> {
   createNode() {
-    return new Gtk.ScaleButton(
-      this.props.min,
-      this.props.max,
-      this.props.step,
-      this.props.icons
-    ) as T
+    return new Gtk.ScaleButton({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

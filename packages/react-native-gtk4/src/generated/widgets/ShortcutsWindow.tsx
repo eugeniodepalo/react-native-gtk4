@@ -5,7 +5,7 @@ export default class ShortcutsWindow<
   T extends Gtk.ShortcutsWindow,
 > extends Window<T> {
   createNode() {
-    return new Gtk.ShortcutsWindow() as T
+    return new Gtk.ShortcutsWindow({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

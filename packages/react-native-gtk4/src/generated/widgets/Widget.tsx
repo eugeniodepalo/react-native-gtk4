@@ -3,7 +3,7 @@ import BaseWidget from "../../widget.js"
 
 export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
   createNode() {
-    return new Gtk.Widget() as T
+    return new Gtk.Widget({ cssName: this.props.cssName }) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

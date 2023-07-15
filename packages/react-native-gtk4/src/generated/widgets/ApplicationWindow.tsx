@@ -5,7 +5,7 @@ export default class ApplicationWindow<
   T extends Gtk.ApplicationWindow,
 > extends Window<T> {
   createNode() {
-    return new Gtk.ApplicationWindow(this.props.application) as T
+    return new Gtk.ApplicationWindow({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

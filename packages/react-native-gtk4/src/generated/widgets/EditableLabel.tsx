@@ -5,7 +5,7 @@ export default class EditableLabel<
   T extends Gtk.EditableLabel,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.EditableLabel(this.props.str) as T
+    return new Gtk.EditableLabel({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

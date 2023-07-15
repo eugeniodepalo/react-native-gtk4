@@ -3,7 +3,7 @@ import ListBase from "./ListBase.js"
 
 export default class ListView<T extends Gtk.ListView> extends ListBase<T> {
   createNode() {
-    return new Gtk.ListView(this.props.model, this.props.factory) as T
+    return new Gtk.ListView({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

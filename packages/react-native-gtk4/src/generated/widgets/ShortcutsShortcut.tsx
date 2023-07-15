@@ -5,7 +5,7 @@ export default class ShortcutsShortcut<
   T extends Gtk.ShortcutsShortcut,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.ShortcutsShortcut() as T
+    return new Gtk.ShortcutsShortcut({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -5,7 +5,7 @@ export default class EmojiChooser<
   T extends Gtk.EmojiChooser,
 > extends Popover<T> {
   createNode() {
-    return new Gtk.EmojiChooser() as T
+    return new Gtk.EmojiChooser({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Grid<T extends Gtk.Grid> extends Widget<T> {
   createNode() {
-    return new Gtk.Grid() as T
+    return new Gtk.Grid({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

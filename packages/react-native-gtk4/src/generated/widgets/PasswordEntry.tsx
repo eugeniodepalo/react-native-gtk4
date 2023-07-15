@@ -5,7 +5,7 @@ export default class PasswordEntry<
   T extends Gtk.PasswordEntry,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.PasswordEntry() as T
+    return new Gtk.PasswordEntry({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Range<T extends Gtk.Range> extends Widget<T> {
   createNode() {
-    return new Gtk.Range() as T
+    return new Gtk.Range({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Video<T extends Gtk.Video> extends Widget<T> {
   createNode() {
-    return new Gtk.Video() as T
+    return new Gtk.Video({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

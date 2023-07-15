@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Box<T extends Gtk.Box> extends Widget<T> {
   createNode() {
-    return new Gtk.Box(this.props.orientation, this.props.spacing) as T
+    return new Gtk.Box({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Text<T extends Gtk.Text> extends Widget<T> {
   createNode() {
-    return new Gtk.Text() as T
+    return new Gtk.Text({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

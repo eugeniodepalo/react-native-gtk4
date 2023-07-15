@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Label<T extends Gtk.Label> extends Widget<T> {
   createNode() {
-    return new Gtk.Label(this.props.str) as T
+    return new Gtk.Label({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

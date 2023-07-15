@@ -5,7 +5,7 @@ export default class ToggleButton<
   T extends Gtk.ToggleButton,
 > extends Button<T> {
   createNode() {
-    return new Gtk.ToggleButton() as T
+    return new Gtk.ToggleButton({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Popover<T extends Gtk.Popover> extends Widget<T> {
   createNode() {
-    return new Gtk.Popover() as T
+    return new Gtk.Popover({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

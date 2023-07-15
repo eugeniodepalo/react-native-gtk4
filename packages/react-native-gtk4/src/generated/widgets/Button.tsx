@@ -3,7 +3,7 @@ import Widget from "./Widget.js"
 
 export default class Button<T extends Gtk.Button> extends Widget<T> {
   createNode() {
-    return new Gtk.Button() as T
+    return new Gtk.Button({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

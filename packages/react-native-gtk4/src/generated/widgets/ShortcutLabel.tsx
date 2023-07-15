@@ -5,7 +5,7 @@ export default class ShortcutLabel<
   T extends Gtk.ShortcutLabel,
 > extends Widget<T> {
   createNode() {
-    return new Gtk.ShortcutLabel(this.props.accelerator) as T
+    return new Gtk.ShortcutLabel({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

@@ -5,7 +5,7 @@ export default class ShortcutsGroup<
   T extends Gtk.ShortcutsGroup,
 > extends Box<T> {
   createNode() {
-    return new Gtk.ShortcutsGroup() as T
+    return new Gtk.ShortcutsGroup({}) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)

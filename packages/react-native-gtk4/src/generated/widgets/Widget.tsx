@@ -3,7 +3,9 @@ import BaseWidget from "../../widget.js"
 
 export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
   createNode() {
-    return new Gtk.Widget({ cssName: this.props.cssName }) as T
+    return new Gtk.Widget({
+      cssName: this.props.cssName,
+    }) as T
   }
   set(propName: string, newValue: any, oldValue: any) {
     super.set(propName, newValue, oldValue)
@@ -94,6 +96,45 @@ export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onDestroy":
+        this.setHandler("destroy", newValue)
+        break
+      case "onDirectionChanged":
+        this.setHandler("direction-changed", newValue)
+        break
+      case "onHide":
+        this.setHandler("hide", newValue)
+        break
+      case "onKeynavFailed":
+        this.setHandler("keynav-failed", newValue)
+        break
+      case "onMap":
+        this.setHandler("map", newValue)
+        break
+      case "onMnemonicActivate":
+        this.setHandler("mnemonic-activate", newValue)
+        break
+      case "onMoveFocus":
+        this.setHandler("move-focus", newValue)
+        break
+      case "onQueryTooltip":
+        this.setHandler("query-tooltip", newValue)
+        break
+      case "onRealize":
+        this.setHandler("realize", newValue)
+        break
+      case "onShow":
+        this.setHandler("show", newValue)
+        break
+      case "onStateFlagsChanged":
+        this.setHandler("state-flags-changed", newValue)
+        break
+      case "onUnmap":
+        this.setHandler("unmap", newValue)
+        break
+      case "onUnrealize":
+        this.setHandler("unrealize", newValue)
         break
       case "onNotifyCanFocus":
         this.setHandler("notify::can-focus", newValue)
@@ -199,45 +240,6 @@ export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onDestroy":
-        this.setHandler("destroy", newValue)
-        break
-      case "onDirectionChanged":
-        this.setHandler("direction-changed", newValue)
-        break
-      case "onHide":
-        this.setHandler("hide", newValue)
-        break
-      case "onKeynavFailed":
-        this.setHandler("keynav-failed", newValue)
-        break
-      case "onMap":
-        this.setHandler("map", newValue)
-        break
-      case "onMnemonicActivate":
-        this.setHandler("mnemonic-activate", newValue)
-        break
-      case "onMoveFocus":
-        this.setHandler("move-focus", newValue)
-        break
-      case "onQueryTooltip":
-        this.setHandler("query-tooltip", newValue)
-        break
-      case "onRealize":
-        this.setHandler("realize", newValue)
-        break
-      case "onShow":
-        this.setHandler("show", newValue)
-        break
-      case "onStateFlagsChanged":
-        this.setHandler("state-flags-changed", newValue)
-        break
-      case "onUnmap":
-        this.setHandler("unmap", newValue)
-        break
-      case "onUnrealize":
-        this.setHandler("unrealize", newValue)
         break
     }
   }

@@ -23,6 +23,12 @@ export default class Switch<T extends Gtk.Switch> extends Widget<T> {
       case "actionTarget":
         this.node.setActionTargetValue(newValue)
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
+      case "onStateSet":
+        this.setHandler("state-set", newValue)
+        break
       case "onNotifyActive":
         this.setHandler("notify::active", newValue)
         break
@@ -37,12 +43,6 @@ export default class Switch<T extends Gtk.Switch> extends Widget<T> {
         break
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
-        break
-      case "onStateSet":
-        this.setHandler("state-set", newValue)
         break
     }
   }

@@ -38,6 +38,33 @@ export default class SearchEntry<T extends Gtk.SearchEntry> extends Widget<T> {
       case "xalign":
         this.node.xalign = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
+      case "onNextMatch":
+        this.setHandler("next-match", newValue)
+        break
+      case "onPreviousMatch":
+        this.setHandler("previous-match", newValue)
+        break
+      case "onSearchChanged":
+        this.setHandler("search-changed", newValue)
+        break
+      case "onSearchStarted":
+        this.setHandler("search-started", newValue)
+        break
+      case "onStopSearch":
+        this.setHandler("stop-search", newValue)
+        break
+      case "onChanged":
+        this.setHandler("changed", newValue)
+        break
+      case "onDeleteText":
+        this.setHandler("delete-text", newValue)
+        break
+      case "onInsertText":
+        this.setHandler("insert-text", newValue)
+        break
       case "onNotifyActivatesDefault":
         this.setHandler("notify::activates-default", newValue)
         break
@@ -73,33 +100,6 @@ export default class SearchEntry<T extends Gtk.SearchEntry> extends Widget<T> {
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
-        break
-      case "onNextMatch":
-        this.setHandler("next-match", newValue)
-        break
-      case "onPreviousMatch":
-        this.setHandler("previous-match", newValue)
-        break
-      case "onSearchChanged":
-        this.setHandler("search-changed", newValue)
-        break
-      case "onSearchStarted":
-        this.setHandler("search-started", newValue)
-        break
-      case "onStopSearch":
-        this.setHandler("stop-search", newValue)
-        break
-      case "onChanged":
-        this.setHandler("changed", newValue)
-        break
-      case "onDeleteText":
-        this.setHandler("delete-text", newValue)
-        break
-      case "onInsertText":
-        this.setHandler("insert-text", newValue)
         break
     }
   }

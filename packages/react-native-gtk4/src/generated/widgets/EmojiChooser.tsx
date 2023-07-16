@@ -13,11 +13,11 @@ export default class EmojiChooser<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
-      case "onNotifyAccessibleRole":
-        this.setHandler("notify::accessible-role", newValue)
-        break
       case "onEmojiPicked":
         this.setHandler("emoji-picked", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
     }
   }

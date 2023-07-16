@@ -59,6 +59,36 @@ export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onChangeValue":
+        this.setHandler("change-value", newValue)
+        break
+      case "onInput":
+        this.setHandler("input", newValue)
+        break
+      case "onOutput":
+        this.setHandler("output", newValue)
+        break
+      case "onValueChanged":
+        this.setHandler("value-changed", newValue)
+        break
+      case "onWrapped":
+        this.setHandler("wrapped", newValue)
+        break
+      case "onEditingDone":
+        this.setHandler("editing-done", newValue)
+        break
+      case "onRemoveWidget":
+        this.setHandler("remove-widget", newValue)
+        break
+      case "onChanged":
+        this.setHandler("changed", newValue)
+        break
+      case "onDeleteText":
+        this.setHandler("delete-text", newValue)
+        break
+      case "onInsertText":
+        this.setHandler("insert-text", newValue)
+        break
       case "onNotifyAdjustment":
         this.setHandler("notify::adjustment", newValue)
         break
@@ -115,36 +145,6 @@ export default class SpinButton<T extends Gtk.SpinButton> extends Widget<T> {
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
-        break
-      case "onChangeValue":
-        this.setHandler("change-value", newValue)
-        break
-      case "onInput":
-        this.setHandler("input", newValue)
-        break
-      case "onOutput":
-        this.setHandler("output", newValue)
-        break
-      case "onValueChanged":
-        this.setHandler("value-changed", newValue)
-        break
-      case "onWrapped":
-        this.setHandler("wrapped", newValue)
-        break
-      case "onEditingDone":
-        this.setHandler("editing-done", newValue)
-        break
-      case "onRemoveWidget":
-        this.setHandler("remove-widget", newValue)
-        break
-      case "onChanged":
-        this.setHandler("changed", newValue)
-        break
-      case "onDeleteText":
-        this.setHandler("delete-text", newValue)
-        break
-      case "onInsertText":
-        this.setHandler("insert-text", newValue)
         break
     }
   }

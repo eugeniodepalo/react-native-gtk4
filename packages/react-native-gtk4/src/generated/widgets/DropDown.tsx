@@ -32,6 +32,9 @@ export default class DropDown<T extends Gtk.DropDown> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onNotifyEnableSearch":
         this.setHandler("notify::enable-search", newValue)
         break
@@ -58,9 +61,6 @@ export default class DropDown<T extends Gtk.DropDown> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
         break
     }
   }

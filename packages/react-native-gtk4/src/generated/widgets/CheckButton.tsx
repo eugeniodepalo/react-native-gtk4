@@ -44,6 +44,12 @@ export default class CheckButton<T extends Gtk.CheckButton> extends Widget<T> {
       case "actionTarget":
         this.node.setActionTargetValue(newValue)
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
+      case "onToggled":
+        this.setHandler("toggled", newValue)
+        break
       case "onNotifyActive":
         this.setHandler("notify::active", newValue)
         break
@@ -70,12 +76,6 @@ export default class CheckButton<T extends Gtk.CheckButton> extends Widget<T> {
         break
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
-        break
-      case "onToggled":
-        this.setHandler("toggled", newValue)
         break
     }
   }

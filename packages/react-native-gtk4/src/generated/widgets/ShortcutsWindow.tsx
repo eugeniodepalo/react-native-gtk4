@@ -19,6 +19,12 @@ export default class ShortcutsWindow<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onClose":
+        this.setHandler("close", newValue)
+        break
+      case "onSearch":
+        this.setHandler("search", newValue)
+        break
       case "onNotifySectionName":
         this.setHandler("notify::section-name", newValue)
         break
@@ -27,12 +33,6 @@ export default class ShortcutsWindow<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onClose":
-        this.setHandler("close", newValue)
-        break
-      case "onSearch":
-        this.setHandler("search", newValue)
         break
     }
   }

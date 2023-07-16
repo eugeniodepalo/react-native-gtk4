@@ -23,6 +23,15 @@ export default class ScaleButton<T extends Gtk.ScaleButton> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onPopdown":
+        this.setHandler("popdown", newValue)
+        break
+      case "onPopup":
+        this.setHandler("popup", newValue)
+        break
+      case "onValueChanged":
+        this.setHandler("value-changed", newValue)
+        break
       case "onNotifyActive":
         this.setHandler("notify::active", newValue)
         break
@@ -40,15 +49,6 @@ export default class ScaleButton<T extends Gtk.ScaleButton> extends Widget<T> {
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
-        break
-      case "onPopdown":
-        this.setHandler("popdown", newValue)
-        break
-      case "onPopup":
-        this.setHandler("popup", newValue)
-        break
-      case "onValueChanged":
-        this.setHandler("value-changed", newValue)
         break
     }
   }

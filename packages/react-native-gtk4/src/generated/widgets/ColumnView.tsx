@@ -41,6 +41,9 @@ export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onNotifyColumns":
         this.setHandler("notify::columns", newValue)
         break
@@ -79,9 +82,6 @@ export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
         break
       case "onNotifyVscrollPolicy":
         this.setHandler("notify::vscroll-policy", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
         break
     }
   }

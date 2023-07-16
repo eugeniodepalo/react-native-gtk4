@@ -23,21 +23,6 @@ export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
-      case "onNotifyAcceptUnpairedRelease":
-        this.setHandler("notify::accept-unpaired-release", newValue)
-        break
-      case "onNotifyActivateOnSingleClick":
-        this.setHandler("notify::activate-on-single-click", newValue)
-        break
-      case "onNotifySelectionMode":
-        this.setHandler("notify::selection-mode", newValue)
-        break
-      case "onNotifyShowSeparators":
-        this.setHandler("notify::show-separators", newValue)
-        break
-      case "onNotifyAccessibleRole":
-        this.setHandler("notify::accessible-role", newValue)
-        break
       case "onActivateCursorRow":
         this.setHandler("activate-cursor-row", newValue)
         break
@@ -61,6 +46,21 @@ export default class ListBox<T extends Gtk.ListBox> extends Widget<T> {
         break
       case "onUnselectAll":
         this.setHandler("unselect-all", newValue)
+        break
+      case "onNotifyAcceptUnpairedRelease":
+        this.setHandler("notify::accept-unpaired-release", newValue)
+        break
+      case "onNotifyActivateOnSingleClick":
+        this.setHandler("notify::activate-on-single-click", newValue)
+        break
+      case "onNotifySelectionMode":
+        this.setHandler("notify::selection-mode", newValue)
+        break
+      case "onNotifyShowSeparators":
+        this.setHandler("notify::show-separators", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
     }
   }

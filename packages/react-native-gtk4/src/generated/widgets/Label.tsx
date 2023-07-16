@@ -68,6 +68,18 @@ export default class Label<T extends Gtk.Label> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onActivateCurrentLink":
+        this.setHandler("activate-current-link", newValue)
+        break
+      case "onActivateLink":
+        this.setHandler("activate-link", newValue)
+        break
+      case "onCopyClipboard":
+        this.setHandler("copy-clipboard", newValue)
+        break
+      case "onMoveCursor":
+        this.setHandler("move-cursor", newValue)
+        break
       case "onNotifyAttributes":
         this.setHandler("notify::attributes", newValue)
         break
@@ -130,18 +142,6 @@ export default class Label<T extends Gtk.Label> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onActivateCurrentLink":
-        this.setHandler("activate-current-link", newValue)
-        break
-      case "onActivateLink":
-        this.setHandler("activate-link", newValue)
-        break
-      case "onCopyClipboard":
-        this.setHandler("copy-clipboard", newValue)
-        break
-      case "onMoveCursor":
-        this.setHandler("move-cursor", newValue)
         break
     }
   }

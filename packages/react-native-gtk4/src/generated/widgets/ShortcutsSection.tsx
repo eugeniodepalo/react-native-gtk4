@@ -28,6 +28,9 @@ export default class ShortcutsSection<
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onChangeCurrentPage":
+        this.setHandler("change-current-page", newValue)
+        break
       case "onNotifyMaxHeight":
         this.setHandler("notify::max-height", newValue)
         break
@@ -45,9 +48,6 @@ export default class ShortcutsSection<
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
-        break
-      case "onChangeCurrentPage":
-        this.setHandler("change-current-page", newValue)
         break
     }
   }

@@ -23,6 +23,9 @@ export default class LinkButton<T extends Gtk.LinkButton> extends Button<T> {
       case "actionTarget":
         this.node.setActionTargetValue(newValue)
         break
+      case "onActivateLink":
+        this.setHandler("activate-link", newValue)
+        break
       case "onNotifyUri":
         this.setHandler("notify::uri", newValue)
         break
@@ -37,9 +40,6 @@ export default class LinkButton<T extends Gtk.LinkButton> extends Button<T> {
         break
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
-        break
-      case "onActivateLink":
-        this.setHandler("activate-link", newValue)
         break
     }
   }

@@ -29,6 +29,9 @@ export default class LevelBar<T extends Gtk.LevelBar> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onOffsetChanged":
+        this.setHandler("offset-changed", newValue)
+        break
       case "onNotifyInverted":
         this.setHandler("notify::inverted", newValue)
         break
@@ -49,9 +52,6 @@ export default class LevelBar<T extends Gtk.LevelBar> extends Widget<T> {
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
-        break
-      case "onOffsetChanged":
-        this.setHandler("offset-changed", newValue)
         break
     }
   }

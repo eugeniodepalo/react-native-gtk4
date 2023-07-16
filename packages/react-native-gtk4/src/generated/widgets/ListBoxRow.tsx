@@ -35,6 +35,9 @@ export default class ListBoxRow<T extends Gtk.ListBoxRow> extends Widget<T> {
       case "actionTarget":
         this.node.setActionTargetValue(newValue)
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onNotifyActivatable":
         this.setHandler("notify::activatable", newValue)
         break
@@ -52,9 +55,6 @@ export default class ListBoxRow<T extends Gtk.ListBoxRow> extends Widget<T> {
         break
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
         break
     }
   }

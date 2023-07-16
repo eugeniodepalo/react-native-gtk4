@@ -1,4 +1,4 @@
-import { camelize, fromCtype, underscore } from "../helpers.js"
+import { camelize, fromCtype } from "../helpers.js"
 import { WidgetClass } from "../index.js"
 
 interface Props {
@@ -8,35 +8,14 @@ interface Props {
 function generateJsxElementProps(widgetClass: WidgetClass) {
   const { props, signals, name } = widgetClass
   const type = fromCtype(name)
-  let ts = ""
 
-  ts += `ref?: React.Ref<${type}>\n`
+  let ts = `ref?: React.Ref<${type}>\n`
 
   if (name === "Widget") {
     ts += `children?: React.ReactNode\n`
   }
 
-  const uniqueProps = []
-
-  for (const prop of props) {
-    const { name } = prop
-
-    if (name === "child") {
-      continue
-    }
-
-    if (
-      uniqueProps
-        .map((prop) => underscore(prop.name))
-        .includes(underscore(name))
-    ) {
-      continue
-    }
-
-    uniqueProps.push(prop)
-  }
-
-  for (const { name: propName, type, array } of uniqueProps) {
+  for (const { name: propName, type, array } of props) {
     if (propName === "child") {
       continue
     }
@@ -50,6 +29,7 @@ function generateJsxElementProps(widgetClass: WidgetClass) {
 
     for (const param of params) {
       const { name, type, array, nullable } = param
+
       ts += `${camelize(name)}${nullable ? "?" : ""}: ${fromCtype(type)}${
         array ? "[]" : ""
       }, `
@@ -59,10 +39,6 @@ function generateJsxElementProps(widgetClass: WidgetClass) {
   }
 
   for (const { name: propName } of props) {
-    if (propName === "child") {
-      continue
-    }
-
     ts += `${camelize(`on_notify_${propName}`)}?: (`
     ts += `node: ${type}`
     ts += `) => void\n`
@@ -76,15 +52,11 @@ interface JsxElementTemplate {
   propsSection?: string
 }
 
-function generateJsxElement({
-  widgetClass,
-  propsSection = generateJsxElementProps(widgetClass),
-}: JsxElementTemplate) {
+function generateJsxElement({ widgetClass }: JsxElementTemplate) {
   const { name, parent } = widgetClass
   const parentName = camelize(parent ?? "")
-  let ts = ""
 
-  ts += `${name}:`
+  let ts = `${name}:`
 
   if (name === "Widget") {
     ts += `{\n`
@@ -92,7 +64,7 @@ function generateJsxElement({
     ts += `JSX.IntrinsicElements["${parentName}"] & {\n`
   }
 
-  ts += propsSection
+  ts += generateJsxElementProps(widgetClass)
   ts += `}\n`
 
   return ts

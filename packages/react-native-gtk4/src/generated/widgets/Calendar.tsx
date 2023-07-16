@@ -29,6 +29,21 @@ export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onDaySelected":
+        this.setHandler("day-selected", newValue)
+        break
+      case "onNextMonth":
+        this.setHandler("next-month", newValue)
+        break
+      case "onNextYear":
+        this.setHandler("next-year", newValue)
+        break
+      case "onPrevMonth":
+        this.setHandler("prev-month", newValue)
+        break
+      case "onPrevYear":
+        this.setHandler("prev-year", newValue)
+        break
       case "onNotifyDay":
         this.setHandler("notify::day", newValue)
         break
@@ -49,21 +64,6 @@ export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onDaySelected":
-        this.setHandler("day-selected", newValue)
-        break
-      case "onNextMonth":
-        this.setHandler("next-month", newValue)
-        break
-      case "onNextYear":
-        this.setHandler("next-year", newValue)
-        break
-      case "onPrevMonth":
-        this.setHandler("prev-month", newValue)
-        break
-      case "onPrevYear":
-        this.setHandler("prev-year", newValue)
         break
     }
   }

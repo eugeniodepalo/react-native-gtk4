@@ -112,14 +112,19 @@ function isDescendantOfWidget(
   if (className === "Widget") {
     return true
   }
+
   const klass = classesByName[className]
+
   if (!klass) {
     return false
   }
+
   const parentClassName = klass.$.parent
+
   if (!parentClassName) {
     return false
   }
+
   return isDescendantOfWidget(classesByName, parentClassName)
 }
 
@@ -128,6 +133,7 @@ function isDeprecated(
   className: string
 ) {
   const klass = classesByName[className]
+
   if (className === "Widget") {
     return false
   }
@@ -137,6 +143,7 @@ function isDeprecated(
   }
 
   const parentClassName = klass.$.parent
+
   if (!parentClassName) {
     return false
   }

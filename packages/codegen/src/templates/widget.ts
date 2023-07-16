@@ -1,25 +1,17 @@
-import { camelize, fromCtype, underscore } from "../helpers.js"
+import { camelize, fromCtype } from "../helpers.js"
 import { WidgetClass } from "../index.js"
 
 interface Props {
   widgetClass: WidgetClass
 }
 
-interface WidgetTemplate {
-  widgetClass: WidgetClass
-  parentClass?: string
-  importSection?: string
-  methodSection?: string
-}
+function generateCreateNodeMethod(widgetClass: WidgetClass) {
+  const { name } = widgetClass
+  const type = fromCtype(name)
 
-interface WidgetMethodTemplate {
-  widgetClass: WidgetClass
-  createNodeMethodSection?: string
-  setMethodSection?: string
-}
-
-function generateNodeConstructorProps(widgetClass: WidgetClass) {
   let ts = ""
+  ts += `  createNode() {\n`
+  ts += `    return new ${type}({\n`
 
   for (const prop of widgetClass.props) {
     if (prop.constructOnly) {
@@ -28,109 +20,80 @@ function generateNodeConstructorProps(widgetClass: WidgetClass) {
     }
   }
 
-  return ts
-}
-
-function getSettableProps(widgetClass: WidgetClass) {
-  const { props } = widgetClass
-  return props.filter((prop) => prop.name !== "child" && prop.writable)
-}
-
-export function generateCreateNodeMethod(widgetClass: WidgetClass) {
-  const { name } = widgetClass
-  const type = fromCtype(name)
-
-  let ts = ""
-
-  ts += `  createNode() {\n`
-  ts += `    return new ${type}({${generateNodeConstructorProps(
-    widgetClass
-  )}}) as T\n`
+  ts += `}) as T\n`
   ts += `  }\n`
 
   return ts
 }
 
-export function generateSetMethod(widgetClass: WidgetClass) {
+function generateSetMethod(widgetClass: WidgetClass) {
   const { props, signals } = widgetClass
 
-  const propNames = [...getSettableProps(widgetClass), ...signals].map(
-    (prop) => prop.name
+  const settableProps = props.filter(
+    (prop) => prop.writable && !prop.constructOnly && prop.name !== "child"
   )
 
-  let ts = ""
+  let ts = `set(propName: string, newValue: any, oldValue: any) {\n`
+  ts += `  super.set(propName, newValue, oldValue)\n`
+  ts += `  switch (propName) {\n`
 
-  ts += `  set(propName: string, newValue: any, oldValue: any) {\n`
-  ts += `    super.set(propName, newValue, oldValue)\n`
-  ts += `    switch (propName) {\n`
-
-  for (const { name, setter, writable, constructOnly } of props) {
-    if (!propNames.includes(name) || !writable || constructOnly) {
-      continue
-    }
-
+  for (const { name, setter } of settableProps) {
     const setterName =
       setter === "set_action_target" ? `${setter}_value` : setter
 
-    ts += `      case "${camelize(name)}":\n`
+    ts += `case "${camelize(name)}":\n`
 
     if (setterName) {
-      ts += `        this.node.${camelize(setterName)}(newValue)\n`
-      ts += `        break\n`
+      ts += `this.node.${camelize(setterName)}(newValue)\n`
+      ts += `break\n`
     } else {
-      ts += `        this.node.${camelize(name)} = newValue\n`
-      ts += `        break\n`
+      ts += `this.node.${camelize(name)} = newValue\n`
+      ts += `break\n`
     }
   }
 
-  for (const { name } of props) {
-    ts += `      case "${camelize(`on_notify_${name}`)}":\n`
-    ts += `        this.setHandler("notify::${name}", newValue)\n`
-    ts += `        break\n`
-  }
-
   for (const { name } of signals) {
-    ts += `      case "${camelize(`on_${name}`)}":\n`
-    ts += `        this.setHandler("${name}", newValue)\n`
-    ts += `        break\n`
+    ts += `case "${camelize(`on_${name}`)}":\n`
+    ts += `  this.setHandler("${name}", newValue)\n`
+    ts += `  break\n`
   }
 
-  ts += `    }\n`
+  for (const { name } of props) {
+    ts += `case "${camelize(`on_notify_${name}`)}":\n`
+    ts += `  this.setHandler("notify::${name}", newValue)\n`
+    ts += `  break\n`
+  }
+
   ts += `  }\n`
+  ts += `}\n`
 
   return ts
 }
 
-export function generateMethods({
-  widgetClass,
-  createNodeMethodSection = generateCreateNodeMethod(widgetClass),
-  setMethodSection = generateSetMethod(widgetClass),
-}: WidgetMethodTemplate) {
-  let ts = ""
-
-  ts += createNodeMethodSection
+function generateMethods(widgetClass: WidgetClass) {
+  let ts = generateCreateNodeMethod(widgetClass)
 
   if (widgetClass.methods.find((method) => method.$.name === "set_child")) {
-    ts += `  appendChild(child: Widget<any>) {\n`
-    ts += `    super.appendChild(child)\n`
-    ts += `    this.node.setChild(child.node)\n`
-    ts += `  }\n`
-    ts += `  removeChild(child: Widget<any>) {\n`
-    ts += `    super.removeChild(child)\n`
-    ts += `    this.node.setChild(null)\n`
-    ts += `  }\n`
-    ts += `  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
-    ts += `    super.insertBefore(child, beforeChild)\n`
-    ts += `    this.node.setChild(child.node)\n`
-    ts += `  }\n`
+    ts += `appendChild(child: Widget<any>) {\n`
+    ts += `  super.appendChild(child)\n`
+    ts += `  this.node.setChild(child.node)\n`
+    ts += `}\n`
+    ts += `removeChild(child: Widget<any>) {\n`
+    ts += `  super.removeChild(child)\n`
+    ts += `  this.node.setChild(null)\n`
+    ts += `}\n`
+    ts += `insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
+    ts += `  super.insertBefore(child, beforeChild)\n`
+    ts += `  this.node.setChild(child.node)\n`
+    ts += `}\n`
   }
 
-  ts += setMethodSection
+  ts += generateSetMethod(widgetClass)
 
   return ts
 }
 
-export function generateImports(widgetClass: WidgetClass) {
+function generateImports(widgetClass: WidgetClass) {
   const { parent, name } = widgetClass
   const parentClass = name === "Widget" ? "BaseWidget" : parent
 
@@ -147,31 +110,21 @@ export function generateImports(widgetClass: WidgetClass) {
   return ts
 }
 
-export function generateWidgetFile({
-  widgetClass,
-  parentClass = widgetClass.name === "Widget"
-    ? "BaseWidget"
-    : widgetClass.parent,
-  importSection = generateImports(widgetClass),
-  methodSection = generateMethods({ widgetClass }),
-}: WidgetTemplate) {
+export default function ({ widgetClass }: Props) {
   const { name } = widgetClass
   const type = fromCtype(name)
   const genericType = `T extends ${type}`
 
-  let ts = ""
+  const parentClass =
+    widgetClass.name === "Widget" ? "BaseWidget" : widgetClass.parent
 
-  ts += importSection
+  let ts = generateImports(widgetClass)
   ts += `\n`
   ts += `export default class ${widgetClass.name}<${genericType}> extends ${parentClass}<T> {\n`
-  ts += methodSection
+  ts += generateMethods(widgetClass)
   ts += `\n`
   ts += `}\n`
   ts += `\n`
 
   return ts
-}
-
-export default function ({ widgetClass }: Props) {
-  return generateWidgetFile({ widgetClass })
 }

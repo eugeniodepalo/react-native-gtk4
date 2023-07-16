@@ -41,6 +41,9 @@ export default class Expander<T extends Gtk.Expander> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)
         break
@@ -64,9 +67,6 @@ export default class Expander<T extends Gtk.Expander> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
         break
     }
   }

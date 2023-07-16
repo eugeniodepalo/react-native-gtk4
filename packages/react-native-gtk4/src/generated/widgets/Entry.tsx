@@ -137,6 +137,30 @@ export default class Entry<T extends Gtk.Entry> extends Widget<T> {
       case "xalign":
         this.node.xalign = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
+      case "onIconPress":
+        this.setHandler("icon-press", newValue)
+        break
+      case "onIconRelease":
+        this.setHandler("icon-release", newValue)
+        break
+      case "onEditingDone":
+        this.setHandler("editing-done", newValue)
+        break
+      case "onRemoveWidget":
+        this.setHandler("remove-widget", newValue)
+        break
+      case "onChanged":
+        this.setHandler("changed", newValue)
+        break
+      case "onDeleteText":
+        this.setHandler("delete-text", newValue)
+        break
+      case "onInsertText":
+        this.setHandler("insert-text", newValue)
+        break
       case "onNotifyActivatesDefault":
         this.setHandler("notify::activates-default", newValue)
         break
@@ -283,30 +307,6 @@ export default class Entry<T extends Gtk.Entry> extends Widget<T> {
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
-        break
-      case "onIconPress":
-        this.setHandler("icon-press", newValue)
-        break
-      case "onIconRelease":
-        this.setHandler("icon-release", newValue)
-        break
-      case "onEditingDone":
-        this.setHandler("editing-done", newValue)
-        break
-      case "onRemoveWidget":
-        this.setHandler("remove-widget", newValue)
-        break
-      case "onChanged":
-        this.setHandler("changed", newValue)
-        break
-      case "onDeleteText":
-        this.setHandler("delete-text", newValue)
-        break
-      case "onInsertText":
-        this.setHandler("insert-text", newValue)
         break
     }
   }

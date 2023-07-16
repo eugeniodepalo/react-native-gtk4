@@ -89,6 +89,21 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onActivateDefault":
+        this.setHandler("activate-default", newValue)
+        break
+      case "onActivateFocus":
+        this.setHandler("activate-focus", newValue)
+        break
+      case "onCloseRequest":
+        this.setHandler("close-request", newValue)
+        break
+      case "onEnableDebugging":
+        this.setHandler("enable-debugging", newValue)
+        break
+      case "onKeysChanged":
+        this.setHandler("keys-changed", newValue)
+        break
       case "onNotifyApplication":
         this.setHandler("notify::application", newValue)
         break
@@ -163,21 +178,6 @@ export default class Window<T extends Gtk.Window> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onActivateDefault":
-        this.setHandler("activate-default", newValue)
-        break
-      case "onActivateFocus":
-        this.setHandler("activate-focus", newValue)
-        break
-      case "onCloseRequest":
-        this.setHandler("close-request", newValue)
-        break
-      case "onEnableDebugging":
-        this.setHandler("enable-debugging", newValue)
-        break
-      case "onKeysChanged":
-        this.setHandler("keys-changed", newValue)
         break
     }
   }

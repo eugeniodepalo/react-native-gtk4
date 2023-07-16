@@ -59,6 +59,9 @@ export default class AboutDialog<T extends Gtk.AboutDialog> extends Window<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onActivateLink":
+        this.setHandler("activate-link", newValue)
+        break
       case "onNotifyArtists":
         this.setHandler("notify::artists", newValue)
         break
@@ -109,9 +112,6 @@ export default class AboutDialog<T extends Gtk.AboutDialog> extends Window<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onActivateLink":
-        this.setHandler("activate-link", newValue)
         break
     }
   }

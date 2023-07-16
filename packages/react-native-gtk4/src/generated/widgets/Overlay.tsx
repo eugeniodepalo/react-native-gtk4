@@ -23,14 +23,14 @@ export default class Overlay<T extends Gtk.Overlay> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onGetChildPosition":
+        this.setHandler("get-child-position", newValue)
+        break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onGetChildPosition":
-        this.setHandler("get-child-position", newValue)
         break
     }
   }

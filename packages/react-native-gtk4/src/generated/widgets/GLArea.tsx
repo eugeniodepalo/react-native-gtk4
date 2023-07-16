@@ -23,6 +23,15 @@ export default class GLArea<T extends Gtk.GLArea> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onCreateContext":
+        this.setHandler("create-context", newValue)
+        break
+      case "onRender":
+        this.setHandler("render", newValue)
+        break
+      case "onResize":
+        this.setHandler("resize", newValue)
+        break
       case "onNotifyAutoRender":
         this.setHandler("notify::auto-render", newValue)
         break
@@ -40,15 +49,6 @@ export default class GLArea<T extends Gtk.GLArea> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onCreateContext":
-        this.setHandler("create-context", newValue)
-        break
-      case "onRender":
-        this.setHandler("render", newValue)
-        break
-      case "onResize":
-        this.setHandler("resize", newValue)
         break
     }
   }

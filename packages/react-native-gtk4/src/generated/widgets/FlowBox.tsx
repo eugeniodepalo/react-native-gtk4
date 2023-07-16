@@ -38,6 +38,27 @@ export default class FlowBox<T extends Gtk.FlowBox> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onActivateCursorChild":
+        this.setHandler("activate-cursor-child", newValue)
+        break
+      case "onChildActivated":
+        this.setHandler("child-activated", newValue)
+        break
+      case "onMoveCursor":
+        this.setHandler("move-cursor", newValue)
+        break
+      case "onSelectAll":
+        this.setHandler("select-all", newValue)
+        break
+      case "onSelectedChildrenChanged":
+        this.setHandler("selected-children-changed", newValue)
+        break
+      case "onToggleCursorChild":
+        this.setHandler("toggle-cursor-child", newValue)
+        break
+      case "onUnselectAll":
+        this.setHandler("unselect-all", newValue)
+        break
       case "onNotifyAcceptUnpairedRelease":
         this.setHandler("notify::accept-unpaired-release", newValue)
         break
@@ -67,27 +88,6 @@ export default class FlowBox<T extends Gtk.FlowBox> extends Widget<T> {
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
-        break
-      case "onActivateCursorChild":
-        this.setHandler("activate-cursor-child", newValue)
-        break
-      case "onChildActivated":
-        this.setHandler("child-activated", newValue)
-        break
-      case "onMoveCursor":
-        this.setHandler("move-cursor", newValue)
-        break
-      case "onSelectAll":
-        this.setHandler("select-all", newValue)
-        break
-      case "onSelectedChildrenChanged":
-        this.setHandler("selected-children-changed", newValue)
-        break
-      case "onToggleCursorChild":
-        this.setHandler("toggle-cursor-child", newValue)
-        break
-      case "onUnselectAll":
-        this.setHandler("unselect-all", newValue)
         break
     }
   }

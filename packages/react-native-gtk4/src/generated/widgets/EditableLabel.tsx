@@ -34,6 +34,15 @@ export default class EditableLabel<
       case "xalign":
         this.node.xalign = newValue
         break
+      case "onChanged":
+        this.setHandler("changed", newValue)
+        break
+      case "onDeleteText":
+        this.setHandler("delete-text", newValue)
+        break
+      case "onInsertText":
+        this.setHandler("insert-text", newValue)
+        break
       case "onNotifyEditing":
         this.setHandler("notify::editing", newValue)
         break
@@ -63,15 +72,6 @@ export default class EditableLabel<
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
-        break
-      case "onChanged":
-        this.setHandler("changed", newValue)
-        break
-      case "onDeleteText":
-        this.setHandler("delete-text", newValue)
-        break
-      case "onInsertText":
-        this.setHandler("insert-text", newValue)
         break
     }
   }

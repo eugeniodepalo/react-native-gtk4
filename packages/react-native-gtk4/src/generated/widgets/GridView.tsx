@@ -44,6 +44,9 @@ export default class GridView<T extends Gtk.GridView> extends ListBase<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onNotifyEnableRubberband":
         this.setHandler("notify::enable-rubberband", newValue)
         break
@@ -79,9 +82,6 @@ export default class GridView<T extends Gtk.GridView> extends ListBase<T> {
         break
       case "onNotifyVscrollPolicy":
         this.setHandler("notify::vscroll-policy", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
         break
     }
   }

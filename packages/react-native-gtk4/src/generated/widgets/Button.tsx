@@ -41,6 +41,12 @@ export default class Button<T extends Gtk.Button> extends Widget<T> {
       case "actionTarget":
         this.node.setActionTargetValue(newValue)
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
+      case "onClicked":
+        this.setHandler("clicked", newValue)
+        break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)
         break
@@ -64,12 +70,6 @@ export default class Button<T extends Gtk.Button> extends Widget<T> {
         break
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
-        break
-      case "onClicked":
-        this.setHandler("clicked", newValue)
         break
     }
   }

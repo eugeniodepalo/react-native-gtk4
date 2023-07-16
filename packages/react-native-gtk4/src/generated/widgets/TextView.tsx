@@ -86,6 +86,51 @@ export default class TextView<T extends Gtk.TextView> extends Widget<T> {
       case "vscrollPolicy":
         this.node.setVscrollPolicy(newValue)
         break
+      case "onBackspace":
+        this.setHandler("backspace", newValue)
+        break
+      case "onCopyClipboard":
+        this.setHandler("copy-clipboard", newValue)
+        break
+      case "onCutClipboard":
+        this.setHandler("cut-clipboard", newValue)
+        break
+      case "onDeleteFromCursor":
+        this.setHandler("delete-from-cursor", newValue)
+        break
+      case "onExtendSelection":
+        this.setHandler("extend-selection", newValue)
+        break
+      case "onInsertAtCursor":
+        this.setHandler("insert-at-cursor", newValue)
+        break
+      case "onInsertEmoji":
+        this.setHandler("insert-emoji", newValue)
+        break
+      case "onMoveCursor":
+        this.setHandler("move-cursor", newValue)
+        break
+      case "onMoveViewport":
+        this.setHandler("move-viewport", newValue)
+        break
+      case "onPasteClipboard":
+        this.setHandler("paste-clipboard", newValue)
+        break
+      case "onPreeditChanged":
+        this.setHandler("preedit-changed", newValue)
+        break
+      case "onSelectAll":
+        this.setHandler("select-all", newValue)
+        break
+      case "onSetAnchor":
+        this.setHandler("set-anchor", newValue)
+        break
+      case "onToggleCursorVisible":
+        this.setHandler("toggle-cursor-visible", newValue)
+        break
+      case "onToggleOverwrite":
+        this.setHandler("toggle-overwrite", newValue)
+        break
       case "onNotifyAcceptsTab":
         this.setHandler("notify::accepts-tab", newValue)
         break
@@ -163,51 +208,6 @@ export default class TextView<T extends Gtk.TextView> extends Widget<T> {
         break
       case "onNotifyVscrollPolicy":
         this.setHandler("notify::vscroll-policy", newValue)
-        break
-      case "onBackspace":
-        this.setHandler("backspace", newValue)
-        break
-      case "onCopyClipboard":
-        this.setHandler("copy-clipboard", newValue)
-        break
-      case "onCutClipboard":
-        this.setHandler("cut-clipboard", newValue)
-        break
-      case "onDeleteFromCursor":
-        this.setHandler("delete-from-cursor", newValue)
-        break
-      case "onExtendSelection":
-        this.setHandler("extend-selection", newValue)
-        break
-      case "onInsertAtCursor":
-        this.setHandler("insert-at-cursor", newValue)
-        break
-      case "onInsertEmoji":
-        this.setHandler("insert-emoji", newValue)
-        break
-      case "onMoveCursor":
-        this.setHandler("move-cursor", newValue)
-        break
-      case "onMoveViewport":
-        this.setHandler("move-viewport", newValue)
-        break
-      case "onPasteClipboard":
-        this.setHandler("paste-clipboard", newValue)
-        break
-      case "onPreeditChanged":
-        this.setHandler("preedit-changed", newValue)
-        break
-      case "onSelectAll":
-        this.setHandler("select-all", newValue)
-        break
-      case "onSetAnchor":
-        this.setHandler("set-anchor", newValue)
-        break
-      case "onToggleCursorVisible":
-        this.setHandler("toggle-cursor-visible", newValue)
-        break
-      case "onToggleOverwrite":
-        this.setHandler("toggle-overwrite", newValue)
         break
     }
   }

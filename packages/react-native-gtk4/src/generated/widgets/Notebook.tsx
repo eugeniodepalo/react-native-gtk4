@@ -32,33 +32,6 @@ export default class Notebook<T extends Gtk.Notebook> extends Widget<T> {
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
-      case "onNotifyEnablePopup":
-        this.setHandler("notify::enable-popup", newValue)
-        break
-      case "onNotifyGroupName":
-        this.setHandler("notify::group-name", newValue)
-        break
-      case "onNotifyPage":
-        this.setHandler("notify::page", newValue)
-        break
-      case "onNotifyPages":
-        this.setHandler("notify::pages", newValue)
-        break
-      case "onNotifyScrollable":
-        this.setHandler("notify::scrollable", newValue)
-        break
-      case "onNotifyShowBorder":
-        this.setHandler("notify::show-border", newValue)
-        break
-      case "onNotifyShowTabs":
-        this.setHandler("notify::show-tabs", newValue)
-        break
-      case "onNotifyTabPos":
-        this.setHandler("notify::tab-pos", newValue)
-        break
-      case "onNotifyAccessibleRole":
-        this.setHandler("notify::accessible-role", newValue)
-        break
       case "onChangeCurrentPage":
         this.setHandler("change-current-page", newValue)
         break
@@ -88,6 +61,33 @@ export default class Notebook<T extends Gtk.Notebook> extends Widget<T> {
         break
       case "onSwitchPage":
         this.setHandler("switch-page", newValue)
+        break
+      case "onNotifyEnablePopup":
+        this.setHandler("notify::enable-popup", newValue)
+        break
+      case "onNotifyGroupName":
+        this.setHandler("notify::group-name", newValue)
+        break
+      case "onNotifyPage":
+        this.setHandler("notify::page", newValue)
+        break
+      case "onNotifyPages":
+        this.setHandler("notify::pages", newValue)
+        break
+      case "onNotifyScrollable":
+        this.setHandler("notify::scrollable", newValue)
+        break
+      case "onNotifyShowBorder":
+        this.setHandler("notify::show-border", newValue)
+        break
+      case "onNotifyShowTabs":
+        this.setHandler("notify::show-tabs", newValue)
+        break
+      case "onNotifyTabPos":
+        this.setHandler("notify::tab-pos", newValue)
+        break
+      case "onNotifyAccessibleRole":
+        this.setHandler("notify::accessible-role", newValue)
         break
     }
   }

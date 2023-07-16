@@ -80,6 +80,48 @@ export default class Text<T extends Gtk.Text> extends Widget<T> {
       case "xalign":
         this.node.xalign = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
+      case "onBackspace":
+        this.setHandler("backspace", newValue)
+        break
+      case "onCopyClipboard":
+        this.setHandler("copy-clipboard", newValue)
+        break
+      case "onCutClipboard":
+        this.setHandler("cut-clipboard", newValue)
+        break
+      case "onDeleteFromCursor":
+        this.setHandler("delete-from-cursor", newValue)
+        break
+      case "onInsertAtCursor":
+        this.setHandler("insert-at-cursor", newValue)
+        break
+      case "onInsertEmoji":
+        this.setHandler("insert-emoji", newValue)
+        break
+      case "onMoveCursor":
+        this.setHandler("move-cursor", newValue)
+        break
+      case "onPasteClipboard":
+        this.setHandler("paste-clipboard", newValue)
+        break
+      case "onPreeditChanged":
+        this.setHandler("preedit-changed", newValue)
+        break
+      case "onToggleOverwrite":
+        this.setHandler("toggle-overwrite", newValue)
+        break
+      case "onChanged":
+        this.setHandler("changed", newValue)
+        break
+      case "onDeleteText":
+        this.setHandler("delete-text", newValue)
+        break
+      case "onInsertText":
+        this.setHandler("insert-text", newValue)
+        break
       case "onNotifyActivatesDefault":
         this.setHandler("notify::activates-default", newValue)
         break
@@ -160,48 +202,6 @@ export default class Text<T extends Gtk.Text> extends Widget<T> {
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
-        break
-      case "onBackspace":
-        this.setHandler("backspace", newValue)
-        break
-      case "onCopyClipboard":
-        this.setHandler("copy-clipboard", newValue)
-        break
-      case "onCutClipboard":
-        this.setHandler("cut-clipboard", newValue)
-        break
-      case "onDeleteFromCursor":
-        this.setHandler("delete-from-cursor", newValue)
-        break
-      case "onInsertAtCursor":
-        this.setHandler("insert-at-cursor", newValue)
-        break
-      case "onInsertEmoji":
-        this.setHandler("insert-emoji", newValue)
-        break
-      case "onMoveCursor":
-        this.setHandler("move-cursor", newValue)
-        break
-      case "onPasteClipboard":
-        this.setHandler("paste-clipboard", newValue)
-        break
-      case "onPreeditChanged":
-        this.setHandler("preedit-changed", newValue)
-        break
-      case "onToggleOverwrite":
-        this.setHandler("toggle-overwrite", newValue)
-        break
-      case "onChanged":
-        this.setHandler("changed", newValue)
-        break
-      case "onDeleteText":
-        this.setHandler("delete-text", newValue)
-        break
-      case "onInsertText":
-        this.setHandler("insert-text", newValue)
         break
     }
   }

@@ -43,6 +43,18 @@ export default class PasswordEntry<
       case "xalign":
         this.node.xalign = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
+      case "onChanged":
+        this.setHandler("changed", newValue)
+        break
+      case "onDeleteText":
+        this.setHandler("delete-text", newValue)
+        break
+      case "onInsertText":
+        this.setHandler("insert-text", newValue)
+        break
       case "onNotifyActivatesDefault":
         this.setHandler("notify::activates-default", newValue)
         break
@@ -81,18 +93,6 @@ export default class PasswordEntry<
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
-        break
-      case "onChanged":
-        this.setHandler("changed", newValue)
-        break
-      case "onDeleteText":
-        this.setHandler("delete-text", newValue)
-        break
-      case "onInsertText":
-        this.setHandler("insert-text", newValue)
         break
     }
   }

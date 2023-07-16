@@ -41,6 +41,24 @@ export default class Paned<T extends Gtk.Paned> extends Widget<T> {
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onAcceptPosition":
+        this.setHandler("accept-position", newValue)
+        break
+      case "onCancelPosition":
+        this.setHandler("cancel-position", newValue)
+        break
+      case "onCycleChildFocus":
+        this.setHandler("cycle-child-focus", newValue)
+        break
+      case "onCycleHandleFocus":
+        this.setHandler("cycle-handle-focus", newValue)
+        break
+      case "onMoveHandle":
+        this.setHandler("move-handle", newValue)
+        break
+      case "onToggleHandleFocus":
+        this.setHandler("toggle-handle-focus", newValue)
+        break
       case "onNotifyEndChild":
         this.setHandler("notify::end-child", newValue)
         break
@@ -79,24 +97,6 @@ export default class Paned<T extends Gtk.Paned> extends Widget<T> {
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
-        break
-      case "onAcceptPosition":
-        this.setHandler("accept-position", newValue)
-        break
-      case "onCancelPosition":
-        this.setHandler("cancel-position", newValue)
-        break
-      case "onCycleChildFocus":
-        this.setHandler("cycle-child-focus", newValue)
-        break
-      case "onCycleHandleFocus":
-        this.setHandler("cycle-handle-focus", newValue)
-        break
-      case "onMoveHandle":
-        this.setHandler("move-handle", newValue)
-        break
-      case "onToggleHandleFocus":
-        this.setHandler("toggle-handle-focus", newValue)
         break
     }
   }

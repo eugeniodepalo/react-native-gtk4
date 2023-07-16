@@ -63,6 +63,7 @@ declare global {
         xalign?: number
         yalign?: number
         accessibleRole?: Gtk.AccessibleRole
+        onNotifyChild?: (node: Gtk.AspectFrame) => void
         onNotifyObeyChild?: (node: Gtk.AspectFrame) => void
         onNotifyRatio?: (node: Gtk.AspectFrame) => void
         onNotifyXalign?: (node: Gtk.AspectFrame) => void
@@ -93,6 +94,7 @@ declare global {
         actionTarget?: GLib.Variant
         onActivate?: (node: Gtk.Button) => void
         onClicked?: (node: Gtk.Button) => void
+        onNotifyChild?: (node: Gtk.Button) => void
         onNotifyHasFrame?: (node: Gtk.Button) => void
         onNotifyIconName?: (node: Gtk.Button) => void
         onNotifyLabel?: (node: Gtk.Button) => void
@@ -151,6 +153,7 @@ declare global {
         onActivate?: (node: Gtk.CheckButton) => void
         onToggled?: (node: Gtk.CheckButton) => void
         onNotifyActive?: (node: Gtk.CheckButton) => void
+        onNotifyChild?: (node: Gtk.CheckButton) => void
         onNotifyGroup?: (node: Gtk.CheckButton) => void
         onNotifyInconsistent?: (node: Gtk.CheckButton) => void
         onNotifyLabel?: (node: Gtk.CheckButton) => void
@@ -201,6 +204,7 @@ declare global {
       DragIcon: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.DragIcon>
         accessibleRole?: Gtk.AccessibleRole
+        onNotifyChild?: (node: Gtk.DragIcon) => void
         onNotifyAccessibleRole?: (node: Gtk.DragIcon) => void
       }
       DrawingArea: JSX.IntrinsicElements["Widget"] & {
@@ -411,6 +415,7 @@ declare global {
         useUnderline?: boolean
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: (node: Gtk.Expander) => void
+        onNotifyChild?: (node: Gtk.Expander) => void
         onNotifyExpanded?: (node: Gtk.Expander) => void
         onNotifyLabel?: (node: Gtk.Expander) => void
         onNotifyLabelWidget?: (node: Gtk.Expander) => void
@@ -464,6 +469,7 @@ declare global {
         ref?: React.Ref<Gtk.FlowBoxChild>
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: (node: Gtk.FlowBoxChild) => void
+        onNotifyChild?: (node: Gtk.FlowBoxChild) => void
         onNotifyAccessibleRole?: (node: Gtk.FlowBoxChild) => void
       }
       FontDialogButton: JSX.IntrinsicElements["Widget"] & {
@@ -491,6 +497,7 @@ declare global {
         labelWidget?: Gtk.Widget
         labelXalign?: number
         accessibleRole?: Gtk.AccessibleRole
+        onNotifyChild?: (node: Gtk.Frame) => void
         onNotifyLabel?: (node: Gtk.Frame) => void
         onNotifyLabelWidget?: (node: Gtk.Frame) => void
         onNotifyLabelXalign?: (node: Gtk.Frame) => void
@@ -757,6 +764,7 @@ declare global {
         actionTarget?: GLib.Variant
         onActivate?: (node: Gtk.ListBoxRow) => void
         onNotifyActivatable?: (node: Gtk.ListBoxRow) => void
+        onNotifyChild?: (node: Gtk.ListBoxRow) => void
         onNotifySelectable?: (node: Gtk.ListBoxRow) => void
         onNotifyAccessibleRole?: (node: Gtk.ListBoxRow) => void
         onNotifyActionName?: (node: Gtk.ListBoxRow) => void
@@ -811,6 +819,7 @@ declare global {
         onActivate?: (node: Gtk.MenuButton) => void
         onNotifyActive?: (node: Gtk.MenuButton) => void
         onNotifyAlwaysShowArrow?: (node: Gtk.MenuButton) => void
+        onNotifyChild?: (node: Gtk.MenuButton) => void
         onNotifyDirection?: (node: Gtk.MenuButton) => void
         onNotifyHasFrame?: (node: Gtk.MenuButton) => void
         onNotifyIconName?: (node: Gtk.MenuButton) => void
@@ -880,6 +889,7 @@ declare global {
           widget: Gtk.Widget,
           allocation: Gdk.Rectangle
         ) => boolean
+        onNotifyChild?: (node: Gtk.Overlay) => void
         onNotifyAccessibleRole?: (node: Gtk.Overlay) => void
       }
       Paned: JSX.IntrinsicElements["Widget"] & {
@@ -990,6 +1000,7 @@ declare global {
         onClosed?: (node: Gtk.Popover) => void
         onNotifyAutohide?: (node: Gtk.Popover) => void
         onNotifyCascadePopdown?: (node: Gtk.Popover) => void
+        onNotifyChild?: (node: Gtk.Popover) => void
         onNotifyDefaultWidget?: (node: Gtk.Popover) => void
         onNotifyHasArrow?: (node: Gtk.Popover) => void
         onNotifyMnemonicsVisible?: (node: Gtk.Popover) => void
@@ -1066,6 +1077,7 @@ declare global {
         transitionDuration?: number
         transitionType?: Gtk.RevealerTransitionType
         accessibleRole?: Gtk.AccessibleRole
+        onNotifyChild?: (node: Gtk.Revealer) => void
         onNotifyChildRevealed?: (node: Gtk.Revealer) => void
         onNotifyRevealChild?: (node: Gtk.Revealer) => void
         onNotifyTransitionDuration?: (node: Gtk.Revealer) => void
@@ -1148,6 +1160,7 @@ declare global {
           scroll: Gtk.ScrollType,
           horizontal: boolean
         ) => boolean
+        onNotifyChild?: (node: Gtk.ScrolledWindow) => void
         onNotifyHadjustment?: (node: Gtk.ScrolledWindow) => void
         onNotifyHasFrame?: (node: Gtk.ScrolledWindow) => void
         onNotifyHscrollbarPolicy?: (node: Gtk.ScrolledWindow) => void
@@ -1170,6 +1183,7 @@ declare global {
         searchModeEnabled?: boolean
         showCloseButton?: boolean
         accessibleRole?: Gtk.AccessibleRole
+        onNotifyChild?: (node: Gtk.SearchBar) => void
         onNotifyKeyCaptureWidget?: (node: Gtk.SearchBar) => void
         onNotifySearchModeEnabled?: (node: Gtk.SearchBar) => void
         onNotifyShowCloseButton?: (node: Gtk.SearchBar) => void
@@ -1631,6 +1645,7 @@ declare global {
         item?: any
         listRow?: Gtk.TreeListRow
         accessibleRole?: Gtk.AccessibleRole
+        onNotifyChild?: (node: Gtk.TreeExpander) => void
         onNotifyHideExpander?: (node: Gtk.TreeExpander) => void
         onNotifyIndentForDepth?: (node: Gtk.TreeExpander) => void
         onNotifyIndentForIcon?: (node: Gtk.TreeExpander) => void
@@ -1659,6 +1674,7 @@ declare global {
         hscrollPolicy?: Gtk.ScrollablePolicy
         vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
+        onNotifyChild?: (node: Gtk.Viewport) => void
         onNotifyScrollToFocus?: (node: Gtk.Viewport) => void
         onNotifyAccessibleRole?: (node: Gtk.Viewport) => void
         onNotifyHadjustment?: (node: Gtk.Viewport) => void
@@ -1800,6 +1816,7 @@ declare global {
         onEnableDebugging?: (node: Gtk.Window, toggle: boolean) => boolean
         onKeysChanged?: (node: Gtk.Window) => void
         onNotifyApplication?: (node: Gtk.Window) => void
+        onNotifyChild?: (node: Gtk.Window) => void
         onNotifyDecorated?: (node: Gtk.Window) => void
         onNotifyDefaultHeight?: (node: Gtk.Window) => void
         onNotifyDefaultWidget?: (node: Gtk.Window) => void
@@ -1838,6 +1855,7 @@ declare global {
       WindowHandle: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.WindowHandle>
         accessibleRole?: Gtk.AccessibleRole
+        onNotifyChild?: (node: Gtk.WindowHandle) => void
         onNotifyAccessibleRole?: (node: Gtk.WindowHandle) => void
       }
     }

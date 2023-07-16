@@ -25,14 +25,14 @@ export default class FlowBoxChild<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
-        break
-      case "onActivate":
-        this.setHandler("activate", newValue)
         break
     }
   }

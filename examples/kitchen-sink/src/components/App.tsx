@@ -195,7 +195,9 @@ export default function App() {
               hexpand
             />
             <Revealer revealChild={revealed} vexpand hexpand>
-              <Label label="Revealer" vexpand hexpand />
+              <Box>
+                <Label label="Revealer" vexpand hexpand />
+              </Box>
             </Revealer>
             <Popover
               open={popoverOpen}

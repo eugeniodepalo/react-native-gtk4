@@ -47,12 +47,13 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
   }, [labelNode])
 
   return (
-    <Expander
-      ref={expanderRef}
-      label={typeof label === "string" ? label : undefined}
-      {...props}
-    >
+    <>
       {labelWithRef}
-    </Expander>
+      <Expander
+        ref={expanderRef}
+        label={typeof label === "string" ? label : undefined}
+        {...props}
+      />
+    </>
   )
 })

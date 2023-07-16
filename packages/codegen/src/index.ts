@@ -28,6 +28,7 @@ export interface WidgetClassSignalParam {
 export interface WidgetClassSignal {
   name: string
   params: WidgetClassSignalParam[]
+  returnType: string
 }
 
 export interface WidgetClass {
@@ -105,6 +106,7 @@ async function getWidgetClasses(gir: Gir): Promise<WidgetClass[]> {
       })),
       signals: uniqueSignals.map((signal) => ({
         name: signal.$.name,
+        returnType: signal["return-value"][0].type[0].$.name,
         params: (((signal.parameters || [])[0] || {}).parameter || []).map(
           (param) => ({
             name: param.$.name,

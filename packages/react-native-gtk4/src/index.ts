@@ -56,7 +56,11 @@ export * from "./hooks.js"
 export {
   AboutDialog,
   ApplicationWindow,
+  CenterBox,
+  Expander,
+  Frame,
   Grid,
+  HeaderBar,
   Notebook,
   Overlay,
   Paned,

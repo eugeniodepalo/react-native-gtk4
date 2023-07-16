@@ -12,7 +12,6 @@ const StackContext = React.createContext<Gtk.Stack | null>(null)
 
 type Props = JSX.IntrinsicElements["Stack"] & {
   children: React.ReactNode
-  onVisibleChildChanged?: (name: string | null) => void
 }
 
 const StackContainer = forwardRef<Gtk.Stack, Props>(function StackContainer(
@@ -34,16 +33,6 @@ const StackContainer = forwardRef<Gtk.Stack, Props>(function StackContainer(
 
     if (visibleChildName) {
       stackNode.setVisibleChildName(visibleChildName)
-    }
-
-    const onVisibleChildChanged = (name: string | null) => {
-      props.onVisibleChildChanged?.(name)
-    }
-
-    stackNode.on("notify::visible-child-name", onVisibleChildChanged)
-
-    return () => {
-      stackNode.off("notify::visible-child-changed", onVisibleChildChanged)
     }
   }, [stackNode, visibleChildName])
 
@@ -79,11 +68,7 @@ const StackItem = function StackItem({ children, name, title }: ItemProps) {
       return
     }
 
-    const page = stackNode.addTitled(childNode, name, title ?? name)
-
-    page.on("notify::visible-child", () => {
-      stackNode.emit("visible-child-changed", name)
-    })
+    stackNode.addTitled(childNode, name, title ?? name)
 
     return () => {
       stackNode.remove(childNode)

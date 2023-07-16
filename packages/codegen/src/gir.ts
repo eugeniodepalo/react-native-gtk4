@@ -51,7 +51,13 @@ export interface GirMethod {
 
 export interface GirSignal {
   $: GirAttributes
+  "return-value": GirReturnValue[]
   parameters: GirParameters[]
+}
+
+export interface GirReturnValue {
+  $: GirAttributes
+  type: GirType[]
 }
 
 export interface GirInterface {

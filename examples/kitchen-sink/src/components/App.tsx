@@ -27,6 +27,7 @@ import {
   Switch,
   TextView,
   AboutDialog,
+  CenterBox,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -51,6 +52,12 @@ export default function App() {
       title="Kitchen Sink"
       defaultWidth={800}
       defaultHeight={600}
+      titlebar={
+        <HeaderBar vexpand hexpand title={<Label label="Kitchen Sink" />}>
+          <Label label="Header Bar 1" vexpand hexpand />
+          <Button label="Header Bar 2" vexpand hexpand />
+        </HeaderBar>
+      }
     >
       <Grid.Container vexpand hexpand>
         <Grid.Item col={0} row={0} width={1} height={1}>
@@ -62,7 +69,6 @@ export default function App() {
               visibleChildName={stackVisibleChildName ?? ""}
               onNotifyVisibleChildName={(stack) => {
                 setStackVisibleChildName(stack.visibleChildName ?? "")
-                return false
               }}
               ref={stackRef}
               vexpand
@@ -111,7 +117,6 @@ export default function App() {
               label={`Button ${count}`}
               onClicked={() => {
                 setCount(count + 1)
-                return false
               }}
             />
           </Box>
@@ -134,7 +139,6 @@ export default function App() {
                 text={searchText}
                 onChanged={(entry) => {
                   setSearchText(entry.text ?? "")
-                  return false
                 }}
               />
             </SearchBar>
@@ -144,14 +148,12 @@ export default function App() {
               hexpand
               onClicked={() => {
                 setSearchModeEnabled(!searchModeEnabled)
-                return false
               }}
             />
             <Entry
               text={entryText}
               onChanged={(entry) => {
                 setEntryText(entry.text ?? "")
-                return false
               }}
               placeholderText="Type here..."
             />
@@ -162,9 +164,13 @@ export default function App() {
               active={switchActive}
               onActivate={(node) => {
                 setSwitchActive(node.active)
-                return false
               }}
             />
+            <CenterBox vexpand hexpand>
+              <Label label="Center Box 1" />
+              <Label label="Center Box 2" />
+              <Label label="Center Box 3" />
+            </CenterBox>
           </Box>
         </Grid.Item>
         <Grid.Item col={0} row={1} width={1} height={1}>
@@ -177,17 +183,12 @@ export default function App() {
         </Grid.Item>
         <Grid.Item col={1} row={1} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
-            <Expander vexpand hexpand>
-              <Label label="Expander" vexpand hexpand />
+            <Expander vexpand hexpand label={<Label label="Expander" />}>
+              <Label label="Expander Content" vexpand hexpand />
             </Expander>
-            <HeaderBar vexpand hexpand>
-              <Label label="Header Bar 1" vexpand hexpand />
-              <Button label="Header Bar 2" vexpand hexpand />
-            </HeaderBar>
             <Button
               onClicked={() => {
                 setRevealed(!revealed)
-                return false
               }}
               label="Reveal"
               vexpand
@@ -205,17 +206,14 @@ export default function App() {
                   hexpand
                   onClicked={() => {
                     setPopoverOpen(!popoverOpen)
-                    return false
                   }}
                 />
               }
               onShow={() => {
                 setPopoverOpen(true)
-                return false
               }}
               onHide={() => {
                 setPopoverOpen(false)
-                return false
               }}
             >
               <Label label="Popover" vexpand hexpand />
@@ -228,7 +226,6 @@ export default function App() {
               hexpand
               onClicked={() => {
                 setShowAboutDialog(true)
-                return false
               }}
             />
           </Box>

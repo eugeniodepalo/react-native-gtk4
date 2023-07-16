@@ -70,10 +70,9 @@ const NotebookTab = function NotebookItem({ children, label }: TabProps) {
   }, [notebookNode, childNode, labelNode])
 
   return (
-    <>
-      <Label ref={labelRef} label={label} />
+    <Label ref={labelRef} label={label}>
       {childWithRef}
-    </>
+    </Label>
   )
 }
 

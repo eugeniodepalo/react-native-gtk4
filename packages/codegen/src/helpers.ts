@@ -1,5 +1,3 @@
-import { GirProperty } from "./gir.js"
-
 export function camelize(str: string) {
   return str.replace(/[-_]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""))
 }
@@ -16,6 +14,7 @@ const typeMap = {
   gdouble: "number",
   gfloat: "number",
   filename: "string",
+  none: "void",
   "utf8[]": "string[]",
   "GObject.Object": "any",
 }

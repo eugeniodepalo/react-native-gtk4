@@ -71,7 +71,7 @@ function generateJsxElementProps(widgetClass: WidgetClass) {
     ts += `${camelize(propName)}?: ${fromCtype(type)}${array ? "[]" : ""}\n`
   }
 
-  for (const { name: signalName, params } of signals) {
+  for (const { name: signalName, params, returnType } of signals) {
     ts += `${camelize(`on_${signalName}`)}?: (`
     ts += `node: ${type}, `
 
@@ -82,17 +82,16 @@ function generateJsxElementProps(widgetClass: WidgetClass) {
       }, `
     }
 
-    ts += `) => boolean\n`
+    ts += `) => ${fromCtype(returnType)}\n`
   }
 
-  for (const { name: propName, type: propType, array } of props) {
+  for (const { name: propName } of props) {
     if (propName === "child") {
       continue
     }
 
     ts += `${camelize(`on_notify_${propName}`)}?: (`
-    ts += `node: ${type}, `
-    ts += `${camelize(propName)}: ${fromCtype(propType)}${array ? "[]" : ""}`
+    ts += `node: ${type}`
     ts += `) => void\n`
   }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from "react"
+import React, { useImperativeHandle, useState } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
@@ -43,22 +43,13 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
     setPanedNode(node)
   }
 
-  useEffect(() => {
-    if (!panedNode || !startChildNode || !endChildNode) {
-      return
-    }
-
-    panedNode.setStartChild(startChildNode)
-    panedNode.setEndChild(endChildNode)
-
-    return () => {
-      panedNode.setStartChild(null)
-      panedNode.setEndChild(null)
-    }
-  }, [panedNode, startChildNode, endChildNode])
-
   return (
-    <Paned ref={panedRef} {...props}>
+    <Paned
+      ref={panedRef}
+      startChild={startChildNode ?? undefined}
+      endChild={endChildNode ?? undefined}
+      {...props}
+    >
       {startChildWithRef}
       {endChildWithRef}
     </Paned>

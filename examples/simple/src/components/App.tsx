@@ -12,7 +12,6 @@ export default function App() {
           label="Click Me"
           onClicked={() => {
             setCount((count) => count + 1)
-            return false
           }}
         />
       </Box>

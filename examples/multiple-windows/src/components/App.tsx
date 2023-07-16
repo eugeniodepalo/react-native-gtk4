@@ -13,7 +13,6 @@ export default function App() {
             label="Increment Counter"
             onClicked={() => {
               setCount((count) => count + 1)
-              return false
             }}
           />
         </Box>
@@ -25,7 +24,6 @@ export default function App() {
             label="Decrement Counter"
             onClicked={() => {
               setCount((count) => count - 1)
-              return false
             }}
           />
         </Box>

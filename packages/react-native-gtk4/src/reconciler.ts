@@ -51,6 +51,9 @@ const hostConfig: HostConfig<
   insertBefore(parentInstance, child, beforeChild) {
     parentInstance.insertBefore(child, beforeChild)
   },
+  removeChildFromContainer(_parentInstance, child) {
+    child.node.destroy()
+  },
   prepareUpdate(_instance, _type, oldProps, newProps) {
     return Object.keys(newProps).reduce((acc, propName) => {
       if (oldProps[propName] !== newProps[propName]) {

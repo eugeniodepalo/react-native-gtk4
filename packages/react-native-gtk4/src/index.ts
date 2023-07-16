@@ -11,14 +11,13 @@ import "./generated/jsx.js"
 import "./overrides.js"
 import { withApplicationContext } from "./components/ApplicationProvider.js"
 
+gi.startLoop()
 Gtk.init()
 
 let currentTag = 0
 
 export default function render(element: React.ReactNode, app: Gtk.Application) {
   const loop = GLib.MainLoop.new(null, false)
-
-  gi.startLoop()
 
   app.on("activate", () => {
     const container = Reconciler.createContainer(

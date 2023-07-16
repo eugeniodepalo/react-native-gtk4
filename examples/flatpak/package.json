@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A sample Flatpak app using React Native for GTK4",
   "main": "dist/index.js",
-  "type": "module",
   "private": true,
   "scripts": {
     "build": "tsc",

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "An example of multiple windows within a React Native GTK app",
   "main": "dist/index.js",
-  "type": "module",
   "private": true,
   "scripts": {
     "build": "tsc",

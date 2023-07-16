@@ -4,16 +4,17 @@ import { Gtk } from "../index.js"
 
 const CenterBox = "CenterBox"
 
-type Props = Omit<JSX.IntrinsicElements["CenterBox"], "children"> & {
-  children: [
-    React.ReactElement<JSX.IntrinsicElements["Widget"]>,
-    React.ReactElement<JSX.IntrinsicElements["Widget"]>,
-    React.ReactElement<JSX.IntrinsicElements["Widget"]>,
-  ]
+type Props = Omit<
+  JSX.IntrinsicElements["CenterBox"],
+  "startWidget" | "endWidget" | "centerWidget"
+> & {
+  start?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  end?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
 }
 
 export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
-  { children, ...props },
+  { start, end, children, ...props },
   ref
 ) {
   const [centerBoxNode, setCenterBoxNode] = useState<Gtk.CenterBox | null>(null)
@@ -27,8 +28,6 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
 
   useImperativeHandle(ref, () => centerBoxNode!)
 
-  const [startChild, centerChild, endChild] = children
-
   const startChildRef = (node: Gtk.Widget | null) => {
     setStartChildNode(node)
   }
@@ -41,17 +40,23 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
     setCenterChildNode(node)
   }
 
-  const startChildWithRef = React.cloneElement(startChild, {
-    ref: startChildRef,
-  })
+  const startChildWithRef = start
+    ? React.cloneElement(start, {
+        ref: startChildRef,
+      })
+    : null
 
-  const endChildWithRef = React.cloneElement(endChild, {
-    ref: endChildRef,
-  })
+  const endChildWithRef = end
+    ? React.cloneElement(end, {
+        ref: endChildRef,
+      })
+    : null
 
-  const centerChildWithRef = React.cloneElement(centerChild, {
-    ref: centerChildRef,
-  })
+  const centerChildWithRef = children
+    ? React.cloneElement(children, {
+        ref: centerChildRef,
+      })
+    : null
 
   const centerBoxRef = (node: Gtk.CenterBox | null) => {
     setCenterBoxNode(node)

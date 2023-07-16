@@ -169,10 +169,13 @@ export default function App() {
                 setSwitchActive(node.active)
               }}
             />
-            <CenterBox vexpand hexpand>
-              <Label label="Center Box 1" />
-              <Label label="Center Box 2" />
-              <Label label="Center Box 3" />
+            <CenterBox
+              vexpand
+              hexpand
+              start={<Label label="Center Box Start" />}
+              end={<Label label="Center Box End" />}
+            >
+              <Label label="Center Box Center" />
             </CenterBox>
           </Box>
         </Grid.Item>

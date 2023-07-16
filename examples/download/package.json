@@ -1,0 +1,21 @@
+{
+  "name": "download",
+  "version": "1.0.0",
+  "description": "An example of a React Native GTK4 app that downloads a file",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "pnpm run build && node dist/index.js"
+  },
+  "dependencies": {
+    "@types/node": "^20.4.1",
+    "axios": "^1.4.0",
+    "react": "^18.2.0",
+    "react-native-gtk4": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "typescript": "^5.1.6"
+  }
+}

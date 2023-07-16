@@ -11,22 +11,15 @@ import "./generated/jsx.js"
 import "./overrides.js"
 import { withApplicationContext } from "./components/ApplicationProvider.js"
 
-export interface Container {
-  app: Gtk.Application
-  loop: GLib.MainLoop
-}
-
 Gtk.init()
+gi.startLoop()
 
 let currentTag = 0
 
 export default function render(element: React.ReactNode, app: Gtk.Application) {
-  const loop = new GLib.MainLoop(null, false)
-  const rootContainer: Container = { app, loop }
-
   app.on("activate", () => {
     const container = Reconciler.createContainer(
-      rootContainer,
+      app,
       0,
       null,
       false,
@@ -42,9 +35,6 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
       null,
       () => {}
     )
-
-    setTimeout(gi.startLoop)
-    loop.run()
   })
 
   app.run([])

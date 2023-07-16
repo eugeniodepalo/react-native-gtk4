@@ -1,9 +1,9 @@
 import Reconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants.js"
-import { Container, GLib } from "./index.js"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
+import { Gtk } from "./index.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, string, any][]
@@ -12,7 +12,7 @@ type WidgetConstructor = new (props: Record<string, any>) => Widget<any>
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  Container,
+  Gtk.Application,
   Widget<any>,
   Widget<any>,
   Widget<any>,
@@ -21,7 +21,7 @@ const hostConfig: HostConfig<
   unknown,
   UpdatePayload,
   Set<Widget<any>>,
-  ReturnType<(typeof GLib)["timeoutAdd"]>,
+  ReturnType<typeof setTimeout>,
   -1
 > = {
   supportsMutation: true,
@@ -93,13 +93,10 @@ const hostConfig: HostConfig<
   },
   preparePortalMount() {},
   scheduleTimeout(fn, delay) {
-    return GLib.timeoutAdd(GLib.PRIORITY_DEFAULT, delay ?? 0, () => {
-      fn()
-      return GLib.SOURCE_REMOVE
-    })
+    return setTimeout(fn, delay)
   },
   cancelTimeout(id) {
-    GLib.sourceRemove(id)
+    clearTimeout(id)
   },
   getCurrentEventPriority() {
     return DefaultEventPriority

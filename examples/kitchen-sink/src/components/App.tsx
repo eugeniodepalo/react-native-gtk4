@@ -116,7 +116,10 @@ export default function App() {
               hexpand
               label={`Button ${count}`}
               onClicked={() => {
-                setCount(count + 1)
+                setCount((count) => count + 1)
+                setTimeout(() => {
+                  setCount((count) => count + 1)
+                }, 2000)
               }}
             />
           </Box>

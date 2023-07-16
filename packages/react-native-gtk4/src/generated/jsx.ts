@@ -51,7 +51,6 @@ declare global {
       }
       ApplicationWindow: JSX.IntrinsicElements["Window"] & {
         ref?: React.Ref<Gtk.ApplicationWindow>
-        application?: Gtk.Application
         showMenubar?: boolean
         accessibleRole?: Gtk.AccessibleRole
         onNotifyShowMenubar?: (node: Gtk.ApplicationWindow) => void
@@ -59,10 +58,10 @@ declare global {
       }
       AspectFrame: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.AspectFrame>
+        obeyChild?: boolean
+        ratio?: number
         xalign?: number
         yalign?: number
-        ratio?: number
-        obeyChild?: boolean
         accessibleRole?: Gtk.AccessibleRole
         onNotifyObeyChild?: (node: Gtk.AspectFrame) => void
         onNotifyRatio?: (node: Gtk.AspectFrame) => void
@@ -72,11 +71,11 @@ declare global {
       }
       Box: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Box>
-        orientation?: Gtk.Orientation
-        spacing?: number
         baselinePosition?: Gtk.BaselinePosition
         homogeneous?: boolean
+        spacing?: number
         accessibleRole?: Gtk.AccessibleRole
+        orientation?: Gtk.Orientation
         onNotifyBaselinePosition?: (node: Gtk.Box) => void
         onNotifyHomogeneous?: (node: Gtk.Box) => void
         onNotifySpacing?: (node: Gtk.Box) => void
@@ -171,9 +170,9 @@ declare global {
       }
       ColumnView: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ColumnView>
-        model?: Gtk.SelectionModel
         columns?: Gio.ListModel
         enableRubberband?: boolean
+        model?: Gtk.SelectionModel
         reorderable?: boolean
         showColumnSeparators?: boolean
         showRowSeparators?: boolean
@@ -220,11 +219,11 @@ declare global {
       }
       DropDown: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.DropDown>
-        model?: Gio.ListModel
-        expression?: Gtk.Expression
         enableSearch?: boolean
+        expression?: Gtk.Expression
         factory?: Gtk.ListItemFactory
         listFactory?: Gtk.ListItemFactory
+        model?: Gio.ListModel
         selected?: number
         selectedItem?: any
         showArrow?: boolean
@@ -242,7 +241,6 @@ declare global {
       }
       EditableLabel: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.EditableLabel>
-        str?: string
         editing?: boolean
         accessibleRole?: Gtk.AccessibleRole
         cursorPosition?: number
@@ -405,8 +403,8 @@ declare global {
       }
       Expander: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Expander>
-        label?: string
         expanded?: boolean
+        label?: string
         labelWidget?: Gtk.Widget
         resizeToplevel?: boolean
         useMarkup?: boolean
@@ -535,11 +533,11 @@ declare global {
       }
       GridView: JSX.IntrinsicElements["ListBase"] & {
         ref?: React.Ref<Gtk.GridView>
-        model?: Gtk.SelectionModel
-        factory?: Gtk.ListItemFactory
         enableRubberband?: boolean
+        factory?: Gtk.ListItemFactory
         maxColumns?: number
         minColumns?: number
+        model?: Gtk.SelectionModel
         singleClickActivate?: boolean
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
@@ -597,13 +595,13 @@ declare global {
       }
       Inscription: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Inscription>
-        text?: string
         attributes?: Pango.AttrList
         markup?: string
         minChars?: number
         minLines?: number
         natChars?: number
         natLines?: number
+        text?: string
         textOverflow?: Gtk.InscriptionOverflow
         wrapMode?: Pango.WrapMode
         xalign?: number
@@ -624,7 +622,6 @@ declare global {
       }
       Label: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Label>
-        str?: string
         attributes?: Pango.AttrList
         ellipsize?: Pango.EllipsizeMode
         extraMenu?: Gio.MenuModel
@@ -767,9 +764,9 @@ declare global {
       }
       ListView: JSX.IntrinsicElements["ListBase"] & {
         ref?: React.Ref<Gtk.ListView>
-        model?: Gtk.SelectionModel
-        factory?: Gtk.ListItemFactory
         enableRubberband?: boolean
+        factory?: Gtk.ListItemFactory
+        model?: Gtk.SelectionModel
         showSeparators?: boolean
         singleClickActivate?: boolean
         accessibleRole?: Gtk.AccessibleRole
@@ -793,7 +790,6 @@ declare global {
       }
       MediaControls: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.MediaControls>
-        stream?: Gtk.MediaStream
         mediaStream?: Gtk.MediaStream
         accessibleRole?: Gtk.AccessibleRole
         onNotifyMediaStream?: (node: Gtk.MediaControls) => void
@@ -888,7 +884,6 @@ declare global {
       }
       Paned: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Paned>
-        orientation?: Gtk.Orientation
         endChild?: Gtk.Widget
         maxPosition?: number
         minPosition?: number
@@ -901,6 +896,7 @@ declare global {
         startChild?: Gtk.Widget
         wideHandle?: boolean
         accessibleRole?: Gtk.AccessibleRole
+        orientation?: Gtk.Orientation
         onAcceptPosition?: (node: Gtk.Paned) => boolean
         onCancelPosition?: (node: Gtk.Paned) => boolean
         onCycleChildFocus?: (node: Gtk.Paned, reversed: boolean) => boolean
@@ -1003,7 +999,6 @@ declare global {
       }
       PopoverMenu: JSX.IntrinsicElements["Popover"] & {
         ref?: React.Ref<Gtk.PopoverMenu>
-        model?: Gio.MenuModel
         menuModel?: Gio.MenuModel
         visibleSubmenu?: string
         accessibleRole?: Gtk.AccessibleRole
@@ -1013,7 +1008,6 @@ declare global {
       }
       PopoverMenuBar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.PopoverMenuBar>
-        model?: Gio.MenuModel
         menuModel?: Gio.MenuModel
         accessibleRole?: Gtk.AccessibleRole
         onNotifyMenuModel?: (node: Gtk.PopoverMenuBar) => void
@@ -1080,13 +1074,12 @@ declare global {
       }
       Scale: JSX.IntrinsicElements["Range"] & {
         ref?: React.Ref<Gtk.Scale>
-        orientation?: Gtk.Orientation
-        adjustment?: Gtk.Adjustment
         digits?: number
         drawValue?: boolean
         hasOrigin?: boolean
         valuePos?: Gtk.PositionType
         accessibleRole?: Gtk.AccessibleRole
+        orientation?: Gtk.Orientation
         onNotifyDigits?: (node: Gtk.Scale) => void
         onNotifyDrawValue?: (node: Gtk.Scale) => void
         onNotifyHasOrigin?: (node: Gtk.Scale) => void
@@ -1096,12 +1089,9 @@ declare global {
       }
       ScaleButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ScaleButton>
-        min?: number
-        max?: number
-        step?: number
-        icons?: string[][]
         active?: boolean
         adjustment?: Gtk.Adjustment
+        icons?: string[]
         value?: number
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
@@ -1117,9 +1107,9 @@ declare global {
       }
       Scrollbar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Scrollbar>
-        orientation?: Gtk.Orientation
         adjustment?: Gtk.Adjustment
         accessibleRole?: Gtk.AccessibleRole
+        orientation?: Gtk.Orientation
         onNotifyAdjustment?: (node: Gtk.Scrollbar) => void
         onNotifyAccessibleRole?: (node: Gtk.Scrollbar) => void
         onNotifyOrientation?: (node: Gtk.Scrollbar) => void
@@ -1232,8 +1222,8 @@ declare global {
       }
       Separator: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Separator>
-        orientation?: Gtk.Orientation
         accessibleRole?: Gtk.AccessibleRole
+        orientation?: Gtk.Orientation
         onNotifyAccessibleRole?: (node: Gtk.Separator) => void
         onNotifyOrientation?: (node: Gtk.Separator) => void
       }
@@ -1663,11 +1653,11 @@ declare global {
       }
       Viewport: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Viewport>
-        hadjustment?: Gtk.Adjustment
-        vadjustment?: Gtk.Adjustment
         scrollToFocus?: boolean
         accessibleRole?: Gtk.AccessibleRole
+        hadjustment?: Gtk.Adjustment
         hscrollPolicy?: Gtk.ScrollablePolicy
+        vadjustment?: Gtk.Adjustment
         vscrollPolicy?: Gtk.ScrollablePolicy
         onNotifyScrollToFocus?: (node: Gtk.Viewport) => void
         onNotifyAccessibleRole?: (node: Gtk.Viewport) => void
@@ -1836,9 +1826,9 @@ declare global {
       }
       WindowControls: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.WindowControls>
-        side?: Gtk.PackType
         decorationLayout?: string
         empty?: boolean
+        side?: Gtk.PackType
         accessibleRole?: Gtk.AccessibleRole
         onNotifyDecorationLayout?: (node: Gtk.WindowControls) => void
         onNotifyEmpty?: (node: Gtk.WindowControls) => void

@@ -1,35 +1,8 @@
 import { camelize, fromCtype, underscore } from "../helpers.js"
-import { WidgetClass, WidgetClassProperty } from "../index.js"
+import { WidgetClass } from "../index.js"
 
 interface Props {
   widgetClasses: WidgetClass[]
-}
-
-export function paramsToJsxElementProps(
-  widgetClass: WidgetClass
-): WidgetClassProperty[] {
-  const props: WidgetClassProperty[] = []
-  const { ctor } = widgetClass
-
-  for (const param of ((ctor.parameters || [])[0] || {}).parameter || []) {
-    const { name } = param.$
-
-    if (props.map((prop) => underscore(prop.name)).includes(underscore(name))) {
-      continue
-    }
-
-    props.push({
-      name,
-      type: param.array
-        ? `${param.array[0].type[0].$.name}[]`
-        : param.type[0].$.name,
-      array: !!param.array,
-      writable: true,
-      constructOnly: false,
-    })
-  }
-
-  return props
 }
 
 function generateJsxElementProps(widgetClass: WidgetClass) {
@@ -43,7 +16,7 @@ function generateJsxElementProps(widgetClass: WidgetClass) {
     ts += `children?: React.ReactNode\n`
   }
 
-  const uniqueProps = paramsToJsxElementProps(widgetClass)
+  const uniqueProps = []
 
   for (const prop of props) {
     const { name } = prop
@@ -136,13 +109,6 @@ export default function ({ widgetClasses }: Props) {
     for (const { type, writable } of props) {
       const importName = fromCtype(type)
       if (importName.includes(".") && writable) {
-        requiredImports.add(importName.split(".")[0])
-      }
-    }
-
-    for (const { type } of paramsToJsxElementProps(widgetClass)) {
-      const importName = fromCtype(type)
-      if (importName.includes(".")) {
         requiredImports.add(importName.split(".")[0])
       }
     }

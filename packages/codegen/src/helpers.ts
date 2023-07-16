@@ -21,11 +21,14 @@ const typeMap = {
 
 export function fromCtype(ctype: string) {
   const mappedType = typeMap[ctype as keyof typeof typeMap]
+
   if (mappedType) {
     return mappedType
   }
+
   if (ctype.includes(".")) {
     return ctype
   }
+
   return `Gtk.${ctype}`
 }

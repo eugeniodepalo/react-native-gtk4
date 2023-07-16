@@ -6,7 +6,7 @@ const CenterBox = "CenterBox"
 
 type Props = Omit<
   JSX.IntrinsicElements["CenterBox"],
-  "startWidget" | "endWidget" | "centerWidget"
+  "startWidget" | "endWidget" | "centerWidget" | "children"
 > & {
   start?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   end?: React.ReactElement<JSX.IntrinsicElements["Widget"]>

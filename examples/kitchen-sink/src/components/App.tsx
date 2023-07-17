@@ -114,8 +114,8 @@ export default function App() {
               onClicked={() => {
                 setCount((count) => count + 1)
                 setTimeout(() => {
-                  setCount((count) => count + 1)
-                }, 2000)
+                  setCount((count) => count - 1)
+                }, 1000)
               }}
             />
             <Button

@@ -31,6 +31,7 @@ const App = () => {
   const [error, setError] = useState<string | null>(null)
 
   const downloadFile = async () => {
+    setProgress(0)
     setError(null)
 
     try {
@@ -42,26 +43,42 @@ const App = () => {
 
       const filePath = `${homeDir}/Downloads/${url.split("/").pop()}`
       const totalLength = response.headers["content-length"]
-      const writer = fs.createWriteStream(filePath)
+      let writer: fs.WriteStream
 
-      response.data.on("data", (chunk: any) => {
-        writer.write(chunk)
-        setProgress(writer.bytesWritten / totalLength)
-      })
+      writer = fs.createWriteStream(filePath)
 
-      response.data.on("end", () => {
-        writer.end()
-        spawn("xdg-open", [filePath])
-      })
-
-      response.data.on("error", (error: any) => {
+      writer.on("error", (error: any) => {
         setError(error.toString())
       })
-    } catch (error: any) {
-      setError(error.toString())
-    }
 
-    setProgress(0)
+      writer.on("ready", () => {
+        response.data.on("data", (chunk: any) => {
+          writer.write(chunk)
+          setProgress(writer.bytesWritten / totalLength)
+        })
+
+        response.data.on("end", () => {
+          writer.end()
+
+          const subprocess = spawn("xdg-open", [filePath])
+
+          subprocess.on("close", () => {
+            setProgress(0)
+            setUrl("")
+          })
+
+          subprocess.on("error", (error: any) => {
+            setError(error.toString())
+          })
+        })
+
+        response.data.on("error", (error: any) => {
+          setError(error.toString())
+        })
+      })
+    } catch (error: any) {
+      setError(() => error.toString())
+    }
   }
 
   return (
@@ -88,7 +105,7 @@ const App = () => {
             }}
           />
           <ProgressBar fraction={progress} showText />
-          {error && <Label label={error} />}
+          {error ? <Label label={error} /> : null}
           <Button
             label="Download"
             onClicked={downloadFile}

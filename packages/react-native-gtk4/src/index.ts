@@ -5,47 +5,21 @@ import Gio from "@girs/node-gio-2.0"
 import GLib from "@girs/node-glib-2.0"
 import GObject from "@girs/node-gobject-2.0"
 import Pango from "@girs/node-pango-1.0"
-
-import Reconciler from "./reconciler.js"
 import "./generated/jsx.js"
 import "./overrides.js"
-import { withApplicationContext } from "./components/ApplicationProvider.js"
 import Container from "./container.js"
 
 gi.startLoop()
 Gtk.init()
 
-let currentTag = 0
+let currentContainer: Container | null = null
 
 export default function render(
   element: React.ReactNode,
   application: Gtk.Application
 ) {
-  const loop = GLib.MainLoop.new(null, false)
-
-  application.on("activate", () => {
-    const container = Reconciler.createContainer(
-      new Container(application),
-      0,
-      null,
-      false,
-      null,
-      (currentTag++).toString(),
-      () => {},
-      null
-    )
-
-    Reconciler.updateContainer(
-      withApplicationContext(element, application),
-      container,
-      null,
-      () => {}
-    )
-
-    loop.run()
-  })
-
-  application.run([])
+  currentContainer = new Container(application)
+  currentContainer.render(element)
 }
 
 export * from "./generated/intrinsics.js"

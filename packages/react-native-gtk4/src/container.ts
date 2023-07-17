@@ -1,12 +1,44 @@
-import { Gtk } from "./index.js"
-import Widget from "./widget"
+import { GLib, Gtk } from "./index.js"
+import Widget from "./widget.js"
+import Reconciler from "./reconciler.js"
+import { withApplicationContext } from "./components/ApplicationProvider.js"
 
 export default class Container {
   application: Gtk.Application
   children: Widget[] = []
+  private static currentTag = 0
+  private instance: ReturnType<typeof Reconciler.createContainer>
+  private loop: GLib.MainLoop
 
   constructor(application: Gtk.Application) {
     this.application = application
+    this.loop = GLib.MainLoop.new(null, false)
+
+    this.instance = Reconciler.createContainer(
+      this,
+      0,
+      null,
+      false,
+      null,
+      (Container.currentTag++).toString(),
+      () => {},
+      null
+    )
+  }
+
+  render(element: React.ReactNode) {
+    this.application.on("activate", () => {
+      Reconciler.updateContainer(
+        withApplicationContext(element, this.application),
+        this.instance,
+        null,
+        () => {}
+      )
+
+      this.loop.run()
+    })
+
+    this.application.run([])
   }
 
   appendChild(child: Widget<any>) {
@@ -46,7 +78,7 @@ export default class Container {
     }
 
     if (child.node instanceof Gtk.Window) {
-      child.node.show()
+      child.node.present()
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import {
   ApplicationWindow,
   Box,
@@ -43,9 +43,9 @@ export default function App() {
   const [stackVisibleChildName, setStackVisibleChildName] = useState("child1")
   const [notebookPage, setNotebookPage] = useState(0)
 
-  const stackRef = (node: Gtk.Stack | null) => {
+  const setStackRef = useCallback((node: Gtk.Stack | null) => {
     setStackNode(node)
-  }
+  }, [])
 
   return (
     <ApplicationWindow
@@ -53,51 +53,46 @@ export default function App() {
       defaultWidth={800}
       defaultHeight={600}
       titlebar={
-        <HeaderBar vexpand hexpand title={<Label label="Kitchen Sink" />}>
-          <Label label="Header Bar 1" vexpand hexpand />
-          <Button label="Header Bar 2" vexpand hexpand />
+        <HeaderBar title={<Label label="Kitchen Sink" />}>
+          <Label label="Header Bar 1" />
+          <Button label="Header Bar 2" />
         </HeaderBar>
       }
     >
-      <Grid.Container vexpand hexpand>
+      <Grid.Container hexpand vexpand>
         <Grid.Item col={0} row={0} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
+          <Box orientation={Gtk.Orientation.VERTICAL} hexpand vexpand>
             {stackNode ? (
-              <StackSidebar stack={stackNode} vexpand hexpand />
+              <StackSidebar stack={stackNode} hexpand vexpand />
             ) : null}
             <Stack.Container
+              hexpand
+              vexpand
               visibleChildName={stackVisibleChildName ?? ""}
               onNotifyVisibleChildName={(stack) => {
                 setStackVisibleChildName(stack.visibleChildName ?? "")
               }}
-              ref={stackRef}
-              vexpand
-              hexpand
+              ref={setStackRef}
             >
               <Stack.Item name="child1">
-                <Label label="Stack 1" vexpand hexpand />
+                <Label label="Stack 1" />
               </Stack.Item>
               <Stack.Item name="child2">
-                <Label label="Stack 2" vexpand hexpand />
+                <Label label="Stack 2" />
               </Stack.Item>
             </Stack.Container>
             <Overlay
-              vexpand
-              hexpand
               content={
-                <Image
-                  iconName="face-smile"
-                  iconSize={Gtk.IconSize.LARGE}
-                  vexpand
-                  hexpand
-                />
+                <Image iconName="face-smile" iconSize={Gtk.IconSize.LARGE} />
               }
+              hexpand
+              vexpand
             >
-              <Label label="Label 1" vexpand hexpand />
+              <Label label="Label 1" />
             </Overlay>
             <Notebook.Container
-              vexpand
               hexpand
+              vexpand
               page={notebookPage}
               onChangeCurrentPage={(notebook) => {
                 setNotebookPage(notebook.getCurrentPage())
@@ -105,15 +100,13 @@ export default function App() {
               }}
             >
               <Notebook.Tab label="Tab 1">
-                <Label label="Notebook 1" vexpand hexpand />
+                <Label label="Notebook 1" />
               </Notebook.Tab>
               <Notebook.Tab label="Tab 2">
-                <Label label="Notebook 2" vexpand hexpand />
+                <Label label="Notebook 2" />
               </Notebook.Tab>
             </Notebook.Container>
             <Button
-              vexpand
-              hexpand
               label={`Button ${count}`}
               onClicked={() => {
                 setCount((count) => count + 1)
@@ -125,19 +118,19 @@ export default function App() {
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={0} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
-            <ListBox vexpand hexpand>
-              <ListBoxRow vexpand hexpand>
-                <Label label="List Box 1" vexpand hexpand />
+          <Box orientation={Gtk.Orientation.VERTICAL} hexpand vexpand>
+            <ListBox hexpand vexpand>
+              <ListBoxRow>
+                <Label label="List Box 1" />
               </ListBoxRow>
-              <ListBoxRow vexpand hexpand>
-                <Label label="List Box 2" vexpand hexpand />
+              <ListBoxRow>
+                <Label label="List Box 2" />
               </ListBoxRow>
             </ListBox>
-            <Spinner />
+            <Spinner spinning />
             <ProgressBar fraction={0.5} showText />
-            <Scale digits={1} drawValue hexpand />
-            <SearchBar hexpand vexpand searchModeEnabled={searchModeEnabled}>
+            <Scale digits={1} drawValue />
+            <SearchBar searchModeEnabled={searchModeEnabled}>
               <Entry
                 text={searchText}
                 onChanged={(entry) => {
@@ -147,8 +140,6 @@ export default function App() {
             </SearchBar>
             <Button
               label="Toggle Search Mode"
-              vexpand
-              hexpand
               onClicked={() => {
                 setSearchModeEnabled(!searchModeEnabled)
               }}
@@ -160,7 +151,7 @@ export default function App() {
               }}
               placeholderText="Type here..."
             />
-            <TextView vexpand hexpand />
+            <TextView />
             <CheckButton label="Radio Button 1" active />
             <CheckButton label="Radio Button 2" />
             <Switch
@@ -170,48 +161,46 @@ export default function App() {
               }}
             />
             <CenterBox
-              vexpand
-              hexpand
               start={<Label label="Center Box Start" />}
               end={<Label label="Center Box End" />}
+              hexpand
+              vexpand
             >
               <Label label="Center Box Center" />
             </CenterBox>
           </Box>
         </Grid.Item>
         <Grid.Item col={0} row={1} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
-            <Paned vexpand hexpand>
-              <Label label="Paned Start" vexpand hexpand />
-              <Label label="Paned End" vexpand hexpand />
+          <Box orientation={Gtk.Orientation.VERTICAL} hexpand vexpand>
+            <Paned hexpand vexpand>
+              <Label label="Paned Start" />
+              <Label label="Paned End" />
             </Paned>
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={1} width={1} height={1}>
-          <Box orientation={Gtk.Orientation.VERTICAL} vexpand hexpand>
-            <Expander vexpand hexpand label={<Label label="Expander" />}>
-              <Label label="Expander Content" vexpand hexpand />
+          <Box orientation={Gtk.Orientation.VERTICAL} hexpand vexpand>
+            <Expander label={<Label label="Expander" />} hexpand vexpand>
+              <Label label="Expander Content" />
             </Expander>
             <Button
               onClicked={() => {
                 setRevealed(!revealed)
               }}
               label="Reveal"
-              vexpand
-              hexpand
             />
-            <Revealer revealChild={revealed} vexpand hexpand>
+            <Revealer revealChild={revealed} hexpand vexpand>
               <Box>
-                <Label label="Revealer" vexpand hexpand />
+                <Label label="Revealer" />
               </Box>
             </Revealer>
             <Popover
               open={popoverOpen}
+              hexpand
+              vexpand
               content={
                 <Button
                   label="Popover"
-                  vexpand
-                  hexpand
                   onClicked={() => {
                     setPopoverOpen(!popoverOpen)
                   }}
@@ -224,14 +213,12 @@ export default function App() {
                 setPopoverOpen(false)
               }}
             >
-              <Label label="Popover" vexpand hexpand />
+              <Label label="Popover" />
             </Popover>
             <Button
               label={
                 showAboutDialog ? "Hide About Dialog" : "Show About Dialog"
               }
-              vexpand
-              hexpand
               onClicked={() => {
                 setShowAboutDialog(!showAboutDialog)
               }}

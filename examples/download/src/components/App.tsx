@@ -63,7 +63,7 @@ const App = () => {
   }
 
   return (
-    <ApplicationWindow title="URL Downloader" hexpand vexpand>
+    <ApplicationWindow title="URL Downloader">
       <CenterBox
         marginBottom={10}
         marginTop={10}

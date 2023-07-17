@@ -1,6 +1,6 @@
-import React, { useEffect, useImperativeHandle, useState } from "react"
+import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
-import { Gtk } from "../index.js"
+import { Gtk, useApplication } from "../index.js"
 
 const AboutDialog = "AboutDialog"
 
@@ -17,26 +17,30 @@ export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
   { creditSections = [], ...props },
   ref
 ) {
-  const [aboutDialogNode, setAboutDialogNode] =
-    useState<Gtk.AboutDialog | null>(null)
+  const aboutDialogRef = useRef<Gtk.AboutDialog | null>(null)
+  const application = useApplication()
 
-  useImperativeHandle(ref, () => aboutDialogNode!)
-
-  const aboutDialogRef = (node: Gtk.AboutDialog | null) => {
-    setAboutDialogNode(node)
-  }
-
-  useEffect(() => {
-    if (!aboutDialogNode) {
+  const setAboutDialogRef = useCallback((node: Gtk.AboutDialog | null) => {
+    if (!node) {
       return
     }
 
     for (const { sectionName, people } of creditSections) {
-      aboutDialogNode.addCreditSection(sectionName, people)
+      node.addCreditSection(sectionName, people)
     }
 
-    aboutDialogNode.present()
-  }, [aboutDialogNode, creditSections])
+    const activeWindow = application.getActiveWindow()
 
-  return <AboutDialog ref={aboutDialogRef} {...props} />
+    if (activeWindow) {
+      node.setDestroyWithParent(true)
+      node.setModal(true)
+      node.setTransientFor(activeWindow)
+    }
+
+    node.present()
+  }, [])
+
+  useImperativeHandle(ref, () => aboutDialogRef.current!)
+
+  return <AboutDialog ref={setAboutDialogRef} {...props} />
 })

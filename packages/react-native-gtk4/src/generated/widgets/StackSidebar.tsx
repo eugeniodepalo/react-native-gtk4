@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class StackSidebar<
-  T extends Gtk.StackSidebar,
+  T extends Gtk.StackSidebar = Gtk.StackSidebar,
 > extends Widget<T> {
   createNode() {
     return new Gtk.StackSidebar({}) as T

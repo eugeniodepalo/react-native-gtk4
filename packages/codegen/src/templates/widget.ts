@@ -74,15 +74,15 @@ function generateMethods(widgetClass: WidgetClass) {
   let ts = generateCreateNodeMethod(widgetClass)
 
   if (widgetClass.methods.find((method) => method.$.name === "set_child")) {
-    ts += `appendChild(child: Widget<any>) {\n`
+    ts += `appendChild(child: Widget) {\n`
     ts += `  super.appendChild(child)\n`
     ts += `  this.node.setChild(child.node)\n`
     ts += `}\n`
-    ts += `removeChild(child: Widget<any>) {\n`
+    ts += `removeChild(child: Widget) {\n`
     ts += `  super.removeChild(child)\n`
     ts += `  this.node.setChild(null)\n`
     ts += `}\n`
-    ts += `insertBefore(child: Widget<any>, beforeChild: Widget<any>) {\n`
+    ts += `insertBefore(child: Widget, beforeChild: Widget) {\n`
     ts += `  super.insertBefore(child, beforeChild)\n`
     ts += `  this.node.setChild(child.node)\n`
     ts += `}\n`
@@ -113,7 +113,7 @@ function generateImports(widgetClass: WidgetClass) {
 export default function ({ widgetClass }: Props) {
   const { name } = widgetClass
   const type = fromCtype(name)
-  const genericType = `T extends ${type}`
+  const genericType = `T extends ${type} = ${type}`
 
   const parentClass =
     widgetClass.name === "Widget" ? "BaseWidget" : widgetClass.parent

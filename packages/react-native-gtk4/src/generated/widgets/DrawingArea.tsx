@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class DrawingArea<T extends Gtk.DrawingArea> extends Widget<T> {
+export default class DrawingArea<
+  T extends Gtk.DrawingArea = Gtk.DrawingArea,
+> extends Widget<T> {
   createNode() {
     return new Gtk.DrawingArea({}) as T
   }

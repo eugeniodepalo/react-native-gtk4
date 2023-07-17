@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import BaseWidget from "../../widget.js"
 
-export default class Widget<T extends Gtk.Widget> extends BaseWidget<T> {
+export default class Widget<
+  T extends Gtk.Widget = Gtk.Widget,
+> extends BaseWidget<T> {
   createNode() {
     return new Gtk.Widget({
       cssName: this.props.cssName,

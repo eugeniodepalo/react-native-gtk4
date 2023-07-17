@@ -4,6 +4,7 @@ import { DefaultEventPriority } from "react-reconciler/constants.js"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
+import { Gtk } from "./index.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, string, any][]
@@ -13,14 +14,14 @@ const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
   Container,
-  Widget<any>,
-  Widget<any>,
-  Widget<any>,
-  Widget<any>,
-  Widget<any>,
+  Widget,
+  Widget,
+  Widget,
+  Widget,
+  Gtk.Widget,
   unknown,
   UpdatePayload,
-  Set<Widget<any>>,
+  Set<Widget>,
   ReturnType<typeof setTimeout>,
   -1
 > = {

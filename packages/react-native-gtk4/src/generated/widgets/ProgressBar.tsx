@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class ProgressBar<T extends Gtk.ProgressBar> extends Widget<T> {
+export default class ProgressBar<
+  T extends Gtk.ProgressBar = Gtk.ProgressBar,
+> extends Widget<T> {
   createNode() {
     return new Gtk.ProgressBar({}) as T
   }

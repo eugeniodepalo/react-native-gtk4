@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Window from "./Window.js"
 
 export default class ShortcutsWindow<
-  T extends Gtk.ShortcutsWindow,
+  T extends Gtk.ShortcutsWindow = Gtk.ShortcutsWindow,
 > extends Window<T> {
   createNode() {
     return new Gtk.ShortcutsWindow({}) as T

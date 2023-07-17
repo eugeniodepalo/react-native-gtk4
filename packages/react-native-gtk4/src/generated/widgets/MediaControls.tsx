@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class MediaControls<
-  T extends Gtk.MediaControls,
+  T extends Gtk.MediaControls = Gtk.MediaControls,
 > extends Widget<T> {
   createNode() {
     return new Gtk.MediaControls({}) as T

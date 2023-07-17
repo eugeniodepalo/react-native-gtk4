@@ -1,7 +1,7 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Range<T extends Gtk.Range> extends Widget<T> {
+export default class Range<T extends Gtk.Range = Gtk.Range> extends Widget<T> {
   createNode() {
     return new Gtk.Range({}) as T
   }

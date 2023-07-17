@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Window from "./Window.js"
 
-export default class AboutDialog<T extends Gtk.AboutDialog> extends Window<T> {
+export default class AboutDialog<
+  T extends Gtk.AboutDialog = Gtk.AboutDialog,
+> extends Window<T> {
   createNode() {
     return new Gtk.AboutDialog({}) as T
   }

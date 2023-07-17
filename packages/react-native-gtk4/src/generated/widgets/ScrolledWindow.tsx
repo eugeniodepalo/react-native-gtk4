@@ -2,20 +2,20 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class ScrolledWindow<
-  T extends Gtk.ScrolledWindow,
+  T extends Gtk.ScrolledWindow = Gtk.ScrolledWindow,
 > extends Widget<T> {
   createNode() {
     return new Gtk.ScrolledWindow({}) as T
   }
-  appendChild(child: Widget<any>) {
+  appendChild(child: Widget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget<any>) {
+  removeChild(child: Widget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+  insertBefore(child: Widget, beforeChild: Widget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }

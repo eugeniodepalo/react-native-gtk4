@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Popover from "./Popover.js"
 
-export default class PopoverMenu<T extends Gtk.PopoverMenu> extends Popover<T> {
+export default class PopoverMenu<
+  T extends Gtk.PopoverMenu = Gtk.PopoverMenu,
+> extends Popover<T> {
   createNode() {
     return new Gtk.PopoverMenu({}) as T
   }

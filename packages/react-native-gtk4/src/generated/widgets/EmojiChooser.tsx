@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Popover from "./Popover.js"
 
 export default class EmojiChooser<
-  T extends Gtk.EmojiChooser,
+  T extends Gtk.EmojiChooser = Gtk.EmojiChooser,
 > extends Popover<T> {
   createNode() {
     return new Gtk.EmojiChooser({}) as T

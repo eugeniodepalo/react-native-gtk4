@@ -1,7 +1,7 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Grid<T extends Gtk.Grid> extends Widget<T> {
+export default class Grid<T extends Gtk.Grid = Gtk.Grid> extends Widget<T> {
   createNode() {
     return new Gtk.Grid({}) as T
   }

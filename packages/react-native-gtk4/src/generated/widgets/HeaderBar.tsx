@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class HeaderBar<T extends Gtk.HeaderBar> extends Widget<T> {
+export default class HeaderBar<
+  T extends Gtk.HeaderBar = Gtk.HeaderBar,
+> extends Widget<T> {
   createNode() {
     return new Gtk.HeaderBar({}) as T
   }

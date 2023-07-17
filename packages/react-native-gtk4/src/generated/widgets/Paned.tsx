@@ -1,7 +1,7 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Paned<T extends Gtk.Paned> extends Widget<T> {
+export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
   createNode() {
     return new Gtk.Paned({}) as T
   }

@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Button from "./Button.js"
 
-export default class LinkButton<T extends Gtk.LinkButton> extends Button<T> {
+export default class LinkButton<
+  T extends Gtk.LinkButton = Gtk.LinkButton,
+> extends Button<T> {
   createNode() {
     return new Gtk.LinkButton({}) as T
   }

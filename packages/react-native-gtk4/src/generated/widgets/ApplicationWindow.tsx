@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Window from "./Window.js"
 
 export default class ApplicationWindow<
-  T extends Gtk.ApplicationWindow,
+  T extends Gtk.ApplicationWindow = Gtk.ApplicationWindow,
 > extends Window<T> {
   createNode() {
     return new Gtk.ApplicationWindow({}) as T

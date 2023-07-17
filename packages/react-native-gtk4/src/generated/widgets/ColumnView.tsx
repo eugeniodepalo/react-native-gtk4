@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class ColumnView<T extends Gtk.ColumnView> extends Widget<T> {
+export default class ColumnView<
+  T extends Gtk.ColumnView = Gtk.ColumnView,
+> extends Widget<T> {
   createNode() {
     return new Gtk.ColumnView({}) as T
   }

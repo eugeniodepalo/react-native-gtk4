@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Spinner<T extends Gtk.Spinner> extends Widget<T> {
+export default class Spinner<
+  T extends Gtk.Spinner = Gtk.Spinner,
+> extends Widget<T> {
   createNode() {
     return new Gtk.Spinner({}) as T
   }

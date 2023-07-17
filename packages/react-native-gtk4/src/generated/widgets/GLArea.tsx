@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class GLArea<T extends Gtk.GLArea> extends Widget<T> {
+export default class GLArea<
+  T extends Gtk.GLArea = Gtk.GLArea,
+> extends Widget<T> {
   createNode() {
     return new Gtk.GLArea({}) as T
   }

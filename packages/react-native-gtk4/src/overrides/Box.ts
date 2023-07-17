@@ -1,4 +1,3 @@
-import { Gtk } from "../index.js"
 import Box from "../generated/widgets/Box.js"
 import Widget from "../widget.js"
 
@@ -8,24 +7,18 @@ const parent = {
   insertBefore: Box.prototype.insertBefore,
 }
 
-Box.prototype.appendChild = function <T extends Gtk.Box>(
-  this: Box<T>,
-  child: Widget
-) {
+Box.prototype.appendChild = function (this: Box, child: Widget) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
 }
 
-Box.prototype.removeChild = function <T extends Gtk.Box>(
-  this: Box<T>,
-  child: Widget
-) {
+Box.prototype.removeChild = function (this: Box, child: Widget) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
-Box.prototype.insertBefore = function <T extends Gtk.Box>(
-  this: Box<T>,
+Box.prototype.insertBefore = function (
+  this: Box,
   child: Widget,
   beforeChild: Widget
 ) {

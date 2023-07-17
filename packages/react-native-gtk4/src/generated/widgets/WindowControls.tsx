@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class WindowControls<
-  T extends Gtk.WindowControls,
+  T extends Gtk.WindowControls = Gtk.WindowControls,
 > extends Widget<T> {
   createNode() {
     return new Gtk.WindowControls({}) as T

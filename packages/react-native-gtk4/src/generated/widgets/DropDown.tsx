@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class DropDown<T extends Gtk.DropDown> extends Widget<T> {
+export default class DropDown<
+  T extends Gtk.DropDown = Gtk.DropDown,
+> extends Widget<T> {
   createNode() {
     return new Gtk.DropDown({}) as T
   }

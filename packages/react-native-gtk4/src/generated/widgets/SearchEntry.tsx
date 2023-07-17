@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class SearchEntry<T extends Gtk.SearchEntry> extends Widget<T> {
+export default class SearchEntry<
+  T extends Gtk.SearchEntry = Gtk.SearchEntry,
+> extends Widget<T> {
   createNode() {
     return new Gtk.SearchEntry({}) as T
   }

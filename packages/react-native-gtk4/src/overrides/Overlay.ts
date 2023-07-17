@@ -1,4 +1,3 @@
-import { Gtk } from "../index.js"
 import Overlay from "../generated/widgets/Overlay.js"
 import Widget from "../widget.js"
 
@@ -8,24 +7,18 @@ const parent = {
   insertBefore: Widget.prototype.insertBefore,
 }
 
-Overlay.prototype.appendChild = function <T extends Gtk.Overlay>(
-  this: Overlay<T>,
-  child: Widget
-) {
+Overlay.prototype.appendChild = function (this: Overlay, child: Widget) {
   parent.appendChild.call(this, child)
   this.node.addOverlay(child.node)
 }
 
-Overlay.prototype.removeChild = function <T extends Gtk.Overlay>(
-  this: Overlay<T>,
-  child: Widget
-) {
+Overlay.prototype.removeChild = function (this: Overlay, child: Widget) {
   parent.removeChild.call(this, child)
   this.node.removeOverlay(child.node)
 }
 
-Overlay.prototype.insertBefore = function <T extends Gtk.Overlay>(
-  this: Overlay<T>,
+Overlay.prototype.insertBefore = function (
+  this: Overlay,
   child: Widget,
   beforeChild: Widget
 ) {

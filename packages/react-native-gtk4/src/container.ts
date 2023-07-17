@@ -6,7 +6,7 @@ import Widget from "./widget.js"
 import { ApplicationWindow } from "./generated/widgets.js"
 
 export default class Container {
-  children: ApplicationWindow<Gtk.ApplicationWindow>[] = []
+  children: ApplicationWindow[] = []
 
   private application: Gtk.Application
   private static currentTag = 0
@@ -37,6 +37,18 @@ export default class Container {
   }
 
   render(element: React.ReactNode) {
+    this.application.on("window-removed", (window) => {
+      const child = this.children.find((c) => c.node === window)
+
+      if (child) {
+        this.removeChild(child)
+      }
+
+      if (this.children.length === 0) {
+        this.loop.quit()
+      }
+    })
+
     this.application.on("activate", () => {
       Reconciler.updateContainer(
         withApplicationContext(element, this.application),
@@ -51,7 +63,7 @@ export default class Container {
     this.application.run([])
   }
 
-  appendChild(child: Widget<any>) {
+  appendChild(child: Widget) {
     if (!this.isApplicationWindow(child)) {
       return
     }
@@ -60,7 +72,7 @@ export default class Container {
     this.afterInsert(child)
   }
 
-  removeChild(child: Widget<any>) {
+  removeChild(child: Widget) {
     if (!this.isApplicationWindow(child)) {
       return
     }
@@ -71,21 +83,17 @@ export default class Container {
       this.children.splice(index, 1)
     }
 
-    if (child.node instanceof Gtk.Window) {
-      child.node.destroy()
-    }
-
-    if (child.node instanceof Gtk.Widget) {
-      child.node.unparent()
-    }
+    child.node.destroy()
   }
 
-  insertBefore(child: Widget<any>, beforeChild: Widget<any>) {
+  insertBefore(child: Widget, beforeChild: Widget) {
     if (!this.isApplicationWindow(child)) {
       return
     }
 
-    const index = this.children.indexOf(beforeChild)
+    const index = this.children.indexOf(
+      beforeChild as Widget<Gtk.ApplicationWindow>
+    )
 
     if (index !== -1) {
       this.children.splice(index, 0, child)
@@ -99,24 +107,13 @@ export default class Container {
       return
     }
 
-    child.node.on("close-request", () => {
-      this.removeChild(child)
-
-      if (this.children.length === 0) {
-        this.loop.quit()
-        this.application.quit()
-      }
-
-      return false
-    })
-
     child.node.setApplication(this.application)
     child.node.present()
   }
 
   private isApplicationWindow(
-    node: Widget<any>
-  ): node is Widget<Gtk.ApplicationWindow> {
-    return node.node instanceof Gtk.ApplicationWindow
+    widget: Widget
+  ): widget is Widget<Gtk.ApplicationWindow> {
+    return widget.node instanceof Gtk.ApplicationWindow
   }
 }

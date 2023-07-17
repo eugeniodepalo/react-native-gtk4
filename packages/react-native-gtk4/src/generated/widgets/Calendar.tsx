@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Calendar<T extends Gtk.Calendar> extends Widget<T> {
+export default class Calendar<
+  T extends Gtk.Calendar = Gtk.Calendar,
+> extends Widget<T> {
   createNode() {
     return new Gtk.Calendar({}) as T
   }

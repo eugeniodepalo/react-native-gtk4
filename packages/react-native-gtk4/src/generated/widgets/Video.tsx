@@ -1,7 +1,7 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Video<T extends Gtk.Video> extends Widget<T> {
+export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
   createNode() {
     return new Gtk.Video({}) as T
   }

@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class PasswordEntry<
-  T extends Gtk.PasswordEntry,
+  T extends Gtk.PasswordEntry = Gtk.PasswordEntry,
 > extends Widget<T> {
   createNode() {
     return new Gtk.PasswordEntry({}) as T

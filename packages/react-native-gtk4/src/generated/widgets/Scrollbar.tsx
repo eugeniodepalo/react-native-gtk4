@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Scrollbar<T extends Gtk.Scrollbar> extends Widget<T> {
+export default class Scrollbar<
+  T extends Gtk.Scrollbar = Gtk.Scrollbar,
+> extends Widget<T> {
   createNode() {
     return new Gtk.Scrollbar({}) as T
   }

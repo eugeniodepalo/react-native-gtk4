@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class FlowBox<T extends Gtk.FlowBox> extends Widget<T> {
+export default class FlowBox<
+  T extends Gtk.FlowBox = Gtk.FlowBox,
+> extends Widget<T> {
   createNode() {
     return new Gtk.FlowBox({}) as T
   }

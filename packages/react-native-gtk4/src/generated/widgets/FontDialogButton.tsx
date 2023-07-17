@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class FontDialogButton<
-  T extends Gtk.FontDialogButton,
+  T extends Gtk.FontDialogButton = Gtk.FontDialogButton,
 > extends Widget<T> {
   createNode() {
     return new Gtk.FontDialogButton({}) as T

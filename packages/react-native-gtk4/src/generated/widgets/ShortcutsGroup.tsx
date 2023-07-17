@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Box from "./Box.js"
 
 export default class ShortcutsGroup<
-  T extends Gtk.ShortcutsGroup,
+  T extends Gtk.ShortcutsGroup = Gtk.ShortcutsGroup,
 > extends Box<T> {
   createNode() {
     return new Gtk.ShortcutsGroup({}) as T

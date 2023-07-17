@@ -1,7 +1,7 @@
 import { Gtk } from "../../index.js"
 import Range from "./Range.js"
 
-export default class Scale<T extends Gtk.Scale> extends Range<T> {
+export default class Scale<T extends Gtk.Scale = Gtk.Scale> extends Range<T> {
   createNode() {
     return new Gtk.Scale({}) as T
   }

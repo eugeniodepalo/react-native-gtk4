@@ -1,7 +1,7 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Stack<T extends Gtk.Stack> extends Widget<T> {
+export default class Stack<T extends Gtk.Stack = Gtk.Stack> extends Widget<T> {
   createNode() {
     return new Gtk.Stack({}) as T
   }

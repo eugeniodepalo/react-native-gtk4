@@ -1,4 +1,3 @@
-import { Gtk } from "../index.js"
 import ListBox from "../generated/widgets/ListBox.js"
 import Widget from "../widget.js"
 
@@ -8,24 +7,18 @@ const parent = {
   insertBefore: ListBox.prototype.insertBefore,
 }
 
-ListBox.prototype.appendChild = function <T extends Gtk.ListBox>(
-  this: ListBox<T>,
-  child: Widget
-) {
+ListBox.prototype.appendChild = function (this: ListBox, child: Widget) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
 }
 
-ListBox.prototype.removeChild = function <T extends Gtk.ListBox>(
-  this: ListBox<T>,
-  child: Widget
-) {
+ListBox.prototype.removeChild = function (this: ListBox, child: Widget) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
-ListBox.prototype.insertBefore = function <T extends Gtk.ListBox>(
-  this: ListBox<T>,
+ListBox.prototype.insertBefore = function (
+  this: ListBox,
   child: Widget,
   beforeChild: Widget
 ) {

@@ -1,4 +1,3 @@
-import { Gtk } from "../index.js"
 import HeaderBar from "../generated/widgets/HeaderBar.js"
 import Widget from "../widget.js"
 
@@ -8,24 +7,18 @@ const parent = {
   insertBefore: HeaderBar.prototype.insertBefore,
 }
 
-HeaderBar.prototype.appendChild = function <T extends Gtk.HeaderBar>(
-  this: HeaderBar<T>,
-  child: Widget
-) {
+HeaderBar.prototype.appendChild = function (this: HeaderBar, child: Widget) {
   parent.appendChild.call(this, child)
   this.node.packEnd(child.node)
 }
 
-HeaderBar.prototype.removeChild = function <T extends Gtk.HeaderBar>(
-  this: HeaderBar<T>,
-  child: Widget
-) {
+HeaderBar.prototype.removeChild = function (this: HeaderBar, child: Widget) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
-HeaderBar.prototype.insertBefore = function <T extends Gtk.HeaderBar>(
-  this: HeaderBar<T>,
+HeaderBar.prototype.insertBefore = function (
+  this: HeaderBar,
   child: Widget,
   beforeChild: Widget
 ) {

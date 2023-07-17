@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class Switch<T extends Gtk.Switch> extends Widget<T> {
+export default class Switch<
+  T extends Gtk.Switch = Gtk.Switch,
+> extends Widget<T> {
   createNode() {
     return new Gtk.Switch({}) as T
   }

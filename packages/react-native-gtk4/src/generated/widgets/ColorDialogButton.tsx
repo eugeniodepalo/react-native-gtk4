@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class ColorDialogButton<
-  T extends Gtk.ColorDialogButton,
+  T extends Gtk.ColorDialogButton = Gtk.ColorDialogButton,
 > extends Widget<T> {
   createNode() {
     return new Gtk.ColorDialogButton({}) as T

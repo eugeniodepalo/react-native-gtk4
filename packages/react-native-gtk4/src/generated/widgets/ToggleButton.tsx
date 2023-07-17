@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Button from "./Button.js"
 
 export default class ToggleButton<
-  T extends Gtk.ToggleButton,
+  T extends Gtk.ToggleButton = Gtk.ToggleButton,
 > extends Button<T> {
   createNode() {
     return new Gtk.ToggleButton({}) as T

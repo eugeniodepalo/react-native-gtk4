@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import ListBase from "./ListBase.js"
 
-export default class ListView<T extends Gtk.ListView> extends ListBase<T> {
+export default class ListView<
+  T extends Gtk.ListView = Gtk.ListView,
+> extends ListBase<T> {
   createNode() {
     return new Gtk.ListView({}) as T
   }

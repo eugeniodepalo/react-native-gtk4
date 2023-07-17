@@ -20,11 +20,11 @@ export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   set(propName: string, newValue: any, oldValue: any): void {}
 
-  appendChild(child: Widget<any>): void {
+  appendChild(child: Widget): void {
     this.children.push(child)
   }
 
-  removeChild(child: Widget<any>): void {
+  removeChild(child: Widget): void {
     const index = this.children.indexOf(child)
 
     if (index < 0) {
@@ -34,7 +34,7 @@ export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
     this.children.splice(index, 1)
   }
 
-  insertBefore(child: Widget<any>, beforeChild: Widget<any>): void {
+  insertBefore(child: Widget, beforeChild: Widget): void {
     const index = this.children.indexOf(beforeChild) - 1
 
     if (index < 0) {

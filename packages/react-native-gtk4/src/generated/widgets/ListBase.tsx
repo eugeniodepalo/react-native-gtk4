@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class ListBase<T extends Gtk.ListBase> extends Widget<T> {
+export default class ListBase<
+  T extends Gtk.ListBase = Gtk.ListBase,
+> extends Widget<T> {
   createNode() {
     return new Gtk.ListBase({}) as T
   }

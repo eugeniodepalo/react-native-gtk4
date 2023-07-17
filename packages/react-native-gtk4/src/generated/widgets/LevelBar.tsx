@@ -1,7 +1,9 @@
 import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
-export default class LevelBar<T extends Gtk.LevelBar> extends Widget<T> {
+export default class LevelBar<
+  T extends Gtk.LevelBar = Gtk.LevelBar,
+> extends Widget<T> {
   createNode() {
     return new Gtk.LevelBar({}) as T
   }

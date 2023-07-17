@@ -2,7 +2,7 @@ import { Gtk } from "../../index.js"
 import Widget from "./Widget.js"
 
 export default class EditableLabel<
-  T extends Gtk.EditableLabel,
+  T extends Gtk.EditableLabel = Gtk.EditableLabel,
 > extends Widget<T> {
   createNode() {
     return new Gtk.EditableLabel({}) as T

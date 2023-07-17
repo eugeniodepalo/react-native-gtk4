@@ -1,4 +1,3 @@
-import { Gtk } from "../index.js"
 import FlowBox from "../generated/widgets/FlowBox.js"
 import Widget from "../widget.js"
 
@@ -8,24 +7,18 @@ const parent = {
   insertBefore: FlowBox.prototype.insertBefore,
 }
 
-FlowBox.prototype.appendChild = function <T extends Gtk.FlowBox>(
-  this: FlowBox<T>,
-  child: Widget
-) {
+FlowBox.prototype.appendChild = function (this: FlowBox, child: Widget) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
 }
 
-FlowBox.prototype.removeChild = function <T extends Gtk.FlowBox>(
-  this: FlowBox<T>,
-  child: Widget
-) {
+FlowBox.prototype.removeChild = function (this: FlowBox, child: Widget) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
-FlowBox.prototype.insertBefore = function <T extends Gtk.FlowBox>(
-  this: FlowBox<T>,
+FlowBox.prototype.insertBefore = function (
+  this: FlowBox,
   child: Widget,
   beforeChild: Widget
 ) {

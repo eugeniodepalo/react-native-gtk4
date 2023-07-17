@@ -1,6 +1,6 @@
 {
   "name": "react-native-gtk4",
-  "version": "1.13.4",
+  "version": "1.14.0",
   "description": "React renderer for GTK4 using node-gtk",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

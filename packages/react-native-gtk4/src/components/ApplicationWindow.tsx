@@ -34,7 +34,6 @@ export default forwardRef<Gtk.ApplicationWindow, Props>(
         <ApplicationWindow
           ref={ref}
           key={titlebarNode ? "with-titlebar" : "without-titlebar"}
-          application={application}
           titlebar={titlebarNode ?? undefined}
           onCloseRequest={() => {
             if (application.getWindows().length === 1) {

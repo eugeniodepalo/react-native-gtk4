@@ -10,18 +10,22 @@ import Reconciler from "./reconciler.js"
 import "./generated/jsx.js"
 import "./overrides.js"
 import { withApplicationContext } from "./components/ApplicationProvider.js"
+import Container from "./container.js"
 
 gi.startLoop()
 Gtk.init()
 
 let currentTag = 0
 
-export default function render(element: React.ReactNode, app: Gtk.Application) {
+export default function render(
+  element: React.ReactNode,
+  application: Gtk.Application
+) {
   const loop = GLib.MainLoop.new(null, false)
 
-  app.on("activate", () => {
+  application.on("activate", () => {
     const container = Reconciler.createContainer(
-      app,
+      new Container(application),
       0,
       null,
       false,
@@ -32,7 +36,7 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
     )
 
     Reconciler.updateContainer(
-      withApplicationContext(element, app),
+      withApplicationContext(element, application),
       container,
       null,
       () => {}
@@ -41,7 +45,7 @@ export default function render(element: React.ReactNode, app: Gtk.Application) {
     loop.run()
   })
 
-  app.run([])
+  application.run([])
 }
 
 export * from "./generated/intrinsics.js"

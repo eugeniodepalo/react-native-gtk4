@@ -3,7 +3,7 @@ import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants.js"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
-import { Gtk } from "./index.js"
+import Container from "./container.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, string, any][]
@@ -12,7 +12,7 @@ type WidgetConstructor = new (props: Record<string, any>) => Widget<any>
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  Gtk.Application,
+  Container,
   Widget<any>,
   Widget<any>,
   Widget<any>,
@@ -51,8 +51,8 @@ const hostConfig: HostConfig<
   insertBefore(parentInstance, child, beforeChild) {
     parentInstance.insertBefore(child, beforeChild)
   },
-  removeChildFromContainer(_parentInstance, child) {
-    child.node.destroy()
+  removeChildFromContainer(container, child) {
+    container.removeChild(child)
   },
   prepareUpdate(_instance, _type, oldProps, newProps) {
     return Object.keys(newProps).reduce((acc, propName) => {
@@ -111,8 +111,14 @@ const hostConfig: HostConfig<
     return null
   },
   detachDeletedInstance() {},
-  clearContainer() {},
-  appendChildToContainer() {},
+  clearContainer(container) {
+    for (const child of container.children) {
+      container.removeChild(child)
+    }
+  },
+  appendChildToContainer(container, child) {
+    container.appendChild(child)
+  },
 }
 
 export default Reconciler(hostConfig)

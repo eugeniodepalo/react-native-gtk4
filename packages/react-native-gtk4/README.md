@@ -39,4 +39,4 @@ React Native GTK4 is released under the [MPL-2.0](https://opensource.org/license
 
 ## Acknowledgements
 
-React Native GTK4 is built upon the foundations of node-gtk and ts-for-gir. We would like to express our gratitude to the original authors of both node-gtk and ts-for-gir for their work on these projects.
+React Native GTK4 is built upon the foundations of node-gtk and ts-for-gir. We would like to express our gratitude to the original authors of these projects for their work.

@@ -16,30 +16,48 @@ import fs from "fs"
 
 const homeDir = GLib.getHomeDir()
 
+const isValidUrl = (url: string) => {
+  try {
+    new URL(url)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 const App = () => {
   const [url, setUrl] = useState("")
   const [progress, setProgress] = useState(0)
-  const filePath = `${homeDir}/Downloads/${url.split("/").pop()}`
+  const [error, setError] = useState<string | null>(null)
 
   const downloadFile = async () => {
-    const response = await axios({
-      url,
-      method: "GET",
-      responseType: "stream",
-    })
+    try {
+      const response = await axios({
+        url,
+        method: "GET",
+        responseType: "stream",
+      })
 
-    const totalLength = response.headers["content-length"]
-    const writer = fs.createWriteStream(filePath)
+      const filePath = `${homeDir}/Downloads/${url.split("/").pop()}`
+      const totalLength = response.headers["content-length"]
+      const writer = fs.createWriteStream(filePath)
 
-    response.data.on("data", (chunk: any) => {
-      writer.write(chunk)
-      setProgress(writer.bytesWritten / totalLength)
-    })
+      response.data.on("data", (chunk: any) => {
+        writer.write(chunk)
+        setProgress(writer.bytesWritten / totalLength)
+      })
 
-    response.data.on("end", () => {
-      writer.end()
-      spawn("xdg-open", [filePath])
-    })
+      response.data.on("end", () => {
+        writer.end()
+        spawn("xdg-open", [filePath])
+      })
+
+      response.data.on("error", (error: any) => {
+        setError(error.toString())
+      })
+    } catch (error: any) {
+      setError(error.toString())
+    }
 
     setProgress(0)
   }
@@ -68,7 +86,12 @@ const App = () => {
             }}
           />
           <ProgressBar fraction={progress} showText />
-          <Button label="Download" onClicked={downloadFile} />
+          {error && <Label label={error} />}
+          <Button
+            label="Download"
+            onClicked={downloadFile}
+            sensitive={isValidUrl(url)}
+          />
         </Box>
       </CenterBox>
     </ApplicationWindow>

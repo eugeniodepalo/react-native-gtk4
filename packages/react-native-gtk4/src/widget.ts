@@ -40,9 +40,7 @@ export default abstract class Widget<T extends Gtk.Widget> {
     this.children.splice(index, 1)
   }
 
-  commitMount(): void {
-    this.node.show()
-  }
+  commitMount(): void {}
 
   setHandler(handlerName: string, handler: any): void {
     const oldHandler = this.handlers[handlerName]

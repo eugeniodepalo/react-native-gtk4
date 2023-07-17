@@ -10,7 +10,7 @@ const parent = {
 
 FlowBox.prototype.appendChild = function <T extends Gtk.FlowBox>(
   this: FlowBox<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
@@ -18,7 +18,7 @@ FlowBox.prototype.appendChild = function <T extends Gtk.FlowBox>(
 
 FlowBox.prototype.removeChild = function <T extends Gtk.FlowBox>(
   this: FlowBox<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
@@ -26,8 +26,8 @@ FlowBox.prototype.removeChild = function <T extends Gtk.FlowBox>(
 
 FlowBox.prototype.insertBefore = function <T extends Gtk.FlowBox>(
   this: FlowBox<T>,
-  child: Widget<any>,
-  beforeChild: Widget<any>
+  child: Widget,
+  beforeChild: Widget
 ) {
   const afterIndex = this.children.indexOf(beforeChild) - 1
 

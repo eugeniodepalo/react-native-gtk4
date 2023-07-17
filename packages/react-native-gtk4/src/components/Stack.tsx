@@ -1,14 +1,20 @@
 import React, {
+  useCallback,
   useContext,
-  useEffect,
   useImperativeHandle,
-  useState,
+  useRef,
 } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
 const Stack = "Stack"
-const StackContext = React.createContext<Gtk.Stack | null>(null)
+
+interface StackContext {
+  node: Gtk.Stack | null
+  visibleChildName?: string
+}
+
+const StackContext = React.createContext<StackContext | null>(null)
 
 type Props = JSX.IntrinsicElements["Stack"] & {
   children: React.ReactNode
@@ -18,26 +24,21 @@ const StackContainer = forwardRef<Gtk.Stack, Props>(function StackContainer(
   { children, visibleChildName, ...props },
   ref
 ) {
-  const [stackNode, setStackNode] = useState<Gtk.Stack | null>(null)
+  const [stackNode, setStackNode] = React.useState<Gtk.Stack | null>(null)
 
   useImperativeHandle(ref, () => stackNode!)
 
-  const stackRef = (node: Gtk.Stack | null) => {
+  const stackRef = useCallback((node: Gtk.Stack | null) => {
     setStackNode(node)
-  }
-
-  useEffect(() => {
-    if (!stackNode) {
-      return
-    }
-
-    if (visibleChildName) {
-      stackNode.setVisibleChildName(visibleChildName)
-    }
-  }, [stackNode, visibleChildName])
+  }, [])
 
   return (
-    <StackContext.Provider value={stackNode}>
+    <StackContext.Provider
+      value={{
+        node: stackNode,
+        visibleChildName,
+      }}
+    >
       <Stack ref={stackRef} {...props}>
         {children}
       </Stack>
@@ -52,30 +53,37 @@ interface ItemProps {
 }
 
 const StackItem = function StackItem({ children, name, title }: ItemProps) {
-  const stackNode = useContext(StackContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
+  const stack = useContext(StackContext)
+  const childRef = useRef<Gtk.Widget | null>(null)
 
-  const childRef = (node: Gtk.Widget | null) => {
-    setChildNode(node)
-  }
+  const setChildRef = useCallback(
+    (node: Gtk.Widget | null) => {
+      const prevNode = childRef.current
 
-  const childWithRef = React.cloneElement(children, {
-    ref: childRef,
+      childRef.current = node
+
+      if (!stack || !stack.node) {
+        return
+      }
+
+      if (prevNode) {
+        stack.node.remove(prevNode)
+      }
+
+      if (node) {
+        stack.node.addTitled(node, name, title ?? name)
+
+        if (stack.visibleChildName === name) {
+          stack.node.setVisibleChildName(name)
+        }
+      }
+    },
+    [stack, name, title]
+  )
+
+  return React.cloneElement(children, {
+    ref: setChildRef,
   })
-
-  useEffect(() => {
-    if (!stackNode || !childNode) {
-      return
-    }
-
-    stackNode.addTitled(childNode, name, title ?? name)
-
-    return () => {
-      stackNode.remove(childNode)
-    }
-  }, [stackNode, childNode, name, title])
-
-  return childWithRef
 }
 
 export default {

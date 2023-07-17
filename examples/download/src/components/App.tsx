@@ -31,6 +31,8 @@ const App = () => {
   const [error, setError] = useState<string | null>(null)
 
   const downloadFile = async () => {
+    setError(null)
+
     try {
       const response = await axios({
         url,

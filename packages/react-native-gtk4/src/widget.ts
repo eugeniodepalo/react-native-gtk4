@@ -1,14 +1,15 @@
 import { Gtk } from "./index.js"
 
-export default abstract class Widget<T extends Gtk.Widget> {
+export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
   node: T
-  children: Widget<any>[] = []
+  children: Widget[] = []
   handlers: Record<string, any> = {}
   props: Record<string, any> = {}
 
   constructor(props: Record<string, any>) {
     this.props = props
     this.node = this.createNode()
+
     for (const propName in props) {
       this.set(propName, props[propName], null)
     }

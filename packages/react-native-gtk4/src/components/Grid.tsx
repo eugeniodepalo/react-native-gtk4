@@ -1,7 +1,8 @@
 import React, {
+  useCallback,
   useContext,
-  useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from "react"
 import { forwardRef } from "react"
@@ -22,9 +23,9 @@ const GridContainer = forwardRef<Gtk.Grid, Props>(function GridContainer(
 
   useImperativeHandle(ref, () => gridNode!)
 
-  const gridRef = (node: Gtk.Grid | null) => {
+  const gridRef = useCallback((node: Gtk.Grid | null) => {
     setGridNode(node)
-  }
+  }, [])
 
   return (
     <GridContext.Provider value={gridNode}>
@@ -51,29 +52,32 @@ const GridItem = function GridItem({
   height = 1,
 }: ItemProps) {
   const gridNode = useContext(GridContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
+  const childRef = useRef<Gtk.Widget | null>(null)
 
-  const childRef = (node: Gtk.Widget | null) => {
-    setChildNode(node)
-  }
+  const setChildRef = useCallback(
+    (node: Gtk.Widget | null) => {
+      const prevNode = childRef.current
 
-  const childWithRef = React.cloneElement(children, {
-    ref: childRef,
+      childRef.current = node
+
+      if (!gridNode) {
+        return
+      }
+
+      if (prevNode) {
+        gridNode.remove(prevNode)
+      }
+
+      if (node) {
+        gridNode.attach(node, col, row, width, height)
+      }
+    },
+    [col, gridNode, height, row, width]
+  )
+
+  return React.cloneElement(children, {
+    ref: setChildRef,
   })
-
-  useEffect(() => {
-    if (!gridNode || !childNode) {
-      return
-    }
-
-    gridNode.attach(childNode, col, row, width, height)
-
-    return () => {
-      gridNode.remove(childNode)
-    }
-  }, [gridNode, childNode, col, row, width, height])
-
-  return childWithRef
 }
 
 export default {

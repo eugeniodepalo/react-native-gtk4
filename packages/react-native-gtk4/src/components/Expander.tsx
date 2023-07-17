@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle } from "react"
+import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
@@ -16,39 +16,29 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
   { label, ...props },
   ref
 ) {
-  const [labelNode, setLabelNode] = React.useState<Gtk.Widget | null>(null)
-  const [expanderNode, setExpanderNode] = React.useState<Gtk.Expander | null>(
-    null
-  )
-  useImperativeHandle(ref, () => expanderNode!)
+  const labelRef = useRef<Gtk.Widget | null>(null)
+  const expanderRef = useRef<Gtk.Expander | null>(null)
 
-  const labelRef = (node: Gtk.Widget | null) => {
-    setLabelNode(node)
-  }
+  useImperativeHandle(ref, () => expanderRef.current!)
 
-  const expanderRef = (node: Gtk.Expander | null) => {
-    setExpanderNode(node)
-  }
+  const setLabelRef = useCallback((node: Gtk.Widget | null) => {
+    labelRef.current = node
 
-  const labelWithRef =
-    label && typeof label !== "string"
-      ? React.cloneElement(label, {
-          ref: labelRef,
-        })
-      : null
-
-  useEffect(() => {
-    if (!labelNode || !expanderNode) {
+    if (!node || !expanderRef.current) {
       return
     }
 
-    labelNode.unparent()
-    expanderNode.setLabelWidget(labelNode)
-  }, [labelNode])
+    node.unparent()
+    expanderRef.current.setLabelWidget(node)
+  }, [])
 
   return (
     <>
-      {labelWithRef}
+      {label && typeof label !== "string"
+        ? React.cloneElement(label, {
+            ref: setLabelRef,
+          })
+        : null}
       <Expander
         ref={expanderRef}
         label={typeof label === "string" ? label : undefined}

@@ -1,7 +1,8 @@
 import React, {
+  useCallback,
   useContext,
-  useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from "react"
 import { forwardRef } from "react"
@@ -21,9 +22,9 @@ const NotebookContainer = forwardRef<Gtk.Notebook, Props>(
 
     useImperativeHandle(ref, () => notebookNode!)
 
-    const notebookRef = (node: Gtk.Notebook | null) => {
+    const notebookRef = useCallback((node: Gtk.Notebook | null) => {
       setNotebookNode(node)
-    }
+    }, [])
 
     return (
       <NotebookContext.Provider value={notebookNode}>
@@ -37,42 +38,52 @@ const NotebookContainer = forwardRef<Gtk.Notebook, Props>(
 
 interface TabProps {
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  label?: string
+  label?: string | React.ReactElement<JSX.IntrinsicElements["Widget"]>
 }
 
 const NotebookTab = function NotebookItem({ children, label }: TabProps) {
   const notebookNode = useContext(NotebookContext)
-  const [childNode, setChildNode] = useState<Gtk.Widget | null>(null)
-  const [labelNode, setLabelNode] = useState<Gtk.Label | null>(null)
 
-  const childRef = (node: Gtk.Widget | null) => {
-    setChildNode(node)
-  }
+  const childRef = useRef<Gtk.Widget | null>(null)
+  const labelRef = useRef<Gtk.Label | null>(null)
 
-  const childWithRef = React.cloneElement(children, {
-    ref: childRef,
-  })
+  const setLabelRef = useCallback(
+    (node: Gtk.Label | null) => {
+      const prevNode = labelRef.current
 
-  const labelRef = (node: Gtk.Label | null) => {
-    setLabelNode(node)
-  }
+      labelRef.current = node
 
-  useEffect(() => {
-    if (!notebookNode || !childNode) {
-      return
-    }
+      if (!notebookNode) {
+        return
+      }
 
-    notebookNode.appendPage(childNode, labelNode)
+      if (prevNode) {
+        notebookNode.removePage(notebookNode.pageNum(prevNode))
+      }
 
-    return () => {
-      notebookNode.removePage(notebookNode.pageNum(childNode))
-    }
-  }, [notebookNode, childNode, labelNode])
+      if (node && childRef.current) {
+        notebookNode.appendPage(childRef.current, node)
+      }
+    },
+    [notebookNode, label]
+  )
 
   return (
-    <Label ref={labelRef} label={label}>
-      {childWithRef}
-    </Label>
+    <>
+      {React.cloneElement(children, {
+        ref: childRef,
+      })}
+      {React.cloneElement(
+        label && typeof label !== "string" ? (
+          label
+        ) : (
+          <Label ref={setLabelRef} label={label} />
+        ),
+        {
+          ref: setLabelRef,
+        }
+      )}
+    </>
   )
 }
 

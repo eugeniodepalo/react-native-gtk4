@@ -1,56 +1,91 @@
-import React, { useEffect, useImperativeHandle, useState } from "react"
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
-const PopoverMenu = "PopoverMenu"
+const Popover = "Popover"
 
-type Props = JSX.IntrinsicElements["PopoverMenu"] & {
-  children: React.ReactNode
+type Props = JSX.IntrinsicElements["Popover"] & {
+  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   content: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   open?: boolean
 }
 
-export default forwardRef<Gtk.PopoverMenu, Props>(function PopoverMenuComponent(
+export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
   { children, content, open = false, ...props },
   ref
 ) {
-  const [popoverMenuNode, setPopoverMenuNode] =
-    useState<Gtk.PopoverMenu | null>(null)
+  const popoverMenuRef = useRef<Gtk.Popover | null>(null)
+  const childRef = useRef<Gtk.Widget | null>(null)
+  const contentRef = useRef<Gtk.Widget | null>(null)
 
-  const [contentNode, setContentNode] = useState<Gtk.Widget | null>(null)
+  useImperativeHandle(ref, () => popoverMenuRef.current!)
 
-  const contentRef = (node: Gtk.Widget | null) => {
-    setContentNode(node)
-  }
+  const setContentRef = useCallback((node: Gtk.Widget | null) => {
+    const prevNode = contentRef.current
 
-  const contentWithRef = React.cloneElement(content, {
-    ref: contentRef,
-  })
+    contentRef.current = node
 
-  useImperativeHandle(ref, () => popoverMenuNode!)
+    if (prevNode) {
+      prevNode.unparent()
+    }
 
-  const popoverMenuRef = (node: Gtk.PopoverMenu | null) => {
-    setPopoverMenuNode(node)
-  }
+    if (!popoverMenuRef.current) {
+      return
+    }
+
+    if (node) {
+      node.unparent()
+      popoverMenuRef.current.setChild(node)
+    } else {
+      popoverMenuRef.current.setChild(null)
+    }
+  }, [])
+
+  const setChildRef = useCallback((node: Gtk.Widget | null) => {
+    const prevNode = childRef.current
+
+    childRef.current = node
+
+    if (prevNode) {
+      prevNode.unparent()
+    }
+
+    if (!popoverMenuRef.current) {
+      return
+    }
+
+    if (node) {
+      popoverMenuRef.current.setParent(node)
+    }
+  }, [])
 
   useEffect(() => {
-    if (!popoverMenuNode || !contentNode || !popoverMenuNode.child) {
+    if (!popoverMenuRef.current || !contentRef.current) {
       return
     }
 
     if (open) {
-      popoverMenuNode.popup()
+      popoverMenuRef.current.popup()
     } else {
-      popoverMenuNode.popdown()
+      popoverMenuRef.current.popdown()
     }
-  }, [popoverMenuNode, contentNode, open])
+  }, [open])
 
   return (
     <>
-      <PopoverMenu ref={popoverMenuRef} {...props}>
-        {children}
-      </PopoverMenu>
-      {contentWithRef}
+      {React.cloneElement(children, {
+        ref: setChildRef,
+      })}
+      <Popover ref={popoverMenuRef} {...props}>
+        {React.cloneElement(content, {
+          ref: setContentRef,
+        })}
+      </Popover>
     </>
   )
 })

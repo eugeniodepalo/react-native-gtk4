@@ -10,7 +10,7 @@ const parent = {
 
 Overlay.prototype.appendChild = function <T extends Gtk.Overlay>(
   this: Overlay<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.appendChild.call(this, child)
   this.node.addOverlay(child.node)
@@ -18,7 +18,7 @@ Overlay.prototype.appendChild = function <T extends Gtk.Overlay>(
 
 Overlay.prototype.removeChild = function <T extends Gtk.Overlay>(
   this: Overlay<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.removeChild.call(this, child)
   this.node.removeOverlay(child.node)
@@ -26,8 +26,8 @@ Overlay.prototype.removeChild = function <T extends Gtk.Overlay>(
 
 Overlay.prototype.insertBefore = function <T extends Gtk.Overlay>(
   this: Overlay<T>,
-  child: Widget<any>,
-  beforeChild: Widget<any>
+  child: Widget,
+  beforeChild: Widget
 ) {
   for (const child of this.children) {
     this.node.removeOverlay(child.node)

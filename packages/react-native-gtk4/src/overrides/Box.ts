@@ -10,7 +10,7 @@ const parent = {
 
 Box.prototype.appendChild = function <T extends Gtk.Box>(
   this: Box<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
@@ -18,7 +18,7 @@ Box.prototype.appendChild = function <T extends Gtk.Box>(
 
 Box.prototype.removeChild = function <T extends Gtk.Box>(
   this: Box<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
@@ -26,8 +26,8 @@ Box.prototype.removeChild = function <T extends Gtk.Box>(
 
 Box.prototype.insertBefore = function <T extends Gtk.Box>(
   this: Box<T>,
-  child: Widget<any>,
-  beforeChild: Widget<any>
+  child: Widget,
+  beforeChild: Widget
 ) {
   const afterIndex = this.children.indexOf(beforeChild) - 1
 

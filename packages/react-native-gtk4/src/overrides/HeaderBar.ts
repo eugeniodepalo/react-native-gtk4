@@ -10,7 +10,7 @@ const parent = {
 
 HeaderBar.prototype.appendChild = function <T extends Gtk.HeaderBar>(
   this: HeaderBar<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.appendChild.call(this, child)
   this.node.packEnd(child.node)
@@ -18,7 +18,7 @@ HeaderBar.prototype.appendChild = function <T extends Gtk.HeaderBar>(
 
 HeaderBar.prototype.removeChild = function <T extends Gtk.HeaderBar>(
   this: HeaderBar<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
@@ -26,8 +26,8 @@ HeaderBar.prototype.removeChild = function <T extends Gtk.HeaderBar>(
 
 HeaderBar.prototype.insertBefore = function <T extends Gtk.HeaderBar>(
   this: HeaderBar<T>,
-  child: Widget<any>,
-  beforeChild: Widget<any>
+  child: Widget,
+  beforeChild: Widget
 ) {
   for (const child of this.children) {
     this.node.remove(child.node)

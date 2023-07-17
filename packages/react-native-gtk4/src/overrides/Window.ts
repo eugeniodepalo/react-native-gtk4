@@ -10,7 +10,7 @@ const parent = {
 
 Window.prototype.appendChild = function <T extends Gtk.Window>(
   this: Window<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   if (child.node instanceof Gtk.Window) {
     return
@@ -21,7 +21,7 @@ Window.prototype.appendChild = function <T extends Gtk.Window>(
 
 Window.prototype.removeChild = function <T extends Gtk.Window>(
   this: Window<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   if (child.node instanceof Gtk.Window) {
     child.node.destroy()
@@ -33,8 +33,8 @@ Window.prototype.removeChild = function <T extends Gtk.Window>(
 
 Window.prototype.insertBefore = function <T extends Gtk.Window>(
   this: Window<T>,
-  child: Widget<any>,
-  beforeChild: Widget<any>
+  child: Widget,
+  beforeChild: Widget
 ) {
   if (child.node instanceof Gtk.Window) {
     return

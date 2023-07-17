@@ -40,10 +40,11 @@ export default function App() {
   const [switchActive, setSwitchActive] = useState(false)
   const [searchModeEnabled, setSearchModeEnabled] = useState(false)
   const [showAboutDialog, setShowAboutDialog] = useState(false)
+  const [showTitlebar, setShowTitlebar] = useState(true)
   const [stackVisibleChildName, setStackVisibleChildName] = useState("child1")
   const [notebookPage, setNotebookPage] = useState(0)
 
-  const setStackRef = useCallback((node: Gtk.Stack | null) => {
+  const stackRef = useCallback((node: Gtk.Stack | null) => {
     setStackNode(node)
   }, [])
 
@@ -53,10 +54,12 @@ export default function App() {
       defaultWidth={800}
       defaultHeight={600}
       titlebar={
-        <HeaderBar title={<Label label="Kitchen Sink" />}>
-          <Label label="Header Bar 1" />
-          <Button label="Header Bar 2" />
-        </HeaderBar>
+        showTitlebar ? (
+          <HeaderBar title={<Label label="Kitchen Sink" />}>
+            <Label label="Header Bar 1" />
+            <Button label="Header Bar 2" />
+          </HeaderBar>
+        ) : undefined
       }
     >
       <Grid.Container hexpand vexpand>
@@ -72,7 +75,7 @@ export default function App() {
               onNotifyVisibleChildName={(stack) => {
                 setStackVisibleChildName(stack.visibleChildName ?? "")
               }}
-              ref={setStackRef}
+              ref={stackRef}
             >
               <Stack.Item name="child1">
                 <Label label="Stack 1" />
@@ -113,6 +116,12 @@ export default function App() {
                 setTimeout(() => {
                   setCount((count) => count + 1)
                 }, 2000)
+              }}
+            />
+            <Button
+              label="Toggle Titlebar"
+              onClicked={() => {
+                setShowTitlebar(!showTitlebar)
               }}
             />
           </Box>
@@ -190,22 +199,13 @@ export default function App() {
               label="Reveal"
             />
             <Revealer revealChild={revealed} hexpand vexpand>
-              <Box>
-                <Label label="Revealer" />
-              </Box>
+              <Label label="Revealer" />
             </Revealer>
             <Popover
               open={popoverOpen}
               hexpand
               vexpand
-              content={
-                <Button
-                  label="Popover"
-                  onClicked={() => {
-                    setPopoverOpen(!popoverOpen)
-                  }}
-                />
-              }
+              content={<Label label="Popover" />}
               onShow={() => {
                 setPopoverOpen(true)
               }}
@@ -213,7 +213,12 @@ export default function App() {
                 setPopoverOpen(false)
               }}
             >
-              <Label label="Popover" />
+              <Button
+                label="Popover"
+                onClicked={() => {
+                  setPopoverOpen(!popoverOpen)
+                }}
+              />
             </Popover>
             <Button
               label={

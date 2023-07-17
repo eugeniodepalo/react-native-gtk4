@@ -7,7 +7,7 @@ import Container from "./container.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, string, any][]
-type WidgetConstructor = new (props: Record<string, any>) => Widget<any>
+type WidgetConstructor = new (props: Record<string, any>) => Widget
 
 const hostConfig: HostConfig<
   ElementType,
@@ -118,6 +118,9 @@ const hostConfig: HostConfig<
   },
   appendChildToContainer(container, child) {
     container.appendChild(child)
+  },
+  insertInContainerBefore(container, child, beforeChild) {
+    container.insertBefore(child, beforeChild)
   },
 }
 

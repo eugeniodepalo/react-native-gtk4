@@ -10,7 +10,7 @@ const parent = {
 
 ListBox.prototype.appendChild = function <T extends Gtk.ListBox>(
   this: ListBox<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
@@ -18,7 +18,7 @@ ListBox.prototype.appendChild = function <T extends Gtk.ListBox>(
 
 ListBox.prototype.removeChild = function <T extends Gtk.ListBox>(
   this: ListBox<T>,
-  child: Widget<any>
+  child: Widget
 ) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
@@ -26,8 +26,8 @@ ListBox.prototype.removeChild = function <T extends Gtk.ListBox>(
 
 ListBox.prototype.insertBefore = function <T extends Gtk.ListBox>(
   this: ListBox<T>,
-  child: Widget<any>,
-  beforeChild: Widget<any>
+  child: Widget,
+  beforeChild: Widget
 ) {
   const afterIndex = this.children.indexOf(beforeChild) - 1
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from "react"
+import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
@@ -13,40 +13,38 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
   { children, content, ...props },
   ref
 ) {
-  const [overlayNode, setOverlayNode] = useState<Gtk.Overlay | null>(null)
-  const [contentNode, setContentNode] = useState<Gtk.Widget | null>(null)
+  const overlayRef = useRef<Gtk.Overlay | null>(null)
+  const contentRef = useRef<Gtk.Widget | null>(null)
 
-  const contentRef = (node: Gtk.Widget | null) => {
-    setContentNode(node)
-  }
+  useImperativeHandle(ref, () => overlayRef.current!)
 
-  const contentWithRef = React.cloneElement(content, { ref: contentRef })
+  const setContentRef = useCallback((node: Gtk.Widget | null) => {
+    const prevNode = contentRef.current
 
-  useImperativeHandle(ref, () => overlayNode!)
+    contentRef.current = node
 
-  const overlayRef = (node: Gtk.Overlay | null) => {
-    setOverlayNode(node)
-  }
-
-  useEffect(() => {
-    if (overlayNode && contentNode) {
-      contentNode.unparent()
-      overlayNode.setChild(contentNode)
+    if (prevNode) {
+      prevNode.unparent()
     }
 
-    return () => {
-      if (overlayNode && contentNode) {
-        overlayNode.setChild(null)
-      }
+    if (!overlayRef.current) {
+      return
     }
-  }, [overlayNode, contentNode])
+
+    if (node) {
+      node.unparent()
+      overlayRef.current.setChild(node)
+    } else {
+      overlayRef.current.setChild(null)
+    }
+  }, [])
 
   return (
     <>
       <Overlay ref={overlayRef} {...props}>
         {children}
       </Overlay>
-      {contentWithRef}
+      {React.cloneElement(content, { ref: setContentRef })}
     </>
   )
 })

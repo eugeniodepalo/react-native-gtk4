@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useState } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 import useApplication from "../hooks/useApplication.js"
@@ -13,24 +13,19 @@ type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "titlebar"> & {
 export default forwardRef<Gtk.ApplicationWindow, Props>(
   function ApplicationWindowComponent({ titlebar, ...props }, ref) {
     const application = useApplication()
+    const [titlebarNode, setTitlebarNode] = useState<Gtk.Widget | null>(null)
 
-    const [titlebarNode, setTitlebarNode] = React.useState<Gtk.Widget | null>(
-      null
-    )
-
-    const titlebarRef = (node: Gtk.Widget | null) => {
+    const titlebarRef = useCallback((node: Gtk.Widget | null) => {
       setTitlebarNode(node)
-    }
-
-    const titlebarWithRef = titlebar
-      ? React.cloneElement(titlebar, {
-          ref: titlebarRef,
-        })
-      : null
+    }, [])
 
     return (
       <>
-        {titlebarWithRef}
+        {titlebar
+          ? React.cloneElement(titlebar, {
+              ref: titlebarRef,
+            })
+          : null}
         <ApplicationWindow
           ref={ref}
           key={titlebarNode ? "with-titlebar" : "without-titlebar"}

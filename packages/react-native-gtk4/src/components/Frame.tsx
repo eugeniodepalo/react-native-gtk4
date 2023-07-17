@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useState } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
@@ -13,18 +13,11 @@ export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
   { label, ...props },
   ref
 ) {
-  const [labelNode, setLabelNode] = React.useState<Gtk.Widget | null>(null)
+  const [labelNode, setLabelNode] = useState<Gtk.Widget | null>(null)
 
-  const labelRef = (node: Gtk.Widget | null) => {
+  const labelRef = useCallback((node: Gtk.Widget | null) => {
     setLabelNode(node)
-  }
-
-  const labelWithRef =
-    label && typeof label !== "string"
-      ? React.cloneElement(label, {
-          ref: labelRef,
-        })
-      : null
+  }, [])
 
   return (
     <Frame
@@ -33,7 +26,11 @@ export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
       labelWidget={labelNode ?? undefined}
       {...props}
     >
-      {labelWithRef}
+      {label && typeof label !== "string"
+        ? React.cloneElement(label, {
+            ref: labelRef,
+          })
+        : null}
     </Frame>
   )
 })

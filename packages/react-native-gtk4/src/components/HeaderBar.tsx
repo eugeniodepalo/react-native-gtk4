@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle } from "react"
+import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
@@ -13,39 +13,37 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
   { title, ...props },
   ref
 ) {
-  const [titleNode, setTitleNode] = React.useState<Gtk.Widget | null>(null)
+  const titleRef = useRef<Gtk.Widget | null>(null)
+  const headerBarRef = useRef<Gtk.HeaderBar | null>(null)
 
-  const [headerBarNode, setHeaderBarNode] =
-    React.useState<Gtk.HeaderBar | null>(null)
+  useImperativeHandle(ref, () => headerBarRef.current!)
 
-  const titleRef = (node: Gtk.Widget | null) => {
-    setTitleNode(node)
-  }
+  const setTitleRef = useCallback((node: Gtk.Widget | null) => {
+    const prevNode = titleRef.current
 
-  const headerBarRef = (node: Gtk.HeaderBar | null) => {
-    setHeaderBarNode(node)
-  }
+    titleRef.current = node
 
-  useImperativeHandle(ref, () => headerBarNode!)
-
-  const titleWithRef = title
-    ? React.cloneElement(title, {
-        ref: titleRef,
-      })
-    : null
-
-  useEffect(() => {
-    if (!titleNode || !headerBarNode) {
+    if (!node || !headerBarRef.current) {
       return
     }
 
-    titleNode.unparent()
-    headerBarNode.setTitleWidget(titleNode)
-  }, [titleNode, headerBarNode])
+    if (prevNode) {
+      prevNode.unparent()
+    }
+
+    if (node) {
+      node.unparent()
+      headerBarRef.current.setTitleWidget(node)
+    }
+  }, [])
 
   return (
     <HeaderBar ref={headerBarRef} {...props}>
-      {titleWithRef}
+      {title
+        ? React.cloneElement(title, {
+            ref: setTitleRef,
+          })
+        : null}
     </HeaderBar>
   )
 })

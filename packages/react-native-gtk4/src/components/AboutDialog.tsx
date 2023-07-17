@@ -35,7 +35,6 @@ export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
       aboutDialogNode.addCreditSection(sectionName, people)
     }
 
-    aboutDialogNode.setFocus(aboutDialogNode)
     aboutDialogNode.present()
   }, [aboutDialogNode, creditSections])
 

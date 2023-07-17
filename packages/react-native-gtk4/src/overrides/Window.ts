@@ -24,6 +24,7 @@ Window.prototype.removeChild = function <T extends Gtk.Window>(
   child: Widget<any>
 ) {
   if (child.node instanceof Gtk.Window) {
+    child.node.destroy()
     return
   }
 

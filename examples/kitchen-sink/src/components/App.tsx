@@ -233,7 +233,7 @@ export default function App() {
               vexpand
               hexpand
               onClicked={() => {
-                setShowAboutDialog(true)
+                setShowAboutDialog(!showAboutDialog)
               }}
             />
           </Box>

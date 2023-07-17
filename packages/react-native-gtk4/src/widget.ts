@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Gtk } from "./index.js"
 
 export default abstract class Widget<T extends Gtk.Widget> {
@@ -17,16 +16,10 @@ export default abstract class Widget<T extends Gtk.Widget> {
 
   abstract createNode(): T
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   set(propName: string, newValue: any, oldValue: any): void {}
 
-  insertBefore(child: Widget<any>, beforeChild: Widget<any>): void {
-    const index = this.children.indexOf(beforeChild) - 1
-    if (index < 0) {
-      this.children.unshift(child)
-      return
-    }
-    this.children.splice(index, 0, child)
-  }
+  commitMount(): void {}
 
   appendChild(child: Widget<any>): void {
     this.children.push(child)
@@ -34,13 +27,24 @@ export default abstract class Widget<T extends Gtk.Widget> {
 
   removeChild(child: Widget<any>): void {
     const index = this.children.indexOf(child)
+
     if (index < 0) {
       return
     }
+
     this.children.splice(index, 1)
   }
 
-  commitMount(): void {}
+  insertBefore(child: Widget<any>, beforeChild: Widget<any>): void {
+    const index = this.children.indexOf(beforeChild) - 1
+
+    if (index < 0) {
+      this.children.unshift(child)
+      return
+    }
+
+    this.children.splice(index, 0, child)
+  }
 
   setHandler(handlerName: string, handler: any): void {
     const oldHandler = this.handlers[handlerName]

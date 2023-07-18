@@ -1,4 +1,5 @@
 /src
 /codegen
 /pnpm-lock.yaml
+/.eslintrc.json
 tsconfig.json

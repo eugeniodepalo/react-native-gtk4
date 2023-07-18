@@ -164,12 +164,14 @@ export default function App() {
               <TextView />
               <CheckButton label="Radio Button 1" active />
               <CheckButton label="Radio Button 2" />
-              <Switch
-                active={switchActive}
-                onActivate={(node) => {
-                  setSwitchActive(node.active)
-                }}
-              />
+              <Box>
+                <Switch
+                  active={switchActive}
+                  onActivate={(node) => {
+                    setSwitchActive(node.active)
+                  }}
+                />
+              </Box>
               <CenterBox
                 start={<Label label="Center Box Start" />}
                 end={<Label label="Center Box End" />}

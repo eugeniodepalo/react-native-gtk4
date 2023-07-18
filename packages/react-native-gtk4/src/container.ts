@@ -13,6 +13,7 @@ export default class Container {
   private static initialized = false
   private instance: ReturnType<typeof Reconciler.createContainer>
   private loop: GLib.MainLoop
+  private interval?: NodeJS.Timeout
 
   constructor(application: Gtk.Application) {
     if (!Container.initialized) {
@@ -46,6 +47,10 @@ export default class Container {
 
       if (this.children.length === 0) {
         this.loop.quit()
+
+        if (this.interval) {
+          clearInterval(this.interval)
+        }
       }
     })
 
@@ -57,6 +62,8 @@ export default class Container {
         () => {}
       )
 
+      // TODO: Investigate why this is needed and if it can be removed
+      this.interval = setInterval(() => {}, 1000)
       this.loop.run()
     })
 

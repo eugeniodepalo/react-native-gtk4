@@ -20,6 +20,8 @@ export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   set(propName: string, newValue: any, oldValue: any): void {}
 
+  commitMount(): void {}
+
   appendChild(child: Widget): void {
     this.children.push(child)
   }

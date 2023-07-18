@@ -63,7 +63,9 @@ const hostConfig: HostConfig<
       return acc
     }, [] as UpdatePayload)
   },
-  commitMount() {},
+  commitMount(instance) {
+    instance.commitMount()
+  },
   commitUpdate(instance, updatePayload) {
     for (const [propName, newValue, oldValue] of updatePayload) {
       instance.set(propName, newValue, oldValue)

@@ -69,7 +69,7 @@ export default class Container {
     }
 
     this.children.push(child)
-    this.afterInsert(child)
+    child.node.setApplication(this.application)
   }
 
   removeChild(child: Widget) {
@@ -99,16 +99,7 @@ export default class Container {
       this.children.splice(index, 0, child)
     }
 
-    this.afterInsert(child)
-  }
-
-  private afterInsert(child: Widget) {
-    if (!this.isApplicationWindow(child)) {
-      return
-    }
-
     child.node.setApplication(this.application)
-    child.node.present()
   }
 
   private isApplicationWindow(

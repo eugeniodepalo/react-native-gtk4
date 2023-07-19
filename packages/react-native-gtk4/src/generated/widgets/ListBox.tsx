@@ -16,22 +16,22 @@ export default class ListBox<
         }
         break
       case "activateOnSingleClick":
-        if (this.node.activateOnSingleClick !== newValue) {
+        if (this.node.getActivateOnSingleClick !== newValue) {
           this.node.setActivateOnSingleClick(newValue)
         }
         break
       case "selectionMode":
-        if (this.node.selectionMode !== newValue) {
+        if (this.node.getSelectionMode !== newValue) {
           this.node.setSelectionMode(newValue)
         }
         break
       case "showSeparators":
-        if (this.node.showSeparators !== newValue) {
+        if (this.node.getShowSeparators !== newValue) {
           this.node.setShowSeparators(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

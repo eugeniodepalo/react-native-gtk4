@@ -23,12 +23,12 @@ export default class ScrolledWindow<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "hadjustment":
-        if (this.node.hadjustment !== newValue) {
+        if (this.node.getHadjustment !== newValue) {
           this.node.setHadjustment(newValue)
         }
         break
       case "hasFrame":
-        if (this.node.hasFrame !== newValue) {
+        if (this.node.getHasFrame !== newValue) {
           this.node.setHasFrame(newValue)
         }
         break
@@ -38,47 +38,47 @@ export default class ScrolledWindow<
         }
         break
       case "kineticScrolling":
-        if (this.node.kineticScrolling !== newValue) {
+        if (this.node.getKineticScrolling !== newValue) {
           this.node.setKineticScrolling(newValue)
         }
         break
       case "maxContentHeight":
-        if (this.node.maxContentHeight !== newValue) {
+        if (this.node.getMaxContentHeight !== newValue) {
           this.node.setMaxContentHeight(newValue)
         }
         break
       case "maxContentWidth":
-        if (this.node.maxContentWidth !== newValue) {
+        if (this.node.getMaxContentWidth !== newValue) {
           this.node.setMaxContentWidth(newValue)
         }
         break
       case "minContentHeight":
-        if (this.node.minContentHeight !== newValue) {
+        if (this.node.getMinContentHeight !== newValue) {
           this.node.setMinContentHeight(newValue)
         }
         break
       case "minContentWidth":
-        if (this.node.minContentWidth !== newValue) {
+        if (this.node.getMinContentWidth !== newValue) {
           this.node.setMinContentWidth(newValue)
         }
         break
       case "overlayScrolling":
-        if (this.node.overlayScrolling !== newValue) {
+        if (this.node.getOverlayScrolling !== newValue) {
           this.node.setOverlayScrolling(newValue)
         }
         break
       case "propagateNaturalHeight":
-        if (this.node.propagateNaturalHeight !== newValue) {
+        if (this.node.getPropagateNaturalHeight !== newValue) {
           this.node.setPropagateNaturalHeight(newValue)
         }
         break
       case "propagateNaturalWidth":
-        if (this.node.propagateNaturalWidth !== newValue) {
+        if (this.node.getPropagateNaturalWidth !== newValue) {
           this.node.setPropagateNaturalWidth(newValue)
         }
         break
       case "vadjustment":
-        if (this.node.vadjustment !== newValue) {
+        if (this.node.getVadjustment !== newValue) {
           this.node.setVadjustment(newValue)
         }
         break
@@ -93,7 +93,7 @@ export default class ScrolledWindow<
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

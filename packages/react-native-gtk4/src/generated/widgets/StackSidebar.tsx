@@ -11,12 +11,12 @@ export default class StackSidebar<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "stack":
-        if (this.node.stack !== newValue) {
+        if (this.node.getStack !== newValue) {
           this.node.setStack(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

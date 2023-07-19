@@ -23,7 +23,7 @@ export default class SearchBar<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "keyCaptureWidget":
-        if (this.node.keyCaptureWidget !== newValue) {
+        if (this.node.getKeyCaptureWidget !== newValue) {
           this.node.setKeyCaptureWidget(newValue)
         }
         break
@@ -33,12 +33,12 @@ export default class SearchBar<
         }
         break
       case "showCloseButton":
-        if (this.node.showCloseButton !== newValue) {
+        if (this.node.getShowCloseButton !== newValue) {
           this.node.setShowCloseButton(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

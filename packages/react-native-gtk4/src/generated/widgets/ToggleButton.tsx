@@ -11,7 +11,7 @@ export default class ToggleButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "active":
-        if (this.node.active !== newValue) {
+        if (this.node.getActive !== newValue) {
           this.node.setActive(newValue)
         }
         break
@@ -21,12 +21,12 @@ export default class ToggleButton<
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "actionName":
-        if (this.node.actionName !== newValue) {
+        if (this.node.getActionName !== newValue) {
           this.node.setActionName(newValue)
         }
         break

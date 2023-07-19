@@ -4,7 +4,7 @@ import { DiscreteEventPriority } from "react-reconciler/constants.js"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
-import { Gtk } from "./index.js"
+import { GLib, Gtk } from "./index.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any, any][]
@@ -22,12 +22,12 @@ const hostConfig: HostConfig<
   unknown,
   UpdatePayload,
   Set<Widget>,
-  ReturnType<typeof setTimeout>,
+  number,
   -1
 > = {
   supportsMutation: true,
   supportsPersistence: false,
-  supportsMicrotasks: true,
+  supportsMicrotasks: false,
   supportsHydration: false,
   isPrimaryRenderer: true,
   noTimeout: -1,
@@ -95,10 +95,13 @@ const hostConfig: HostConfig<
   },
   preparePortalMount() {},
   scheduleTimeout(fn, delay) {
-    return setTimeout(fn, delay)
+    return GLib.timeoutAdd(GLib.PRIORITY_HIGH, delay ?? 0, () => {
+      fn()
+      return GLib.SOURCE_REMOVE
+    })
   },
   cancelTimeout(id) {
-    clearTimeout(id)
+    GLib.sourceRemove(id)
   },
   getCurrentEventPriority() {
     return DiscreteEventPriority
@@ -123,9 +126,6 @@ const hostConfig: HostConfig<
   },
   insertInContainerBefore(container, child, beforeChild) {
     container.insertBefore(child, beforeChild)
-  },
-  scheduleMicrotask(fn) {
-    queueMicrotask(fn)
   },
 }
 

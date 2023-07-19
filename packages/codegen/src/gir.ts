@@ -25,6 +25,7 @@ export interface GirProperty {
   type: GirType[]
   $: GirAttributes & {
     setter?: string
+    getter?: string
     writable?: string
     "construct-only"?: string
   }

@@ -23,7 +23,7 @@ export default class DragIcon<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

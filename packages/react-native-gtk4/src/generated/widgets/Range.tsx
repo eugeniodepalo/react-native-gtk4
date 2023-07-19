@@ -9,42 +9,42 @@ export default class Range<T extends Gtk.Range = Gtk.Range> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "adjustment":
-        if (this.node.adjustment !== newValue) {
+        if (this.node.getAdjustment !== newValue) {
           this.node.setAdjustment(newValue)
         }
         break
       case "fillLevel":
-        if (this.node.fillLevel !== newValue) {
+        if (this.node.getFillLevel !== newValue) {
           this.node.setFillLevel(newValue)
         }
         break
       case "inverted":
-        if (this.node.inverted !== newValue) {
+        if (this.node.getInverted !== newValue) {
           this.node.setInverted(newValue)
         }
         break
       case "restrictToFillLevel":
-        if (this.node.restrictToFillLevel !== newValue) {
+        if (this.node.getRestrictToFillLevel !== newValue) {
           this.node.setRestrictToFillLevel(newValue)
         }
         break
       case "roundDigits":
-        if (this.node.roundDigits !== newValue) {
+        if (this.node.getRoundDigits !== newValue) {
           this.node.setRoundDigits(newValue)
         }
         break
       case "showFillLevel":
-        if (this.node.showFillLevel !== newValue) {
+        if (this.node.getShowFillLevel !== newValue) {
           this.node.setShowFillLevel(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.orientation !== newValue) {
+        if (this.node.getOrientation !== newValue) {
           this.node.setOrientation(newValue)
         }
         break

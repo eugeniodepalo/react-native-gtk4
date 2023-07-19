@@ -16,27 +16,27 @@ export default class ListBase<
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "hadjustment":
-        if (this.node.hadjustment !== newValue) {
+        if (this.node.getHadjustment !== newValue) {
           this.node.setHadjustment(newValue)
         }
         break
       case "hscrollPolicy":
-        if (this.node.hscrollPolicy !== newValue) {
+        if (this.node.getHscrollPolicy !== newValue) {
           this.node.setHscrollPolicy(newValue)
         }
         break
       case "vadjustment":
-        if (this.node.vadjustment !== newValue) {
+        if (this.node.getVadjustment !== newValue) {
           this.node.setVadjustment(newValue)
         }
         break
       case "vscrollPolicy":
-        if (this.node.vscrollPolicy !== newValue) {
+        if (this.node.getVscrollPolicy !== newValue) {
           this.node.setVscrollPolicy(newValue)
         }
         break

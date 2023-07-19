@@ -21,17 +21,17 @@ export default class Calendar<
         }
         break
       case "showDayNames":
-        if (this.node.showDayNames !== newValue) {
+        if (this.node.getShowDayNames !== newValue) {
           this.node.setShowDayNames(newValue)
         }
         break
       case "showHeading":
-        if (this.node.showHeading !== newValue) {
+        if (this.node.getShowHeading !== newValue) {
           this.node.setShowHeading(newValue)
         }
         break
       case "showWeekNumbers":
-        if (this.node.showWeekNumbers !== newValue) {
+        if (this.node.getShowWeekNumbers !== newValue) {
           this.node.setShowWeekNumbers(newValue)
         }
         break
@@ -41,7 +41,7 @@ export default class Calendar<
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

@@ -9,32 +9,32 @@ export default class Scale<T extends Gtk.Scale = Gtk.Scale> extends Range<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "digits":
-        if (this.node.digits !== newValue) {
+        if (this.node.getDigits !== newValue) {
           this.node.setDigits(newValue)
         }
         break
       case "drawValue":
-        if (this.node.drawValue !== newValue) {
+        if (this.node.getDrawValue !== newValue) {
           this.node.setDrawValue(newValue)
         }
         break
       case "hasOrigin":
-        if (this.node.hasOrigin !== newValue) {
+        if (this.node.getHasOrigin !== newValue) {
           this.node.setHasOrigin(newValue)
         }
         break
       case "valuePos":
-        if (this.node.valuePos !== newValue) {
+        if (this.node.getValuePos !== newValue) {
           this.node.setValuePos(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.orientation !== newValue) {
+        if (this.node.getOrientation !== newValue) {
           this.node.setOrientation(newValue)
         }
         break

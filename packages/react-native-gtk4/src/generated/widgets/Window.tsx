@@ -23,12 +23,12 @@ export default class Window<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "application":
-        if (this.node.application !== newValue) {
+        if (this.node.getApplication !== newValue) {
           this.node.setApplication(newValue)
         }
         break
       case "decorated":
-        if (this.node.decorated !== newValue) {
+        if (this.node.getDecorated !== newValue) {
           this.node.setDecorated(newValue)
         }
         break
@@ -38,7 +38,7 @@ export default class Window<
         }
         break
       case "defaultWidget":
-        if (this.node.defaultWidget !== newValue) {
+        if (this.node.getDefaultWidget !== newValue) {
           this.node.setDefaultWidget(newValue)
         }
         break
@@ -48,12 +48,12 @@ export default class Window<
         }
         break
       case "deletable":
-        if (this.node.deletable !== newValue) {
+        if (this.node.getDeletable !== newValue) {
           this.node.setDeletable(newValue)
         }
         break
       case "destroyWithParent":
-        if (this.node.destroyWithParent !== newValue) {
+        if (this.node.getDestroyWithParent !== newValue) {
           this.node.setDestroyWithParent(newValue)
         }
         break
@@ -63,7 +63,7 @@ export default class Window<
         }
         break
       case "focusVisible":
-        if (this.node.focusVisible !== newValue) {
+        if (this.node.getFocusVisible !== newValue) {
           this.node.setFocusVisible(newValue)
         }
         break
@@ -78,17 +78,17 @@ export default class Window<
         }
         break
       case "handleMenubarAccel":
-        if (this.node.handleMenubarAccel !== newValue) {
+        if (this.node.getHandleMenubarAccel !== newValue) {
           this.node.setHandleMenubarAccel(newValue)
         }
         break
       case "hideOnClose":
-        if (this.node.hideOnClose !== newValue) {
+        if (this.node.getHideOnClose !== newValue) {
           this.node.setHideOnClose(newValue)
         }
         break
       case "iconName":
-        if (this.node.iconName !== newValue) {
+        if (this.node.getIconName !== newValue) {
           this.node.setIconName(newValue)
         }
         break
@@ -98,17 +98,17 @@ export default class Window<
         }
         break
       case "mnemonicsVisible":
-        if (this.node.mnemonicsVisible !== newValue) {
+        if (this.node.getMnemonicsVisible !== newValue) {
           this.node.setMnemonicsVisible(newValue)
         }
         break
       case "modal":
-        if (this.node.modal !== newValue) {
+        if (this.node.getModal !== newValue) {
           this.node.setModal(newValue)
         }
         break
       case "resizable":
-        if (this.node.resizable !== newValue) {
+        if (this.node.getResizable !== newValue) {
           this.node.setResizable(newValue)
         }
         break
@@ -118,22 +118,22 @@ export default class Window<
         }
         break
       case "title":
-        if (this.node.title !== newValue) {
+        if (this.node.getTitle !== newValue) {
           this.node.setTitle(newValue)
         }
         break
       case "titlebar":
-        if (this.node.titlebar !== newValue) {
+        if (this.node.getTitlebar !== newValue) {
           this.node.setTitlebar(newValue)
         }
         break
       case "transientFor":
-        if (this.node.transientFor !== newValue) {
+        if (this.node.getTransientFor !== newValue) {
           this.node.setTransientFor(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

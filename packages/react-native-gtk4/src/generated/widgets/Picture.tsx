@@ -11,37 +11,37 @@ export default class Picture<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "alternativeText":
-        if (this.node.alternativeText !== newValue) {
+        if (this.node.getAlternativeText !== newValue) {
           this.node.setAlternativeText(newValue)
         }
         break
       case "canShrink":
-        if (this.node.canShrink !== newValue) {
+        if (this.node.getCanShrink !== newValue) {
           this.node.setCanShrink(newValue)
         }
         break
       case "contentFit":
-        if (this.node.contentFit !== newValue) {
+        if (this.node.getContentFit !== newValue) {
           this.node.setContentFit(newValue)
         }
         break
       case "file":
-        if (this.node.file !== newValue) {
+        if (this.node.getFile !== newValue) {
           this.node.setFile(newValue)
         }
         break
       case "keepAspectRatio":
-        if (this.node.keepAspectRatio !== newValue) {
+        if (this.node.getKeepAspectRatio !== newValue) {
           this.node.setKeepAspectRatio(newValue)
         }
         break
       case "paintable":
-        if (this.node.paintable !== newValue) {
+        if (this.node.getPaintable !== newValue) {
           this.node.setPaintable(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

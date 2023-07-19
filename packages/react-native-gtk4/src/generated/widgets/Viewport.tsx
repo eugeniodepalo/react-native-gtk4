@@ -23,32 +23,32 @@ export default class Viewport<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "scrollToFocus":
-        if (this.node.scrollToFocus !== newValue) {
+        if (this.node.getScrollToFocus !== newValue) {
           this.node.setScrollToFocus(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "hadjustment":
-        if (this.node.hadjustment !== newValue) {
+        if (this.node.getHadjustment !== newValue) {
           this.node.setHadjustment(newValue)
         }
         break
       case "hscrollPolicy":
-        if (this.node.hscrollPolicy !== newValue) {
+        if (this.node.getHscrollPolicy !== newValue) {
           this.node.setHscrollPolicy(newValue)
         }
         break
       case "vadjustment":
-        if (this.node.vadjustment !== newValue) {
+        if (this.node.getVadjustment !== newValue) {
           this.node.setVadjustment(newValue)
         }
         break
       case "vscrollPolicy":
-        if (this.node.vscrollPolicy !== newValue) {
+        if (this.node.getVscrollPolicy !== newValue) {
           this.node.setVscrollPolicy(newValue)
         }
         break

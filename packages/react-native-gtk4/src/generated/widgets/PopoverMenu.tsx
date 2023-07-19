@@ -11,7 +11,7 @@ export default class PopoverMenu<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "menuModel":
-        if (this.node.menuModel !== newValue) {
+        if (this.node.getMenuModel !== newValue) {
           this.node.setMenuModel(newValue)
         }
         break
@@ -21,7 +21,7 @@ export default class PopoverMenu<
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

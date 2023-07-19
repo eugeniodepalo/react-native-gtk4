@@ -11,12 +11,12 @@ export default class ActionBar<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "revealed":
-        if (this.node.revealed !== newValue) {
+        if (this.node.getRevealed !== newValue) {
           this.node.setRevealed(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

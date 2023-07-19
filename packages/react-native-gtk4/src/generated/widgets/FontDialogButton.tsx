@@ -11,42 +11,42 @@ export default class FontDialogButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "dialog":
-        if (this.node.dialog !== newValue) {
+        if (this.node.getDialog !== newValue) {
           this.node.setDialog(newValue)
         }
         break
       case "fontDesc":
-        if (this.node.fontDesc !== newValue) {
+        if (this.node.getFontDesc !== newValue) {
           this.node.setFontDesc(newValue)
         }
         break
       case "fontFeatures":
-        if (this.node.fontFeatures !== newValue) {
+        if (this.node.getFontFeatures !== newValue) {
           this.node.setFontFeatures(newValue)
         }
         break
       case "language":
-        if (this.node.language !== newValue) {
+        if (this.node.getLanguage !== newValue) {
           this.node.setLanguage(newValue)
         }
         break
       case "level":
-        if (this.node.level !== newValue) {
+        if (this.node.getLevel !== newValue) {
           this.node.setLevel(newValue)
         }
         break
       case "useFont":
-        if (this.node.useFont !== newValue) {
+        if (this.node.getUseFont !== newValue) {
           this.node.setUseFont(newValue)
         }
         break
       case "useSize":
-        if (this.node.useSize !== newValue) {
+        if (this.node.getUseSize !== newValue) {
           this.node.setUseSize(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

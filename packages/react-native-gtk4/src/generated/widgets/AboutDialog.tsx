@@ -11,87 +11,87 @@ export default class AboutDialog<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "artists":
-        if (this.node.artists !== newValue) {
+        if (this.node.getArtists !== newValue) {
           this.node.setArtists(newValue)
         }
         break
       case "authors":
-        if (this.node.authors !== newValue) {
+        if (this.node.getAuthors !== newValue) {
           this.node.setAuthors(newValue)
         }
         break
       case "comments":
-        if (this.node.comments !== newValue) {
+        if (this.node.getComments !== newValue) {
           this.node.setComments(newValue)
         }
         break
       case "copyright":
-        if (this.node.copyright !== newValue) {
+        if (this.node.getCopyright !== newValue) {
           this.node.setCopyright(newValue)
         }
         break
       case "documenters":
-        if (this.node.documenters !== newValue) {
+        if (this.node.getDocumenters !== newValue) {
           this.node.setDocumenters(newValue)
         }
         break
       case "license":
-        if (this.node.license !== newValue) {
+        if (this.node.getLicense !== newValue) {
           this.node.setLicense(newValue)
         }
         break
       case "licenseType":
-        if (this.node.licenseType !== newValue) {
+        if (this.node.getLicenseType !== newValue) {
           this.node.setLicenseType(newValue)
         }
         break
       case "logo":
-        if (this.node.logo !== newValue) {
+        if (this.node.getLogo !== newValue) {
           this.node.setLogo(newValue)
         }
         break
       case "logoIconName":
-        if (this.node.logoIconName !== newValue) {
+        if (this.node.getLogoIconName !== newValue) {
           this.node.setLogoIconName(newValue)
         }
         break
       case "programName":
-        if (this.node.programName !== newValue) {
+        if (this.node.getProgramName !== newValue) {
           this.node.setProgramName(newValue)
         }
         break
       case "systemInformation":
-        if (this.node.systemInformation !== newValue) {
+        if (this.node.getSystemInformation !== newValue) {
           this.node.setSystemInformation(newValue)
         }
         break
       case "translatorCredits":
-        if (this.node.translatorCredits !== newValue) {
+        if (this.node.getTranslatorCredits !== newValue) {
           this.node.setTranslatorCredits(newValue)
         }
         break
       case "version":
-        if (this.node.version !== newValue) {
+        if (this.node.getVersion !== newValue) {
           this.node.setVersion(newValue)
         }
         break
       case "website":
-        if (this.node.website !== newValue) {
+        if (this.node.getWebsite !== newValue) {
           this.node.setWebsite(newValue)
         }
         break
       case "websiteLabel":
-        if (this.node.websiteLabel !== newValue) {
+        if (this.node.getWebsiteLabel !== newValue) {
           this.node.setWebsiteLabel(newValue)
         }
         break
       case "wrapLicense":
-        if (this.node.wrapLicense !== newValue) {
+        if (this.node.getWrapLicense !== newValue) {
           this.node.setWrapLicense(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

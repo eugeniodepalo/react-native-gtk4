@@ -15,6 +15,7 @@ export interface WidgetClassProperty {
   type: string
   array: boolean
   setter?: string
+  getter?: string
   writable: boolean
   constructOnly: boolean
 }
@@ -100,6 +101,7 @@ async function getWidgetClasses(gir: Gir): Promise<WidgetClass[]> {
         name: prop.$.name,
         array: prop.array !== undefined,
         setter: prop.$.setter,
+        getter: prop.$.getter,
         writable: prop.$.writable === "1",
         constructOnly: prop.$["construct-only"] === "1",
         type: (prop.array ? prop.array[0].type : prop.type)[0].$.name,

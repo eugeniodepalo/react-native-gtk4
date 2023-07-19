@@ -11,7 +11,7 @@ export default class Inscription<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "attributes":
-        if (this.node.attributes !== newValue) {
+        if (this.node.getAttributes !== newValue) {
           this.node.setAttributes(newValue)
         }
         break
@@ -21,52 +21,52 @@ export default class Inscription<
         }
         break
       case "minChars":
-        if (this.node.minChars !== newValue) {
+        if (this.node.getMinChars !== newValue) {
           this.node.setMinChars(newValue)
         }
         break
       case "minLines":
-        if (this.node.minLines !== newValue) {
+        if (this.node.getMinLines !== newValue) {
           this.node.setMinLines(newValue)
         }
         break
       case "natChars":
-        if (this.node.natChars !== newValue) {
+        if (this.node.getNatChars !== newValue) {
           this.node.setNatChars(newValue)
         }
         break
       case "natLines":
-        if (this.node.natLines !== newValue) {
+        if (this.node.getNatLines !== newValue) {
           this.node.setNatLines(newValue)
         }
         break
       case "text":
-        if (this.node.text !== newValue) {
+        if (this.node.getText !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "textOverflow":
-        if (this.node.textOverflow !== newValue) {
+        if (this.node.getTextOverflow !== newValue) {
           this.node.setTextOverflow(newValue)
         }
         break
       case "wrapMode":
-        if (this.node.wrapMode !== newValue) {
+        if (this.node.getWrapMode !== newValue) {
           this.node.setWrapMode(newValue)
         }
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
+        if (this.node.getXalign !== newValue) {
           this.node.setXalign(newValue)
         }
         break
       case "yalign":
-        if (this.node.yalign !== newValue) {
+        if (this.node.getYalign !== newValue) {
           this.node.setYalign(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

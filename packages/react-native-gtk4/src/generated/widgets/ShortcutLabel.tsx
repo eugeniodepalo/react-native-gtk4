@@ -11,17 +11,17 @@ export default class ShortcutLabel<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "accelerator":
-        if (this.node.accelerator !== newValue) {
+        if (this.node.getAccelerator !== newValue) {
           this.node.setAccelerator(newValue)
         }
         break
       case "disabledText":
-        if (this.node.disabledText !== newValue) {
+        if (this.node.getDisabledText !== newValue) {
           this.node.setDisabledText(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

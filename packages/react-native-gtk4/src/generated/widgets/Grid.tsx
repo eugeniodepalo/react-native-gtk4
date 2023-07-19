@@ -9,37 +9,37 @@ export default class Grid<T extends Gtk.Grid = Gtk.Grid> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "baselineRow":
-        if (this.node.baselineRow !== newValue) {
+        if (this.node.getBaselineRow !== newValue) {
           this.node.setBaselineRow(newValue)
         }
         break
       case "columnHomogeneous":
-        if (this.node.columnHomogeneous !== newValue) {
+        if (this.node.getColumnHomogeneous !== newValue) {
           this.node.setColumnHomogeneous(newValue)
         }
         break
       case "columnSpacing":
-        if (this.node.columnSpacing !== newValue) {
+        if (this.node.getColumnSpacing !== newValue) {
           this.node.setColumnSpacing(newValue)
         }
         break
       case "rowHomogeneous":
-        if (this.node.rowHomogeneous !== newValue) {
+        if (this.node.getRowHomogeneous !== newValue) {
           this.node.setRowHomogeneous(newValue)
         }
         break
       case "rowSpacing":
-        if (this.node.rowSpacing !== newValue) {
+        if (this.node.getRowSpacing !== newValue) {
           this.node.setRowSpacing(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.orientation !== newValue) {
+        if (this.node.getOrientation !== newValue) {
           this.node.setOrientation(newValue)
         }
         break

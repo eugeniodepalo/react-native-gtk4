@@ -23,32 +23,32 @@ export default class Button<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "hasFrame":
-        if (this.node.hasFrame !== newValue) {
+        if (this.node.getHasFrame !== newValue) {
           this.node.setHasFrame(newValue)
         }
         break
       case "iconName":
-        if (this.node.iconName !== newValue) {
+        if (this.node.getIconName !== newValue) {
           this.node.setIconName(newValue)
         }
         break
       case "label":
-        if (this.node.label !== newValue) {
+        if (this.node.getLabel !== newValue) {
           this.node.setLabel(newValue)
         }
         break
       case "useUnderline":
-        if (this.node.useUnderline !== newValue) {
+        if (this.node.getUseUnderline !== newValue) {
           this.node.setUseUnderline(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "actionName":
-        if (this.node.actionName !== newValue) {
+        if (this.node.getActionName !== newValue) {
           this.node.setActionName(newValue)
         }
         break

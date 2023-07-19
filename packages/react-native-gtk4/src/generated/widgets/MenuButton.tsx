@@ -23,57 +23,57 @@ export default class MenuButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "active":
-        if (this.node.active !== newValue) {
+        if (this.node.getActive !== newValue) {
           this.node.setActive(newValue)
         }
         break
       case "alwaysShowArrow":
-        if (this.node.alwaysShowArrow !== newValue) {
+        if (this.node.getAlwaysShowArrow !== newValue) {
           this.node.setAlwaysShowArrow(newValue)
         }
         break
       case "direction":
-        if (this.node.direction !== newValue) {
+        if (this.node.getDirection !== newValue) {
           this.node.setDirection(newValue)
         }
         break
       case "hasFrame":
-        if (this.node.hasFrame !== newValue) {
+        if (this.node.getHasFrame !== newValue) {
           this.node.setHasFrame(newValue)
         }
         break
       case "iconName":
-        if (this.node.iconName !== newValue) {
+        if (this.node.getIconName !== newValue) {
           this.node.setIconName(newValue)
         }
         break
       case "label":
-        if (this.node.label !== newValue) {
+        if (this.node.getLabel !== newValue) {
           this.node.setLabel(newValue)
         }
         break
       case "menuModel":
-        if (this.node.menuModel !== newValue) {
+        if (this.node.getMenuModel !== newValue) {
           this.node.setMenuModel(newValue)
         }
         break
       case "popover":
-        if (this.node.popover !== newValue) {
+        if (this.node.getPopover !== newValue) {
           this.node.setPopover(newValue)
         }
         break
       case "primary":
-        if (this.node.primary !== newValue) {
+        if (this.node.getPrimary !== newValue) {
           this.node.setPrimary(newValue)
         }
         break
       case "useUnderline":
-        if (this.node.useUnderline !== newValue) {
+        if (this.node.getUseUnderline !== newValue) {
           this.node.setUseUnderline(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

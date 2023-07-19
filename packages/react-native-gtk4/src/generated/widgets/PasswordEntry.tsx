@@ -16,7 +16,7 @@ export default class PasswordEntry<
         }
         break
       case "extraMenu":
-        if (this.node.extraMenu !== newValue) {
+        if (this.node.getExtraMenu !== newValue) {
           this.node.setExtraMenu(newValue)
         }
         break
@@ -26,37 +26,37 @@ export default class PasswordEntry<
         }
         break
       case "showPeekIcon":
-        if (this.node.showPeekIcon !== newValue) {
+        if (this.node.getShowPeekIcon !== newValue) {
           this.node.setShowPeekIcon(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "editable":
-        if (this.node.editable !== newValue) {
+        if (this.node.getEditable !== newValue) {
           this.node.setEditable(newValue)
         }
         break
       case "enableUndo":
-        if (this.node.enableUndo !== newValue) {
+        if (this.node.getEnableUndo !== newValue) {
           this.node.setEnableUndo(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.maxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "text":
-        if (this.node.text !== newValue) {
+        if (this.node.getText !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "widthChars":
-        if (this.node.widthChars !== newValue) {
+        if (this.node.getWidthChars !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break

@@ -11,22 +11,22 @@ export default class LinkButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "uri":
-        if (this.node.uri !== newValue) {
+        if (this.node.getUri !== newValue) {
           this.node.setUri(newValue)
         }
         break
       case "visited":
-        if (this.node.visited !== newValue) {
+        if (this.node.getVisited !== newValue) {
           this.node.setVisited(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "actionName":
-        if (this.node.actionName !== newValue) {
+        if (this.node.getActionName !== newValue) {
           this.node.setActionName(newValue)
         }
         break

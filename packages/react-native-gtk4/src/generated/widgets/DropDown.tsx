@@ -11,42 +11,42 @@ export default class DropDown<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "enableSearch":
-        if (this.node.enableSearch !== newValue) {
+        if (this.node.getEnableSearch !== newValue) {
           this.node.setEnableSearch(newValue)
         }
         break
       case "expression":
-        if (this.node.expression !== newValue) {
+        if (this.node.getExpression !== newValue) {
           this.node.setExpression(newValue)
         }
         break
       case "factory":
-        if (this.node.factory !== newValue) {
+        if (this.node.getFactory !== newValue) {
           this.node.setFactory(newValue)
         }
         break
       case "listFactory":
-        if (this.node.listFactory !== newValue) {
+        if (this.node.getListFactory !== newValue) {
           this.node.setListFactory(newValue)
         }
         break
       case "model":
-        if (this.node.model !== newValue) {
+        if (this.node.getModel !== newValue) {
           this.node.setModel(newValue)
         }
         break
       case "selected":
-        if (this.node.selected !== newValue) {
+        if (this.node.getSelected !== newValue) {
           this.node.setSelected(newValue)
         }
         break
       case "showArrow":
-        if (this.node.showArrow !== newValue) {
+        if (this.node.getShowArrow !== newValue) {
           this.node.setShowArrow(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

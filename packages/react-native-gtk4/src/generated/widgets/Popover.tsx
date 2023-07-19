@@ -23,12 +23,12 @@ export default class Popover<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "autohide":
-        if (this.node.autohide !== newValue) {
+        if (this.node.getAutohide !== newValue) {
           this.node.setAutohide(newValue)
         }
         break
       case "cascadePopdown":
-        if (this.node.cascadePopdown !== newValue) {
+        if (this.node.getCascadePopdown !== newValue) {
           this.node.setCascadePopdown(newValue)
         }
         break
@@ -38,27 +38,27 @@ export default class Popover<
         }
         break
       case "hasArrow":
-        if (this.node.hasArrow !== newValue) {
+        if (this.node.getHasArrow !== newValue) {
           this.node.setHasArrow(newValue)
         }
         break
       case "mnemonicsVisible":
-        if (this.node.mnemonicsVisible !== newValue) {
+        if (this.node.getMnemonicsVisible !== newValue) {
           this.node.setMnemonicsVisible(newValue)
         }
         break
       case "pointingTo":
-        if (this.node.pointingTo !== newValue) {
+        if (this.node.getPointingTo !== newValue) {
           this.node.setPointingTo(newValue)
         }
         break
       case "position":
-        if (this.node.position !== newValue) {
+        if (this.node.getPosition !== newValue) {
           this.node.setPosition(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

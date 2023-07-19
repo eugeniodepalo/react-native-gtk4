@@ -9,102 +9,102 @@ export default class Label<T extends Gtk.Label = Gtk.Label> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "attributes":
-        if (this.node.attributes !== newValue) {
+        if (this.node.getAttributes !== newValue) {
           this.node.setAttributes(newValue)
         }
         break
       case "ellipsize":
-        if (this.node.ellipsize !== newValue) {
+        if (this.node.getEllipsize !== newValue) {
           this.node.setEllipsize(newValue)
         }
         break
       case "extraMenu":
-        if (this.node.extraMenu !== newValue) {
+        if (this.node.getExtraMenu !== newValue) {
           this.node.setExtraMenu(newValue)
         }
         break
       case "justify":
-        if (this.node.justify !== newValue) {
+        if (this.node.getJustify !== newValue) {
           this.node.setJustify(newValue)
         }
         break
       case "label":
-        if (this.node.label !== newValue) {
+        if (this.node.getLabel !== newValue) {
           this.node.setLabel(newValue)
         }
         break
       case "lines":
-        if (this.node.lines !== newValue) {
+        if (this.node.getLines !== newValue) {
           this.node.setLines(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.maxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "mnemonicWidget":
-        if (this.node.mnemonicWidget !== newValue) {
+        if (this.node.getMnemonicWidget !== newValue) {
           this.node.setMnemonicWidget(newValue)
         }
         break
       case "naturalWrapMode":
-        if (this.node.naturalWrapMode !== newValue) {
+        if (this.node.getNaturalWrapMode !== newValue) {
           this.node.setNaturalWrapMode(newValue)
         }
         break
       case "selectable":
-        if (this.node.selectable !== newValue) {
+        if (this.node.getSelectable !== newValue) {
           this.node.setSelectable(newValue)
         }
         break
       case "singleLineMode":
-        if (this.node.singleLineMode !== newValue) {
+        if (this.node.getSingleLineMode !== newValue) {
           this.node.setSingleLineMode(newValue)
         }
         break
       case "tabs":
-        if (this.node.tabs !== newValue) {
+        if (this.node.getTabs !== newValue) {
           this.node.setTabs(newValue)
         }
         break
       case "useMarkup":
-        if (this.node.useMarkup !== newValue) {
+        if (this.node.getUseMarkup !== newValue) {
           this.node.setUseMarkup(newValue)
         }
         break
       case "useUnderline":
-        if (this.node.useUnderline !== newValue) {
+        if (this.node.getUseUnderline !== newValue) {
           this.node.setUseUnderline(newValue)
         }
         break
       case "widthChars":
-        if (this.node.widthChars !== newValue) {
+        if (this.node.getWidthChars !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break
       case "wrap":
-        if (this.node.wrap !== newValue) {
+        if (this.node.getWrap !== newValue) {
           this.node.setWrap(newValue)
         }
         break
       case "wrapMode":
-        if (this.node.wrapMode !== newValue) {
+        if (this.node.getWrapMode !== newValue) {
           this.node.setWrapMode(newValue)
         }
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
+        if (this.node.getXalign !== newValue) {
           this.node.setXalign(newValue)
         }
         break
       case "yalign":
-        if (this.node.yalign !== newValue) {
+        if (this.node.getYalign !== newValue) {
           this.node.setYalign(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

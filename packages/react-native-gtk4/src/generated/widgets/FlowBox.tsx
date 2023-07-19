@@ -16,47 +16,47 @@ export default class FlowBox<
         }
         break
       case "activateOnSingleClick":
-        if (this.node.activateOnSingleClick !== newValue) {
+        if (this.node.getActivateOnSingleClick !== newValue) {
           this.node.setActivateOnSingleClick(newValue)
         }
         break
       case "columnSpacing":
-        if (this.node.columnSpacing !== newValue) {
+        if (this.node.getColumnSpacing !== newValue) {
           this.node.setColumnSpacing(newValue)
         }
         break
       case "homogeneous":
-        if (this.node.homogeneous !== newValue) {
+        if (this.node.getHomogeneous !== newValue) {
           this.node.setHomogeneous(newValue)
         }
         break
       case "maxChildrenPerLine":
-        if (this.node.maxChildrenPerLine !== newValue) {
+        if (this.node.getMaxChildrenPerLine !== newValue) {
           this.node.setMaxChildrenPerLine(newValue)
         }
         break
       case "minChildrenPerLine":
-        if (this.node.minChildrenPerLine !== newValue) {
+        if (this.node.getMinChildrenPerLine !== newValue) {
           this.node.setMinChildrenPerLine(newValue)
         }
         break
       case "rowSpacing":
-        if (this.node.rowSpacing !== newValue) {
+        if (this.node.getRowSpacing !== newValue) {
           this.node.setRowSpacing(newValue)
         }
         break
       case "selectionMode":
-        if (this.node.selectionMode !== newValue) {
+        if (this.node.getSelectionMode !== newValue) {
           this.node.setSelectionMode(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.orientation !== newValue) {
+        if (this.node.getOrientation !== newValue) {
           this.node.setOrientation(newValue)
         }
         break

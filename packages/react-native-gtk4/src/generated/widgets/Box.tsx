@@ -9,27 +9,27 @@ export default class Box<T extends Gtk.Box = Gtk.Box> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "baselinePosition":
-        if (this.node.baselinePosition !== newValue) {
+        if (this.node.getBaselinePosition !== newValue) {
           this.node.setBaselinePosition(newValue)
         }
         break
       case "homogeneous":
-        if (this.node.homogeneous !== newValue) {
+        if (this.node.getHomogeneous !== newValue) {
           this.node.setHomogeneous(newValue)
         }
         break
       case "spacing":
-        if (this.node.spacing !== newValue) {
+        if (this.node.getSpacing !== newValue) {
           this.node.setSpacing(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.orientation !== newValue) {
+        if (this.node.getOrientation !== newValue) {
           this.node.setOrientation(newValue)
         }
         break

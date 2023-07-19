@@ -37,12 +37,20 @@ function generateSetMethod(widgetClass: WidgetClass) {
   ts += `  super.set(propName, newValue, oldValue)\n`
   ts += `  switch (propName) {\n`
 
-  for (const { name, setter } of settableProps) {
+  for (const { name, setter, getter } of settableProps) {
     const setterName =
       setter === "set_action_target" ? `${setter}_value` : setter
 
+    const getterName =
+      getter === "get_action_target" ? `${getter}_value` : getter
+
     ts += `case "${camelize(name)}":\n`
-    ts += `  if (this.node.${camelize(name)} !== newValue) {\n`
+
+    if (getterName) {
+      ts += `  if (this.node.${camelize(getterName)} !== newValue) {\n`
+    } else {
+      ts += `  if (this.node.${camelize(name)} !== newValue) {\n`
+    }
 
     if (setterName) {
       ts += `this.node.${camelize(setterName)}(newValue)\n`

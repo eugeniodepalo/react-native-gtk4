@@ -23,37 +23,37 @@ export default class Expander<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "expanded":
-        if (this.node.expanded !== newValue) {
+        if (this.node.getExpanded !== newValue) {
           this.node.setExpanded(newValue)
         }
         break
       case "label":
-        if (this.node.label !== newValue) {
+        if (this.node.getLabel !== newValue) {
           this.node.setLabel(newValue)
         }
         break
       case "labelWidget":
-        if (this.node.labelWidget !== newValue) {
+        if (this.node.getLabelWidget !== newValue) {
           this.node.setLabelWidget(newValue)
         }
         break
       case "resizeToplevel":
-        if (this.node.resizeToplevel !== newValue) {
+        if (this.node.getResizeToplevel !== newValue) {
           this.node.setResizeToplevel(newValue)
         }
         break
       case "useMarkup":
-        if (this.node.useMarkup !== newValue) {
+        if (this.node.getUseMarkup !== newValue) {
           this.node.setUseMarkup(newValue)
         }
         break
       case "useUnderline":
-        if (this.node.useUnderline !== newValue) {
+        if (this.node.getUseUnderline !== newValue) {
           this.node.setUseUnderline(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

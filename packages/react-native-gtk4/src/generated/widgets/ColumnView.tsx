@@ -11,57 +11,57 @@ export default class ColumnView<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "enableRubberband":
-        if (this.node.enableRubberband !== newValue) {
+        if (this.node.getEnableRubberband !== newValue) {
           this.node.setEnableRubberband(newValue)
         }
         break
       case "model":
-        if (this.node.model !== newValue) {
+        if (this.node.getModel !== newValue) {
           this.node.setModel(newValue)
         }
         break
       case "reorderable":
-        if (this.node.reorderable !== newValue) {
+        if (this.node.getReorderable !== newValue) {
           this.node.setReorderable(newValue)
         }
         break
       case "showColumnSeparators":
-        if (this.node.showColumnSeparators !== newValue) {
+        if (this.node.getShowColumnSeparators !== newValue) {
           this.node.setShowColumnSeparators(newValue)
         }
         break
       case "showRowSeparators":
-        if (this.node.showRowSeparators !== newValue) {
+        if (this.node.getShowRowSeparators !== newValue) {
           this.node.setShowRowSeparators(newValue)
         }
         break
       case "singleClickActivate":
-        if (this.node.singleClickActivate !== newValue) {
+        if (this.node.getSingleClickActivate !== newValue) {
           this.node.setSingleClickActivate(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "hadjustment":
-        if (this.node.hadjustment !== newValue) {
+        if (this.node.getHadjustment !== newValue) {
           this.node.setHadjustment(newValue)
         }
         break
       case "hscrollPolicy":
-        if (this.node.hscrollPolicy !== newValue) {
+        if (this.node.getHscrollPolicy !== newValue) {
           this.node.setHscrollPolicy(newValue)
         }
         break
       case "vadjustment":
-        if (this.node.vadjustment !== newValue) {
+        if (this.node.getVadjustment !== newValue) {
           this.node.setVadjustment(newValue)
         }
         break
       case "vscrollPolicy":
-        if (this.node.vscrollPolicy !== newValue) {
+        if (this.node.getVscrollPolicy !== newValue) {
           this.node.setVscrollPolicy(newValue)
         }
         break

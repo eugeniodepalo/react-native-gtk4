@@ -11,12 +11,12 @@ export default class Spinner<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "spinning":
-        if (this.node.spinning !== newValue) {
+        if (this.node.getSpinning !== newValue) {
           this.node.setSpinning(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

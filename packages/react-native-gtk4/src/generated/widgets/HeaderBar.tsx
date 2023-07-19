@@ -11,22 +11,22 @@ export default class HeaderBar<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "decorationLayout":
-        if (this.node.decorationLayout !== newValue) {
+        if (this.node.getDecorationLayout !== newValue) {
           this.node.setDecorationLayout(newValue)
         }
         break
       case "showTitleButtons":
-        if (this.node.showTitleButtons !== newValue) {
+        if (this.node.getShowTitleButtons !== newValue) {
           this.node.setShowTitleButtons(newValue)
         }
         break
       case "titleWidget":
-        if (this.node.titleWidget !== newValue) {
+        if (this.node.getTitleWidget !== newValue) {
           this.node.setTitleWidget(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.accessibleRole !== newValue) {
+        if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
         }
         break

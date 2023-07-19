@@ -28,6 +28,7 @@ import {
   TextView,
   AboutDialog,
   CenterBox,
+  useApplication,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
   const [showTitlebar, setShowTitlebar] = useState(true)
   const [stackVisibleChildName, setStackVisibleChildName] = useState("child1")
   const [notebookPage, setNotebookPage] = useState(0)
+  const { quit } = useApplication()
 
   const stackRef = useCallback((node: Gtk.Stack | null) => {
     setStackNode(node)
@@ -54,6 +56,7 @@ export default function App() {
         title="Kitchen Sink"
         defaultWidth={800}
         defaultHeight={600}
+        onCloseRequest={quit}
         titlebar={
           showTitlebar ? (
             <HeaderBar title={<Label label="Kitchen Sink" />}>

@@ -30,7 +30,7 @@ export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
     const index = this.children.indexOf(child)
 
     if (index < 0) {
-      return
+      throw new Error("Removed child not found")
     }
 
     this.children.splice(index, 1)

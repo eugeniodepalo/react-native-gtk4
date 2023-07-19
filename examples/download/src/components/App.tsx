@@ -11,6 +11,7 @@ import {
   GLib,
   CenterBox,
   Gtk,
+  useApplication,
 } from "react-native-gtk4"
 import fs from "fs"
 
@@ -29,6 +30,7 @@ const App = () => {
   const [url, setUrl] = useState("")
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState<string | null>(null)
+  const { quit } = useApplication()
 
   const downloadFile = async () => {
     setProgress(0)
@@ -82,7 +84,7 @@ const App = () => {
   }
 
   return (
-    <ApplicationWindow title="URL Downloader">
+    <ApplicationWindow title="URL Downloader" onCloseRequest={quit}>
       <CenterBox
         marginBottom={10}
         marginTop={10}

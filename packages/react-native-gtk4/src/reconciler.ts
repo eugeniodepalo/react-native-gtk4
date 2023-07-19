@@ -1,6 +1,6 @@
 import Reconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
-import { DefaultEventPriority } from "react-reconciler/constants.js"
+import { DiscreteEventPriority } from "react-reconciler/constants.js"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
@@ -27,6 +27,7 @@ const hostConfig: HostConfig<
 > = {
   supportsMutation: true,
   supportsPersistence: false,
+  supportsMicrotasks: true,
   supportsHydration: false,
   isPrimaryRenderer: true,
   noTimeout: -1,
@@ -100,7 +101,7 @@ const hostConfig: HostConfig<
     clearTimeout(id)
   },
   getCurrentEventPriority() {
-    return DefaultEventPriority
+    return DiscreteEventPriority
   },
   getInstanceFromNode() {
     return null
@@ -122,6 +123,9 @@ const hostConfig: HostConfig<
   },
   insertInContainerBefore(container, child, beforeChild) {
     container.insertBefore(child, beforeChild)
+  },
+  scheduleMicrotask(fn) {
+    queueMicrotask(fn)
   },
 }
 

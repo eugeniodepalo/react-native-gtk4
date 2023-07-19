@@ -1,12 +1,19 @@
 import React, { useState } from "react"
-import { ApplicationWindow, Box, Button, Gtk } from "react-native-gtk4"
+import {
+  ApplicationWindow,
+  Box,
+  Button,
+  Gtk,
+  useApplication,
+} from "react-native-gtk4"
 
 export default function App() {
   const [count, setCount] = useState(0)
+  const { quit } = useApplication()
 
   return (
     <>
-      <ApplicationWindow title="Increment">
+      <ApplicationWindow title="Increment" onCloseRequest={quit}>
         <Box orientation={Gtk.Orientation.VERTICAL}>
           <>Shared counter: {count}</>
           <Button

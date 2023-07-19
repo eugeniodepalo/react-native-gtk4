@@ -18,7 +18,7 @@ export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
   ref
 ) {
   const aboutDialogRef = useRef<Gtk.AboutDialog | null>(null)
-  const application = useApplication()
+  const { application } = useApplication()
 
   const setAboutDialogRef = useCallback((node: Gtk.AboutDialog | null) => {
     aboutDialogRef.current = node

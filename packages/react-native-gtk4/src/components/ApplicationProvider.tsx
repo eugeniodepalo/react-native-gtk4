@@ -1,16 +1,19 @@
 import { Gtk } from "../index.js"
 import React from "react"
 
-export const ApplicationContext = React.createContext<Gtk.Application | null>(
-  null
-)
+export interface Application {
+  application: Gtk.Application
+  quit(): boolean
+}
+
+export const ApplicationContext = React.createContext<Application | null>(null)
 
 export default function ApplicationProvider({
   children,
   value,
 }: {
   children: React.ReactNode
-  value: Gtk.Application
+  value: Application
 }) {
   return (
     <ApplicationContext.Provider value={value}>
@@ -21,7 +24,7 @@ export default function ApplicationProvider({
 
 export function withApplicationContext(
   element: React.ReactNode,
-  application: Gtk.Application
+  application: Application
 ) {
   return (
     <ApplicationProvider value={application}>{element}</ApplicationProvider>

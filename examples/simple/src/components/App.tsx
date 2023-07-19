@@ -1,11 +1,18 @@
 import React, { useState } from "react"
-import { ApplicationWindow, Box, Button, Gtk } from "react-native-gtk4"
+import {
+  ApplicationWindow,
+  Box,
+  Button,
+  Gtk,
+  useApplication,
+} from "react-native-gtk4"
 
 export default function App() {
   const [count, setCount] = useState(0)
+  const { quit } = useApplication()
 
   return (
-    <ApplicationWindow title="Hello World">
+    <ApplicationWindow title="Hello World" onCloseRequest={quit}>
       <Box orientation={Gtk.Orientation.VERTICAL}>
         <>Hello World! You clicked {count} times.</>
         <Button

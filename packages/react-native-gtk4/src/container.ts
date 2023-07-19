@@ -1,23 +1,23 @@
 import gi from "@girs/node-gtk"
 import { GLib, Gtk } from "./index.js"
 import Reconciler from "./reconciler.js"
-import { withApplicationContext } from "./components/ApplicationProvider.js"
+import {
+  Application,
+  withApplicationContext,
+} from "./components/ApplicationProvider.js"
 import Widget from "./widget.js"
-import { ApplicationWindow } from "./generated/widgets.js"
 
 export default class Container {
-  children: ApplicationWindow[] = []
+  children: Widget[] = []
 
   private application: Gtk.Application
   private static currentTag = 0
   private static initialized = false
   private instance: ReturnType<typeof Reconciler.createContainer>
   private loop: GLib.MainLoop
-  private interval?: NodeJS.Timeout
 
   constructor(application: Gtk.Application) {
     if (!Container.initialized) {
-      gi.startLoop()
       Gtk.init()
       Container.initialized = true
     }
@@ -38,32 +38,24 @@ export default class Container {
   }
 
   render(element: React.ReactNode) {
-    this.application.on("window-removed", (window) => {
-      const child = this.children.find((c) => c.node === window)
-
-      if (child) {
-        this.removeChild(child)
-      }
-
-      if (this.children.length === 0) {
-        this.loop.quit()
-
-        if (this.interval) {
-          clearInterval(this.interval)
-        }
-      }
-    })
-
     this.application.on("activate", () => {
+      const application: Application = {
+        quit: () => {
+          this.application.quit()
+          this.loop.quit()
+          return false
+        },
+        application: this.application,
+      }
+
       Reconciler.updateContainer(
-        withApplicationContext(element, this.application),
+        withApplicationContext(element, application),
         this.instance,
         null,
         () => {}
       )
 
-      // TODO: Investigate why this is needed and if it can be removed
-      this.interval = setInterval(() => {}, 1000)
+      gi.startLoop()
       this.loop.run()
     })
 
@@ -71,42 +63,39 @@ export default class Container {
   }
 
   appendChild(child: Widget) {
-    if (!this.isApplicationWindow(child)) {
-      return
+    if (this.isApplicationWindow(child)) {
+      child.node.setApplication(this.application)
     }
 
     this.children.push(child)
-    child.node.setApplication(this.application)
   }
 
   removeChild(child: Widget) {
-    if (!this.isApplicationWindow(child)) {
-      return
-    }
-
     const index = this.children.indexOf(child)
 
-    if (index !== -1) {
-      this.children.splice(index, 1)
+    if (index < 0) {
+      throw new Error("Removed child not found")
     }
 
-    child.node.destroy()
+    this.children.splice(index, 1)
+
+    if (this.isApplicationWindow(child)) {
+      child.node.destroy()
+    }
   }
 
   insertBefore(child: Widget, beforeChild: Widget) {
-    if (!this.isApplicationWindow(child)) {
-      return
-    }
+    const index = this.children.indexOf(beforeChild) - 1
 
-    const index = this.children.indexOf(
-      beforeChild as Widget<Gtk.ApplicationWindow>
-    )
-
-    if (index !== -1) {
+    if (index < 0) {
+      this.children.unshift(child)
+    } else {
       this.children.splice(index, 0, child)
     }
 
-    child.node.setApplication(this.application)
+    if (this.isApplicationWindow(child)) {
+      child.node.setApplication(this.application)
+    }
   }
 
   private isApplicationWindow(

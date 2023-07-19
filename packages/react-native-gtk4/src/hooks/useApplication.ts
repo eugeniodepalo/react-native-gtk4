@@ -5,7 +5,7 @@ export default function useApplication() {
   const application = useContext(ApplicationContext)
 
   if (application === null) {
-    throw new Error("Gtk.Application is not available")
+    throw new Error("Application is not available")
   }
 
   return application

@@ -11,28 +11,44 @@ export default class FontDialogButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "dialog":
-        this.node.setDialog(newValue)
+        if (this.node.dialog !== newValue) {
+          this.node.setDialog(newValue)
+        }
         break
       case "fontDesc":
-        this.node.setFontDesc(newValue)
+        if (this.node.fontDesc !== newValue) {
+          this.node.setFontDesc(newValue)
+        }
         break
       case "fontFeatures":
-        this.node.setFontFeatures(newValue)
+        if (this.node.fontFeatures !== newValue) {
+          this.node.setFontFeatures(newValue)
+        }
         break
       case "language":
-        this.node.setLanguage(newValue)
+        if (this.node.language !== newValue) {
+          this.node.setLanguage(newValue)
+        }
         break
       case "level":
-        this.node.setLevel(newValue)
+        if (this.node.level !== newValue) {
+          this.node.setLevel(newValue)
+        }
         break
       case "useFont":
-        this.node.setUseFont(newValue)
+        if (this.node.useFont !== newValue) {
+          this.node.setUseFont(newValue)
+        }
         break
       case "useSize":
-        this.node.setUseSize(newValue)
+        if (this.node.useSize !== newValue) {
+          this.node.setUseSize(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyDialog":
         this.setHandler("notify::dialog", newValue)

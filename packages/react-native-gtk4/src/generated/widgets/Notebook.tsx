@@ -11,28 +11,44 @@ export default class Notebook<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "enablePopup":
-        this.node.enablePopup = newValue
+        if (this.node.enablePopup !== newValue) {
+          this.node.enablePopup = newValue
+        }
         break
       case "groupName":
-        this.node.setGroupName(newValue)
+        if (this.node.groupName !== newValue) {
+          this.node.setGroupName(newValue)
+        }
         break
       case "page":
-        this.node.page = newValue
+        if (this.node.page !== newValue) {
+          this.node.page = newValue
+        }
         break
       case "scrollable":
-        this.node.setScrollable(newValue)
+        if (this.node.scrollable !== newValue) {
+          this.node.setScrollable(newValue)
+        }
         break
       case "showBorder":
-        this.node.setShowBorder(newValue)
+        if (this.node.showBorder !== newValue) {
+          this.node.setShowBorder(newValue)
+        }
         break
       case "showTabs":
-        this.node.setShowTabs(newValue)
+        if (this.node.showTabs !== newValue) {
+          this.node.setShowTabs(newValue)
+        }
         break
       case "tabPos":
-        this.node.setTabPos(newValue)
+        if (this.node.tabPos !== newValue) {
+          this.node.setTabPos(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onChangeCurrentPage":
         this.setHandler("change-current-page", newValue)

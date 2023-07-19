@@ -11,13 +11,19 @@ export default class StackSwitcher<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "stack":
-        this.node.setStack(newValue)
+        if (this.node.stack !== newValue) {
+          this.node.setStack(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onNotifyStack":
         this.setHandler("notify::stack", newValue)

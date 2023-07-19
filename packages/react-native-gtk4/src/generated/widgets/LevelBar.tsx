@@ -11,25 +11,39 @@ export default class LevelBar<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "inverted":
-        this.node.setInverted(newValue)
+        if (this.node.inverted !== newValue) {
+          this.node.setInverted(newValue)
+        }
         break
       case "maxValue":
-        this.node.setMaxValue(newValue)
+        if (this.node.maxValue !== newValue) {
+          this.node.setMaxValue(newValue)
+        }
         break
       case "minValue":
-        this.node.setMinValue(newValue)
+        if (this.node.minValue !== newValue) {
+          this.node.setMinValue(newValue)
+        }
         break
       case "mode":
-        this.node.setMode(newValue)
+        if (this.node.mode !== newValue) {
+          this.node.setMode(newValue)
+        }
         break
       case "value":
-        this.node.setValue(newValue)
+        if (this.node.value !== newValue) {
+          this.node.setValue(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onOffsetChanged":
         this.setHandler("offset-changed", newValue)

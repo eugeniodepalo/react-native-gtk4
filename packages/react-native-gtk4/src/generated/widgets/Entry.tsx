@@ -9,133 +9,219 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "activatesDefault":
-        this.node.setActivatesDefault(newValue)
+        if (this.node.activatesDefault !== newValue) {
+          this.node.setActivatesDefault(newValue)
+        }
         break
       case "attributes":
-        this.node.setAttributes(newValue)
+        if (this.node.attributes !== newValue) {
+          this.node.setAttributes(newValue)
+        }
         break
       case "buffer":
-        this.node.setBuffer(newValue)
+        if (this.node.buffer !== newValue) {
+          this.node.setBuffer(newValue)
+        }
         break
       case "completion":
-        this.node.setCompletion(newValue)
+        if (this.node.completion !== newValue) {
+          this.node.setCompletion(newValue)
+        }
         break
       case "enableEmojiCompletion":
-        this.node.enableEmojiCompletion = newValue
+        if (this.node.enableEmojiCompletion !== newValue) {
+          this.node.enableEmojiCompletion = newValue
+        }
         break
       case "extraMenu":
-        this.node.setExtraMenu(newValue)
+        if (this.node.extraMenu !== newValue) {
+          this.node.setExtraMenu(newValue)
+        }
         break
       case "hasFrame":
-        this.node.setHasFrame(newValue)
+        if (this.node.hasFrame !== newValue) {
+          this.node.setHasFrame(newValue)
+        }
         break
       case "imModule":
-        this.node.imModule = newValue
+        if (this.node.imModule !== newValue) {
+          this.node.imModule = newValue
+        }
         break
       case "inputHints":
-        this.node.setInputHints(newValue)
+        if (this.node.inputHints !== newValue) {
+          this.node.setInputHints(newValue)
+        }
         break
       case "inputPurpose":
-        this.node.setInputPurpose(newValue)
+        if (this.node.inputPurpose !== newValue) {
+          this.node.setInputPurpose(newValue)
+        }
         break
       case "invisibleChar":
-        this.node.setInvisibleChar(newValue)
+        if (this.node.invisibleChar !== newValue) {
+          this.node.setInvisibleChar(newValue)
+        }
         break
       case "invisibleCharSet":
-        this.node.invisibleCharSet = newValue
+        if (this.node.invisibleCharSet !== newValue) {
+          this.node.invisibleCharSet = newValue
+        }
         break
       case "maxLength":
-        this.node.setMaxLength(newValue)
+        if (this.node.maxLength !== newValue) {
+          this.node.setMaxLength(newValue)
+        }
         break
       case "overwriteMode":
-        this.node.setOverwriteMode(newValue)
+        if (this.node.overwriteMode !== newValue) {
+          this.node.setOverwriteMode(newValue)
+        }
         break
       case "placeholderText":
-        this.node.setPlaceholderText(newValue)
+        if (this.node.placeholderText !== newValue) {
+          this.node.setPlaceholderText(newValue)
+        }
         break
       case "primaryIconActivatable":
-        this.node.primaryIconActivatable = newValue
+        if (this.node.primaryIconActivatable !== newValue) {
+          this.node.primaryIconActivatable = newValue
+        }
         break
       case "primaryIconGicon":
-        this.node.primaryIconGicon = newValue
+        if (this.node.primaryIconGicon !== newValue) {
+          this.node.primaryIconGicon = newValue
+        }
         break
       case "primaryIconName":
-        this.node.primaryIconName = newValue
+        if (this.node.primaryIconName !== newValue) {
+          this.node.primaryIconName = newValue
+        }
         break
       case "primaryIconPaintable":
-        this.node.primaryIconPaintable = newValue
+        if (this.node.primaryIconPaintable !== newValue) {
+          this.node.primaryIconPaintable = newValue
+        }
         break
       case "primaryIconSensitive":
-        this.node.primaryIconSensitive = newValue
+        if (this.node.primaryIconSensitive !== newValue) {
+          this.node.primaryIconSensitive = newValue
+        }
         break
       case "primaryIconTooltipMarkup":
-        this.node.primaryIconTooltipMarkup = newValue
+        if (this.node.primaryIconTooltipMarkup !== newValue) {
+          this.node.primaryIconTooltipMarkup = newValue
+        }
         break
       case "primaryIconTooltipText":
-        this.node.primaryIconTooltipText = newValue
+        if (this.node.primaryIconTooltipText !== newValue) {
+          this.node.primaryIconTooltipText = newValue
+        }
         break
       case "progressFraction":
-        this.node.setProgressFraction(newValue)
+        if (this.node.progressFraction !== newValue) {
+          this.node.setProgressFraction(newValue)
+        }
         break
       case "progressPulseStep":
-        this.node.setProgressPulseStep(newValue)
+        if (this.node.progressPulseStep !== newValue) {
+          this.node.setProgressPulseStep(newValue)
+        }
         break
       case "secondaryIconActivatable":
-        this.node.secondaryIconActivatable = newValue
+        if (this.node.secondaryIconActivatable !== newValue) {
+          this.node.secondaryIconActivatable = newValue
+        }
         break
       case "secondaryIconGicon":
-        this.node.secondaryIconGicon = newValue
+        if (this.node.secondaryIconGicon !== newValue) {
+          this.node.secondaryIconGicon = newValue
+        }
         break
       case "secondaryIconName":
-        this.node.secondaryIconName = newValue
+        if (this.node.secondaryIconName !== newValue) {
+          this.node.secondaryIconName = newValue
+        }
         break
       case "secondaryIconPaintable":
-        this.node.secondaryIconPaintable = newValue
+        if (this.node.secondaryIconPaintable !== newValue) {
+          this.node.secondaryIconPaintable = newValue
+        }
         break
       case "secondaryIconSensitive":
-        this.node.secondaryIconSensitive = newValue
+        if (this.node.secondaryIconSensitive !== newValue) {
+          this.node.secondaryIconSensitive = newValue
+        }
         break
       case "secondaryIconTooltipMarkup":
-        this.node.secondaryIconTooltipMarkup = newValue
+        if (this.node.secondaryIconTooltipMarkup !== newValue) {
+          this.node.secondaryIconTooltipMarkup = newValue
+        }
         break
       case "secondaryIconTooltipText":
-        this.node.secondaryIconTooltipText = newValue
+        if (this.node.secondaryIconTooltipText !== newValue) {
+          this.node.secondaryIconTooltipText = newValue
+        }
         break
       case "showEmojiIcon":
-        this.node.showEmojiIcon = newValue
+        if (this.node.showEmojiIcon !== newValue) {
+          this.node.showEmojiIcon = newValue
+        }
         break
       case "tabs":
-        this.node.setTabs(newValue)
+        if (this.node.tabs !== newValue) {
+          this.node.setTabs(newValue)
+        }
         break
       case "truncateMultiline":
-        this.node.truncateMultiline = newValue
+        if (this.node.truncateMultiline !== newValue) {
+          this.node.truncateMultiline = newValue
+        }
         break
       case "visibility":
-        this.node.setVisibility(newValue)
+        if (this.node.visibility !== newValue) {
+          this.node.setVisibility(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "editingCanceled":
-        this.node.editingCanceled = newValue
+        if (this.node.editingCanceled !== newValue) {
+          this.node.editingCanceled = newValue
+        }
         break
       case "editable":
-        this.node.setEditable(newValue)
+        if (this.node.editable !== newValue) {
+          this.node.setEditable(newValue)
+        }
         break
       case "enableUndo":
-        this.node.setEnableUndo(newValue)
+        if (this.node.enableUndo !== newValue) {
+          this.node.setEnableUndo(newValue)
+        }
         break
       case "maxWidthChars":
-        this.node.setMaxWidthChars(newValue)
+        if (this.node.maxWidthChars !== newValue) {
+          this.node.setMaxWidthChars(newValue)
+        }
         break
       case "text":
-        this.node.setText(newValue)
+        if (this.node.text !== newValue) {
+          this.node.setText(newValue)
+        }
         break
       case "widthChars":
-        this.node.setWidthChars(newValue)
+        if (this.node.widthChars !== newValue) {
+          this.node.setWidthChars(newValue)
+        }
         break
       case "xalign":
-        this.node.xalign = newValue
+        if (this.node.xalign !== newValue) {
+          this.node.xalign = newValue
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

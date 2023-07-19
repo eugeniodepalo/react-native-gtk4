@@ -9,25 +9,39 @@ export default class Grid<T extends Gtk.Grid = Gtk.Grid> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "baselineRow":
-        this.node.setBaselineRow(newValue)
+        if (this.node.baselineRow !== newValue) {
+          this.node.setBaselineRow(newValue)
+        }
         break
       case "columnHomogeneous":
-        this.node.setColumnHomogeneous(newValue)
+        if (this.node.columnHomogeneous !== newValue) {
+          this.node.setColumnHomogeneous(newValue)
+        }
         break
       case "columnSpacing":
-        this.node.setColumnSpacing(newValue)
+        if (this.node.columnSpacing !== newValue) {
+          this.node.setColumnSpacing(newValue)
+        }
         break
       case "rowHomogeneous":
-        this.node.setRowHomogeneous(newValue)
+        if (this.node.rowHomogeneous !== newValue) {
+          this.node.setRowHomogeneous(newValue)
+        }
         break
       case "rowSpacing":
-        this.node.setRowSpacing(newValue)
+        if (this.node.rowSpacing !== newValue) {
+          this.node.setRowSpacing(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onNotifyBaselineRow":
         this.setHandler("notify::baseline-row", newValue)

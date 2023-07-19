@@ -11,34 +11,54 @@ export default class FlowBox<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "acceptUnpairedRelease":
-        this.node.acceptUnpairedRelease = newValue
+        if (this.node.acceptUnpairedRelease !== newValue) {
+          this.node.acceptUnpairedRelease = newValue
+        }
         break
       case "activateOnSingleClick":
-        this.node.setActivateOnSingleClick(newValue)
+        if (this.node.activateOnSingleClick !== newValue) {
+          this.node.setActivateOnSingleClick(newValue)
+        }
         break
       case "columnSpacing":
-        this.node.setColumnSpacing(newValue)
+        if (this.node.columnSpacing !== newValue) {
+          this.node.setColumnSpacing(newValue)
+        }
         break
       case "homogeneous":
-        this.node.setHomogeneous(newValue)
+        if (this.node.homogeneous !== newValue) {
+          this.node.setHomogeneous(newValue)
+        }
         break
       case "maxChildrenPerLine":
-        this.node.setMaxChildrenPerLine(newValue)
+        if (this.node.maxChildrenPerLine !== newValue) {
+          this.node.setMaxChildrenPerLine(newValue)
+        }
         break
       case "minChildrenPerLine":
-        this.node.setMinChildrenPerLine(newValue)
+        if (this.node.minChildrenPerLine !== newValue) {
+          this.node.setMinChildrenPerLine(newValue)
+        }
         break
       case "rowSpacing":
-        this.node.setRowSpacing(newValue)
+        if (this.node.rowSpacing !== newValue) {
+          this.node.setRowSpacing(newValue)
+        }
         break
       case "selectionMode":
-        this.node.setSelectionMode(newValue)
+        if (this.node.selectionMode !== newValue) {
+          this.node.setSelectionMode(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onActivateCursorChild":
         this.setHandler("activate-cursor-child", newValue)

@@ -11,22 +11,34 @@ export default class CenterBox<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "baselinePosition":
-        this.node.setBaselinePosition(newValue)
+        if (this.node.baselinePosition !== newValue) {
+          this.node.setBaselinePosition(newValue)
+        }
         break
       case "centerWidget":
-        this.node.setCenterWidget(newValue)
+        if (this.node.centerWidget !== newValue) {
+          this.node.setCenterWidget(newValue)
+        }
         break
       case "endWidget":
-        this.node.setEndWidget(newValue)
+        if (this.node.endWidget !== newValue) {
+          this.node.setEndWidget(newValue)
+        }
         break
       case "startWidget":
-        this.node.setStartWidget(newValue)
+        if (this.node.startWidget !== newValue) {
+          this.node.setStartWidget(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onNotifyBaselinePosition":
         this.setHandler("notify::baseline-position", newValue)

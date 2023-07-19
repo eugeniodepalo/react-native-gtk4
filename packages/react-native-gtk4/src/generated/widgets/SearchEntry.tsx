@@ -11,34 +11,54 @@ export default class SearchEntry<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "activatesDefault":
-        this.node.activatesDefault = newValue
+        if (this.node.activatesDefault !== newValue) {
+          this.node.activatesDefault = newValue
+        }
         break
       case "placeholderText":
-        this.node.setPlaceholderText(newValue)
+        if (this.node.placeholderText !== newValue) {
+          this.node.setPlaceholderText(newValue)
+        }
         break
       case "searchDelay":
-        this.node.setSearchDelay(newValue)
+        if (this.node.searchDelay !== newValue) {
+          this.node.setSearchDelay(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "editable":
-        this.node.setEditable(newValue)
+        if (this.node.editable !== newValue) {
+          this.node.setEditable(newValue)
+        }
         break
       case "enableUndo":
-        this.node.setEnableUndo(newValue)
+        if (this.node.enableUndo !== newValue) {
+          this.node.setEnableUndo(newValue)
+        }
         break
       case "maxWidthChars":
-        this.node.setMaxWidthChars(newValue)
+        if (this.node.maxWidthChars !== newValue) {
+          this.node.setMaxWidthChars(newValue)
+        }
         break
       case "text":
-        this.node.setText(newValue)
+        if (this.node.text !== newValue) {
+          this.node.setText(newValue)
+        }
         break
       case "widthChars":
-        this.node.setWidthChars(newValue)
+        if (this.node.widthChars !== newValue) {
+          this.node.setWidthChars(newValue)
+        }
         break
       case "xalign":
-        this.node.xalign = newValue
+        if (this.node.xalign !== newValue) {
+          this.node.xalign = newValue
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

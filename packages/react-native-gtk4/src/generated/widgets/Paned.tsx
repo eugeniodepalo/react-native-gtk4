@@ -9,37 +9,59 @@ export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "endChild":
-        this.node.setEndChild(newValue)
+        if (this.node.endChild !== newValue) {
+          this.node.setEndChild(newValue)
+        }
         break
       case "position":
-        this.node.setPosition(newValue)
+        if (this.node.position !== newValue) {
+          this.node.setPosition(newValue)
+        }
         break
       case "positionSet":
-        this.node.positionSet = newValue
+        if (this.node.positionSet !== newValue) {
+          this.node.positionSet = newValue
+        }
         break
       case "resizeEndChild":
-        this.node.setResizeEndChild(newValue)
+        if (this.node.resizeEndChild !== newValue) {
+          this.node.setResizeEndChild(newValue)
+        }
         break
       case "resizeStartChild":
-        this.node.setResizeStartChild(newValue)
+        if (this.node.resizeStartChild !== newValue) {
+          this.node.setResizeStartChild(newValue)
+        }
         break
       case "shrinkEndChild":
-        this.node.setShrinkEndChild(newValue)
+        if (this.node.shrinkEndChild !== newValue) {
+          this.node.setShrinkEndChild(newValue)
+        }
         break
       case "shrinkStartChild":
-        this.node.setShrinkStartChild(newValue)
+        if (this.node.shrinkStartChild !== newValue) {
+          this.node.setShrinkStartChild(newValue)
+        }
         break
       case "startChild":
-        this.node.setStartChild(newValue)
+        if (this.node.startChild !== newValue) {
+          this.node.setStartChild(newValue)
+        }
         break
       case "wideHandle":
-        this.node.setWideHandle(newValue)
+        if (this.node.wideHandle !== newValue) {
+          this.node.setWideHandle(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onAcceptPosition":
         this.setHandler("accept-position", newValue)

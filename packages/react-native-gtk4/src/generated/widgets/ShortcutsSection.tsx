@@ -11,22 +11,34 @@ export default class ShortcutsSection<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "maxHeight":
-        this.node.maxHeight = newValue
+        if (this.node.maxHeight !== newValue) {
+          this.node.maxHeight = newValue
+        }
         break
       case "sectionName":
-        this.node.sectionName = newValue
+        if (this.node.sectionName !== newValue) {
+          this.node.sectionName = newValue
+        }
         break
       case "title":
-        this.node.title = newValue
+        if (this.node.title !== newValue) {
+          this.node.title = newValue
+        }
         break
       case "viewName":
-        this.node.viewName = newValue
+        if (this.node.viewName !== newValue) {
+          this.node.viewName = newValue
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onChangeCurrentPage":
         this.setHandler("change-current-page", newValue)

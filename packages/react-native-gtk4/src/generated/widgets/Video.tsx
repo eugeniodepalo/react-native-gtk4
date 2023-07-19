@@ -9,19 +9,29 @@ export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "autoplay":
-        this.node.setAutoplay(newValue)
+        if (this.node.autoplay !== newValue) {
+          this.node.setAutoplay(newValue)
+        }
         break
       case "file":
-        this.node.setFile(newValue)
+        if (this.node.file !== newValue) {
+          this.node.setFile(newValue)
+        }
         break
       case "loop":
-        this.node.setLoop(newValue)
+        if (this.node.loop !== newValue) {
+          this.node.setLoop(newValue)
+        }
         break
       case "mediaStream":
-        this.node.setMediaStream(newValue)
+        if (this.node.mediaStream !== newValue) {
+          this.node.setMediaStream(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyAutoplay":
         this.setHandler("notify::autoplay", newValue)

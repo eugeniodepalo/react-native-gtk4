@@ -11,13 +11,19 @@ export default class ColorDialogButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "dialog":
-        this.node.setDialog(newValue)
+        if (this.node.dialog !== newValue) {
+          this.node.setDialog(newValue)
+        }
         break
       case "rgba":
-        this.node.setRgba(newValue)
+        if (this.node.rgba !== newValue) {
+          this.node.setRgba(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyDialog":
         this.setHandler("notify::dialog", newValue)

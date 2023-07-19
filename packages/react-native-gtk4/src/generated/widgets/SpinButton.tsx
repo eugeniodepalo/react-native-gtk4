@@ -11,55 +11,89 @@ export default class SpinButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "adjustment":
-        this.node.setAdjustment(newValue)
+        if (this.node.adjustment !== newValue) {
+          this.node.setAdjustment(newValue)
+        }
         break
       case "climbRate":
-        this.node.setClimbRate(newValue)
+        if (this.node.climbRate !== newValue) {
+          this.node.setClimbRate(newValue)
+        }
         break
       case "digits":
-        this.node.setDigits(newValue)
+        if (this.node.digits !== newValue) {
+          this.node.setDigits(newValue)
+        }
         break
       case "numeric":
-        this.node.setNumeric(newValue)
+        if (this.node.numeric !== newValue) {
+          this.node.setNumeric(newValue)
+        }
         break
       case "snapToTicks":
-        this.node.setSnapToTicks(newValue)
+        if (this.node.snapToTicks !== newValue) {
+          this.node.setSnapToTicks(newValue)
+        }
         break
       case "updatePolicy":
-        this.node.setUpdatePolicy(newValue)
+        if (this.node.updatePolicy !== newValue) {
+          this.node.setUpdatePolicy(newValue)
+        }
         break
       case "value":
-        this.node.setValue(newValue)
+        if (this.node.value !== newValue) {
+          this.node.setValue(newValue)
+        }
         break
       case "wrap":
-        this.node.setWrap(newValue)
+        if (this.node.wrap !== newValue) {
+          this.node.setWrap(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "editingCanceled":
-        this.node.editingCanceled = newValue
+        if (this.node.editingCanceled !== newValue) {
+          this.node.editingCanceled = newValue
+        }
         break
       case "editable":
-        this.node.setEditable(newValue)
+        if (this.node.editable !== newValue) {
+          this.node.setEditable(newValue)
+        }
         break
       case "enableUndo":
-        this.node.setEnableUndo(newValue)
+        if (this.node.enableUndo !== newValue) {
+          this.node.setEnableUndo(newValue)
+        }
         break
       case "maxWidthChars":
-        this.node.setMaxWidthChars(newValue)
+        if (this.node.maxWidthChars !== newValue) {
+          this.node.setMaxWidthChars(newValue)
+        }
         break
       case "text":
-        this.node.setText(newValue)
+        if (this.node.text !== newValue) {
+          this.node.setText(newValue)
+        }
         break
       case "widthChars":
-        this.node.setWidthChars(newValue)
+        if (this.node.widthChars !== newValue) {
+          this.node.setWidthChars(newValue)
+        }
         break
       case "xalign":
-        this.node.xalign = newValue
+        if (this.node.xalign !== newValue) {
+          this.node.xalign = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onChangeValue":
         this.setHandler("change-value", newValue)

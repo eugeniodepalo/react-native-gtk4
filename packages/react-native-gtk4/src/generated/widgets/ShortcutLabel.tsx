@@ -11,13 +11,19 @@ export default class ShortcutLabel<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "accelerator":
-        this.node.setAccelerator(newValue)
+        if (this.node.accelerator !== newValue) {
+          this.node.setAccelerator(newValue)
+        }
         break
       case "disabledText":
-        this.node.setDisabledText(newValue)
+        if (this.node.disabledText !== newValue) {
+          this.node.setDisabledText(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyAccelerator":
         this.setHandler("notify::accelerator", newValue)

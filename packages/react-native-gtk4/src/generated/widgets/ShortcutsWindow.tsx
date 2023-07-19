@@ -11,13 +11,19 @@ export default class ShortcutsWindow<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "sectionName":
-        this.node.sectionName = newValue
+        if (this.node.sectionName !== newValue) {
+          this.node.sectionName = newValue
+        }
         break
       case "viewName":
-        this.node.viewName = newValue
+        if (this.node.viewName !== newValue) {
+          this.node.viewName = newValue
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onClose":
         this.setHandler("close", newValue)

@@ -23,25 +23,39 @@ export default class Button<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "hasFrame":
-        this.node.setHasFrame(newValue)
+        if (this.node.hasFrame !== newValue) {
+          this.node.setHasFrame(newValue)
+        }
         break
       case "iconName":
-        this.node.setIconName(newValue)
+        if (this.node.iconName !== newValue) {
+          this.node.setIconName(newValue)
+        }
         break
       case "label":
-        this.node.setLabel(newValue)
+        if (this.node.label !== newValue) {
+          this.node.setLabel(newValue)
+        }
         break
       case "useUnderline":
-        this.node.setUseUnderline(newValue)
+        if (this.node.useUnderline !== newValue) {
+          this.node.setUseUnderline(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "actionName":
-        this.node.setActionName(newValue)
+        if (this.node.actionName !== newValue) {
+          this.node.setActionName(newValue)
+        }
         break
       case "actionTarget":
-        this.node.setActionTargetValue(newValue)
+        if (this.node.actionTarget !== newValue) {
+          this.node.setActionTargetValue(newValue)
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

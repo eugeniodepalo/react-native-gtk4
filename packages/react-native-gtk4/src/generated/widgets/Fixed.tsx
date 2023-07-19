@@ -9,7 +9,9 @@ export default class Fixed<T extends Gtk.Fixed = Gtk.Fixed> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)

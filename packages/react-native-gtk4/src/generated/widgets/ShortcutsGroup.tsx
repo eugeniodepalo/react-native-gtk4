@@ -11,22 +11,34 @@ export default class ShortcutsGroup<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "accelSizeGroup":
-        this.node.accelSizeGroup = newValue
+        if (this.node.accelSizeGroup !== newValue) {
+          this.node.accelSizeGroup = newValue
+        }
         break
       case "title":
-        this.node.title = newValue
+        if (this.node.title !== newValue) {
+          this.node.title = newValue
+        }
         break
       case "titleSizeGroup":
-        this.node.titleSizeGroup = newValue
+        if (this.node.titleSizeGroup !== newValue) {
+          this.node.titleSizeGroup = newValue
+        }
         break
       case "view":
-        this.node.view = newValue
+        if (this.node.view !== newValue) {
+          this.node.view = newValue
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onNotifyAccelSizeGroup":
         this.setHandler("notify::accel-size-group", newValue)

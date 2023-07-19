@@ -23,7 +23,9 @@ export default class Overlay<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onGetChildPosition":
         this.setHandler("get-child-position", newValue)

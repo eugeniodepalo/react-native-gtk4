@@ -11,19 +11,29 @@ export default class LinkButton<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "uri":
-        this.node.setUri(newValue)
+        if (this.node.uri !== newValue) {
+          this.node.setUri(newValue)
+        }
         break
       case "visited":
-        this.node.setVisited(newValue)
+        if (this.node.visited !== newValue) {
+          this.node.setVisited(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "actionName":
-        this.node.setActionName(newValue)
+        if (this.node.actionName !== newValue) {
+          this.node.setActionName(newValue)
+        }
         break
       case "actionTarget":
-        this.node.setActionTargetValue(newValue)
+        if (this.node.actionTarget !== newValue) {
+          this.node.setActionTargetValue(newValue)
+        }
         break
       case "onActivateLink":
         this.setHandler("activate-link", newValue)

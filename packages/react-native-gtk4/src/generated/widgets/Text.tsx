@@ -9,76 +9,124 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "activatesDefault":
-        this.node.setActivatesDefault(newValue)
+        if (this.node.activatesDefault !== newValue) {
+          this.node.setActivatesDefault(newValue)
+        }
         break
       case "attributes":
-        this.node.setAttributes(newValue)
+        if (this.node.attributes !== newValue) {
+          this.node.setAttributes(newValue)
+        }
         break
       case "buffer":
-        this.node.setBuffer(newValue)
+        if (this.node.buffer !== newValue) {
+          this.node.setBuffer(newValue)
+        }
         break
       case "enableEmojiCompletion":
-        this.node.setEnableEmojiCompletion(newValue)
+        if (this.node.enableEmojiCompletion !== newValue) {
+          this.node.setEnableEmojiCompletion(newValue)
+        }
         break
       case "extraMenu":
-        this.node.setExtraMenu(newValue)
+        if (this.node.extraMenu !== newValue) {
+          this.node.setExtraMenu(newValue)
+        }
         break
       case "imModule":
-        this.node.imModule = newValue
+        if (this.node.imModule !== newValue) {
+          this.node.imModule = newValue
+        }
         break
       case "inputHints":
-        this.node.setInputHints(newValue)
+        if (this.node.inputHints !== newValue) {
+          this.node.setInputHints(newValue)
+        }
         break
       case "inputPurpose":
-        this.node.setInputPurpose(newValue)
+        if (this.node.inputPurpose !== newValue) {
+          this.node.setInputPurpose(newValue)
+        }
         break
       case "invisibleChar":
-        this.node.setInvisibleChar(newValue)
+        if (this.node.invisibleChar !== newValue) {
+          this.node.setInvisibleChar(newValue)
+        }
         break
       case "invisibleCharSet":
-        this.node.invisibleCharSet = newValue
+        if (this.node.invisibleCharSet !== newValue) {
+          this.node.invisibleCharSet = newValue
+        }
         break
       case "maxLength":
-        this.node.setMaxLength(newValue)
+        if (this.node.maxLength !== newValue) {
+          this.node.setMaxLength(newValue)
+        }
         break
       case "overwriteMode":
-        this.node.setOverwriteMode(newValue)
+        if (this.node.overwriteMode !== newValue) {
+          this.node.setOverwriteMode(newValue)
+        }
         break
       case "placeholderText":
-        this.node.setPlaceholderText(newValue)
+        if (this.node.placeholderText !== newValue) {
+          this.node.setPlaceholderText(newValue)
+        }
         break
       case "propagateTextWidth":
-        this.node.setPropagateTextWidth(newValue)
+        if (this.node.propagateTextWidth !== newValue) {
+          this.node.setPropagateTextWidth(newValue)
+        }
         break
       case "tabs":
-        this.node.setTabs(newValue)
+        if (this.node.tabs !== newValue) {
+          this.node.setTabs(newValue)
+        }
         break
       case "truncateMultiline":
-        this.node.setTruncateMultiline(newValue)
+        if (this.node.truncateMultiline !== newValue) {
+          this.node.setTruncateMultiline(newValue)
+        }
         break
       case "visibility":
-        this.node.setVisibility(newValue)
+        if (this.node.visibility !== newValue) {
+          this.node.setVisibility(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "editable":
-        this.node.setEditable(newValue)
+        if (this.node.editable !== newValue) {
+          this.node.setEditable(newValue)
+        }
         break
       case "enableUndo":
-        this.node.setEnableUndo(newValue)
+        if (this.node.enableUndo !== newValue) {
+          this.node.setEnableUndo(newValue)
+        }
         break
       case "maxWidthChars":
-        this.node.setMaxWidthChars(newValue)
+        if (this.node.maxWidthChars !== newValue) {
+          this.node.setMaxWidthChars(newValue)
+        }
         break
       case "text":
-        this.node.setText(newValue)
+        if (this.node.text !== newValue) {
+          this.node.setText(newValue)
+        }
         break
       case "widthChars":
-        this.node.setWidthChars(newValue)
+        if (this.node.widthChars !== newValue) {
+          this.node.setWidthChars(newValue)
+        }
         break
       case "xalign":
-        this.node.xalign = newValue
+        if (this.node.xalign !== newValue) {
+          this.node.xalign = newValue
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

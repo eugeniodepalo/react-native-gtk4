@@ -12,16 +12,11 @@ export default class Container {
 
   private application: Gtk.Application
   private static currentTag = 0
-  private static initialized = false
   private instance: ReturnType<typeof Reconciler.createContainer>
   private loop: GLib.MainLoop
+  private interval?: NodeJS.Timeout
 
   constructor(application: Gtk.Application) {
-    if (!Container.initialized) {
-      Gtk.init()
-      Container.initialized = true
-    }
-
     this.application = application
     this.loop = GLib.MainLoop.new(null, false)
 
@@ -43,6 +38,7 @@ export default class Container {
         quit: () => {
           this.application.quit()
           this.loop.quit()
+          clearInterval(this.interval)
           return false
         },
         application: this.application,
@@ -54,6 +50,11 @@ export default class Container {
         null,
         () => {}
       )
+
+      // TODO
+      // Remove this hack. Figure out why the runloop goes idle.
+      // Without this, the runloop hangs after a few seconds, and the app stops responding.
+      this.interval = setInterval(() => {}, 5000)
 
       gi.startLoop()
       this.loop.run()

@@ -42,14 +42,16 @@ function generateSetMethod(widgetClass: WidgetClass) {
       setter === "set_action_target" ? `${setter}_value` : setter
 
     ts += `case "${camelize(name)}":\n`
+    ts += `  if (this.node.${camelize(name)} !== newValue) {\n`
 
     if (setterName) {
       ts += `this.node.${camelize(setterName)}(newValue)\n`
-      ts += `break\n`
     } else {
       ts += `this.node.${camelize(name)} = newValue\n`
-      ts += `break\n`
     }
+
+    ts += `  }\n`
+    ts += `  break\n`
   }
 
   for (const { name } of signals) {

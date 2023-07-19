@@ -11,10 +11,14 @@ export default class MediaControls<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "mediaStream":
-        this.node.setMediaStream(newValue)
+        if (this.node.mediaStream !== newValue) {
+          this.node.setMediaStream(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyMediaStream":
         this.setHandler("notify::media-stream", newValue)

@@ -11,55 +11,89 @@ export default class AboutDialog<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "artists":
-        this.node.setArtists(newValue)
+        if (this.node.artists !== newValue) {
+          this.node.setArtists(newValue)
+        }
         break
       case "authors":
-        this.node.setAuthors(newValue)
+        if (this.node.authors !== newValue) {
+          this.node.setAuthors(newValue)
+        }
         break
       case "comments":
-        this.node.setComments(newValue)
+        if (this.node.comments !== newValue) {
+          this.node.setComments(newValue)
+        }
         break
       case "copyright":
-        this.node.setCopyright(newValue)
+        if (this.node.copyright !== newValue) {
+          this.node.setCopyright(newValue)
+        }
         break
       case "documenters":
-        this.node.setDocumenters(newValue)
+        if (this.node.documenters !== newValue) {
+          this.node.setDocumenters(newValue)
+        }
         break
       case "license":
-        this.node.setLicense(newValue)
+        if (this.node.license !== newValue) {
+          this.node.setLicense(newValue)
+        }
         break
       case "licenseType":
-        this.node.setLicenseType(newValue)
+        if (this.node.licenseType !== newValue) {
+          this.node.setLicenseType(newValue)
+        }
         break
       case "logo":
-        this.node.setLogo(newValue)
+        if (this.node.logo !== newValue) {
+          this.node.setLogo(newValue)
+        }
         break
       case "logoIconName":
-        this.node.setLogoIconName(newValue)
+        if (this.node.logoIconName !== newValue) {
+          this.node.setLogoIconName(newValue)
+        }
         break
       case "programName":
-        this.node.setProgramName(newValue)
+        if (this.node.programName !== newValue) {
+          this.node.setProgramName(newValue)
+        }
         break
       case "systemInformation":
-        this.node.setSystemInformation(newValue)
+        if (this.node.systemInformation !== newValue) {
+          this.node.setSystemInformation(newValue)
+        }
         break
       case "translatorCredits":
-        this.node.setTranslatorCredits(newValue)
+        if (this.node.translatorCredits !== newValue) {
+          this.node.setTranslatorCredits(newValue)
+        }
         break
       case "version":
-        this.node.setVersion(newValue)
+        if (this.node.version !== newValue) {
+          this.node.setVersion(newValue)
+        }
         break
       case "website":
-        this.node.setWebsite(newValue)
+        if (this.node.website !== newValue) {
+          this.node.setWebsite(newValue)
+        }
         break
       case "websiteLabel":
-        this.node.setWebsiteLabel(newValue)
+        if (this.node.websiteLabel !== newValue) {
+          this.node.setWebsiteLabel(newValue)
+        }
         break
       case "wrapLicense":
-        this.node.setWrapLicense(newValue)
+        if (this.node.wrapLicense !== newValue) {
+          this.node.setWrapLicense(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onActivateLink":
         this.setHandler("activate-link", newValue)

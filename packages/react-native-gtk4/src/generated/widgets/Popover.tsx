@@ -23,28 +23,44 @@ export default class Popover<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "autohide":
-        this.node.setAutohide(newValue)
+        if (this.node.autohide !== newValue) {
+          this.node.setAutohide(newValue)
+        }
         break
       case "cascadePopdown":
-        this.node.setCascadePopdown(newValue)
+        if (this.node.cascadePopdown !== newValue) {
+          this.node.setCascadePopdown(newValue)
+        }
         break
       case "defaultWidget":
-        this.node.setDefaultWidget(newValue)
+        if (this.node.defaultWidget !== newValue) {
+          this.node.setDefaultWidget(newValue)
+        }
         break
       case "hasArrow":
-        this.node.setHasArrow(newValue)
+        if (this.node.hasArrow !== newValue) {
+          this.node.setHasArrow(newValue)
+        }
         break
       case "mnemonicsVisible":
-        this.node.setMnemonicsVisible(newValue)
+        if (this.node.mnemonicsVisible !== newValue) {
+          this.node.setMnemonicsVisible(newValue)
+        }
         break
       case "pointingTo":
-        this.node.setPointingTo(newValue)
+        if (this.node.pointingTo !== newValue) {
+          this.node.setPointingTo(newValue)
+        }
         break
       case "position":
-        this.node.setPosition(newValue)
+        if (this.node.position !== newValue) {
+          this.node.setPosition(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onActivateDefault":
         this.setHandler("activate-default", newValue)

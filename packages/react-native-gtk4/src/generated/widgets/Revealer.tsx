@@ -23,16 +23,24 @@ export default class Revealer<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "revealChild":
-        this.node.setRevealChild(newValue)
+        if (this.node.revealChild !== newValue) {
+          this.node.setRevealChild(newValue)
+        }
         break
       case "transitionDuration":
-        this.node.setTransitionDuration(newValue)
+        if (this.node.transitionDuration !== newValue) {
+          this.node.setTransitionDuration(newValue)
+        }
         break
       case "transitionType":
-        this.node.setTransitionType(newValue)
+        if (this.node.transitionType !== newValue) {
+          this.node.setTransitionType(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)

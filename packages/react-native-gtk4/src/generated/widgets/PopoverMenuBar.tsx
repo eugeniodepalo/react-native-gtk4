@@ -11,10 +11,14 @@ export default class PopoverMenuBar<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "menuModel":
-        this.node.setMenuModel(newValue)
+        if (this.node.menuModel !== newValue) {
+          this.node.setMenuModel(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyMenuModel":
         this.setHandler("notify::menu-model", newValue)

@@ -11,19 +11,29 @@ export default class ListBox<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "acceptUnpairedRelease":
-        this.node.acceptUnpairedRelease = newValue
+        if (this.node.acceptUnpairedRelease !== newValue) {
+          this.node.acceptUnpairedRelease = newValue
+        }
         break
       case "activateOnSingleClick":
-        this.node.setActivateOnSingleClick(newValue)
+        if (this.node.activateOnSingleClick !== newValue) {
+          this.node.setActivateOnSingleClick(newValue)
+        }
         break
       case "selectionMode":
-        this.node.setSelectionMode(newValue)
+        if (this.node.selectionMode !== newValue) {
+          this.node.setSelectionMode(newValue)
+        }
         break
       case "showSeparators":
-        this.node.setShowSeparators(newValue)
+        if (this.node.showSeparators !== newValue) {
+          this.node.setShowSeparators(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onActivateCursorRow":
         this.setHandler("activate-cursor-row", newValue)

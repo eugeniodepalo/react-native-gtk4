@@ -9,64 +9,104 @@ export default class Label<T extends Gtk.Label = Gtk.Label> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "attributes":
-        this.node.setAttributes(newValue)
+        if (this.node.attributes !== newValue) {
+          this.node.setAttributes(newValue)
+        }
         break
       case "ellipsize":
-        this.node.setEllipsize(newValue)
+        if (this.node.ellipsize !== newValue) {
+          this.node.setEllipsize(newValue)
+        }
         break
       case "extraMenu":
-        this.node.setExtraMenu(newValue)
+        if (this.node.extraMenu !== newValue) {
+          this.node.setExtraMenu(newValue)
+        }
         break
       case "justify":
-        this.node.setJustify(newValue)
+        if (this.node.justify !== newValue) {
+          this.node.setJustify(newValue)
+        }
         break
       case "label":
-        this.node.setLabel(newValue)
+        if (this.node.label !== newValue) {
+          this.node.setLabel(newValue)
+        }
         break
       case "lines":
-        this.node.setLines(newValue)
+        if (this.node.lines !== newValue) {
+          this.node.setLines(newValue)
+        }
         break
       case "maxWidthChars":
-        this.node.setMaxWidthChars(newValue)
+        if (this.node.maxWidthChars !== newValue) {
+          this.node.setMaxWidthChars(newValue)
+        }
         break
       case "mnemonicWidget":
-        this.node.setMnemonicWidget(newValue)
+        if (this.node.mnemonicWidget !== newValue) {
+          this.node.setMnemonicWidget(newValue)
+        }
         break
       case "naturalWrapMode":
-        this.node.setNaturalWrapMode(newValue)
+        if (this.node.naturalWrapMode !== newValue) {
+          this.node.setNaturalWrapMode(newValue)
+        }
         break
       case "selectable":
-        this.node.setSelectable(newValue)
+        if (this.node.selectable !== newValue) {
+          this.node.setSelectable(newValue)
+        }
         break
       case "singleLineMode":
-        this.node.setSingleLineMode(newValue)
+        if (this.node.singleLineMode !== newValue) {
+          this.node.setSingleLineMode(newValue)
+        }
         break
       case "tabs":
-        this.node.setTabs(newValue)
+        if (this.node.tabs !== newValue) {
+          this.node.setTabs(newValue)
+        }
         break
       case "useMarkup":
-        this.node.setUseMarkup(newValue)
+        if (this.node.useMarkup !== newValue) {
+          this.node.setUseMarkup(newValue)
+        }
         break
       case "useUnderline":
-        this.node.setUseUnderline(newValue)
+        if (this.node.useUnderline !== newValue) {
+          this.node.setUseUnderline(newValue)
+        }
         break
       case "widthChars":
-        this.node.setWidthChars(newValue)
+        if (this.node.widthChars !== newValue) {
+          this.node.setWidthChars(newValue)
+        }
         break
       case "wrap":
-        this.node.setWrap(newValue)
+        if (this.node.wrap !== newValue) {
+          this.node.setWrap(newValue)
+        }
         break
       case "wrapMode":
-        this.node.setWrapMode(newValue)
+        if (this.node.wrapMode !== newValue) {
+          this.node.setWrapMode(newValue)
+        }
         break
       case "xalign":
-        this.node.setXalign(newValue)
+        if (this.node.xalign !== newValue) {
+          this.node.setXalign(newValue)
+        }
         break
       case "yalign":
-        this.node.setYalign(newValue)
+        if (this.node.yalign !== newValue) {
+          this.node.setYalign(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onActivateCurrentLink":
         this.setHandler("activate-current-link", newValue)

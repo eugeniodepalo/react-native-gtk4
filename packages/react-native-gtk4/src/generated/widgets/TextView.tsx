@@ -11,82 +11,134 @@ export default class TextView<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "acceptsTab":
-        this.node.setAcceptsTab(newValue)
+        if (this.node.acceptsTab !== newValue) {
+          this.node.setAcceptsTab(newValue)
+        }
         break
       case "bottomMargin":
-        this.node.setBottomMargin(newValue)
+        if (this.node.bottomMargin !== newValue) {
+          this.node.setBottomMargin(newValue)
+        }
         break
       case "buffer":
-        this.node.setBuffer(newValue)
+        if (this.node.buffer !== newValue) {
+          this.node.setBuffer(newValue)
+        }
         break
       case "cursorVisible":
-        this.node.setCursorVisible(newValue)
+        if (this.node.cursorVisible !== newValue) {
+          this.node.setCursorVisible(newValue)
+        }
         break
       case "editable":
-        this.node.setEditable(newValue)
+        if (this.node.editable !== newValue) {
+          this.node.setEditable(newValue)
+        }
         break
       case "extraMenu":
-        this.node.setExtraMenu(newValue)
+        if (this.node.extraMenu !== newValue) {
+          this.node.setExtraMenu(newValue)
+        }
         break
       case "imModule":
-        this.node.imModule = newValue
+        if (this.node.imModule !== newValue) {
+          this.node.imModule = newValue
+        }
         break
       case "indent":
-        this.node.setIndent(newValue)
+        if (this.node.indent !== newValue) {
+          this.node.setIndent(newValue)
+        }
         break
       case "inputHints":
-        this.node.setInputHints(newValue)
+        if (this.node.inputHints !== newValue) {
+          this.node.setInputHints(newValue)
+        }
         break
       case "inputPurpose":
-        this.node.setInputPurpose(newValue)
+        if (this.node.inputPurpose !== newValue) {
+          this.node.setInputPurpose(newValue)
+        }
         break
       case "justification":
-        this.node.setJustification(newValue)
+        if (this.node.justification !== newValue) {
+          this.node.setJustification(newValue)
+        }
         break
       case "leftMargin":
-        this.node.setLeftMargin(newValue)
+        if (this.node.leftMargin !== newValue) {
+          this.node.setLeftMargin(newValue)
+        }
         break
       case "monospace":
-        this.node.setMonospace(newValue)
+        if (this.node.monospace !== newValue) {
+          this.node.setMonospace(newValue)
+        }
         break
       case "overwrite":
-        this.node.setOverwrite(newValue)
+        if (this.node.overwrite !== newValue) {
+          this.node.setOverwrite(newValue)
+        }
         break
       case "pixelsAboveLines":
-        this.node.setPixelsAboveLines(newValue)
+        if (this.node.pixelsAboveLines !== newValue) {
+          this.node.setPixelsAboveLines(newValue)
+        }
         break
       case "pixelsBelowLines":
-        this.node.setPixelsBelowLines(newValue)
+        if (this.node.pixelsBelowLines !== newValue) {
+          this.node.setPixelsBelowLines(newValue)
+        }
         break
       case "pixelsInsideWrap":
-        this.node.setPixelsInsideWrap(newValue)
+        if (this.node.pixelsInsideWrap !== newValue) {
+          this.node.setPixelsInsideWrap(newValue)
+        }
         break
       case "rightMargin":
-        this.node.setRightMargin(newValue)
+        if (this.node.rightMargin !== newValue) {
+          this.node.setRightMargin(newValue)
+        }
         break
       case "tabs":
-        this.node.setTabs(newValue)
+        if (this.node.tabs !== newValue) {
+          this.node.setTabs(newValue)
+        }
         break
       case "topMargin":
-        this.node.setTopMargin(newValue)
+        if (this.node.topMargin !== newValue) {
+          this.node.setTopMargin(newValue)
+        }
         break
       case "wrapMode":
-        this.node.setWrapMode(newValue)
+        if (this.node.wrapMode !== newValue) {
+          this.node.setWrapMode(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "hadjustment":
-        this.node.setHadjustment(newValue)
+        if (this.node.hadjustment !== newValue) {
+          this.node.setHadjustment(newValue)
+        }
         break
       case "hscrollPolicy":
-        this.node.setHscrollPolicy(newValue)
+        if (this.node.hscrollPolicy !== newValue) {
+          this.node.setHscrollPolicy(newValue)
+        }
         break
       case "vadjustment":
-        this.node.setVadjustment(newValue)
+        if (this.node.vadjustment !== newValue) {
+          this.node.setVadjustment(newValue)
+        }
         break
       case "vscrollPolicy":
-        this.node.setVscrollPolicy(newValue)
+        if (this.node.vscrollPolicy !== newValue) {
+          this.node.setVscrollPolicy(newValue)
+        }
         break
       case "onBackspace":
         this.setHandler("backspace", newValue)

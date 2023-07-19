@@ -11,13 +11,19 @@ export default class DrawingArea<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "contentHeight":
-        this.node.setContentHeight(newValue)
+        if (this.node.contentHeight !== newValue) {
+          this.node.setContentHeight(newValue)
+        }
         break
       case "contentWidth":
-        this.node.setContentWidth(newValue)
+        if (this.node.contentWidth !== newValue) {
+          this.node.setContentWidth(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onResize":
         this.setHandler("resize", newValue)

@@ -11,19 +11,29 @@ export default class Switch<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "active":
-        this.node.setActive(newValue)
+        if (this.node.active !== newValue) {
+          this.node.setActive(newValue)
+        }
         break
       case "state":
-        this.node.setState(newValue)
+        if (this.node.state !== newValue) {
+          this.node.setState(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "actionName":
-        this.node.setActionName(newValue)
+        if (this.node.actionName !== newValue) {
+          this.node.setActionName(newValue)
+        }
         break
       case "actionTarget":
-        this.node.setActionTargetValue(newValue)
+        if (this.node.actionTarget !== newValue) {
+          this.node.setActionTargetValue(newValue)
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

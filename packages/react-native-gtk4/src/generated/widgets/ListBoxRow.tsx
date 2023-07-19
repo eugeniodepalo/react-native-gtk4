@@ -23,19 +23,29 @@ export default class ListBoxRow<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "activatable":
-        this.node.setActivatable(newValue)
+        if (this.node.activatable !== newValue) {
+          this.node.setActivatable(newValue)
+        }
         break
       case "selectable":
-        this.node.setSelectable(newValue)
+        if (this.node.selectable !== newValue) {
+          this.node.setSelectable(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "actionName":
-        this.node.setActionName(newValue)
+        if (this.node.actionName !== newValue) {
+          this.node.setActionName(newValue)
+        }
         break
       case "actionTarget":
-        this.node.setActionTargetValue(newValue)
+        if (this.node.actionTarget !== newValue) {
+          this.node.setActionTargetValue(newValue)
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

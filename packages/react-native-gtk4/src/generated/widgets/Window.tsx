@@ -23,73 +23,119 @@ export default class Window<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "application":
-        this.node.setApplication(newValue)
+        if (this.node.application !== newValue) {
+          this.node.setApplication(newValue)
+        }
         break
       case "decorated":
-        this.node.setDecorated(newValue)
+        if (this.node.decorated !== newValue) {
+          this.node.setDecorated(newValue)
+        }
         break
       case "defaultHeight":
-        this.node.defaultHeight = newValue
+        if (this.node.defaultHeight !== newValue) {
+          this.node.defaultHeight = newValue
+        }
         break
       case "defaultWidget":
-        this.node.setDefaultWidget(newValue)
+        if (this.node.defaultWidget !== newValue) {
+          this.node.setDefaultWidget(newValue)
+        }
         break
       case "defaultWidth":
-        this.node.defaultWidth = newValue
+        if (this.node.defaultWidth !== newValue) {
+          this.node.defaultWidth = newValue
+        }
         break
       case "deletable":
-        this.node.setDeletable(newValue)
+        if (this.node.deletable !== newValue) {
+          this.node.setDeletable(newValue)
+        }
         break
       case "destroyWithParent":
-        this.node.setDestroyWithParent(newValue)
+        if (this.node.destroyWithParent !== newValue) {
+          this.node.setDestroyWithParent(newValue)
+        }
         break
       case "display":
-        this.node.setDisplay(newValue)
+        if (this.node.display !== newValue) {
+          this.node.setDisplay(newValue)
+        }
         break
       case "focusVisible":
-        this.node.setFocusVisible(newValue)
+        if (this.node.focusVisible !== newValue) {
+          this.node.setFocusVisible(newValue)
+        }
         break
       case "focusWidget":
-        this.node.focusWidget = newValue
+        if (this.node.focusWidget !== newValue) {
+          this.node.focusWidget = newValue
+        }
         break
       case "fullscreened":
-        this.node.fullscreened = newValue
+        if (this.node.fullscreened !== newValue) {
+          this.node.fullscreened = newValue
+        }
         break
       case "handleMenubarAccel":
-        this.node.setHandleMenubarAccel(newValue)
+        if (this.node.handleMenubarAccel !== newValue) {
+          this.node.setHandleMenubarAccel(newValue)
+        }
         break
       case "hideOnClose":
-        this.node.setHideOnClose(newValue)
+        if (this.node.hideOnClose !== newValue) {
+          this.node.setHideOnClose(newValue)
+        }
         break
       case "iconName":
-        this.node.setIconName(newValue)
+        if (this.node.iconName !== newValue) {
+          this.node.setIconName(newValue)
+        }
         break
       case "maximized":
-        this.node.maximized = newValue
+        if (this.node.maximized !== newValue) {
+          this.node.maximized = newValue
+        }
         break
       case "mnemonicsVisible":
-        this.node.setMnemonicsVisible(newValue)
+        if (this.node.mnemonicsVisible !== newValue) {
+          this.node.setMnemonicsVisible(newValue)
+        }
         break
       case "modal":
-        this.node.setModal(newValue)
+        if (this.node.modal !== newValue) {
+          this.node.setModal(newValue)
+        }
         break
       case "resizable":
-        this.node.setResizable(newValue)
+        if (this.node.resizable !== newValue) {
+          this.node.setResizable(newValue)
+        }
         break
       case "startupId":
-        this.node.setStartupId(newValue)
+        if (this.node.startupId !== newValue) {
+          this.node.setStartupId(newValue)
+        }
         break
       case "title":
-        this.node.setTitle(newValue)
+        if (this.node.title !== newValue) {
+          this.node.setTitle(newValue)
+        }
         break
       case "titlebar":
-        this.node.setTitlebar(newValue)
+        if (this.node.titlebar !== newValue) {
+          this.node.setTitlebar(newValue)
+        }
         break
       case "transientFor":
-        this.node.setTransientFor(newValue)
+        if (this.node.transientFor !== newValue) {
+          this.node.setTransientFor(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onActivateDefault":
         this.setHandler("activate-default", newValue)

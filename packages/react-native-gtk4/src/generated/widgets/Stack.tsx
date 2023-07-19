@@ -9,28 +9,44 @@ export default class Stack<T extends Gtk.Stack = Gtk.Stack> extends Widget<T> {
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "hhomogeneous":
-        this.node.setHhomogeneous(newValue)
+        if (this.node.hhomogeneous !== newValue) {
+          this.node.setHhomogeneous(newValue)
+        }
         break
       case "interpolateSize":
-        this.node.setInterpolateSize(newValue)
+        if (this.node.interpolateSize !== newValue) {
+          this.node.setInterpolateSize(newValue)
+        }
         break
       case "transitionDuration":
-        this.node.setTransitionDuration(newValue)
+        if (this.node.transitionDuration !== newValue) {
+          this.node.setTransitionDuration(newValue)
+        }
         break
       case "transitionType":
-        this.node.setTransitionType(newValue)
+        if (this.node.transitionType !== newValue) {
+          this.node.setTransitionType(newValue)
+        }
         break
       case "vhomogeneous":
-        this.node.setVhomogeneous(newValue)
+        if (this.node.vhomogeneous !== newValue) {
+          this.node.setVhomogeneous(newValue)
+        }
         break
       case "visibleChild":
-        this.node.setVisibleChild(newValue)
+        if (this.node.visibleChild !== newValue) {
+          this.node.setVisibleChild(newValue)
+        }
         break
       case "visibleChildName":
-        this.node.setVisibleChildName(newValue)
+        if (this.node.visibleChildName !== newValue) {
+          this.node.setVisibleChildName(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onNotifyHhomogeneous":
         this.setHandler("notify::hhomogeneous", newValue)

@@ -11,25 +11,39 @@ export default class Calendar<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "day":
-        this.node.day = newValue
+        if (this.node.day !== newValue) {
+          this.node.day = newValue
+        }
         break
       case "month":
-        this.node.month = newValue
+        if (this.node.month !== newValue) {
+          this.node.month = newValue
+        }
         break
       case "showDayNames":
-        this.node.setShowDayNames(newValue)
+        if (this.node.showDayNames !== newValue) {
+          this.node.setShowDayNames(newValue)
+        }
         break
       case "showHeading":
-        this.node.setShowHeading(newValue)
+        if (this.node.showHeading !== newValue) {
+          this.node.setShowHeading(newValue)
+        }
         break
       case "showWeekNumbers":
-        this.node.setShowWeekNumbers(newValue)
+        if (this.node.showWeekNumbers !== newValue) {
+          this.node.setShowWeekNumbers(newValue)
+        }
         break
       case "year":
-        this.node.year = newValue
+        if (this.node.year !== newValue) {
+          this.node.year = newValue
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onDaySelected":
         this.setHandler("day-selected", newValue)

@@ -11,10 +11,14 @@ export default class Separator<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "orientation":
-        this.node.setOrientation(newValue)
+        if (this.node.orientation !== newValue) {
+          this.node.setOrientation(newValue)
+        }
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)

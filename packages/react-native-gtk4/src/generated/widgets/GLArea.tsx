@@ -11,19 +11,29 @@ export default class GLArea<
     super.set(propName, newValue, oldValue)
     switch (propName) {
       case "autoRender":
-        this.node.setAutoRender(newValue)
+        if (this.node.autoRender !== newValue) {
+          this.node.setAutoRender(newValue)
+        }
         break
       case "hasDepthBuffer":
-        this.node.setHasDepthBuffer(newValue)
+        if (this.node.hasDepthBuffer !== newValue) {
+          this.node.setHasDepthBuffer(newValue)
+        }
         break
       case "hasStencilBuffer":
-        this.node.setHasStencilBuffer(newValue)
+        if (this.node.hasStencilBuffer !== newValue) {
+          this.node.setHasStencilBuffer(newValue)
+        }
         break
       case "useEs":
-        this.node.setUseEs(newValue)
+        if (this.node.useEs !== newValue) {
+          this.node.setUseEs(newValue)
+        }
         break
       case "accessibleRole":
-        this.node.accessibleRole = newValue
+        if (this.node.accessibleRole !== newValue) {
+          this.node.accessibleRole = newValue
+        }
         break
       case "onCreateContext":
         this.setHandler("create-context", newValue)

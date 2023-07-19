@@ -1,10 +1,10 @@
 import Reconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
-import { DiscreteEventPriority } from "react-reconciler/constants.js"
+import { DefaultEventPriority } from "react-reconciler/constants.js"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
-import { GLib, Gtk } from "./index.js"
+import { Gtk } from "./index.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any, any][]
@@ -22,12 +22,12 @@ const hostConfig: HostConfig<
   unknown,
   UpdatePayload,
   Set<Widget>,
-  number,
+  ReturnType<typeof setTimeout>,
   -1
 > = {
   supportsMutation: true,
   supportsPersistence: false,
-  supportsMicrotasks: false,
+  supportsMicrotasks: true,
   supportsHydration: false,
   isPrimaryRenderer: true,
   noTimeout: -1,
@@ -95,16 +95,14 @@ const hostConfig: HostConfig<
   },
   preparePortalMount() {},
   scheduleTimeout(fn, delay) {
-    return GLib.timeoutAdd(GLib.PRIORITY_HIGH, delay ?? 0, () => {
-      fn()
-      return GLib.SOURCE_REMOVE
-    })
+    return setTimeout(fn, delay)
   },
   cancelTimeout(id) {
-    GLib.sourceRemove(id)
+    clearTimeout(id)
   },
   getCurrentEventPriority() {
-    return DiscreteEventPriority
+    console.log("getCurrentEventPriority")
+    return DefaultEventPriority
   },
   getInstanceFromNode() {
     return null
@@ -126,6 +124,9 @@ const hostConfig: HostConfig<
   },
   insertInContainerBefore(container, child, beforeChild) {
     container.insertBefore(child, beforeChild)
+  },
+  scheduleMicrotask(fn) {
+    queueMicrotask(fn)
   },
 }
 

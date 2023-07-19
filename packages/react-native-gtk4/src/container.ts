@@ -7,6 +7,8 @@ import {
 } from "./components/ApplicationProvider.js"
 import Widget from "./widget.js"
 
+const MAX_TIMEOUT = 2147483647
+
 export default class Container {
   children: Widget[] = []
 
@@ -14,6 +16,7 @@ export default class Container {
   private static currentTag = 0
   private instance: ReturnType<typeof Reconciler.createContainer>
   private loop: GLib.MainLoop
+  private timeout?: NodeJS.Timeout
 
   constructor(application: Gtk.Application) {
     this.application = application
@@ -37,6 +40,7 @@ export default class Container {
         quit: () => {
           this.application.quit()
           this.loop.quit()
+          clearTimeout(this.timeout)
           return false
         },
         application: this.application,
@@ -49,6 +53,11 @@ export default class Container {
         () => {}
       )
 
+      const loop = () => {
+        this.timeout = setTimeout(loop, MAX_TIMEOUT)
+      }
+
+      loop()
       gi.startLoop()
       this.loop.run()
     })

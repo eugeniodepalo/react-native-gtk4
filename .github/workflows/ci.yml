@@ -1,25 +1,39 @@
-name: Publish to NPM
-
+name: Run Tests and Publish
 on:
+  push:
+    branches: [main]
   release:
     types: [created]
-
 jobs:
-  publish-npm:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DISPLAY: ":99"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libgtk-4-dev xvfb
+      - run: Xvfb :99 &
+      - run: npm install -g pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run test
+  publish:
+    needs: test
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          persist-credentials: false
-          fetch-depth: 0
-          ref: main
-      - name: Install and publish
-        run: |
-          cd packages/react-native-gtk4
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
-          npm install -g pnpm
-          pnpm install
-          pnpm run build
-          pnpm publish --access public
+          ref: ${{ github.event.release.target_commitish }}
+      - uses: actions/setup-node@v3
+        with:
+          registry-url: https://registry.npmjs.org/
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libgtk-4-dev
+      - run: npm install -g pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: NODE_ENV=production pnpm run build
+      - run: pnpm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

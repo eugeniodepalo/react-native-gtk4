@@ -1,5 +1,9 @@
+/__tests__
 /src
 /codegen
 /pnpm-lock.yaml
+/jest.config.ts
+/jest.setup.ts
 /.eslintrc.json
+tsconfig.build.json
 tsconfig.json

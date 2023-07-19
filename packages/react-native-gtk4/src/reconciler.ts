@@ -101,7 +101,6 @@ const hostConfig: HostConfig<
     clearTimeout(id)
   },
   getCurrentEventPriority() {
-    console.log("getCurrentEventPriority")
     return DefaultEventPriority
   },
   getInstanceFromNode() {

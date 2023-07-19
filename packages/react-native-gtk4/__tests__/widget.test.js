@@ -1,20 +1,15 @@
-import { Gtk } from "../src/index.js"
-import AbstractWidget from "../src/widget.js"
+import Widget from "../src/widget.js"
 
-class Widget extends AbstractWidget {
-  constructor(props: Record<string, any>) {
-    super(props)
-  }
+jest.mock("../src/index.js")
 
-  createNode() {
-    return new Gtk.Box()
-  }
-}
+Widget.prototype.createNode = jest.fn()
 
 describe("Widget", () => {
   it("should create a node", () => {
+    const node = {}
+    Widget.prototype.createNode.mockReturnValue(node)
     const widget = new Widget({})
-    expect(widget.node).toBeDefined()
+    expect(widget.node).toEqual(node)
   })
 
   it("should set props", () => {

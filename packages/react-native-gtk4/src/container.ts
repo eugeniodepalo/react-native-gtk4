@@ -7,7 +7,7 @@ import {
 } from "./components/ApplicationProvider.js"
 import Widget from "./widget.js"
 
-const MAX_TIMEOUT = 2147483647
+export const MAX_TIMEOUT = 2147483647
 
 export default class Container {
   children: Widget[] = []

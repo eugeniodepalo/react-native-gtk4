@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class EditableLabel<
@@ -10,11 +10,6 @@ export default class EditableLabel<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
-      case "editing":
-        if (this.node.getEditing !== newValue) {
-          this.node.editing = newValue
-        }
-        break
       case "accessibleRole":
         if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue

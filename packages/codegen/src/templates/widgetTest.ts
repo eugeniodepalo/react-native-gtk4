@@ -1,5 +1,5 @@
 import { GirEnumeration } from "../gir.js"
-import { camelize, fromCtype } from "../helpers.js"
+import { camelize, fromCtype, importModuleNames } from "../helpers.js"
 import { WidgetClass, WidgetClassProperty } from "../index.js"
 
 interface Props {
@@ -49,15 +49,15 @@ export default function ({ widgetClass, enumerations }: Props) {
   }
 
   let ts = `import { ${name} } from "../../../src/generated/widgets.js"\n`
-  ts += `import { \n`
 
   for (const importName of requiredImports) {
-    ts += `${importName}, `
+    ts += `import ${importName} from "${
+      importModuleNames[importName as keyof typeof importModuleNames]
+    }"\n`
   }
 
   const constructOnlyProps = props.filter((prop) => prop.constructOnly)
 
-  ts += `} from "../../../src/index.js"\n`
   ts += `\n`
   ts += `describe("${name}", () => {\n`
   ts += `  let widget\n`

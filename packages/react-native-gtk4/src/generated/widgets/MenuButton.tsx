@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class MenuButton<
@@ -22,11 +22,6 @@ export default class MenuButton<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
-      case "active":
-        if (this.node.getActive !== newValue) {
-          this.node.setActive(newValue)
-        }
-        break
       case "alwaysShowArrow":
         if (this.node.getAlwaysShowArrow !== newValue) {
           this.node.setAlwaysShowArrow(newValue)
@@ -79,9 +74,6 @@ export default class MenuButton<
         break
       case "onActivate":
         this.setHandler("activate", newValue)
-        break
-      case "onNotifyActive":
-        this.setHandler("notify::active", newValue)
         break
       case "onNotifyAlwaysShowArrow":
         this.setHandler("notify::always-show-arrow", newValue)

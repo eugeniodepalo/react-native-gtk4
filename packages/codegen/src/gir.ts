@@ -156,6 +156,38 @@ function isDeprecated(
     return true
   }
 
+  if (
+    [
+      "AppChooserButton",
+      "AppChooserDialog",
+      "AppChooserWidget",
+      "Assistant",
+      "CellView",
+      "ColorButton",
+      "ColorChooserDialog",
+      "ColorChooserWidget",
+      "ComboBox",
+      "ComboBoxText",
+      "Dialog",
+      "FileChooserDialog",
+      "FileChooserWidget",
+      "FontButton",
+      "FontChooserDialog",
+      "FontChooserWidget",
+      "IconView",
+      "InfoBar",
+      "LockButton",
+      "MessageDialog",
+      "PageSetupUnixDialog",
+      "PrintUnixDialog",
+      "Statusbar",
+      "TreeView",
+      "VolumeButton",
+    ].includes(className)
+  ) {
+    return true
+  }
+
   const parentClassName = klass.$.parent
 
   if (!parentClassName) {

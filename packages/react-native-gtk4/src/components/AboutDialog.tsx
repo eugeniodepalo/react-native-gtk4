@@ -1,6 +1,7 @@
 import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
-import { Gtk, useApplication } from "../index.js"
+import Gtk from "@girs/node-gtk-4.0"
+import useApplication from "../hooks/useApplication.js"
 
 const AboutDialog = "AboutDialog"
 

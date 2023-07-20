@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import BaseWidget from "../../widget.js"
 
 export default class Widget<

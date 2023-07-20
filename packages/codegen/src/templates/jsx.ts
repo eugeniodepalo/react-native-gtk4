@@ -1,4 +1,4 @@
-import { camelize, fromCtype } from "../helpers.js"
+import { camelize, fromCtype, importModuleNames } from "../helpers.js"
 import { WidgetClass } from "../index.js"
 
 interface Props {
@@ -75,24 +75,19 @@ export default function ({ widgetClasses }: Props) {
 
   const requiredImports = new Set<string>()
 
-  for (const widgetClass of widgetClasses) {
-    const { props } = widgetClass
-
+  for (const { props } of widgetClasses) {
     for (const { type } of props) {
-      const importName = fromCtype(type)
-      if (importName.includes(".")) {
-        requiredImports.add(importName.split(".")[0])
+      const propType = fromCtype(type).split(".")[0]
+
+      const moduleName =
+        importModuleNames[propType as keyof typeof importModuleNames]
+
+      if (moduleName && !requiredImports.has(moduleName)) {
+        requiredImports.add(moduleName)
+        ts += `import ${propType} from "${moduleName}"\n`
       }
     }
   }
-
-  ts += `import { \n`
-
-  for (const importName of requiredImports) {
-    ts += `${importName}, `
-  }
-
-  ts += `} from "../index.js"\n`
 
   ts += `import React from "react"\n`
   ts += `\n`

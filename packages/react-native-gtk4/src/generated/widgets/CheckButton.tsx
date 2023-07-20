@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class CheckButton<
@@ -6,18 +6,6 @@ export default class CheckButton<
 > extends Widget<T> {
   createNode() {
     return new Gtk.CheckButton({}) as T
-  }
-  appendChild(child: Widget) {
-    super.appendChild(child)
-    this.node.setChild(child.node)
-  }
-  removeChild(child: Widget) {
-    super.removeChild(child)
-    this.node.setChild(null)
-  }
-  insertBefore(child: Widget, beforeChild: Widget) {
-    super.insertBefore(child, beforeChild)
-    this.node.setChild(child.node)
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
@@ -70,9 +58,6 @@ export default class CheckButton<
         break
       case "onNotifyActive":
         this.setHandler("notify::active", newValue)
-        break
-      case "onNotifyChild":
-        this.setHandler("notify::child", newValue)
         break
       case "onNotifyGroup":
         this.setHandler("notify::group", newValue)

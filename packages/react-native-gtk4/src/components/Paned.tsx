@@ -5,7 +5,7 @@ import React, {
   useState,
 } from "react"
 import { forwardRef } from "react"
-import { Gtk } from "../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 const Paned = "Paned"
 

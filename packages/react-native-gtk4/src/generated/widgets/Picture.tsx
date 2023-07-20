@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Picture<
@@ -18,11 +18,6 @@ export default class Picture<
       case "canShrink":
         if (this.node.getCanShrink !== newValue) {
           this.node.setCanShrink(newValue)
-        }
-        break
-      case "contentFit":
-        if (this.node.getContentFit !== newValue) {
-          this.node.setContentFit(newValue)
         }
         break
       case "file":
@@ -50,9 +45,6 @@ export default class Picture<
         break
       case "onNotifyCanShrink":
         this.setHandler("notify::can-shrink", newValue)
-        break
-      case "onNotifyContentFit":
-        this.setHandler("notify::content-fit", newValue)
         break
       case "onNotifyFile":
         this.setHandler("notify::file", newValue)

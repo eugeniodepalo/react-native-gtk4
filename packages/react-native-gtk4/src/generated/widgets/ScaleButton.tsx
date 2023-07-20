@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class ScaleButton<
@@ -43,9 +43,6 @@ export default class ScaleButton<
         break
       case "onValueChanged":
         this.setHandler("value-changed", newValue)
-        break
-      case "onNotifyActive":
-        this.setHandler("notify::active", newValue)
         break
       case "onNotifyAdjustment":
         this.setHandler("notify::adjustment", newValue)

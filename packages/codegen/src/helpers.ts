@@ -14,6 +14,15 @@ const typeMap = {
   "utf8[]": "string[]",
 }
 
+export const importModuleNames = {
+  Gtk: "@girs/node-gtk-4.0",
+  Gdk: "@girs/node-gdk-4.0",
+  Gio: "@girs/node-gio-2.0",
+  GLib: "@girs/node-glib-2.0",
+  GObject: "@girs/node-gobject-2.0",
+  Pango: "@girs/node-pango-1.0",
+}
+
 export function fromCtype(ctype: string) {
   const mappedType = typeMap[ctype as keyof typeof typeMap]
 

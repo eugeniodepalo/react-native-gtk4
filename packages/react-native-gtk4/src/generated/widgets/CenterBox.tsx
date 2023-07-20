@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class CenterBox<
@@ -15,21 +15,6 @@ export default class CenterBox<
           this.node.setBaselinePosition(newValue)
         }
         break
-      case "centerWidget":
-        if (this.node.getCenterWidget !== newValue) {
-          this.node.setCenterWidget(newValue)
-        }
-        break
-      case "endWidget":
-        if (this.node.getEndWidget !== newValue) {
-          this.node.setEndWidget(newValue)
-        }
-        break
-      case "startWidget":
-        if (this.node.getStartWidget !== newValue) {
-          this.node.setStartWidget(newValue)
-        }
-        break
       case "accessibleRole":
         if (this.node.getAccessibleRole !== newValue) {
           this.node.accessibleRole = newValue
@@ -42,15 +27,6 @@ export default class CenterBox<
         break
       case "onNotifyBaselinePosition":
         this.setHandler("notify::baseline-position", newValue)
-        break
-      case "onNotifyCenterWidget":
-        this.setHandler("notify::center-widget", newValue)
-        break
-      case "onNotifyEndWidget":
-        this.setHandler("notify::end-widget", newValue)
-        break
-      case "onNotifyStartWidget":
-        this.setHandler("notify::start-widget", newValue)
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)

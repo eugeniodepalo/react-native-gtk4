@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class SearchEntry<
@@ -16,13 +16,8 @@ export default class SearchEntry<
         }
         break
       case "placeholderText":
-        if (this.node.getPlaceholderText !== newValue) {
-          this.node.setPlaceholderText(newValue)
-        }
-        break
-      case "searchDelay":
-        if (this.node.getSearchDelay !== newValue) {
-          this.node.setSearchDelay(newValue)
+        if (this.node.placeholderText !== newValue) {
+          this.node.placeholderText = newValue
         }
         break
       case "accessibleRole":
@@ -92,9 +87,6 @@ export default class SearchEntry<
         break
       case "onNotifyPlaceholderText":
         this.setHandler("notify::placeholder-text", newValue)
-        break
-      case "onNotifySearchDelay":
-        this.setHandler("notify::search-delay", newValue)
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)

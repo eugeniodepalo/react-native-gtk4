@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react"
 import { forwardRef } from "react"
-import { Gtk } from "../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 const Grid = "Grid"
 const GridContext = React.createContext<Gtk.Grid | null>(null)

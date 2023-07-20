@@ -4,7 +4,7 @@ import { DefaultEventPriority } from "react-reconciler/constants"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
-import { Gtk } from "./index.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]

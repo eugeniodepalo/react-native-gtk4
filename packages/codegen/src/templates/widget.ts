@@ -101,7 +101,7 @@ function generateImports(widgetClass: WidgetClass) {
   const { parent, name } = widgetClass
   const parentClass = name === "Widget" ? "BaseWidget" : parent
 
-  let ts = `import { Gtk } from "../../index.js"\n`
+  let ts = `import Gtk from "@girs/node-gtk-4.0"\n`
 
   if (name === "Widget") {
     ts += `import BaseWidget from "../../widget.js"\n`

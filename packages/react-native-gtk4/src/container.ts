@@ -1,5 +1,6 @@
 import gi from "@girs/node-gtk"
-import { GLib, Gtk } from "./index.js"
+import Gtk from "@girs/node-gtk-4.0"
+import GLib from "@girs/node-glib-2.0"
 import Reconciler from "./reconciler.js"
 import {
   Application,

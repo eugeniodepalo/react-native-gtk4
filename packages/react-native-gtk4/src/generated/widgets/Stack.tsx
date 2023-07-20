@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Stack<T extends Gtk.Stack = Gtk.Stack> extends Widget<T> {

@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Label<T extends Gtk.Label = Gtk.Label> extends Widget<T> {
@@ -61,11 +61,6 @@ export default class Label<T extends Gtk.Label = Gtk.Label> extends Widget<T> {
       case "singleLineMode":
         if (this.node.getSingleLineMode !== newValue) {
           this.node.setSingleLineMode(newValue)
-        }
-        break
-      case "tabs":
-        if (this.node.getTabs !== newValue) {
-          this.node.setTabs(newValue)
         }
         break
       case "useMarkup":
@@ -155,9 +150,6 @@ export default class Label<T extends Gtk.Label = Gtk.Label> extends Widget<T> {
         break
       case "onNotifySingleLineMode":
         this.setHandler("notify::single-line-mode", newValue)
-        break
-      case "onNotifyTabs":
-        this.setHandler("notify::tabs", newValue)
         break
       case "onNotifyUseMarkup":
         this.setHandler("notify::use-markup", newValue)

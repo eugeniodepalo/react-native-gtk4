@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Box from "./Box.js"
 
 export default class ShortcutsGroup<

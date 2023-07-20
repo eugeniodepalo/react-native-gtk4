@@ -1,4 +1,4 @@
-import { Gtk } from "../../index.js"
+import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class TreeExpander<
@@ -22,16 +22,6 @@ export default class TreeExpander<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
-      case "hideExpander":
-        if (this.node.getHideExpander !== newValue) {
-          this.node.setHideExpander(newValue)
-        }
-        break
-      case "indentForDepth":
-        if (this.node.getIndentForDepth !== newValue) {
-          this.node.setIndentForDepth(newValue)
-        }
-        break
       case "indentForIcon":
         if (this.node.getIndentForIcon !== newValue) {
           this.node.setIndentForIcon(newValue)
@@ -49,12 +39,6 @@ export default class TreeExpander<
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)
-        break
-      case "onNotifyHideExpander":
-        this.setHandler("notify::hide-expander", newValue)
-        break
-      case "onNotifyIndentForDepth":
-        this.setHandler("notify::indent-for-depth", newValue)
         break
       case "onNotifyIndentForIcon":
         this.setHandler("notify::indent-for-icon", newValue)

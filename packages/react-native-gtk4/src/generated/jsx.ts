@@ -1,4 +1,9 @@
-import { Gtk, Gdk, GLib, Gio, GObject, Pango } from "../index.js"
+import Gtk from "@girs/node-gtk-4.0"
+import Gdk from "@girs/node-gdk-4.0"
+import GLib from "@girs/node-glib-2.0"
+import Gio from "@girs/node-gio-2.0"
+import GObject from "@girs/node-gobject-2.0"
+import Pango from "@girs/node-pango-1.0"
 import React from "react"
 
 declare global {
@@ -128,15 +133,9 @@ declare global {
       CenterBox: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.CenterBox>
         baselinePosition?: Gtk.BaselinePosition
-        centerWidget?: Gtk.Widget
-        endWidget?: Gtk.Widget
-        startWidget?: Gtk.Widget
         accessibleRole?: Gtk.AccessibleRole
         orientation?: Gtk.Orientation
         onNotifyBaselinePosition?: (node: Gtk.CenterBox) => void
-        onNotifyCenterWidget?: (node: Gtk.CenterBox) => void
-        onNotifyEndWidget?: (node: Gtk.CenterBox) => void
-        onNotifyStartWidget?: (node: Gtk.CenterBox) => void
         onNotifyAccessibleRole?: (node: Gtk.CenterBox) => void
         onNotifyOrientation?: (node: Gtk.CenterBox) => void
       }
@@ -153,7 +152,6 @@ declare global {
         onActivate?: (node: Gtk.CheckButton) => void
         onToggled?: (node: Gtk.CheckButton) => void
         onNotifyActive?: (node: Gtk.CheckButton) => void
-        onNotifyChild?: (node: Gtk.CheckButton) => void
         onNotifyGroup?: (node: Gtk.CheckButton) => void
         onNotifyInconsistent?: (node: Gtk.CheckButton) => void
         onNotifyLabel?: (node: Gtk.CheckButton) => void
@@ -161,15 +159,6 @@ declare global {
         onNotifyAccessibleRole?: (node: Gtk.CheckButton) => void
         onNotifyActionName?: (node: Gtk.CheckButton) => void
         onNotifyActionTarget?: (node: Gtk.CheckButton) => void
-      }
-      ColorDialogButton: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.ColorDialogButton>
-        dialog?: Gtk.ColorDialog
-        rgba?: Gdk.RGBA
-        accessibleRole?: Gtk.AccessibleRole
-        onNotifyDialog?: (node: Gtk.ColorDialogButton) => void
-        onNotifyRgba?: (node: Gtk.ColorDialogButton) => void
-        onNotifyAccessibleRole?: (node: Gtk.ColorDialogButton) => void
       }
       ColumnView: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ColumnView>
@@ -472,25 +461,6 @@ declare global {
         onNotifyChild?: (node: Gtk.FlowBoxChild) => void
         onNotifyAccessibleRole?: (node: Gtk.FlowBoxChild) => void
       }
-      FontDialogButton: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.FontDialogButton>
-        dialog?: Gtk.FontDialog
-        fontDesc?: Pango.FontDescription
-        fontFeatures?: string
-        language?: Pango.Language
-        level?: Gtk.FontLevel
-        useFont?: boolean
-        useSize?: boolean
-        accessibleRole?: Gtk.AccessibleRole
-        onNotifyDialog?: (node: Gtk.FontDialogButton) => void
-        onNotifyFontDesc?: (node: Gtk.FontDialogButton) => void
-        onNotifyFontFeatures?: (node: Gtk.FontDialogButton) => void
-        onNotifyLanguage?: (node: Gtk.FontDialogButton) => void
-        onNotifyLevel?: (node: Gtk.FontDialogButton) => void
-        onNotifyUseFont?: (node: Gtk.FontDialogButton) => void
-        onNotifyUseSize?: (node: Gtk.FontDialogButton) => void
-        onNotifyAccessibleRole?: (node: Gtk.FontDialogButton) => void
-      }
       Frame: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Frame>
         label?: string
@@ -600,33 +570,6 @@ declare global {
         onNotifyUseFallback?: (node: Gtk.Image) => void
         onNotifyAccessibleRole?: (node: Gtk.Image) => void
       }
-      Inscription: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.Inscription>
-        attributes?: Pango.AttrList
-        markup?: string
-        minChars?: number
-        minLines?: number
-        natChars?: number
-        natLines?: number
-        text?: string
-        textOverflow?: Gtk.InscriptionOverflow
-        wrapMode?: Pango.WrapMode
-        xalign?: number
-        yalign?: number
-        accessibleRole?: Gtk.AccessibleRole
-        onNotifyAttributes?: (node: Gtk.Inscription) => void
-        onNotifyMarkup?: (node: Gtk.Inscription) => void
-        onNotifyMinChars?: (node: Gtk.Inscription) => void
-        onNotifyMinLines?: (node: Gtk.Inscription) => void
-        onNotifyNatChars?: (node: Gtk.Inscription) => void
-        onNotifyNatLines?: (node: Gtk.Inscription) => void
-        onNotifyText?: (node: Gtk.Inscription) => void
-        onNotifyTextOverflow?: (node: Gtk.Inscription) => void
-        onNotifyWrapMode?: (node: Gtk.Inscription) => void
-        onNotifyXalign?: (node: Gtk.Inscription) => void
-        onNotifyYalign?: (node: Gtk.Inscription) => void
-        onNotifyAccessibleRole?: (node: Gtk.Inscription) => void
-      }
       Label: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Label>
         attributes?: Pango.AttrList
@@ -641,7 +584,6 @@ declare global {
         naturalWrapMode?: Gtk.NaturalWrapMode
         selectable?: boolean
         singleLineMode?: boolean
-        tabs?: Pango.TabArray
         useMarkup?: boolean
         useUnderline?: boolean
         widthChars?: number
@@ -671,7 +613,6 @@ declare global {
         onNotifyNaturalWrapMode?: (node: Gtk.Label) => void
         onNotifySelectable?: (node: Gtk.Label) => void
         onNotifySingleLineMode?: (node: Gtk.Label) => void
-        onNotifyTabs?: (node: Gtk.Label) => void
         onNotifyUseMarkup?: (node: Gtk.Label) => void
         onNotifyUseUnderline?: (node: Gtk.Label) => void
         onNotifyWidthChars?: (node: Gtk.Label) => void
@@ -805,7 +746,6 @@ declare global {
       }
       MenuButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.MenuButton>
-        active?: boolean
         alwaysShowArrow?: boolean
         direction?: Gtk.ArrowType
         hasFrame?: boolean
@@ -817,7 +757,6 @@ declare global {
         useUnderline?: boolean
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: (node: Gtk.MenuButton) => void
-        onNotifyActive?: (node: Gtk.MenuButton) => void
         onNotifyAlwaysShowArrow?: (node: Gtk.MenuButton) => void
         onNotifyChild?: (node: Gtk.MenuButton) => void
         onNotifyDirection?: (node: Gtk.MenuButton) => void
@@ -973,14 +912,12 @@ declare global {
         ref?: React.Ref<Gtk.Picture>
         alternativeText?: string
         canShrink?: boolean
-        contentFit?: Gtk.ContentFit
         file?: Gio.File
         keepAspectRatio?: boolean
         paintable?: Gdk.Paintable
         accessibleRole?: Gtk.AccessibleRole
         onNotifyAlternativeText?: (node: Gtk.Picture) => void
         onNotifyCanShrink?: (node: Gtk.Picture) => void
-        onNotifyContentFit?: (node: Gtk.Picture) => void
         onNotifyFile?: (node: Gtk.Picture) => void
         onNotifyKeepAspectRatio?: (node: Gtk.Picture) => void
         onNotifyPaintable?: (node: Gtk.Picture) => void
@@ -1101,7 +1038,6 @@ declare global {
       }
       ScaleButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ScaleButton>
-        active?: boolean
         adjustment?: Gtk.Adjustment
         icons?: string[]
         value?: number
@@ -1110,7 +1046,6 @@ declare global {
         onPopdown?: (node: Gtk.ScaleButton) => void
         onPopup?: (node: Gtk.ScaleButton) => void
         onValueChanged?: (node: Gtk.ScaleButton, value: number) => void
-        onNotifyActive?: (node: Gtk.ScaleButton) => void
         onNotifyAdjustment?: (node: Gtk.ScaleButton) => void
         onNotifyIcons?: (node: Gtk.ScaleButton) => void
         onNotifyValue?: (node: Gtk.ScaleButton) => void
@@ -1193,7 +1128,6 @@ declare global {
         ref?: React.Ref<Gtk.SearchEntry>
         activatesDefault?: boolean
         placeholderText?: string
-        searchDelay?: number
         accessibleRole?: Gtk.AccessibleRole
         cursorPosition?: number
         editable?: boolean
@@ -1223,7 +1157,6 @@ declare global {
         ) => void
         onNotifyActivatesDefault?: (node: Gtk.SearchEntry) => void
         onNotifyPlaceholderText?: (node: Gtk.SearchEntry) => void
-        onNotifySearchDelay?: (node: Gtk.SearchEntry) => void
         onNotifyAccessibleRole?: (node: Gtk.SearchEntry) => void
         onNotifyCursorPosition?: (node: Gtk.SearchEntry) => void
         onNotifyEditable?: (node: Gtk.SearchEntry) => void
@@ -1639,15 +1572,11 @@ declare global {
       }
       TreeExpander: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.TreeExpander>
-        hideExpander?: boolean
-        indentForDepth?: boolean
         indentForIcon?: boolean
         item?: GObject.Object
         listRow?: Gtk.TreeListRow
         accessibleRole?: Gtk.AccessibleRole
         onNotifyChild?: (node: Gtk.TreeExpander) => void
-        onNotifyHideExpander?: (node: Gtk.TreeExpander) => void
-        onNotifyIndentForDepth?: (node: Gtk.TreeExpander) => void
         onNotifyIndentForIcon?: (node: Gtk.TreeExpander) => void
         onNotifyItem?: (node: Gtk.TreeExpander) => void
         onNotifyListRow?: (node: Gtk.TreeExpander) => void

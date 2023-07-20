@@ -77,7 +77,7 @@ export default class Container {
   removeChild(child: Widget) {
     const index = this.children.indexOf(child)
 
-    if (index < 0) {
+    if (index === -1) {
       throw new Error("Removed child not found")
     }
 
@@ -89,7 +89,12 @@ export default class Container {
   }
 
   insertBefore(child: Widget, beforeChild: Widget) {
-    const index = this.children.indexOf(beforeChild) - 1
+    const beforeIndex = this.children.indexOf(beforeChild)
+    const index = beforeIndex - 1
+
+    if (beforeIndex === -1) {
+      throw new Error("Before child not found")
+    }
 
     if (index < 0) {
       this.children.unshift(child)

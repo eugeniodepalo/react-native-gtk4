@@ -7,8 +7,8 @@ export default class ShortcutsShortcut<
   createNode() {
     return new Gtk.ShortcutsShortcut({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "accelSizeGroup":
         if (this.node.accelSizeGroup !== newValue) {

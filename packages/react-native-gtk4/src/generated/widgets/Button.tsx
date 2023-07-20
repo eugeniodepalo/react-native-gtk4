@@ -19,8 +19,8 @@ export default class Button<
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "hasFrame":
         if (this.node.getHasFrame !== newValue) {
@@ -54,7 +54,7 @@ export default class Button<
         break
       case "actionTarget":
         if (this.node.actionTarget !== newValue) {
-          this.node.setActionTargetValue(newValue)
+          this.node.actionTarget = newValue
         }
         break
       case "onActivate":

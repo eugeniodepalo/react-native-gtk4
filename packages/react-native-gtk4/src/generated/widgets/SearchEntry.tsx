@@ -7,8 +7,8 @@ export default class SearchEntry<
   createNode() {
     return new Gtk.SearchEntry({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "activatesDefault":
         if (this.node.activatesDefault !== newValue) {

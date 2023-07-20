@@ -7,8 +7,8 @@ export default class Spinner<
   createNode() {
     return new Gtk.Spinner({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "spinning":
         if (this.node.getSpinning !== newValue) {

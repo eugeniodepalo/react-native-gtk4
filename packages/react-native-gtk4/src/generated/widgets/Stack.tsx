@@ -5,8 +5,8 @@ export default class Stack<T extends Gtk.Stack = Gtk.Stack> extends Widget<T> {
   createNode() {
     return new Gtk.Stack({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "hhomogeneous":
         if (this.node.getHhomogeneous !== newValue) {

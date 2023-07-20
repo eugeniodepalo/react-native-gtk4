@@ -7,8 +7,8 @@ export default class LinkButton<
   createNode() {
     return new Gtk.LinkButton({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "uri":
         if (this.node.getUri !== newValue) {
@@ -32,7 +32,7 @@ export default class LinkButton<
         break
       case "actionTarget":
         if (this.node.actionTarget !== newValue) {
-          this.node.setActionTargetValue(newValue)
+          this.node.actionTarget = newValue
         }
         break
       case "onActivateLink":

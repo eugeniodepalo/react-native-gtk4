@@ -5,8 +5,8 @@ export default class Scale<T extends Gtk.Scale = Gtk.Scale> extends Range<T> {
   createNode() {
     return new Gtk.Scale({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "digits":
         if (this.node.getDigits !== newValue) {

@@ -33,27 +33,21 @@ function generateSetMethod(widgetClass: WidgetClass) {
     (prop) => prop.writable && !prop.constructOnly && prop.name !== "child"
   )
 
-  let ts = `set(propName: string, newValue: any, oldValue: any) {\n`
-  ts += `  super.set(propName, newValue, oldValue)\n`
+  let ts = `set(propName: string, newValue: any) {\n`
+  ts += `  super.set(propName, newValue)\n`
   ts += `  switch (propName) {\n`
 
   for (const { name, setter, getter } of settableProps) {
-    const setterName =
-      setter === "set_action_target" ? `${setter}_value` : setter
-
-    const getterName =
-      getter === "get_action_target" ? `${getter}_value` : getter
-
     ts += `case "${camelize(name)}":\n`
 
-    if (getterName) {
-      ts += `  if (this.node.${camelize(getterName)} !== newValue) {\n`
+    if (getter) {
+      ts += `  if (this.node.${camelize(getter)} !== newValue) {\n`
     } else {
       ts += `  if (this.node.${camelize(name)} !== newValue) {\n`
     }
 
-    if (setterName) {
-      ts += `this.node.${camelize(setterName)}(newValue)\n`
+    if (setter) {
+      ts += `this.node.${camelize(setter)}(newValue)\n`
     } else {
       ts += `this.node.${camelize(name)} = newValue\n`
     }

@@ -5,8 +5,8 @@ export default class Box<T extends Gtk.Box = Gtk.Box> extends Widget<T> {
   createNode() {
     return new Gtk.Box({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "baselinePosition":
         if (this.node.getBaselinePosition !== newValue) {

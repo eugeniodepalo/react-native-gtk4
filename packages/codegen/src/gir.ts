@@ -9,6 +9,17 @@ export interface GirRepository {
   namespace: GirNamespace[]
 }
 
+export interface GirEnumeration {
+  $: GirAttributes
+  member: GirMember[]
+}
+
+export interface GirMember {
+  $: GirAttributes & {
+    "c:identifier": string
+  }
+}
+
 export interface GirType {
   $: GirAttributes & {
     name: string
@@ -86,6 +97,8 @@ export interface GirNamespace {
   $: GirAttributes
   interface?: GirInterface[]
   class?: GirClass[]
+  enumeration?: GirEnumeration[]
+  bitfield?: GirEnumeration[]
 }
 
 export interface Gir {

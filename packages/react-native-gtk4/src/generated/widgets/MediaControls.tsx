@@ -7,8 +7,8 @@ export default class MediaControls<
   createNode() {
     return new Gtk.MediaControls({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "mediaStream":
         if (this.node.getMediaStream !== newValue) {

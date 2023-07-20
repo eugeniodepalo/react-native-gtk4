@@ -5,8 +5,8 @@ export default class Label<T extends Gtk.Label = Gtk.Label> extends Widget<T> {
   createNode() {
     return new Gtk.Label({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "attributes":
         if (this.node.getAttributes !== newValue) {

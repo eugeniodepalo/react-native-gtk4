@@ -7,8 +7,8 @@ export default class DrawingArea<
   createNode() {
     return new Gtk.DrawingArea({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "contentHeight":
         if (this.node.getContentHeight !== newValue) {

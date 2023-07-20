@@ -5,8 +5,8 @@ export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
   createNode() {
     return new Gtk.Paned({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "endChild":
         if (this.node.getEndChild !== newValue) {

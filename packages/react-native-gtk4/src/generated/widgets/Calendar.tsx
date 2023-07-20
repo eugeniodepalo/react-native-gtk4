@@ -7,8 +7,8 @@ export default class Calendar<
   createNode() {
     return new Gtk.Calendar({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "day":
         if (this.node.day !== newValue) {

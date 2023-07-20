@@ -100,8 +100,10 @@ async function getWidgetClasses(gir: Gir): Promise<WidgetClass[]> {
       props: uniqueProps.map((prop) => ({
         name: prop.$.name,
         array: prop.array !== undefined,
-        setter: prop.$.setter,
-        getter: prop.$.getter,
+        setter:
+          prop.$.setter === "set_action_target" ? undefined : prop.$.setter,
+        getter:
+          prop.$.getter === "get_action_target" ? undefined : prop.$.getter,
         writable: prop.$.writable === "1",
         constructOnly: prop.$["construct-only"] === "1",
         type: (prop.array ? prop.array[0].type : prop.type)[0].$.name,
@@ -146,6 +148,43 @@ async function main() {
     writeToGeneratedFile(
       `widgets/${widgetClass.name}.tsx`,
       templates.widget({ widgetClass })
+    )
+
+    writeToGeneratedFile(
+      `../tests/widgets/${widgetClass.name}.test.js`,
+      templates.widgetTest({
+        widgetClass,
+        enumerations: [
+          ...(gir.repository.namespace[0].enumeration ?? []),
+          ...(gir.repository.namespace[0].bitfield ?? []),
+          {
+            $: {
+              name: "Pango.EllipsizeMode",
+            },
+            member: [
+              {
+                $: {
+                  name: "NONE",
+                  "c:identifier": "PANGO_ELLIPSIZE_NONE",
+                },
+              },
+            ],
+          },
+          {
+            $: {
+              name: "Pango.WrapMode",
+            },
+            member: [
+              {
+                $: {
+                  name: "NONE",
+                  "c:identifier": "PANGO_WRAP_NONE",
+                },
+              },
+            ],
+          },
+        ],
+      })
     )
   }
 

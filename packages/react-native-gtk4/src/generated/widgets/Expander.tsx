@@ -19,8 +19,8 @@ export default class Expander<
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "expanded":
         if (this.node.getExpanded !== newValue) {

@@ -1,13 +1,13 @@
 import Reconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
-import { DefaultEventPriority } from "react-reconciler/constants.js"
+import { DefaultEventPriority } from "react-reconciler/constants"
 import Widget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
 import { Gtk } from "./index.js"
 
 type ElementType = keyof typeof widgets
-type UpdatePayload = [string, any, any][]
+type UpdatePayload = [string, any][]
 type WidgetConstructor = new (props: Record<string, any>) => Widget
 
 const hostConfig: HostConfig<
@@ -59,7 +59,7 @@ const hostConfig: HostConfig<
   prepareUpdate(_instance, _type, oldProps, newProps) {
     return Object.keys(newProps).reduce((acc, propName) => {
       if (oldProps[propName] !== newProps[propName]) {
-        acc.push([propName, newProps[propName], oldProps[propName]])
+        acc.push([propName, newProps[propName]])
       }
       return acc
     }, [] as UpdatePayload)
@@ -68,12 +68,12 @@ const hostConfig: HostConfig<
     instance.commitMount()
   },
   commitUpdate(instance, updatePayload) {
-    for (const [propName, newValue, oldValue] of updatePayload) {
-      instance.set(propName, newValue, oldValue)
+    for (const [propName, newValue] of updatePayload) {
+      instance.set(propName, newValue)
     }
   },
-  commitTextUpdate(textInstance, oldText, newText) {
-    textInstance.set("label", newText, oldText)
+  commitTextUpdate(textInstance, _oldText, newText) {
+    textInstance.set("label", newText)
   },
   shouldSetTextContent() {
     return false

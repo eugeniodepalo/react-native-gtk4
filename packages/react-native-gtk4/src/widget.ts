@@ -11,14 +11,14 @@ export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
     this.node = this.createNode()
 
     for (const propName in props) {
-      this.set(propName, props[propName], null)
+      this.set(propName, props[propName])
     }
   }
 
   abstract createNode(): T
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  set(propName: string, newValue: any, oldValue: any): void {}
+  set(propName: string, newValue: any): void {}
 
   commitMount(): void {}
 

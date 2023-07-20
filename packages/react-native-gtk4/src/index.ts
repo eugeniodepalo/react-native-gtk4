@@ -1,9 +1,9 @@
-import Gtk from "@girs/node-gtk-4.0"
+import { Gtk } from "@girs/node-gtk-4.0"
+import Container from "./container.js"
 import "./generated/jsx.js"
 import "./overrides.js"
-import Container from "./container.js"
 
-export { Gtk }
+export { default as Gtk } from "@girs/node-gtk-4.0"
 export { default as Gdk } from "@girs/node-gdk-4.0"
 export { default as Gio } from "@girs/node-gio-2.0"
 export { default as GLib } from "@girs/node-glib-2.0"

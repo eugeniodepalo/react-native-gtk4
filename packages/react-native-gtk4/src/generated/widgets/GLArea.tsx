@@ -7,8 +7,8 @@ export default class GLArea<
   createNode() {
     return new Gtk.GLArea({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "autoRender":
         if (this.node.getAutoRender !== newValue) {

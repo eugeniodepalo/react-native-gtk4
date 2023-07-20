@@ -1,0 +1,7 @@
+#!/bin/sh
+
+rm -rf src/generated
+rm -rf __tests__/generated
+pnpm run --filter codegen generate
+mv ../codegen/generated src/
+mv ../codegen/tests __tests__/generated

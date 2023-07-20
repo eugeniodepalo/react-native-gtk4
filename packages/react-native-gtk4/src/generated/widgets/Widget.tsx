@@ -9,8 +9,8 @@ export default class Widget<
       cssName: this.props.cssName,
     }) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "canFocus":
         if (this.node.getCanFocus !== newValue) {

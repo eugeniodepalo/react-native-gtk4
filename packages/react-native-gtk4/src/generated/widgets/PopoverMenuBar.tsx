@@ -7,8 +7,8 @@ export default class PopoverMenuBar<
   createNode() {
     return new Gtk.PopoverMenuBar({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "menuModel":
         if (this.node.getMenuModel !== newValue) {

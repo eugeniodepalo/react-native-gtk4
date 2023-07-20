@@ -78,9 +78,9 @@ export default function ({ widgetClasses }: Props) {
   for (const widgetClass of widgetClasses) {
     const { props } = widgetClass
 
-    for (const { type, writable } of props) {
+    for (const { type } of props) {
       const importName = fromCtype(type)
-      if (importName.includes(".") && writable) {
+      if (importName.includes(".")) {
         requiredImports.add(importName.split(".")[0])
       }
     }

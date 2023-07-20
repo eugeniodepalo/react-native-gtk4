@@ -5,8 +5,8 @@ export default class Range<T extends Gtk.Range = Gtk.Range> extends Widget<T> {
   createNode() {
     return new Gtk.Range({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "adjustment":
         if (this.node.getAdjustment !== newValue) {

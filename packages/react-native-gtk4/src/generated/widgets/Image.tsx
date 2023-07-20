@@ -5,8 +5,8 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
   createNode() {
     return new Gtk.Image({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "file":
         if (this.node.file !== newValue) {

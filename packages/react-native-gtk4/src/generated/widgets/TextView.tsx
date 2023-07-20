@@ -7,8 +7,8 @@ export default class TextView<
   createNode() {
     return new Gtk.TextView({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "acceptsTab":
         if (this.node.getAcceptsTab !== newValue) {

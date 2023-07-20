@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import { Gtk } from "../index.js"
 
@@ -23,45 +18,57 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
   ref
 ) {
   const centerBoxRef = useRef<Gtk.CenterBox | null>(null)
-  const [startNode, setStartNode] = useState<Gtk.Widget | null>(null)
-  const [centerNode, setCenterNode] = useState<Gtk.Widget | null>(null)
-  const [endNode, setEndNode] = useState<Gtk.Widget | null>(null)
+  const startRef = useRef<Gtk.Widget | null>(null)
+  const centerRef = useRef<Gtk.Widget | null>(null)
+  const endRef = useRef<Gtk.Widget | null>(null)
 
-  const startChildRef = useCallback((node: Gtk.Widget | null) => {
-    setStartNode(node)
+  const setStartRef = useCallback((node: Gtk.Widget | null) => {
+    startRef.current = node
   }, [])
 
-  const endChildRef = useCallback((node: Gtk.Widget | null) => {
-    setEndNode(node)
+  const setEndRef = useCallback((node: Gtk.Widget | null) => {
+    endRef.current = node
   }, [])
 
-  const centerChildRef = useCallback((node: Gtk.Widget | null) => {
-    setCenterNode(node)
+  const setCenterRef = useCallback((node: Gtk.Widget | null) => {
+    centerRef.current = node
+  }, [])
+
+  const setCenterBoxRef = useCallback((node: Gtk.CenterBox | null) => {
+    centerBoxRef.current = node
+
+    if (node) {
+      if (startRef.current) {
+        node.setStartWidget(startRef.current)
+      }
+
+      if (centerRef.current) {
+        node.setCenterWidget(centerRef.current)
+      }
+
+      if (endRef.current) {
+        node.setEndWidget(endRef.current)
+      }
+    }
   }, [])
 
   useImperativeHandle(ref, () => centerBoxRef.current!)
 
   return (
-    <CenterBox
-      ref={centerBoxRef}
-      centerWidget={centerNode ?? undefined}
-      startWidget={startNode ?? undefined}
-      endWidget={endNode ?? undefined}
-      {...props}
-    >
+    <CenterBox ref={setCenterBoxRef} {...props}>
       {start
         ? React.cloneElement(start, {
-            ref: startChildRef,
+            ref: setStartRef,
           })
         : null}
       {children
         ? React.cloneElement(children, {
-            ref: centerChildRef,
+            ref: setCenterRef,
           })
         : null}
       {end
         ? React.cloneElement(end, {
-            ref: endChildRef,
+            ref: setEndRef,
           })
         : null}
     </CenterBox>

@@ -5,8 +5,8 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
   createNode() {
     return new Gtk.Entry({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "activatesDefault":
         if (this.node.getActivatesDefault !== newValue) {

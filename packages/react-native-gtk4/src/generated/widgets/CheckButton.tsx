@@ -19,8 +19,8 @@ export default class CheckButton<
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "active":
         if (this.node.getActive !== newValue) {
@@ -59,7 +59,7 @@ export default class CheckButton<
         break
       case "actionTarget":
         if (this.node.actionTarget !== newValue) {
-          this.node.setActionTargetValue(newValue)
+          this.node.actionTarget = newValue
         }
         break
       case "onActivate":

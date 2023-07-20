@@ -1,4 +1,4 @@
-import { Gtk, Gdk, GLib, Gio, Pango } from "../index.js"
+import { Gtk, Gdk, GLib, Gio, GObject, Pango } from "../index.js"
 import React from "react"
 
 declare global {
@@ -229,7 +229,7 @@ declare global {
         listFactory?: Gtk.ListItemFactory
         model?: Gio.ListModel
         selected?: number
-        selectedItem?: any
+        selectedItem?: GObject.Object
         showArrow?: boolean
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: (node: Gtk.DropDown) => void
@@ -1642,7 +1642,7 @@ declare global {
         hideExpander?: boolean
         indentForDepth?: boolean
         indentForIcon?: boolean
-        item?: any
+        item?: GObject.Object
         listRow?: Gtk.TreeListRow
         accessibleRole?: Gtk.AccessibleRole
         onNotifyChild?: (node: Gtk.TreeExpander) => void

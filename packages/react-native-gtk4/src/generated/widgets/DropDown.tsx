@@ -7,8 +7,8 @@ export default class DropDown<
   createNode() {
     return new Gtk.DropDown({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "enableSearch":
         if (this.node.getEnableSearch !== newValue) {

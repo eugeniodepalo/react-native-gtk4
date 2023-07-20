@@ -2,10 +2,6 @@ export function camelize(str: string) {
   return str.replace(/[-_]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""))
 }
 
-export function underscore(str: string) {
-  return str.replace("-", "_")
-}
-
 const typeMap = {
   utf8: "string",
   gboolean: "boolean",
@@ -16,7 +12,6 @@ const typeMap = {
   filename: "string",
   none: "void",
   "utf8[]": "string[]",
-  "GObject.Object": "any",
 }
 
 export function fromCtype(ctype: string) {

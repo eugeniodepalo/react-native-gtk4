@@ -7,8 +7,8 @@ export default class ProgressBar<
   createNode() {
     return new Gtk.ProgressBar({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "ellipsize":
         if (this.node.getEllipsize !== newValue) {

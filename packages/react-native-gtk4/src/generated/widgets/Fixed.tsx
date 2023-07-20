@@ -5,8 +5,8 @@ export default class Fixed<T extends Gtk.Fixed = Gtk.Fixed> extends Widget<T> {
   createNode() {
     return new Gtk.Fixed({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "accessibleRole":
         if (this.node.getAccessibleRole !== newValue) {

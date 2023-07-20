@@ -17,8 +17,8 @@ export default class Frame<T extends Gtk.Frame = Gtk.Frame> extends Widget<T> {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "label":
         if (this.node.getLabel !== newValue) {

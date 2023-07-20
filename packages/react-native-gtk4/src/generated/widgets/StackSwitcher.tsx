@@ -7,8 +7,8 @@ export default class StackSwitcher<
   createNode() {
     return new Gtk.StackSwitcher({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "stack":
         if (this.node.getStack !== newValue) {

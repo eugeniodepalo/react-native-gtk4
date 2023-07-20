@@ -8,7 +8,7 @@
     "build": "tsc",
     "lint": "eslint src",
     "test": "jest",
-    "codegen": "rm -rf src/generated && pnpm run --filter codegen generate &&  mv ../codegen/generated src/"
+    "codegen": "./bin/codegen"
   },
   "repository": {
     "type": "git",

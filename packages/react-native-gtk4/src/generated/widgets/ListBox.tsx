@@ -7,8 +7,8 @@ export default class ListBox<
   createNode() {
     return new Gtk.ListBox({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "acceptUnpairedRelease":
         if (this.node.acceptUnpairedRelease !== newValue) {

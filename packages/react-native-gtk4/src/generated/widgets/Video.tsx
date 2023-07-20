@@ -5,8 +5,8 @@ export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
   createNode() {
     return new Gtk.Video({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "autoplay":
         if (this.node.getAutoplay !== newValue) {

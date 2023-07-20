@@ -7,8 +7,8 @@ export default class FontDialogButton<
   createNode() {
     return new Gtk.FontDialogButton({}) as T
   }
-  set(propName: string, newValue: any, oldValue: any) {
-    super.set(propName, newValue, oldValue)
+  set(propName: string, newValue: any) {
+    super.set(propName, newValue)
     switch (propName) {
       case "dialog":
         if (this.node.getDialog !== newValue) {

@@ -1,3 +1,4 @@
+import "./overrides/Window.js"
 import "./overrides/ApplicationWindow.js"
 import "./overrides/Box.js"
 import "./overrides/FlowBox.js"

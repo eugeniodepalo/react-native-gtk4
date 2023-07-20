@@ -6,6 +6,7 @@ import {
   withApplicationContext,
 } from "./components/ApplicationProvider.js"
 import Widget from "./widget.js"
+import { ApplicationWindow, Window } from "./generated/widgets.js"
 
 export const MAX_TIMEOUT = 2147483647
 
@@ -66,7 +67,7 @@ export default class Container {
   }
 
   appendChild(child: Widget) {
-    if (this.isApplicationWindow(child)) {
+    if (child instanceof ApplicationWindow) {
       child.node.setApplication(this.application)
     }
 
@@ -82,7 +83,7 @@ export default class Container {
 
     this.children.splice(index, 1)
 
-    if (this.isApplicationWindow(child)) {
+    if (child instanceof Window) {
       child.node.destroy()
     }
   }
@@ -96,14 +97,8 @@ export default class Container {
       this.children.splice(index, 0, child)
     }
 
-    if (this.isApplicationWindow(child)) {
+    if (child instanceof ApplicationWindow) {
       child.node.setApplication(this.application)
     }
-  }
-
-  private isApplicationWindow(
-    widget: Widget
-  ): widget is Widget<Gtk.ApplicationWindow> {
-    return widget.node instanceof Gtk.ApplicationWindow
   }
 }

@@ -10,6 +10,7 @@ import {
 export default function App() {
   const [count, setCount] = useState(0)
   const { quit } = useApplication()
+  const [showDecrementWindow, setShowDecrementWindow] = useState(true)
 
   return (
     <>
@@ -24,17 +25,25 @@ export default function App() {
           />
         </Box>
       </ApplicationWindow>
-      <ApplicationWindow title="Decrement">
-        <Box orientation={Gtk.Orientation.VERTICAL}>
-          <>Shared counter: {count}</>
-          <Button
-            label="Decrement Counter"
-            onClicked={() => {
-              setCount((count) => count - 1)
-            }}
-          />
-        </Box>
-      </ApplicationWindow>
+      {showDecrementWindow ? (
+        <ApplicationWindow
+          title="Decrement"
+          onCloseRequest={() => {
+            setShowDecrementWindow(false)
+            return true
+          }}
+        >
+          <Box orientation={Gtk.Orientation.VERTICAL}>
+            <>Shared counter: {count}</>
+            <Button
+              label="Decrement Counter"
+              onClicked={() => {
+                setCount((count) => count - 1)
+              }}
+            />
+          </Box>
+        </ApplicationWindow>
+      ) : null}
     </>
   )
 }

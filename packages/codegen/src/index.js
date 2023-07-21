@@ -17,7 +17,7 @@ async function main() {
 
     writeGeneratedFile(
       `__tests__/generated/widgets/${widgetClass.name}.test.js`,
-      templates.widgetTest(widgetClass)
+      templates.widgetTest(widgetClass, gir)
     )
   }
 

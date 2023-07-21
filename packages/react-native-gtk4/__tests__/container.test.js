@@ -62,13 +62,9 @@ describe("Container", () => {
     jest.spyOn(global, "setTimeout")
     application = new Gtk.Application()
     container = new Container(application)
-    const element = React.createElement("SomeWidget")
+    application.on.mockImplementation((_e, fn) => fn())
 
-    application.on.mockImplementation((_event, callback) => {
-      callback()
-    })
-
-    container.render(element)
+    container.render(React.createElement("SomeWidget"))
 
     expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), MAX_TIMEOUT)
     expect(application.run).toHaveBeenCalled()

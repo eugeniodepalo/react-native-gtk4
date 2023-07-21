@@ -1,10 +1,15 @@
 import { WidgetProperty } from "./widgetProperty.js"
 import { WidgetSignal } from "./widgetSignal.js"
+import { WidgetType } from "./widgetType.js"
 
 export class WidgetInterface {
   constructor(interface_, gir) {
     this.interface_ = interface_
     this.gir = gir
+  }
+
+  get type() {
+    return new WidgetType(this.interface_.$.name, this.gir)
   }
 
   get props() {

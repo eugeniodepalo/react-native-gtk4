@@ -121,7 +121,6 @@ declare global {
       }
       AspectFrame: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.AspectFrame>
-        child?: Gtk.Widget
         obeyChild?: boolean
         ratio?: number
         xalign?: number
@@ -162,7 +161,6 @@ declare global {
       }
       Button: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Button>
-        child?: Gtk.Widget
         hasFrame?: boolean
         iconName?: string
         label?: string
@@ -238,7 +236,6 @@ declare global {
       CheckButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.CheckButton>
         active?: boolean
-        child?: Gtk.Widget
         group?: Gtk.CheckButton
         inconsistent?: boolean
         label?: string
@@ -348,7 +345,6 @@ declare global {
         active?: number
         activeId?: string
         buttonSensitivity?: Gtk.SensitivityType
-        child?: Gtk.Widget
         entryTextColumn?: number
         hasEntry?: boolean
         hasFrame?: boolean
@@ -399,7 +395,6 @@ declare global {
       }
       DragIcon: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.DragIcon>
-        child?: Gtk.Widget
         accessibleRole?: Gtk.AccessibleRole
         onNotifyChild?: (node: Gtk.DragIcon) => void
         onNotifyAccessibleRole?: (node: Gtk.DragIcon) => void
@@ -595,7 +590,6 @@ declare global {
       }
       Expander: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Expander>
-        child?: Gtk.Widget
         expanded?: boolean
         label?: string
         labelWidget?: Gtk.Widget
@@ -705,7 +699,6 @@ declare global {
       }
       FlowBoxChild: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.FlowBoxChild>
-        child?: Gtk.Widget
         accessibleRole?: Gtk.AccessibleRole
         onActivate?: (node: Gtk.FlowBoxChild) => void
         onNotifyChild?: (node: Gtk.FlowBoxChild) => void
@@ -806,7 +799,6 @@ declare global {
       }
       Frame: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Frame>
-        child?: Gtk.Widget
         label?: string
         labelWidget?: Gtk.Widget
         labelXalign?: number
@@ -986,33 +978,6 @@ declare global {
         onNotifyShowCloseButton?: (node: Gtk.InfoBar) => void
         onNotifyAccessibleRole?: (node: Gtk.InfoBar) => void
       }
-      Inscription: JSX.IntrinsicElements["Widget"] & {
-        ref?: React.Ref<Gtk.Inscription>
-        attributes?: Pango.AttrList
-        markup?: string
-        minChars?: number
-        minLines?: number
-        natChars?: number
-        natLines?: number
-        text?: string
-        textOverflow?: Gtk.InscriptionOverflow
-        wrapMode?: Pango.WrapMode
-        xalign?: number
-        yalign?: number
-        accessibleRole?: Gtk.AccessibleRole
-        onNotifyAttributes?: (node: Gtk.Inscription) => void
-        onNotifyMarkup?: (node: Gtk.Inscription) => void
-        onNotifyMinChars?: (node: Gtk.Inscription) => void
-        onNotifyMinLines?: (node: Gtk.Inscription) => void
-        onNotifyNatChars?: (node: Gtk.Inscription) => void
-        onNotifyNatLines?: (node: Gtk.Inscription) => void
-        onNotifyText?: (node: Gtk.Inscription) => void
-        onNotifyTextOverflow?: (node: Gtk.Inscription) => void
-        onNotifyWrapMode?: (node: Gtk.Inscription) => void
-        onNotifyXalign?: (node: Gtk.Inscription) => void
-        onNotifyYalign?: (node: Gtk.Inscription) => void
-        onNotifyAccessibleRole?: (node: Gtk.Inscription) => void
-      }
       Label: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Label>
         attributes?: Pango.AttrList
@@ -1143,7 +1108,6 @@ declare global {
       ListBoxRow: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ListBoxRow>
         activatable?: boolean
-        child?: Gtk.Widget
         selectable?: boolean
         accessibleRole?: Gtk.AccessibleRole
         actionName?: string
@@ -1214,7 +1178,6 @@ declare global {
         ref?: React.Ref<Gtk.MenuButton>
         active?: boolean
         alwaysShowArrow?: boolean
-        child?: Gtk.Widget
         direction?: Gtk.ArrowType
         hasFrame?: boolean
         iconName?: string
@@ -1311,7 +1274,6 @@ declare global {
       }
       Overlay: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Overlay>
-        child?: Gtk.Widget
         accessibleRole?: Gtk.AccessibleRole
         onGetChildPosition?: (
           node: Gtk.Overlay,
@@ -1420,7 +1382,6 @@ declare global {
         ref?: React.Ref<Gtk.Popover>
         autohide?: boolean
         cascadePopdown?: boolean
-        child?: Gtk.Widget
         defaultWidget?: Gtk.Widget
         hasArrow?: boolean
         mnemonicsVisible?: boolean
@@ -1523,7 +1484,6 @@ declare global {
       }
       Revealer: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Revealer>
-        child?: Gtk.Widget
         revealChild?: boolean
         transitionDuration?: number
         transitionType?: Gtk.RevealerTransitionType
@@ -1578,7 +1538,6 @@ declare global {
       }
       ScrolledWindow: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ScrolledWindow>
-        child?: Gtk.Widget
         hadjustment?: Gtk.Adjustment
         hasFrame?: boolean
         hscrollbarPolicy?: Gtk.PolicyType
@@ -1630,7 +1589,6 @@ declare global {
       }
       SearchBar: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.SearchBar>
-        child?: Gtk.Widget
         keyCaptureWidget?: Gtk.Widget
         searchModeEnabled?: boolean
         showCloseButton?: boolean
@@ -2096,7 +2054,6 @@ declare global {
       }
       TreeExpander: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.TreeExpander>
-        child?: Gtk.Widget
         hideExpander?: boolean
         indentForDepth?: boolean
         indentForIcon?: boolean
@@ -2218,7 +2175,6 @@ declare global {
       }
       Viewport: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Viewport>
-        child?: Gtk.Widget
         scrollToFocus?: boolean
         accessibleRole?: Gtk.AccessibleRole
         hadjustment?: Gtk.Adjustment
@@ -2342,7 +2298,6 @@ declare global {
       Window: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Window>
         application?: Gtk.Application
-        child?: Gtk.Widget
         decorated?: boolean
         defaultHeight?: number
         defaultWidget?: Gtk.Widget
@@ -2408,7 +2363,6 @@ declare global {
       }
       WindowHandle: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.WindowHandle>
-        child?: Gtk.Widget
         accessibleRole?: Gtk.AccessibleRole
         onNotifyChild?: (node: Gtk.WindowHandle) => void
         onNotifyAccessibleRole?: (node: Gtk.WindowHandle) => void

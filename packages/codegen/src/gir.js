@@ -32,11 +32,70 @@ export class Gir {
   }
 
   get classes() {
-    return this.namespace.class_
+    return this.namespace.class_.filter((c) => c.$.name !== "Inscription")
   }
 
   get interfaces() {
     return this.namespace.interface
+  }
+
+  get enumerations() {
+    return [
+      ...this.namespace.enumeration,
+      {
+        $: {
+          name: "Pango.EllipsizeMode",
+        },
+        member: [
+          {
+            $: {
+              name: "NONE",
+            },
+          },
+          {
+            $: {
+              name: "START",
+            },
+          },
+          {
+            $: {
+              name: "MIDDLE",
+            },
+          },
+          {
+            $: {
+              name: "END",
+            },
+          },
+        ],
+      },
+      {
+        $: {
+          name: "Pango.WrapMode",
+        },
+        member: [
+          {
+            $: {
+              name: "WORD",
+            },
+          },
+          {
+            $: {
+              name: "CHAR",
+            },
+          },
+          {
+            $: {
+              name: "WORD_CHAR",
+            },
+          },
+        ],
+      },
+    ]
+  }
+
+  get bitfields() {
+    return this.namespace.bitfield
   }
 
   get namespace() {

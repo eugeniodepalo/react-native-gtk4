@@ -7,17 +7,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      DISPLAY: ":99"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: sudo apt-get update
-      - run: sudo apt-get install -y libgtk-4-dev xvfb
-      - run: Xvfb :99 &
-      - run: npm install -g pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run test
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/build-push-action@v4
+        with:
+          context: packages/react-native-gtk4
+          tags: test
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - run: docker run --rm test
   publish:
     needs: test
     if: github.event_name == 'release'
@@ -29,8 +30,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           registry-url: https://registry.npmjs.org/
-      - run: sudo apt-get update
-      - run: sudo apt-get install -y libgtk-4-dev
       - run: npm install -g pnpm
       - run: pnpm install --frozen-lockfile
       - run: NODE_ENV=production pnpm run build

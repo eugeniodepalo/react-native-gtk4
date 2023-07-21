@@ -21,7 +21,7 @@ export class WidgetProperty {
   }
 
   get isReadonly() {
-    return !(this.prop.$.writable === "1") && !this.setter
+    return this.prop.$.writable !== "1" && !this.setter
   }
 
   get rawName() {

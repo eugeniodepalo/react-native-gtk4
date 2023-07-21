@@ -71,13 +71,15 @@ export class WidgetClass {
   }
 
   get isContainer() {
-    return (this.class_.method || []).find(
+    return (this.class_.method || []).some(
       (method) => method.$.name === "set_child"
     )
   }
 
   get writableProps() {
-    return this.props.filter((prop) => !prop.isReadonly)
+    return this.props.filter(
+      (prop) => !prop.isReadonly && prop.name !== "child"
+    )
   }
 
   get settableProps() {
@@ -89,9 +91,14 @@ export class WidgetClass {
   }
 
   get props() {
-    const props = [...(this.class_.property || [])].map(
-      (prop) => new WidgetProperty(prop, this.gir)
-    )
+    const props = [...(this.class_.property || [])].map((prop) => {
+      if (this.name === "Notebook" && prop.$.name === "page") {
+        prop.$.getter = "get_current_page"
+        prop.$.setter = "set_current_page"
+      }
+
+      return new WidgetProperty(prop, this.gir)
+    })
 
     for (const iface of this.interfaces) {
       for (const prop of iface.props) {

@@ -45,29 +45,19 @@ export default function (widgetClass) {
   ts += `  switch (propName) {\n`
 
   for (const prop of widgetClass.settableProps) {
-    if (widgetClass.isContainer && prop.name === "child") {
-      continue
-    }
-
     ts += `case "${prop.name}":\n`
 
-    if (prop.name === "page" && widgetClass.name === "Notebook") {
-      ts += `if (this.node.getCurrentPage() !== newValue) {\n`
-      ts += `  this.node.setCurrentPage(newValue)\n`
-    } else {
-      const getter = prop.getter
-        ? `this.node.${prop.getter}()`
-        : `this.node.${prop.name}`
+    const getter = prop.getter
+      ? `this.node.${prop.getter}()`
+      : `this.node.${prop.name}`
 
-      const setter = prop.setter
-        ? `this.node.${prop.setter}(newValue)`
-        : `this.node.${prop.name} = newValue`
+    const setter = prop.setter
+      ? `this.node.${prop.setter}(newValue)`
+      : `this.node.${prop.name} = newValue`
 
-      ts += `if (${getter} !== newValue) {\n`
-      ts += `  ${setter}\n`
-    }
-
-    ts += `  }\n`
+    ts += `if (${getter} !== newValue) {\n`
+    ts += `  ${setter}\n`
+    ts += `}\n`
     ts += `break\n`
   }
 

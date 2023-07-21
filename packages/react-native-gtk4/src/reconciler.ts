@@ -10,8 +10,8 @@ type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
 type WidgetConstructor = new (props: Record<string, any>) => AnyWidget
 
-const definedProps = (obj: Record<string, any>) =>
-  Object.keys(obj).reduce(
+function definedProps(obj: Record<string, any>) {
+  return Object.keys(obj).reduce(
     (acc, key) => {
       if (obj[key] !== undefined) {
         acc[key] = obj[key]
@@ -20,6 +20,7 @@ const definedProps = (obj: Record<string, any>) =>
     },
     {} as Record<string, any>
   )
+}
 
 const hostConfig: HostConfig<
   ElementType,

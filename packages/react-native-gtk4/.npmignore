@@ -1,7 +1,12 @@
 /__tests__
-/src
-/codegen
-/pnpm-lock.yaml
-/jest.config.ts
+/.dockerignore
 /.eslintrc.json
+/babel.config.js
+/bin/codegen
+/codegen
+/Dockerfile
+/jest.config.js
+/jest.setup.js
+/pnpm-lock.yaml
+/src
 tsconfig.json

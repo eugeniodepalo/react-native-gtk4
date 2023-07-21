@@ -16,37 +16,42 @@ export default class SearchEntry<
         }
         break
       case "placeholderText":
-        if (this.node.placeholderText !== newValue) {
-          this.node.placeholderText = newValue
+        if (this.node.getPlaceholderText() !== newValue) {
+          this.node.setPlaceholderText(newValue)
+        }
+        break
+      case "searchDelay":
+        if (this.node.getSearchDelay() !== newValue) {
+          this.node.setSearchDelay(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "editable":
-        if (this.node.getEditable !== newValue) {
+        if (this.node.getEditable() !== newValue) {
           this.node.setEditable(newValue)
         }
         break
       case "enableUndo":
-        if (this.node.getEnableUndo !== newValue) {
+        if (this.node.getEnableUndo() !== newValue) {
           this.node.setEnableUndo(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars() !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "text":
-        if (this.node.getText !== newValue) {
+        if (this.node.getText() !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "widthChars":
-        if (this.node.getWidthChars !== newValue) {
+        if (this.node.getWidthChars() !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break
@@ -88,6 +93,9 @@ export default class SearchEntry<
       case "onNotifyPlaceholderText":
         this.setHandler("notify::placeholder-text", newValue)
         break
+      case "onNotifySearchDelay":
+        this.setHandler("notify::search-delay", newValue)
+        break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
@@ -114,6 +122,8 @@ export default class SearchEntry<
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
+        break
+      default:
         break
     }
   }

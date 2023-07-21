@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
+import AnyWidget from "../../widget.js"
 
 export default class Popover<
   T extends Gtk.Popover = Gtk.Popover,
@@ -7,15 +8,15 @@ export default class Popover<
   createNode() {
     return new Gtk.Popover({}) as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
@@ -23,12 +24,12 @@ export default class Popover<
     super.set(propName, newValue)
     switch (propName) {
       case "autohide":
-        if (this.node.getAutohide !== newValue) {
+        if (this.node.getAutohide() !== newValue) {
           this.node.setAutohide(newValue)
         }
         break
       case "cascadePopdown":
-        if (this.node.getCascadePopdown !== newValue) {
+        if (this.node.getCascadePopdown() !== newValue) {
           this.node.setCascadePopdown(newValue)
         }
         break
@@ -38,27 +39,27 @@ export default class Popover<
         }
         break
       case "hasArrow":
-        if (this.node.getHasArrow !== newValue) {
+        if (this.node.getHasArrow() !== newValue) {
           this.node.setHasArrow(newValue)
         }
         break
       case "mnemonicsVisible":
-        if (this.node.getMnemonicsVisible !== newValue) {
+        if (this.node.getMnemonicsVisible() !== newValue) {
           this.node.setMnemonicsVisible(newValue)
         }
         break
       case "pointingTo":
-        if (this.node.getPointingTo !== newValue) {
+        if (this.node.getPointingTo() !== newValue) {
           this.node.setPointingTo(newValue)
         }
         break
       case "position":
-        if (this.node.getPosition !== newValue) {
+        if (this.node.getPosition() !== newValue) {
           this.node.setPosition(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -94,6 +95,8 @@ export default class Popover<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

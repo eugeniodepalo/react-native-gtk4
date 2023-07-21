@@ -9,22 +9,22 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "activatesDefault":
-        if (this.node.getActivatesDefault !== newValue) {
+        if (this.node.getActivatesDefault() !== newValue) {
           this.node.setActivatesDefault(newValue)
         }
         break
       case "attributes":
-        if (this.node.getAttributes !== newValue) {
+        if (this.node.getAttributes() !== newValue) {
           this.node.setAttributes(newValue)
         }
         break
       case "buffer":
-        if (this.node.getBuffer !== newValue) {
+        if (this.node.getBuffer() !== newValue) {
           this.node.setBuffer(newValue)
         }
         break
       case "completion":
-        if (this.node.getCompletion !== newValue) {
+        if (this.node.getCompletion() !== newValue) {
           this.node.setCompletion(newValue)
         }
         break
@@ -34,12 +34,12 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "extraMenu":
-        if (this.node.getExtraMenu !== newValue) {
+        if (this.node.getExtraMenu() !== newValue) {
           this.node.setExtraMenu(newValue)
         }
         break
       case "hasFrame":
-        if (this.node.getHasFrame !== newValue) {
+        if (this.node.getHasFrame() !== newValue) {
           this.node.setHasFrame(newValue)
         }
         break
@@ -49,17 +49,17 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "inputHints":
-        if (this.node.getInputHints !== newValue) {
+        if (this.node.getInputHints() !== newValue) {
           this.node.setInputHints(newValue)
         }
         break
       case "inputPurpose":
-        if (this.node.getInputPurpose !== newValue) {
+        if (this.node.getInputPurpose() !== newValue) {
           this.node.setInputPurpose(newValue)
         }
         break
       case "invisibleChar":
-        if (this.node.getInvisibleChar !== newValue) {
+        if (this.node.getInvisibleChar() !== newValue) {
           this.node.setInvisibleChar(newValue)
         }
         break
@@ -69,17 +69,17 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "maxLength":
-        if (this.node.getMaxLength !== newValue) {
+        if (this.node.getMaxLength() !== newValue) {
           this.node.setMaxLength(newValue)
         }
         break
       case "overwriteMode":
-        if (this.node.getOverwriteMode !== newValue) {
+        if (this.node.getOverwriteMode() !== newValue) {
           this.node.setOverwriteMode(newValue)
         }
         break
       case "placeholderText":
-        if (this.node.getPlaceholderText !== newValue) {
+        if (this.node.getPlaceholderText() !== newValue) {
           this.node.setPlaceholderText(newValue)
         }
         break
@@ -119,12 +119,12 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "progressFraction":
-        if (this.node.getProgressFraction !== newValue) {
+        if (this.node.getProgressFraction() !== newValue) {
           this.node.setProgressFraction(newValue)
         }
         break
       case "progressPulseStep":
-        if (this.node.getProgressPulseStep !== newValue) {
+        if (this.node.getProgressPulseStep() !== newValue) {
           this.node.setProgressPulseStep(newValue)
         }
         break
@@ -169,7 +169,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "tabs":
-        if (this.node.getTabs !== newValue) {
+        if (this.node.getTabs() !== newValue) {
           this.node.setTabs(newValue)
         }
         break
@@ -179,12 +179,12 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "visibility":
-        if (this.node.getVisibility !== newValue) {
+        if (this.node.getVisibility() !== newValue) {
           this.node.setVisibility(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -194,27 +194,27 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "editable":
-        if (this.node.getEditable !== newValue) {
+        if (this.node.getEditable() !== newValue) {
           this.node.setEditable(newValue)
         }
         break
       case "enableUndo":
-        if (this.node.getEnableUndo !== newValue) {
+        if (this.node.getEnableUndo() !== newValue) {
           this.node.setEnableUndo(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars() !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "text":
-        if (this.node.getText !== newValue) {
+        if (this.node.getText() !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "widthChars":
-        if (this.node.getWidthChars !== newValue) {
+        if (this.node.getWidthChars() !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break
@@ -393,6 +393,8 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
+        break
+      default:
         break
     }
   }

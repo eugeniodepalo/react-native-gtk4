@@ -14,27 +14,27 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
         }
         break
       case "gicon":
-        if (this.node.getGicon !== newValue) {
+        if (this.node.getGicon() !== newValue) {
           this.node.gicon = newValue
         }
         break
       case "iconName":
-        if (this.node.getIconName !== newValue) {
+        if (this.node.getIconName() !== newValue) {
           this.node.iconName = newValue
         }
         break
       case "iconSize":
-        if (this.node.getIconSize !== newValue) {
+        if (this.node.getIconSize() !== newValue) {
           this.node.setIconSize(newValue)
         }
         break
       case "paintable":
-        if (this.node.getPaintable !== newValue) {
+        if (this.node.getPaintable() !== newValue) {
           this.node.paintable = newValue
         }
         break
       case "pixelSize":
-        if (this.node.getPixelSize !== newValue) {
+        if (this.node.getPixelSize() !== newValue) {
           this.node.setPixelSize(newValue)
         }
         break
@@ -49,7 +49,7 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -82,6 +82,8 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

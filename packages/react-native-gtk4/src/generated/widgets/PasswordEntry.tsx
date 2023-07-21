@@ -16,7 +16,7 @@ export default class PasswordEntry<
         }
         break
       case "extraMenu":
-        if (this.node.getExtraMenu !== newValue) {
+        if (this.node.getExtraMenu() !== newValue) {
           this.node.setExtraMenu(newValue)
         }
         break
@@ -26,37 +26,37 @@ export default class PasswordEntry<
         }
         break
       case "showPeekIcon":
-        if (this.node.getShowPeekIcon !== newValue) {
+        if (this.node.getShowPeekIcon() !== newValue) {
           this.node.setShowPeekIcon(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "editable":
-        if (this.node.getEditable !== newValue) {
+        if (this.node.getEditable() !== newValue) {
           this.node.setEditable(newValue)
         }
         break
       case "enableUndo":
-        if (this.node.getEnableUndo !== newValue) {
+        if (this.node.getEnableUndo() !== newValue) {
           this.node.setEnableUndo(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars() !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "text":
-        if (this.node.getText !== newValue) {
+        if (this.node.getText() !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "widthChars":
-        if (this.node.getWidthChars !== newValue) {
+        if (this.node.getWidthChars() !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break
@@ -115,6 +115,8 @@ export default class PasswordEntry<
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
+        break
+      default:
         break
     }
   }

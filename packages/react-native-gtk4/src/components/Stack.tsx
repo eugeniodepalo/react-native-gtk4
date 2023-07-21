@@ -6,8 +6,7 @@ import React, {
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-
-const Stack = "Stack"
+import { Stack } from "../generated/intrinsics.js"
 
 interface StackContext {
   node: Gtk.Stack | null

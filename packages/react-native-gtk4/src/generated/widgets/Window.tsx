@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
+import AnyWidget from "../../widget.js"
 
 export default class Window<
   T extends Gtk.Window = Gtk.Window,
@@ -7,15 +8,15 @@ export default class Window<
   createNode() {
     return new Gtk.Window({}) as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
@@ -23,12 +24,12 @@ export default class Window<
     super.set(propName, newValue)
     switch (propName) {
       case "application":
-        if (this.node.getApplication !== newValue) {
+        if (this.node.getApplication() !== newValue) {
           this.node.setApplication(newValue)
         }
         break
       case "decorated":
-        if (this.node.getDecorated !== newValue) {
+        if (this.node.getDecorated() !== newValue) {
           this.node.setDecorated(newValue)
         }
         break
@@ -38,7 +39,7 @@ export default class Window<
         }
         break
       case "defaultWidget":
-        if (this.node.getDefaultWidget !== newValue) {
+        if (this.node.getDefaultWidget() !== newValue) {
           this.node.setDefaultWidget(newValue)
         }
         break
@@ -48,12 +49,12 @@ export default class Window<
         }
         break
       case "deletable":
-        if (this.node.getDeletable !== newValue) {
+        if (this.node.getDeletable() !== newValue) {
           this.node.setDeletable(newValue)
         }
         break
       case "destroyWithParent":
-        if (this.node.getDestroyWithParent !== newValue) {
+        if (this.node.getDestroyWithParent() !== newValue) {
           this.node.setDestroyWithParent(newValue)
         }
         break
@@ -63,7 +64,7 @@ export default class Window<
         }
         break
       case "focusVisible":
-        if (this.node.getFocusVisible !== newValue) {
+        if (this.node.getFocusVisible() !== newValue) {
           this.node.setFocusVisible(newValue)
         }
         break
@@ -78,17 +79,17 @@ export default class Window<
         }
         break
       case "handleMenubarAccel":
-        if (this.node.getHandleMenubarAccel !== newValue) {
+        if (this.node.getHandleMenubarAccel() !== newValue) {
           this.node.setHandleMenubarAccel(newValue)
         }
         break
       case "hideOnClose":
-        if (this.node.getHideOnClose !== newValue) {
+        if (this.node.getHideOnClose() !== newValue) {
           this.node.setHideOnClose(newValue)
         }
         break
       case "iconName":
-        if (this.node.getIconName !== newValue) {
+        if (this.node.getIconName() !== newValue) {
           this.node.setIconName(newValue)
         }
         break
@@ -98,17 +99,17 @@ export default class Window<
         }
         break
       case "mnemonicsVisible":
-        if (this.node.getMnemonicsVisible !== newValue) {
+        if (this.node.getMnemonicsVisible() !== newValue) {
           this.node.setMnemonicsVisible(newValue)
         }
         break
       case "modal":
-        if (this.node.getModal !== newValue) {
+        if (this.node.getModal() !== newValue) {
           this.node.setModal(newValue)
         }
         break
       case "resizable":
-        if (this.node.getResizable !== newValue) {
+        if (this.node.getResizable() !== newValue) {
           this.node.setResizable(newValue)
         }
         break
@@ -118,22 +119,22 @@ export default class Window<
         }
         break
       case "title":
-        if (this.node.getTitle !== newValue) {
+        if (this.node.getTitle() !== newValue) {
           this.node.setTitle(newValue)
         }
         break
       case "titlebar":
-        if (this.node.getTitlebar !== newValue) {
+        if (this.node.getTitlebar() !== newValue) {
           this.node.setTitlebar(newValue)
         }
         break
       case "transientFor":
-        if (this.node.getTransientFor !== newValue) {
+        if (this.node.getTransientFor() !== newValue) {
           this.node.setTransientFor(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -226,6 +227,8 @@ export default class Window<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

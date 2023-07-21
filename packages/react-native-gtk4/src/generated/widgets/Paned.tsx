@@ -9,12 +9,12 @@ export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "endChild":
-        if (this.node.getEndChild !== newValue) {
+        if (this.node.getEndChild() !== newValue) {
           this.node.setEndChild(newValue)
         }
         break
       case "position":
-        if (this.node.getPosition !== newValue) {
+        if (this.node.getPosition() !== newValue) {
           this.node.setPosition(newValue)
         }
         break
@@ -24,42 +24,42 @@ export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
         }
         break
       case "resizeEndChild":
-        if (this.node.getResizeEndChild !== newValue) {
+        if (this.node.getResizeEndChild() !== newValue) {
           this.node.setResizeEndChild(newValue)
         }
         break
       case "resizeStartChild":
-        if (this.node.getResizeStartChild !== newValue) {
+        if (this.node.getResizeStartChild() !== newValue) {
           this.node.setResizeStartChild(newValue)
         }
         break
       case "shrinkEndChild":
-        if (this.node.getShrinkEndChild !== newValue) {
+        if (this.node.getShrinkEndChild() !== newValue) {
           this.node.setShrinkEndChild(newValue)
         }
         break
       case "shrinkStartChild":
-        if (this.node.getShrinkStartChild !== newValue) {
+        if (this.node.getShrinkStartChild() !== newValue) {
           this.node.setShrinkStartChild(newValue)
         }
         break
       case "startChild":
-        if (this.node.getStartChild !== newValue) {
+        if (this.node.getStartChild() !== newValue) {
           this.node.setStartChild(newValue)
         }
         break
       case "wideHandle":
-        if (this.node.getWideHandle !== newValue) {
+        if (this.node.getWideHandle() !== newValue) {
           this.node.setWideHandle(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.getOrientation !== newValue) {
+        if (this.node.getOrientation() !== newValue) {
           this.node.setOrientation(newValue)
         }
         break
@@ -119,6 +119,8 @@ export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
+        break
+      default:
         break
     }
   }

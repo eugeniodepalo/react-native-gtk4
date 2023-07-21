@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
+import AnyWidget from "../../widget.js"
 
 export default class Viewport<
   T extends Gtk.Viewport = Gtk.Viewport,
@@ -7,15 +8,15 @@ export default class Viewport<
   createNode() {
     return new Gtk.Viewport({}) as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
@@ -23,32 +24,32 @@ export default class Viewport<
     super.set(propName, newValue)
     switch (propName) {
       case "scrollToFocus":
-        if (this.node.getScrollToFocus !== newValue) {
+        if (this.node.getScrollToFocus() !== newValue) {
           this.node.setScrollToFocus(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "hadjustment":
-        if (this.node.getHadjustment !== newValue) {
+        if (this.node.getHadjustment() !== newValue) {
           this.node.setHadjustment(newValue)
         }
         break
       case "hscrollPolicy":
-        if (this.node.getHscrollPolicy !== newValue) {
+        if (this.node.getHscrollPolicy() !== newValue) {
           this.node.setHscrollPolicy(newValue)
         }
         break
       case "vadjustment":
-        if (this.node.getVadjustment !== newValue) {
+        if (this.node.getVadjustment() !== newValue) {
           this.node.setVadjustment(newValue)
         }
         break
       case "vscrollPolicy":
-        if (this.node.getVscrollPolicy !== newValue) {
+        if (this.node.getVscrollPolicy() !== newValue) {
           this.node.setVscrollPolicy(newValue)
         }
         break
@@ -72,6 +73,8 @@ export default class Viewport<
         break
       case "onNotifyVscrollPolicy":
         this.setHandler("notify::vscroll-policy", newValue)
+        break
+      default:
         break
     }
   }

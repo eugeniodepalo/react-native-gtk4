@@ -10,33 +10,38 @@ export default class EditableLabel<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "editing":
+        if (this.node.getEditing() !== newValue) {
+          this.node.editing = newValue
+        }
+        break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "editable":
-        if (this.node.getEditable !== newValue) {
+        if (this.node.getEditable() !== newValue) {
           this.node.setEditable(newValue)
         }
         break
       case "enableUndo":
-        if (this.node.getEnableUndo !== newValue) {
+        if (this.node.getEnableUndo() !== newValue) {
           this.node.setEnableUndo(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars() !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "text":
-        if (this.node.getText !== newValue) {
+        if (this.node.getText() !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "widthChars":
-        if (this.node.getWidthChars !== newValue) {
+        if (this.node.getWidthChars() !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break
@@ -83,6 +88,8 @@ export default class EditableLabel<
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
+        break
+      default:
         break
     }
   }

@@ -11,87 +11,87 @@ export default class AboutDialog<
     super.set(propName, newValue)
     switch (propName) {
       case "artists":
-        if (this.node.getArtists !== newValue) {
+        if (this.node.getArtists() !== newValue) {
           this.node.setArtists(newValue)
         }
         break
       case "authors":
-        if (this.node.getAuthors !== newValue) {
+        if (this.node.getAuthors() !== newValue) {
           this.node.setAuthors(newValue)
         }
         break
       case "comments":
-        if (this.node.getComments !== newValue) {
+        if (this.node.getComments() !== newValue) {
           this.node.setComments(newValue)
         }
         break
       case "copyright":
-        if (this.node.getCopyright !== newValue) {
+        if (this.node.getCopyright() !== newValue) {
           this.node.setCopyright(newValue)
         }
         break
       case "documenters":
-        if (this.node.getDocumenters !== newValue) {
+        if (this.node.getDocumenters() !== newValue) {
           this.node.setDocumenters(newValue)
         }
         break
       case "license":
-        if (this.node.getLicense !== newValue) {
+        if (this.node.getLicense() !== newValue) {
           this.node.setLicense(newValue)
         }
         break
       case "licenseType":
-        if (this.node.getLicenseType !== newValue) {
+        if (this.node.getLicenseType() !== newValue) {
           this.node.setLicenseType(newValue)
         }
         break
       case "logo":
-        if (this.node.getLogo !== newValue) {
+        if (this.node.getLogo() !== newValue) {
           this.node.setLogo(newValue)
         }
         break
       case "logoIconName":
-        if (this.node.getLogoIconName !== newValue) {
+        if (this.node.getLogoIconName() !== newValue) {
           this.node.setLogoIconName(newValue)
         }
         break
       case "programName":
-        if (this.node.getProgramName !== newValue) {
+        if (this.node.getProgramName() !== newValue) {
           this.node.setProgramName(newValue)
         }
         break
       case "systemInformation":
-        if (this.node.getSystemInformation !== newValue) {
+        if (this.node.getSystemInformation() !== newValue) {
           this.node.setSystemInformation(newValue)
         }
         break
       case "translatorCredits":
-        if (this.node.getTranslatorCredits !== newValue) {
+        if (this.node.getTranslatorCredits() !== newValue) {
           this.node.setTranslatorCredits(newValue)
         }
         break
       case "version":
-        if (this.node.getVersion !== newValue) {
+        if (this.node.getVersion() !== newValue) {
           this.node.setVersion(newValue)
         }
         break
       case "website":
-        if (this.node.getWebsite !== newValue) {
+        if (this.node.getWebsite() !== newValue) {
           this.node.setWebsite(newValue)
         }
         break
       case "websiteLabel":
-        if (this.node.getWebsiteLabel !== newValue) {
+        if (this.node.getWebsiteLabel() !== newValue) {
           this.node.setWebsiteLabel(newValue)
         }
         break
       case "wrapLicense":
-        if (this.node.getWrapLicense !== newValue) {
+        if (this.node.getWrapLicense() !== newValue) {
           this.node.setWrapLicense(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -148,6 +148,8 @@ export default class AboutDialog<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

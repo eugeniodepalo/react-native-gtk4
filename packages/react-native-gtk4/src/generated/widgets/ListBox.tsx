@@ -16,22 +16,22 @@ export default class ListBox<
         }
         break
       case "activateOnSingleClick":
-        if (this.node.getActivateOnSingleClick !== newValue) {
+        if (this.node.getActivateOnSingleClick() !== newValue) {
           this.node.setActivateOnSingleClick(newValue)
         }
         break
       case "selectionMode":
-        if (this.node.getSelectionMode !== newValue) {
+        if (this.node.getSelectionMode() !== newValue) {
           this.node.setSelectionMode(newValue)
         }
         break
       case "showSeparators":
-        if (this.node.getShowSeparators !== newValue) {
+        if (this.node.getShowSeparators() !== newValue) {
           this.node.setShowSeparators(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -73,6 +73,8 @@ export default class ListBox<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

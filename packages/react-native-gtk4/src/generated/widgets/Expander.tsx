@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
+import AnyWidget from "../../widget.js"
 
 export default class Expander<
   T extends Gtk.Expander = Gtk.Expander,
@@ -7,15 +8,15 @@ export default class Expander<
   createNode() {
     return new Gtk.Expander({}) as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
@@ -23,37 +24,37 @@ export default class Expander<
     super.set(propName, newValue)
     switch (propName) {
       case "expanded":
-        if (this.node.getExpanded !== newValue) {
+        if (this.node.getExpanded() !== newValue) {
           this.node.setExpanded(newValue)
         }
         break
       case "label":
-        if (this.node.getLabel !== newValue) {
+        if (this.node.getLabel() !== newValue) {
           this.node.setLabel(newValue)
         }
         break
       case "labelWidget":
-        if (this.node.getLabelWidget !== newValue) {
+        if (this.node.getLabelWidget() !== newValue) {
           this.node.setLabelWidget(newValue)
         }
         break
       case "resizeToplevel":
-        if (this.node.getResizeToplevel !== newValue) {
+        if (this.node.getResizeToplevel() !== newValue) {
           this.node.setResizeToplevel(newValue)
         }
         break
       case "useMarkup":
-        if (this.node.getUseMarkup !== newValue) {
+        if (this.node.getUseMarkup() !== newValue) {
           this.node.setUseMarkup(newValue)
         }
         break
       case "useUnderline":
-        if (this.node.getUseUnderline !== newValue) {
+        if (this.node.getUseUnderline() !== newValue) {
           this.node.setUseUnderline(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -83,6 +84,8 @@ export default class Expander<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

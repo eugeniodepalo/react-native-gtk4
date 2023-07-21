@@ -11,17 +11,17 @@ export default class DrawingArea<
     super.set(propName, newValue)
     switch (propName) {
       case "contentHeight":
-        if (this.node.getContentHeight !== newValue) {
+        if (this.node.getContentHeight() !== newValue) {
           this.node.setContentHeight(newValue)
         }
         break
       case "contentWidth":
-        if (this.node.getContentWidth !== newValue) {
+        if (this.node.getContentWidth() !== newValue) {
           this.node.setContentWidth(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -36,6 +36,8 @@ export default class DrawingArea<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

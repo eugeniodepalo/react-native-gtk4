@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
+import AnyWidget from "../../widget.js"
 
 export default class MenuButton<
   T extends Gtk.MenuButton = Gtk.MenuButton,
@@ -7,73 +8,81 @@ export default class MenuButton<
   createNode() {
     return new Gtk.MenuButton({}) as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "active":
+        if (this.node.getActive() !== newValue) {
+          this.node.setActive(newValue)
+        }
+        break
       case "alwaysShowArrow":
-        if (this.node.getAlwaysShowArrow !== newValue) {
+        if (this.node.getAlwaysShowArrow() !== newValue) {
           this.node.setAlwaysShowArrow(newValue)
         }
         break
       case "direction":
-        if (this.node.getDirection !== newValue) {
+        if (this.node.getDirection() !== newValue) {
           this.node.setDirection(newValue)
         }
         break
       case "hasFrame":
-        if (this.node.getHasFrame !== newValue) {
+        if (this.node.getHasFrame() !== newValue) {
           this.node.setHasFrame(newValue)
         }
         break
       case "iconName":
-        if (this.node.getIconName !== newValue) {
+        if (this.node.getIconName() !== newValue) {
           this.node.setIconName(newValue)
         }
         break
       case "label":
-        if (this.node.getLabel !== newValue) {
+        if (this.node.getLabel() !== newValue) {
           this.node.setLabel(newValue)
         }
         break
       case "menuModel":
-        if (this.node.getMenuModel !== newValue) {
+        if (this.node.getMenuModel() !== newValue) {
           this.node.setMenuModel(newValue)
         }
         break
       case "popover":
-        if (this.node.getPopover !== newValue) {
+        if (this.node.getPopover() !== newValue) {
           this.node.setPopover(newValue)
         }
         break
       case "primary":
-        if (this.node.getPrimary !== newValue) {
+        if (this.node.getPrimary() !== newValue) {
           this.node.setPrimary(newValue)
         }
         break
       case "useUnderline":
-        if (this.node.getUseUnderline !== newValue) {
+        if (this.node.getUseUnderline() !== newValue) {
           this.node.setUseUnderline(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "onActivate":
         this.setHandler("activate", newValue)
+        break
+      case "onNotifyActive":
+        this.setHandler("notify::active", newValue)
         break
       case "onNotifyAlwaysShowArrow":
         this.setHandler("notify::always-show-arrow", newValue)
@@ -107,6 +116,8 @@ export default class MenuButton<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

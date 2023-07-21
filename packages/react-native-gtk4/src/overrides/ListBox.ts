@@ -1,5 +1,5 @@
 import ListBox from "../generated/widgets/ListBox.js"
-import Widget from "../widget.js"
+import AnyWidget from "../widget.js"
 
 const parent = {
   appendChild: ListBox.prototype.appendChild,
@@ -7,20 +7,20 @@ const parent = {
   insertBefore: ListBox.prototype.insertBefore,
 }
 
-ListBox.prototype.appendChild = function (this: ListBox, child: Widget) {
+ListBox.prototype.appendChild = function (this: ListBox, child: AnyWidget) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
 }
 
-ListBox.prototype.removeChild = function (this: ListBox, child: Widget) {
+ListBox.prototype.removeChild = function (this: ListBox, child: AnyWidget) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
 ListBox.prototype.insertBefore = function (
   this: ListBox,
-  child: Widget,
-  beforeChild: Widget
+  child: AnyWidget,
+  beforeChild: AnyWidget
 ) {
   const afterIndex = this.children.indexOf(beforeChild) - 1
 

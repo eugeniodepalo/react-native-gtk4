@@ -16,27 +16,27 @@ export default class ListBase<
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "hadjustment":
-        if (this.node.getHadjustment !== newValue) {
+        if (this.node.getHadjustment() !== newValue) {
           this.node.setHadjustment(newValue)
         }
         break
       case "hscrollPolicy":
-        if (this.node.getHscrollPolicy !== newValue) {
+        if (this.node.getHscrollPolicy() !== newValue) {
           this.node.setHscrollPolicy(newValue)
         }
         break
       case "vadjustment":
-        if (this.node.getVadjustment !== newValue) {
+        if (this.node.getVadjustment() !== newValue) {
           this.node.setVadjustment(newValue)
         }
         break
       case "vscrollPolicy":
-        if (this.node.getVscrollPolicy !== newValue) {
+        if (this.node.getVscrollPolicy() !== newValue) {
           this.node.setVscrollPolicy(newValue)
         }
         break
@@ -57,6 +57,8 @@ export default class ListBase<
         break
       case "onNotifyVscrollPolicy":
         this.setHandler("notify::vscroll-policy", newValue)
+        break
+      default:
         break
     }
   }

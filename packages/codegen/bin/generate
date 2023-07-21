@@ -1,10 +1,8 @@
 #!/bin/sh
 
 pnpm run build
-rm -rf generated
-rm -rf tests
-mkdir -p generated/widgets
-mkdir -p tests/widgets
+rm -rf out
+mkdir -p out/src/generated/widgets
+mkdir -p out/__tests__/generated/widgets
 node dist/index.js
-pnpm exec prettier --write 'generated/**/*.{ts,tsx}'
-pnpm exec prettier --write 'tests/**/*.js'
+pnpm exec prettier --write 'out/**/*.{ts,tsx,js}'

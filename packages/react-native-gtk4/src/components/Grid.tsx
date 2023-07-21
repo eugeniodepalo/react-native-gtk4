@@ -7,8 +7,8 @@ import React, {
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
+import { Grid } from "../generated/intrinsics.js"
 
-const Grid = "Grid"
 const GridContext = React.createContext<Gtk.Grid | null>(null)
 
 type Props = JSX.IntrinsicElements["Grid"] & {

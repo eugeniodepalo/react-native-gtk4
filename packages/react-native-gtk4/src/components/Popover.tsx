@@ -6,8 +6,7 @@ import React, {
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-
-const Popover = "Popover"
+import { Popover } from "../generated/intrinsics.js"
 
 type Props = JSX.IntrinsicElements["Popover"] & {
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>

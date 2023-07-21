@@ -16,37 +16,37 @@ export default class Notebook<
         }
         break
       case "groupName":
-        if (this.node.getGroupName !== newValue) {
+        if (this.node.getGroupName() !== newValue) {
           this.node.setGroupName(newValue)
         }
         break
       case "page":
-        if (this.node.getPage !== newValue) {
-          this.node.page = newValue
+        if (this.node.getCurrentPage() !== newValue) {
+          this.node.setCurrentPage(newValue)
         }
         break
       case "scrollable":
-        if (this.node.getScrollable !== newValue) {
+        if (this.node.getScrollable() !== newValue) {
           this.node.setScrollable(newValue)
         }
         break
       case "showBorder":
-        if (this.node.getShowBorder !== newValue) {
+        if (this.node.getShowBorder() !== newValue) {
           this.node.setShowBorder(newValue)
         }
         break
       case "showTabs":
-        if (this.node.getShowTabs !== newValue) {
+        if (this.node.getShowTabs() !== newValue) {
           this.node.setShowTabs(newValue)
         }
         break
       case "tabPos":
-        if (this.node.getTabPos !== newValue) {
+        if (this.node.getTabPos() !== newValue) {
           this.node.setTabPos(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -106,6 +106,8 @@ export default class Notebook<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

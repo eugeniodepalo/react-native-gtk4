@@ -1,8 +1,8 @@
 import Gtk from "@girs/node-gtk-4.0"
 
-export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
+export default abstract class AnyWidget<T extends Gtk.Widget = Gtk.Widget> {
   node: T
-  children: Widget[] = []
+  children: AnyWidget[] = []
   handlers: Record<string, any> = {}
   props: Record<string, any> = {}
 
@@ -22,11 +22,11 @@ export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
 
   commitMount(): void {}
 
-  appendChild(child: Widget): void {
+  appendChild(child: AnyWidget): void {
     this.children.push(child)
   }
 
-  removeChild(child: Widget): void {
+  removeChild(child: AnyWidget): void {
     const index = this.children.indexOf(child)
 
     if (index === -1) {
@@ -36,7 +36,7 @@ export default abstract class Widget<T extends Gtk.Widget = Gtk.Widget> {
     this.children.splice(index, 1)
   }
 
-  insertBefore(child: Widget, beforeChild: Widget): void {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget): void {
     const beforeIndex = this.children.indexOf(beforeChild)
     const index = beforeIndex - 1
 

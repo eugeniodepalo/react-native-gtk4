@@ -63,7 +63,7 @@ export default function App() {
               <Label label="Header Bar 1" />
               <Button label="Header Bar 2" />
             </HeaderBar>
-          ) : undefined
+          ) : null
         }
       >
         <Grid.Container hexpand vexpand>

@@ -9,42 +9,42 @@ export default class Range<T extends Gtk.Range = Gtk.Range> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "adjustment":
-        if (this.node.getAdjustment !== newValue) {
+        if (this.node.getAdjustment() !== newValue) {
           this.node.setAdjustment(newValue)
         }
         break
       case "fillLevel":
-        if (this.node.getFillLevel !== newValue) {
+        if (this.node.getFillLevel() !== newValue) {
           this.node.setFillLevel(newValue)
         }
         break
       case "inverted":
-        if (this.node.getInverted !== newValue) {
+        if (this.node.getInverted() !== newValue) {
           this.node.setInverted(newValue)
         }
         break
       case "restrictToFillLevel":
-        if (this.node.getRestrictToFillLevel !== newValue) {
+        if (this.node.getRestrictToFillLevel() !== newValue) {
           this.node.setRestrictToFillLevel(newValue)
         }
         break
       case "roundDigits":
-        if (this.node.getRoundDigits !== newValue) {
+        if (this.node.getRoundDigits() !== newValue) {
           this.node.setRoundDigits(newValue)
         }
         break
       case "showFillLevel":
-        if (this.node.getShowFillLevel !== newValue) {
+        if (this.node.getShowFillLevel() !== newValue) {
           this.node.setShowFillLevel(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.getOrientation !== newValue) {
+        if (this.node.getOrientation() !== newValue) {
           this.node.setOrientation(newValue)
         }
         break
@@ -83,6 +83,8 @@ export default class Range<T extends Gtk.Range = Gtk.Range> extends Widget<T> {
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
+        break
+      default:
         break
     }
   }

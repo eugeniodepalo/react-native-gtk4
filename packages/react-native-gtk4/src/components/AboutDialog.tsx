@@ -2,8 +2,7 @@ import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import useApplication from "../hooks/useApplication.js"
-
-const AboutDialog = "AboutDialog"
+import { AboutDialog } from "../generated/intrinsics.js"
 
 export interface AboutDialogCreditSection {
   sectionName: string

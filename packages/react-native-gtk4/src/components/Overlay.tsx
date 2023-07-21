@@ -1,8 +1,7 @@
 import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-
-const Overlay = "Overlay"
+import { Overlay } from "../generated/intrinsics.js"
 
 type Props = JSX.IntrinsicElements["Overlay"] & {
   children: React.ReactNode

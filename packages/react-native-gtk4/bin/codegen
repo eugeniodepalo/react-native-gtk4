@@ -3,5 +3,5 @@
 rm -rf src/generated
 rm -rf __tests__/generated
 pnpm run --filter codegen generate
-mv ../codegen/generated src/
-mv ../codegen/tests __tests__/generated
+mv ../codegen/out/src/generated src/
+mv ../codegen/out/__tests__/generated __tests__/

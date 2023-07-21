@@ -11,12 +11,12 @@ export default class StackSidebar<
     super.set(propName, newValue)
     switch (propName) {
       case "stack":
-        if (this.node.getStack !== newValue) {
+        if (this.node.getStack() !== newValue) {
           this.node.setStack(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -25,6 +25,8 @@ export default class StackSidebar<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

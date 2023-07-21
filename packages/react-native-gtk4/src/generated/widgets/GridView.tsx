@@ -11,62 +11,62 @@ export default class GridView<
     super.set(propName, newValue)
     switch (propName) {
       case "enableRubberband":
-        if (this.node.getEnableRubberband !== newValue) {
+        if (this.node.getEnableRubberband() !== newValue) {
           this.node.setEnableRubberband(newValue)
         }
         break
       case "factory":
-        if (this.node.getFactory !== newValue) {
+        if (this.node.getFactory() !== newValue) {
           this.node.setFactory(newValue)
         }
         break
       case "maxColumns":
-        if (this.node.getMaxColumns !== newValue) {
+        if (this.node.getMaxColumns() !== newValue) {
           this.node.setMaxColumns(newValue)
         }
         break
       case "minColumns":
-        if (this.node.getMinColumns !== newValue) {
+        if (this.node.getMinColumns() !== newValue) {
           this.node.setMinColumns(newValue)
         }
         break
       case "model":
-        if (this.node.getModel !== newValue) {
+        if (this.node.getModel() !== newValue) {
           this.node.setModel(newValue)
         }
         break
       case "singleClickActivate":
-        if (this.node.getSingleClickActivate !== newValue) {
+        if (this.node.getSingleClickActivate() !== newValue) {
           this.node.setSingleClickActivate(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.getOrientation !== newValue) {
+        if (this.node.getOrientation() !== newValue) {
           this.node.setOrientation(newValue)
         }
         break
       case "hadjustment":
-        if (this.node.getHadjustment !== newValue) {
+        if (this.node.getHadjustment() !== newValue) {
           this.node.setHadjustment(newValue)
         }
         break
       case "hscrollPolicy":
-        if (this.node.getHscrollPolicy !== newValue) {
+        if (this.node.getHscrollPolicy() !== newValue) {
           this.node.setHscrollPolicy(newValue)
         }
         break
       case "vadjustment":
-        if (this.node.getVadjustment !== newValue) {
+        if (this.node.getVadjustment() !== newValue) {
           this.node.setVadjustment(newValue)
         }
         break
       case "vscrollPolicy":
-        if (this.node.getVscrollPolicy !== newValue) {
+        if (this.node.getVscrollPolicy() !== newValue) {
           this.node.setVscrollPolicy(newValue)
         }
         break
@@ -108,6 +108,8 @@ export default class GridView<
         break
       case "onNotifyVscrollPolicy":
         this.setHandler("notify::vscroll-policy", newValue)
+        break
+      default:
         break
     }
   }

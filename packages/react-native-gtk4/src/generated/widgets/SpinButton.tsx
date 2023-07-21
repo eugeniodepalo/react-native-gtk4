@@ -11,47 +11,47 @@ export default class SpinButton<
     super.set(propName, newValue)
     switch (propName) {
       case "adjustment":
-        if (this.node.getAdjustment !== newValue) {
+        if (this.node.getAdjustment() !== newValue) {
           this.node.setAdjustment(newValue)
         }
         break
       case "climbRate":
-        if (this.node.getClimbRate !== newValue) {
+        if (this.node.getClimbRate() !== newValue) {
           this.node.setClimbRate(newValue)
         }
         break
       case "digits":
-        if (this.node.getDigits !== newValue) {
+        if (this.node.getDigits() !== newValue) {
           this.node.setDigits(newValue)
         }
         break
       case "numeric":
-        if (this.node.getNumeric !== newValue) {
+        if (this.node.getNumeric() !== newValue) {
           this.node.setNumeric(newValue)
         }
         break
       case "snapToTicks":
-        if (this.node.getSnapToTicks !== newValue) {
+        if (this.node.getSnapToTicks() !== newValue) {
           this.node.setSnapToTicks(newValue)
         }
         break
       case "updatePolicy":
-        if (this.node.getUpdatePolicy !== newValue) {
+        if (this.node.getUpdatePolicy() !== newValue) {
           this.node.setUpdatePolicy(newValue)
         }
         break
       case "value":
-        if (this.node.getValue !== newValue) {
+        if (this.node.getValue() !== newValue) {
           this.node.setValue(newValue)
         }
         break
       case "wrap":
-        if (this.node.getWrap !== newValue) {
+        if (this.node.getWrap() !== newValue) {
           this.node.setWrap(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -61,27 +61,27 @@ export default class SpinButton<
         }
         break
       case "editable":
-        if (this.node.getEditable !== newValue) {
+        if (this.node.getEditable() !== newValue) {
           this.node.setEditable(newValue)
         }
         break
       case "enableUndo":
-        if (this.node.getEnableUndo !== newValue) {
+        if (this.node.getEnableUndo() !== newValue) {
           this.node.setEnableUndo(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars() !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "text":
-        if (this.node.getText !== newValue) {
+        if (this.node.getText() !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "widthChars":
-        if (this.node.getWidthChars !== newValue) {
+        if (this.node.getWidthChars() !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break
@@ -91,7 +91,7 @@ export default class SpinButton<
         }
         break
       case "orientation":
-        if (this.node.getOrientation !== newValue) {
+        if (this.node.getOrientation() !== newValue) {
           this.node.setOrientation(newValue)
         }
         break
@@ -181,6 +181,8 @@ export default class SpinButton<
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
+        break
+      default:
         break
     }
   }

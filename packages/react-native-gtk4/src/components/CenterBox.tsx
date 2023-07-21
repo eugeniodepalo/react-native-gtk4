@@ -1,16 +1,15 @@
 import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-
-const CenterBox = "CenterBox"
+import { CenterBox } from "../generated/intrinsics.js"
 
 type Props = Omit<
   JSX.IntrinsicElements["CenterBox"],
   "startWidget" | "endWidget" | "centerWidget" | "children"
 > & {
-  start?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  end?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  children?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  start?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
+  end?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
+  children?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
 }
 
 export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(

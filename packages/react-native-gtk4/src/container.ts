@@ -6,13 +6,13 @@ import {
   Application,
   withApplicationContext,
 } from "./components/ApplicationProvider.js"
-import Widget from "./widget.js"
+import AnyWidget from "./widget.js"
 import { ApplicationWindow, Window } from "./generated/widgets.js"
 
 export const MAX_TIMEOUT = 2147483647
 
 export default class Container {
-  children: Widget[] = []
+  children: AnyWidget[] = []
 
   private application: Gtk.Application
   private static currentTag = 0
@@ -67,7 +67,7 @@ export default class Container {
     this.application.run([])
   }
 
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     if (child instanceof ApplicationWindow) {
       child.node.setApplication(this.application)
     }
@@ -75,7 +75,7 @@ export default class Container {
     this.children.push(child)
   }
 
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     const index = this.children.indexOf(child)
 
     if (index === -1) {
@@ -89,7 +89,7 @@ export default class Container {
     }
   }
 
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     const beforeIndex = this.children.indexOf(beforeChild)
     const index = beforeIndex - 1
 

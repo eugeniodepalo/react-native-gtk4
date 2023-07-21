@@ -7,9 +7,8 @@ import React, {
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
+import { Notebook, Label } from "../generated/intrinsics.js"
 
-const Notebook = "Notebook"
-const Label = "Label"
 const NotebookContext = React.createContext<Gtk.Notebook | null>(null)
 
 type Props = JSX.IntrinsicElements["Notebook"] & {

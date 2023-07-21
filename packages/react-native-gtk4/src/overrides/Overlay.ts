@@ -1,26 +1,26 @@
 import Overlay from "../generated/widgets/Overlay.js"
-import Widget from "../widget.js"
+import AnyWidget from "../widget.js"
 
 const parent = {
-  appendChild: Widget.prototype.appendChild,
-  removeChild: Widget.prototype.removeChild,
-  insertBefore: Widget.prototype.insertBefore,
+  appendChild: AnyWidget.prototype.appendChild,
+  removeChild: AnyWidget.prototype.removeChild,
+  insertBefore: AnyWidget.prototype.insertBefore,
 }
 
-Overlay.prototype.appendChild = function (this: Overlay, child: Widget) {
+Overlay.prototype.appendChild = function (this: Overlay, child: AnyWidget) {
   parent.appendChild.call(this, child)
   this.node.addOverlay(child.node)
 }
 
-Overlay.prototype.removeChild = function (this: Overlay, child: Widget) {
+Overlay.prototype.removeChild = function (this: Overlay, child: AnyWidget) {
   parent.removeChild.call(this, child)
   this.node.removeOverlay(child.node)
 }
 
 Overlay.prototype.insertBefore = function (
   this: Overlay,
-  child: Widget,
-  beforeChild: Widget
+  child: AnyWidget,
+  beforeChild: AnyWidget
 ) {
   for (const child of this.children) {
     this.node.removeOverlay(child.node)

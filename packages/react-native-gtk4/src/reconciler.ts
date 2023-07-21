@@ -1,27 +1,38 @@
 import Reconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants"
-import Widget from "./widget.js"
+import AnyWidget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
-type WidgetConstructor = new (props: Record<string, any>) => Widget
+type WidgetConstructor = new (props: Record<string, any>) => AnyWidget
+
+const definedProps = (obj: Record<string, any>) =>
+  Object.keys(obj).reduce(
+    (acc, key) => {
+      if (obj[key] !== undefined) {
+        acc[key] = obj[key]
+      }
+      return acc
+    },
+    {} as Record<string, any>
+  )
 
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
   Container,
-  Widget,
-  Widget,
-  Widget,
-  Widget,
+  AnyWidget,
+  AnyWidget,
+  AnyWidget,
+  AnyWidget,
   Gtk.Widget,
   unknown,
   UpdatePayload,
-  Set<Widget>,
+  Set<AnyWidget>,
   ReturnType<typeof setTimeout>,
   -1
 > = {
@@ -33,7 +44,7 @@ const hostConfig: HostConfig<
   noTimeout: -1,
   createInstance(type, props) {
     const Widget = widgets[type] as WidgetConstructor
-    return new Widget(props)
+    return new Widget(definedProps(props))
   },
   createTextInstance(text) {
     return new Label({ label: text })
@@ -57,7 +68,7 @@ const hostConfig: HostConfig<
     container.removeChild(child)
   },
   prepareUpdate(_instance, _type, oldProps, newProps) {
-    return Object.keys(newProps).reduce((acc, propName) => {
+    return Object.keys(definedProps(newProps)).reduce((acc, propName) => {
       if (oldProps[propName] !== newProps[propName]) {
         acc.push([propName, newProps[propName]])
       }

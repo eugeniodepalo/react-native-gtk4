@@ -31,12 +31,12 @@ export default class ShortcutsSection<
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.getOrientation !== newValue) {
+        if (this.node.getOrientation() !== newValue) {
           this.node.setOrientation(newValue)
         }
         break
@@ -60,6 +60,8 @@ export default class ShortcutsSection<
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
+        break
+      default:
         break
     }
   }

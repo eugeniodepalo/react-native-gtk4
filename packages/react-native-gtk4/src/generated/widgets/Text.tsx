@@ -9,27 +9,27 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "activatesDefault":
-        if (this.node.getActivatesDefault !== newValue) {
+        if (this.node.getActivatesDefault() !== newValue) {
           this.node.setActivatesDefault(newValue)
         }
         break
       case "attributes":
-        if (this.node.getAttributes !== newValue) {
+        if (this.node.getAttributes() !== newValue) {
           this.node.setAttributes(newValue)
         }
         break
       case "buffer":
-        if (this.node.getBuffer !== newValue) {
+        if (this.node.getBuffer() !== newValue) {
           this.node.setBuffer(newValue)
         }
         break
       case "enableEmojiCompletion":
-        if (this.node.getEnableEmojiCompletion !== newValue) {
+        if (this.node.getEnableEmojiCompletion() !== newValue) {
           this.node.setEnableEmojiCompletion(newValue)
         }
         break
       case "extraMenu":
-        if (this.node.getExtraMenu !== newValue) {
+        if (this.node.getExtraMenu() !== newValue) {
           this.node.setExtraMenu(newValue)
         }
         break
@@ -39,17 +39,17 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         }
         break
       case "inputHints":
-        if (this.node.getInputHints !== newValue) {
+        if (this.node.getInputHints() !== newValue) {
           this.node.setInputHints(newValue)
         }
         break
       case "inputPurpose":
-        if (this.node.getInputPurpose !== newValue) {
+        if (this.node.getInputPurpose() !== newValue) {
           this.node.setInputPurpose(newValue)
         }
         break
       case "invisibleChar":
-        if (this.node.getInvisibleChar !== newValue) {
+        if (this.node.getInvisibleChar() !== newValue) {
           this.node.setInvisibleChar(newValue)
         }
         break
@@ -59,67 +59,67 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         }
         break
       case "maxLength":
-        if (this.node.getMaxLength !== newValue) {
+        if (this.node.getMaxLength() !== newValue) {
           this.node.setMaxLength(newValue)
         }
         break
       case "overwriteMode":
-        if (this.node.getOverwriteMode !== newValue) {
+        if (this.node.getOverwriteMode() !== newValue) {
           this.node.setOverwriteMode(newValue)
         }
         break
       case "placeholderText":
-        if (this.node.getPlaceholderText !== newValue) {
+        if (this.node.getPlaceholderText() !== newValue) {
           this.node.setPlaceholderText(newValue)
         }
         break
       case "propagateTextWidth":
-        if (this.node.getPropagateTextWidth !== newValue) {
+        if (this.node.getPropagateTextWidth() !== newValue) {
           this.node.setPropagateTextWidth(newValue)
         }
         break
       case "tabs":
-        if (this.node.getTabs !== newValue) {
+        if (this.node.getTabs() !== newValue) {
           this.node.setTabs(newValue)
         }
         break
       case "truncateMultiline":
-        if (this.node.getTruncateMultiline !== newValue) {
+        if (this.node.getTruncateMultiline() !== newValue) {
           this.node.setTruncateMultiline(newValue)
         }
         break
       case "visibility":
-        if (this.node.getVisibility !== newValue) {
+        if (this.node.getVisibility() !== newValue) {
           this.node.setVisibility(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "editable":
-        if (this.node.getEditable !== newValue) {
+        if (this.node.getEditable() !== newValue) {
           this.node.setEditable(newValue)
         }
         break
       case "enableUndo":
-        if (this.node.getEnableUndo !== newValue) {
+        if (this.node.getEnableUndo() !== newValue) {
           this.node.setEnableUndo(newValue)
         }
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars !== newValue) {
+        if (this.node.getMaxWidthChars() !== newValue) {
           this.node.setMaxWidthChars(newValue)
         }
         break
       case "text":
-        if (this.node.getText !== newValue) {
+        if (this.node.getText() !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "widthChars":
-        if (this.node.getWidthChars !== newValue) {
+        if (this.node.getWidthChars() !== newValue) {
           this.node.setWidthChars(newValue)
         }
         break
@@ -250,6 +250,8 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         break
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
+        break
+      default:
         break
     }
   }

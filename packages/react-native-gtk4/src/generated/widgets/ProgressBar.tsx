@@ -11,42 +11,42 @@ export default class ProgressBar<
     super.set(propName, newValue)
     switch (propName) {
       case "ellipsize":
-        if (this.node.getEllipsize !== newValue) {
+        if (this.node.getEllipsize() !== newValue) {
           this.node.setEllipsize(newValue)
         }
         break
       case "fraction":
-        if (this.node.getFraction !== newValue) {
+        if (this.node.getFraction() !== newValue) {
           this.node.setFraction(newValue)
         }
         break
       case "inverted":
-        if (this.node.getInverted !== newValue) {
+        if (this.node.getInverted() !== newValue) {
           this.node.setInverted(newValue)
         }
         break
       case "pulseStep":
-        if (this.node.getPulseStep !== newValue) {
+        if (this.node.getPulseStep() !== newValue) {
           this.node.setPulseStep(newValue)
         }
         break
       case "showText":
-        if (this.node.getShowText !== newValue) {
+        if (this.node.getShowText() !== newValue) {
           this.node.setShowText(newValue)
         }
         break
       case "text":
-        if (this.node.getText !== newValue) {
+        if (this.node.getText() !== newValue) {
           this.node.setText(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.getOrientation !== newValue) {
+        if (this.node.getOrientation() !== newValue) {
           this.node.setOrientation(newValue)
         }
         break
@@ -73,6 +73,8 @@ export default class ProgressBar<
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
+        break
+      default:
         break
     }
   }

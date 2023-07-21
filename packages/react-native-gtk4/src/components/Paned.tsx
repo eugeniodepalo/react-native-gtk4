@@ -6,8 +6,7 @@ import React, {
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-
-const Paned = "Paned"
+import { Paned } from "../generated/intrinsics.js"
 
 type Props = Omit<JSX.IntrinsicElements["Paned"], "children"> & {
   children: [

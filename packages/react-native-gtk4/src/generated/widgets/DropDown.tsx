@@ -11,42 +11,42 @@ export default class DropDown<
     super.set(propName, newValue)
     switch (propName) {
       case "enableSearch":
-        if (this.node.getEnableSearch !== newValue) {
+        if (this.node.getEnableSearch() !== newValue) {
           this.node.setEnableSearch(newValue)
         }
         break
       case "expression":
-        if (this.node.getExpression !== newValue) {
+        if (this.node.getExpression() !== newValue) {
           this.node.setExpression(newValue)
         }
         break
       case "factory":
-        if (this.node.getFactory !== newValue) {
+        if (this.node.getFactory() !== newValue) {
           this.node.setFactory(newValue)
         }
         break
       case "listFactory":
-        if (this.node.getListFactory !== newValue) {
+        if (this.node.getListFactory() !== newValue) {
           this.node.setListFactory(newValue)
         }
         break
       case "model":
-        if (this.node.getModel !== newValue) {
+        if (this.node.getModel() !== newValue) {
           this.node.setModel(newValue)
         }
         break
       case "selected":
-        if (this.node.getSelected !== newValue) {
+        if (this.node.getSelected() !== newValue) {
           this.node.setSelected(newValue)
         }
         break
       case "showArrow":
-        if (this.node.getShowArrow !== newValue) {
+        if (this.node.getShowArrow() !== newValue) {
           this.node.setShowArrow(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -79,6 +79,8 @@ export default class DropDown<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

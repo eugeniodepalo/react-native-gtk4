@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-
-const ApplicationWindow = "ApplicationWindow"
+import { ApplicationWindow } from "../generated/intrinsics.js"
 
 type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "titlebar"> & {
   children: React.ReactNode
-  titlebar?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  titlebar?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
 }
 
 export default forwardRef<Gtk.ApplicationWindow, Props>(

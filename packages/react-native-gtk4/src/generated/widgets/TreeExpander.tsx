@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
+import AnyWidget from "../../widget.js"
 
 export default class TreeExpander<
   T extends Gtk.TreeExpander = Gtk.TreeExpander,
@@ -7,38 +8,54 @@ export default class TreeExpander<
   createNode() {
     return new Gtk.TreeExpander({}) as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "hideExpander":
+        if (this.node.getHideExpander() !== newValue) {
+          this.node.setHideExpander(newValue)
+        }
+        break
+      case "indentForDepth":
+        if (this.node.getIndentForDepth() !== newValue) {
+          this.node.setIndentForDepth(newValue)
+        }
+        break
       case "indentForIcon":
-        if (this.node.getIndentForIcon !== newValue) {
+        if (this.node.getIndentForIcon() !== newValue) {
           this.node.setIndentForIcon(newValue)
         }
         break
       case "listRow":
-        if (this.node.getListRow !== newValue) {
+        if (this.node.getListRow() !== newValue) {
           this.node.setListRow(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)
+        break
+      case "onNotifyHideExpander":
+        this.setHandler("notify::hide-expander", newValue)
+        break
+      case "onNotifyIndentForDepth":
+        this.setHandler("notify::indent-for-depth", newValue)
         break
       case "onNotifyIndentForIcon":
         this.setHandler("notify::indent-for-icon", newValue)
@@ -51,6 +68,8 @@ export default class TreeExpander<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

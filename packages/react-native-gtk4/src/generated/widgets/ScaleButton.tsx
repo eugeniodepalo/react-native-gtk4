@@ -11,7 +11,7 @@ export default class ScaleButton<
     super.set(propName, newValue)
     switch (propName) {
       case "adjustment":
-        if (this.node.getAdjustment !== newValue) {
+        if (this.node.getAdjustment() !== newValue) {
           this.node.setAdjustment(newValue)
         }
         break
@@ -21,17 +21,17 @@ export default class ScaleButton<
         }
         break
       case "value":
-        if (this.node.getValue !== newValue) {
+        if (this.node.getValue() !== newValue) {
           this.node.setValue(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
       case "orientation":
-        if (this.node.getOrientation !== newValue) {
+        if (this.node.getOrientation() !== newValue) {
           this.node.setOrientation(newValue)
         }
         break
@@ -43,6 +43,9 @@ export default class ScaleButton<
         break
       case "onValueChanged":
         this.setHandler("value-changed", newValue)
+        break
+      case "onNotifyActive":
+        this.setHandler("notify::active", newValue)
         break
       case "onNotifyAdjustment":
         this.setHandler("notify::adjustment", newValue)
@@ -58,6 +61,8 @@ export default class ScaleButton<
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
+        break
+      default:
         break
     }
   }

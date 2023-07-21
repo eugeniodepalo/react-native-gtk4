@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
+import AnyWidget from "../../widget.js"
 
 export default class AspectFrame<
   T extends Gtk.AspectFrame = Gtk.AspectFrame,
@@ -7,15 +8,15 @@ export default class AspectFrame<
   createNode() {
     return new Gtk.AspectFrame({}) as T
   }
-  appendChild(child: Widget) {
+  appendChild(child: AnyWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: Widget) {
+  removeChild(child: AnyWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: Widget, beforeChild: Widget) {
+  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }
@@ -23,27 +24,27 @@ export default class AspectFrame<
     super.set(propName, newValue)
     switch (propName) {
       case "obeyChild":
-        if (this.node.getObeyChild !== newValue) {
+        if (this.node.getObeyChild() !== newValue) {
           this.node.setObeyChild(newValue)
         }
         break
       case "ratio":
-        if (this.node.getRatio !== newValue) {
+        if (this.node.getRatio() !== newValue) {
           this.node.setRatio(newValue)
         }
         break
       case "xalign":
-        if (this.node.getXalign !== newValue) {
+        if (this.node.getXalign() !== newValue) {
           this.node.setXalign(newValue)
         }
         break
       case "yalign":
-        if (this.node.getYalign !== newValue) {
+        if (this.node.getYalign() !== newValue) {
           this.node.setYalign(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -64,6 +65,8 @@ export default class AspectFrame<
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

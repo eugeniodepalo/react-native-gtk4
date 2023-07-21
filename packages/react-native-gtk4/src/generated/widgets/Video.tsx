@@ -9,27 +9,27 @@ export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "autoplay":
-        if (this.node.getAutoplay !== newValue) {
+        if (this.node.getAutoplay() !== newValue) {
           this.node.setAutoplay(newValue)
         }
         break
       case "file":
-        if (this.node.getFile !== newValue) {
+        if (this.node.getFile() !== newValue) {
           this.node.setFile(newValue)
         }
         break
       case "loop":
-        if (this.node.getLoop !== newValue) {
+        if (this.node.getLoop() !== newValue) {
           this.node.setLoop(newValue)
         }
         break
       case "mediaStream":
-        if (this.node.getMediaStream !== newValue) {
+        if (this.node.getMediaStream() !== newValue) {
           this.node.setMediaStream(newValue)
         }
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole !== newValue) {
+        if (this.node.getAccessibleRole() !== newValue) {
           this.node.accessibleRole = newValue
         }
         break
@@ -47,6 +47,8 @@ export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
+        break
+      default:
         break
     }
   }

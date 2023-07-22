@@ -141,4 +141,13 @@ const hostConfig: HostConfig<
   },
 }
 
-export default Reconciler(hostConfig)
+export type Reconciler = ReturnType<typeof Reconciler>
+
+export function createReconciler(
+  externalHostConfig: Partial<typeof hostConfig> = {}
+) {
+  return Reconciler({
+    ...hostConfig,
+    ...externalHostConfig,
+  })
+}

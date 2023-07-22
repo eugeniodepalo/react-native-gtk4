@@ -3,7 +3,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
 import gi from "@girs/node-gtk"
 import Container, { MAX_TIMEOUT } from "../src/container.js"
-import Reconciler from "../src/reconciler.js"
+import { createReconciler } from "../src/reconciler.js"
 import { createAnyWidget } from "../test-support/utils.js"
 import ApplicationWindow from "../src/generated/widgets/ApplicationWindow.js"
 import Window from "../src/generated/widgets/Window.js"
@@ -24,6 +24,11 @@ describe("Container", () => {
     GLib.MainLoop.new.mockReturnValue({
       run: jest.fn(),
       quit: jest.fn(),
+    })
+
+    createReconciler.mockReturnValue({
+      createContainer: jest.fn(),
+      updateContainer: jest.fn(),
     })
 
     application = new Gtk.Application()
@@ -69,17 +74,13 @@ describe("Container", () => {
   })
 
   test("should set application property for ApplicationWindow", () => {
-    ApplicationWindow.mockImplementation(() => {
-      const instance = Object.create(ApplicationWindow.prototype)
-
-      Object.assign(instance, {
+    ApplicationWindow.mockImplementation(() =>
+      Object.assign(Object.create(ApplicationWindow.prototype), {
         node: {
           setApplication: jest.fn(),
         },
       })
-
-      return instance
-    })
+    )
 
     const window = new ApplicationWindow()
     container.appendChild(window)
@@ -87,17 +88,13 @@ describe("Container", () => {
   })
 
   test("should set application property for ApplicationWindow when inserting", () => {
-    ApplicationWindow.mockImplementation(() => {
-      const instance = Object.create(ApplicationWindow.prototype)
-
-      Object.assign(instance, {
+    ApplicationWindow.mockImplementation(() =>
+      Object.assign(Object.create(ApplicationWindow.prototype), {
         node: {
           setApplication: jest.fn(),
         },
       })
-
-      return instance
-    })
+    )
 
     const window = new ApplicationWindow()
     const window2 = new ApplicationWindow()
@@ -109,17 +106,13 @@ describe("Container", () => {
   })
 
   test("should destroy windows when removing them", () => {
-    Window.mockImplementation(() => {
-      const instance = Object.create(Window.prototype)
-
-      Object.assign(instance, {
+    Window.mockImplementation(() =>
+      Object.assign(Object.create(Window.prototype), {
         node: {
           destroy: jest.fn(),
         },
       })
-
-      return instance
-    })
+    )
 
     const window = new Window()
 
@@ -135,6 +128,7 @@ describe("Container", () => {
 
     application = new Gtk.Application()
     container = new Container(application)
+    const Reconciler = createReconciler.mock.results[0].value
 
     expect(GLib.MainLoop.new).toHaveBeenCalledWith(null, false)
 
@@ -166,6 +160,8 @@ describe("Container", () => {
   })
 
   test("should increment current tag when rendering", () => {
+    const Reconciler = createReconciler.mock.results[0].value
+
     new Container(application)
     const prevTag = Reconciler.createContainer.mock.calls[0][5]
 

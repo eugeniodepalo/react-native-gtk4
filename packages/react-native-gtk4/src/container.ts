@@ -1,7 +1,7 @@
 import gi from "@girs/node-gtk"
 import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
-import Reconciler from "./reconciler.js"
+import { Reconciler, createReconciler } from "./reconciler.js"
 import {
   Application,
   withApplicationContext,
@@ -16,15 +16,17 @@ export default class Container {
 
   private application: Gtk.Application
   private static currentTag = 0
-  private instance: ReturnType<typeof Reconciler.createContainer>
+  private instance: any
+  private reconciler: Reconciler
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
 
   constructor(application: Gtk.Application) {
     this.application = application
     this.loop = GLib.MainLoop.new(null, false)
+    this.reconciler = createReconciler()
 
-    this.instance = Reconciler.createContainer(
+    this.instance = this.reconciler.createContainer(
       this,
       0,
       null,
@@ -48,7 +50,7 @@ export default class Container {
         application: this.application,
       }
 
-      Reconciler.updateContainer(
+      this.reconciler.updateContainer(
         withApplicationContext(element, application),
         this.instance,
         null,

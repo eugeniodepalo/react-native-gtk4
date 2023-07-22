@@ -3,10 +3,10 @@
 React Native GTK4 allows you to build native GTK4 applications using React. It provides a bridge between React and the GTK4 toolkit, enabling you to develop cross-platform desktop applications with familiar React components and development patterns.
 
 ![Version](https://img.shields.io/npm/v/react-native-gtk4)
-![Codecov](https://img.shields.io/codecov/c/github/eugeniodepalo/react-native-gtk4)
 ![Build](https://img.shields.io/github/actions/workflow/status/eugeniodepalo/react-native-gtk4/ci.yml)
-![Downloads](https://img.shields.io/npm/dw/react-native-gtk4)
-![Stars](https://img.shields.io/github/stars/eugeniodepalo/react-native-gtk4)
+![Codecov](https://img.shields.io/codecov/c/github/eugeniodepalo/react-native-gtk4?logo=codecov)
+![Downloads](https://img.shields.io/npm/dw/react-native-gtk4?logo=npm)
+![Stars](https://img.shields.io/github/stars/eugeniodepalo/react-native-gtk4?logo=github)
 
 ## Getting Started
 
@@ -27,7 +27,7 @@ npm install react-native-gtk4
 
 ### Usage
 
-Check out the example applications in the [examples](../../examples) directory for a working example of a React Native GTK4 application.
+Check out the example applications in the [examples](https://github.com/eugeniodepalo/react-native-gtk4/tree/main/examples) directory for a working example of a React Native GTK4 application.
 
 ## Contributing
 

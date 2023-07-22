@@ -1,6 +1,13 @@
 # React Native GTK4
 
-React Native GTK4 is a project that allows you to build native GTK4 applications using React. It provides a bridge between React and the GTK4 toolkit, enabling you to develop cross-platform desktop applications with familiar React components and development patterns.
+React Native GTK4 allows you to build native GTK4 applications using React. It provides a bridge between React and the GTK4 toolkit, enabling you to develop cross-platform desktop applications with familiar React components and development patterns.
+
+[![Version](https://img.shields.io/npm/v/react-native-gtk4.svg?style=flat-square)](https://www.npmjs.com/package/react-native-gtk4)
+[![Codecov](https://codecov.io/gh/eugeniodepalo/react-native-gtk4/branch/main/graph/badge.svg?token=F7M5X4Q72P)](https://codecov.io/gh/eugeniodepalo/react-native-gtk4)
+[![Build](https://github.com/eugeniodepalo/react-native-gtk4/actions/workflows/ci.yml/badge.svg)](https://github.com/eugeniodepalo/react-native-gtk4/actions/workflows/ci.yml)
+[![Downloads](https://img.shields.io/npm/dm/react-native-gtk4.svg?style=flat-square)](http://www.npmtrends.com/react-native-gtk4)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](#contributing)
+[![Stars](https://img.shields.io/github/stars/eugeniodepalo/react-native-gtk4.svg?style=social)](https://github.com/eugeniodepalo/react-native-gtk4/stargazers)
 
 ## Getting Started
 

@@ -18,7 +18,13 @@ jobs:
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - run: docker run --rm test
+      - run: docker run -v "$(pwd)/coverage:/coverage" --rm test -- --coverage --coverageDirectory=/coverage
+      - run: sudo chown -R $(id -u):$(id -g) ./coverage
+      - uses: codecov/codecov-action@v3
+        with:
+          directory: ./coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   publish:
     needs: test
     if: github.event_name == 'release'

@@ -57,6 +57,7 @@ export default abstract class AnyWidget<T extends Gtk.Widget = Gtk.Widget> {
 
     if (oldHandler) {
       this.node.off(handlerName, oldHandler)
+      delete this.handlers[handlerName]
     }
 
     if (handler) {

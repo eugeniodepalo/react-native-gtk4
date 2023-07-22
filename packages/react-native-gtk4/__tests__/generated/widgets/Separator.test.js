@@ -3,34 +3,33 @@ import Gtk from "@girs/node-gtk-4.0"
 
 describe("Separator", () => {
   let widget
-  let node
 
   beforeEach(() => {
-    node = new Gtk.Separator()
-    Gtk.Separator.mockImplementation(() => node)
     widget = new Separator({})
   })
 
   test("should set accessibleRole", () => {
     const newValue = Gtk.AccessibleRole.ALERT
     widget.set("accessibleRole", newValue)
-    expect(node.accessibleRole).toBe(newValue)
+    expect(widget.node.accessibleRole).toBe(newValue)
   })
 
   test("should set orientation", () => {
     const newValue = Gtk.Orientation.HORIZONTAL
     widget.set("orientation", newValue)
-    expect(node.setOrientation).toHaveBeenCalledWith(newValue)
+    expect(widget.node.setOrientation).toHaveBeenCalledWith(newValue)
   })
 
   test("should connect onNotifyAccessibleRole", () => {
     const callback = jest.fn()
+
     widget.set("onNotifyAccessibleRole", callback)
+
     const handler = widget.handlers["notify::accessible-role"]
     expect(handler).toBeDefined()
     handler()
     expect(callback).toHaveBeenCalled()
-    expect(node.on).toHaveBeenCalledWith(
+    expect(widget.node.on).toHaveBeenCalledWith(
       "notify::accessible-role",
       expect.any(Function)
     )
@@ -38,12 +37,14 @@ describe("Separator", () => {
 
   test("should connect onNotifyOrientation", () => {
     const callback = jest.fn()
+
     widget.set("onNotifyOrientation", callback)
+
     const handler = widget.handlers["notify::orientation"]
     expect(handler).toBeDefined()
     handler()
     expect(callback).toHaveBeenCalled()
-    expect(node.on).toHaveBeenCalledWith(
+    expect(widget.node.on).toHaveBeenCalledWith(
       "notify::orientation",
       expect.any(Function)
     )

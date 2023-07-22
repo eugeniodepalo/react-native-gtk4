@@ -1,8 +1,8 @@
 import { camelize } from "../helpers.js"
-import { WidgetImport } from "./widgetImport.js"
-import { WidgetType } from "./widgetType.js"
+import { GirImport } from "./import.js"
+import { GirType } from "./type.js"
 
-export class WidgetProperty {
+export class GirProperty {
   constructor(prop, gir) {
     this.prop = prop
     this.gir = gir
@@ -57,7 +57,7 @@ export class WidgetProperty {
       typeName = (this.prop.type || [])[0].$.name
     }
 
-    return new WidgetType(typeName, this.gir)
+    return new GirType(typeName, this.gir)
   }
 
   get import_() {
@@ -65,6 +65,6 @@ export class WidgetProperty {
       return null
     }
 
-    return new WidgetImport(this.type, this.gir)
+    return new GirImport(this.type, this.gir)
   }
 }

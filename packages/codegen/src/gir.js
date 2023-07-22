@@ -1,6 +1,6 @@
 import xml2js from "xml2js"
 import fs from "fs"
-import { WidgetClass } from "./gir/widgetClass.js"
+import { GirClass } from "./gir/class.js"
 
 const girFilePath = `${__dirname}/../Gtk-4.0.gir`
 const keywordsToReplace = new Set(["constructor", "class"])
@@ -28,7 +28,7 @@ export class Gir {
   get widgetClasses() {
     return this.classes
       .filter(this.isWidgetClass.bind(this))
-      .map((c) => new WidgetClass(c, this))
+      .map((c) => new GirClass(c, this))
   }
 
   get classes() {
@@ -117,10 +117,18 @@ export class Gir {
   }
 
   findInterfaceByName(name) {
+    if (!name) {
+      return null
+    }
+
     return this.interfaces.find((i) => i.$.name === name)
   }
 
   findClassByName(name) {
+    if (!name) {
+      return null
+    }
+
     return this.classes.find((c) => c.$.name === name)
   }
 

@@ -1,8 +1,8 @@
 import { camelize } from "../helpers.js"
-import { WidgetProperty } from "./widgetProperty.js"
-import { WidgetType } from "./widgetType.js"
+import { GirProperty } from "./property.js"
+import { GirType } from "./type.js"
 
-export class WidgetSignal {
+export class GirSignal {
   constructor(signal, gir) {
     this.signal = signal
     this.gir = gir
@@ -19,13 +19,13 @@ export class WidgetSignal {
   get params() {
     return (((this.signal.parameters || [])[0] || {}).parameter || []).map(
       (param) => {
-        return new WidgetProperty(param, this.gir)
+        return new GirProperty(param, this.gir)
       }
     )
   }
 
   get returnType() {
-    return new WidgetType(this.signal["return-value"][0].type[0].$.name)
+    return new GirType(this.signal["return-value"][0].type[0].$.name)
   }
 
   get imports() {

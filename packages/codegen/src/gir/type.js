@@ -10,7 +10,7 @@ const typeMap = {
   "utf8[]": "string[]",
 }
 
-export class WidgetType {
+export class GirType {
   constructor(name, gir) {
     this._name = name
     this.gir = gir

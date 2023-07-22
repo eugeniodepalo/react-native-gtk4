@@ -6,7 +6,7 @@ export default abstract class AnyWidget<T extends Gtk.Widget = Gtk.Widget> {
   handlers: Record<string, any> = {}
   props: Record<string, any> = {}
 
-  constructor(props: Record<string, any>) {
+  constructor(props: Record<string, any> = {}) {
     this.props = props
     this.node = this.createNode()
 

@@ -1,4 +1,4 @@
-import { WidgetType } from "../gir/widgetType"
+import { GirType } from "../gir/type"
 
 const primitiveTestValues = {
   string: '"Some String"',
@@ -10,7 +10,7 @@ function getEnumerationTestValues(gir) {
   const testValues = {}
 
   for (const enumeration of gir.enumerations) {
-    const type = new WidgetType(enumeration.$.name, gir)
+    const type = new GirType(enumeration.$.name, gir)
     const member = enumeration.member[0].$.name.toUpperCase()
     testValues[type.name] = `${type.name}.${member}`
   }
@@ -22,7 +22,7 @@ function getBitfieldTestValues(gir) {
   const testValues = {}
 
   for (const bitfield of gir.bitfields) {
-    const type = new WidgetType(bitfield.$.name, gir)
+    const type = new GirType(bitfield.$.name, gir)
     const member = bitfield.member[0].$.name.toUpperCase()
     testValues[type.name] = `${type.name}.${member}`
   }
@@ -69,14 +69,10 @@ export default function (widgetClass, gir) {
   }
 
   ts += "\n"
-
   ts += `describe("${widgetClass.name}", () => {\n`
   ts += "  let widget\n"
-  ts += "  let node\n"
   ts += "\n"
   ts += "  beforeEach(() => {\n"
-  ts += "    node = new " + widgetClass.type.name + "()\n"
-  ts += `    ${widgetClass.type.name}.mockImplementation(() => node)\n`
   ts += `    widget = new ${widgetClass.name}({})\n`
   ts += "  })\n"
   ts += "\n"
@@ -104,9 +100,9 @@ export default function (widgetClass, gir) {
     ts += `    widget.set("${prop.name}", newValue)\n`
 
     if (prop.setter) {
-      ts += `    expect(node.${prop.setter}).toHaveBeenCalledWith(newValue)\n`
+      ts += `    expect(widget.node.${prop.setter}).toHaveBeenCalledWith(newValue)\n`
     } else {
-      ts += `    expect(node.${prop.name}).toBe(newValue)\n`
+      ts += `    expect(widget.node.${prop.name}).toBe(newValue)\n`
     }
 
     ts += "  })\n"
@@ -116,11 +112,13 @@ export default function (widgetClass, gir) {
   for (const signal of widgetClass.signals) {
     ts += `  test("should connect ${signal.name}", () => {\n`
     ts += `    const callback = jest.fn()\n`
+    ts += `\n`
     ts += `    widget.set("${signal.name}", callback)\n`
+    ts += `\n`
     ts += `    const handler = widget.handlers["${signal.rawName}"]\n`
     ts += `    expect(handler).toBeDefined()\n`
     ts += `    handler()\n`
-    ts += `    expect(node.on).toHaveBeenCalledWith("${signal.rawName}", expect.any(Function))\n`
+    ts += `    expect(widget.node.on).toHaveBeenCalledWith("${signal.rawName}", expect.any(Function))\n`
     ts += `    expect(callback).toHaveBeenCalled()\n`
     ts += "  })\n"
     ts += "\n"
@@ -129,14 +127,41 @@ export default function (widgetClass, gir) {
   for (const prop of widgetClass.props) {
     ts += `  test("should connect ${prop.notifyHandlerName}", () => {\n`
     ts += `    const callback = jest.fn()\n`
+    ts += `\n`
     ts += `    widget.set("${prop.notifyHandlerName}", callback)\n`
+    ts += `\n`
     ts += `    const handler = widget.handlers["notify::${prop.rawName}"]\n`
     ts += `    expect(handler).toBeDefined()\n`
     ts += `    handler()\n`
     ts += `    expect(callback).toHaveBeenCalled()\n`
-    ts += `    expect(node.on).toHaveBeenCalledWith("notify::${prop.rawName}", expect.any(Function))\n`
+    ts += `    expect(widget.node.on).toHaveBeenCalledWith("notify::${prop.rawName}", expect.any(Function))\n`
     ts += "  })\n"
     ts += "\n"
+  }
+
+  if (widgetClass.isContainer) {
+    ts += "  test('should append child', () => {\n"
+    ts += `    const child = new ${widgetClass.name}()\n`
+    ts += "    widget.appendChild(child)\n"
+    ts += "    expect(widget.node.setChild).toHaveBeenCalledWith(child.node)\n"
+    ts += "  })\n"
+    ts += "\n"
+
+    ts += "  test('should remove child', () => {\n"
+    ts += `    const child = new ${widgetClass.name}()\n`
+    ts += "    widget.appendChild(child)\n"
+    ts += "    widget.removeChild(child)\n"
+    ts += "    expect(widget.node.setChild).toHaveBeenCalledWith(null)\n"
+    ts += "  })\n"
+
+    ts += "  test('should insert child before', () => {\n"
+    ts += `    const child = new ${widgetClass.name}()\n`
+    ts += `    const sibling = new ${widgetClass.name}()\n`
+    ts += "    widget.appendChild(child)\n"
+    ts += "    widget.insertBefore(sibling, child)\n"
+    ts +=
+      "    expect(widget.node.setChild).toHaveBeenCalledWith(sibling.node)\n"
+    ts += "  })\n"
   }
 
   ts += "})\n"

@@ -1,10 +1,10 @@
-import { WidgetProperty } from "./widgetProperty.js"
-import { WidgetSignal } from "./widgetSignal.js"
-import { WidgetInterface } from "./widgetInterface.js"
-import { WidgetType } from "./widgetType.js"
-import { WidgetImport } from "./widgetImport.js"
+import { GirProperty } from "./property.js"
+import { GirSignal } from "./signal.js"
+import { GirInterface } from "./interface.js"
+import { GirType } from "./type.js"
+import { GirImport } from "./import.js"
 
-export class WidgetClass {
+export class GirClass {
   constructor(class_, gir) {
     this.class_ = class_
     this.gir = gir
@@ -15,7 +15,7 @@ export class WidgetClass {
   }
 
   get type() {
-    return new WidgetType(this.name, this.gir)
+    return new GirType(this.name, this.gir)
   }
 
   get parent() {
@@ -25,11 +25,7 @@ export class WidgetClass {
       return null
     }
 
-    if (parent.$.name === "GOject.Object") {
-      return null
-    }
-
-    return new WidgetClass(parent, this.gir)
+    return new GirClass(parent, this.gir)
   }
 
   get parentImport() {
@@ -47,7 +43,7 @@ export class WidgetClass {
   }
 
   get import_() {
-    return new WidgetImport(this.type, this.gir)
+    return new GirImport(this.type, this.gir)
   }
 
   get imports() {
@@ -97,7 +93,7 @@ export class WidgetClass {
         prop.$.setter = "set_current_page"
       }
 
-      return new WidgetProperty(prop, this.gir)
+      return new GirProperty(prop, this.gir)
     })
 
     for (const iface of this.interfaces) {
@@ -113,7 +109,7 @@ export class WidgetClass {
 
   get signals() {
     const signals = [...(this.class_["glib:signal"] || [])].map(
-      (signal) => new WidgetSignal(signal, this.gir)
+      (signal) => new GirSignal(signal, this.gir)
     )
 
     for (const iface of this.interfaces) {
@@ -137,7 +133,7 @@ export class WidgetClass {
         continue
       }
 
-      interfaces.push(new WidgetInterface(interface_, this.gir))
+      interfaces.push(new GirInterface(interface_, this.gir))
     }
 
     return interfaces

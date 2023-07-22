@@ -1,4 +1,4 @@
-export class WidgetImport {
+export class GirImport {
   constructor(type, gir) {
     this.type = type
     this.gir = gir

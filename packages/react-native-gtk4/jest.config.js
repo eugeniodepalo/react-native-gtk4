@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: "node",
   resolver: "ts-jest-resolver",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: ["<rootDir>/test-support/setup.js"],
   clearMocks: true,
   resetModules: true,
   resetMocks: true,

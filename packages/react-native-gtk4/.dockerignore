@@ -1,2 +1,10 @@
-/node_modules
-/dist
+**
+!/__tests__
+!/.eslintrc.json
+!/babel.config.js
+!/jest.config.js
+!/package.json
+!/pnpm-lock.yaml
+!/src
+!/test-support
+!/tsconfig.json

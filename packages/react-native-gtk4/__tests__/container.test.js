@@ -1,12 +1,11 @@
 import React from "react"
-import Container, { MAX_TIMEOUT } from "../src/container.js"
 import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
-import Widget from "../src/widget.js"
 import gi from "@girs/node-gtk"
+import Container, { MAX_TIMEOUT } from "../src/container.js"
+import { createWidget } from "../test-support/utils.js"
 
 jest.mock("react")
-jest.mock("../src/widget.js")
 
 describe("Container", () => {
   let application
@@ -28,7 +27,7 @@ describe("Container", () => {
 
     GLib.MainLoop.new.mockReturnValue(loop)
     container = new Container(application)
-    widget = new Widget({})
+    widget = createWidget()
   })
 
   test("should correctly append child", () => {
@@ -44,7 +43,7 @@ describe("Container", () => {
   })
 
   test("should correctly insert child before another", () => {
-    const secondWidget = new Widget({})
+    const secondWidget = createWidget()
     container.appendChild(widget)
     container.insertBefore(secondWidget, widget)
     expect(container.children.length).toBe(2)

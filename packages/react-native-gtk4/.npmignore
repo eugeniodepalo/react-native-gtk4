@@ -6,7 +6,6 @@
 /codegen
 /Dockerfile
 /jest.config.js
-/jest.setup.js
 /pnpm-lock.yaml
 /src
 tsconfig.json

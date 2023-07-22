@@ -4,9 +4,6 @@ WORKDIR /usr/src/app
 
 RUN apt-get update && apt-get install -y \
     build-essential \
-    python3-pip \
-    python3-setuptools \
-    python3-wheel \
     ninja-build \
     meson \
     libglib2.0-dev \
@@ -57,7 +54,7 @@ RUN wget https://download.gnome.org/sources/gtk/4.10/gtk-4.10.4.tar.xz && \
     cd ../.. && \
     rm -rf gtk-4.10.4 gtk-4.10.4.tar.xz
 
-COPY package*.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 COPY . .
-CMD [ "pnpm", "test" ]
+ENTRYPOINT ["pnpm", "test"]

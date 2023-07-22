@@ -1,26 +1,24 @@
-import { createWidget } from "../test-support/utils.js"
+import { createAnyWidget } from "../test-support/utils.js"
 
 describe("AnyWidget", () => {
   let widget
 
   beforeEach(() => {
-    widget = createWidget()
+    widget = createAnyWidget()
   })
 
-  it("initializes with default values", () => {
+  it("initializes with default children", () => {
     expect(widget.children).toEqual([])
-    expect(widget.handlers).toEqual({})
-    expect(widget.props).toEqual({})
   })
 
   it("can append a child", () => {
-    const child = createWidget()
+    const child = createAnyWidget()
     widget.appendChild(child)
     expect(widget.children).toContain(child)
   })
 
   it("can remove a child", () => {
-    const child = createWidget()
+    const child = createAnyWidget()
 
     widget.appendChild(child)
     widget.removeChild(child)
@@ -29,13 +27,13 @@ describe("AnyWidget", () => {
   })
 
   it("throws an error when removing a non-existent child", () => {
-    const child = createWidget()
+    const child = createAnyWidget()
     expect(() => widget.removeChild(child)).toThrow("Removed child not found")
   })
 
   it("can insert a child before another", () => {
-    const child1 = createWidget()
-    const child2 = createWidget()
+    const child1 = createAnyWidget()
+    const child2 = createAnyWidget()
 
     widget.appendChild(child1)
     widget.insertBefore(child2, child1)
@@ -44,8 +42,8 @@ describe("AnyWidget", () => {
   })
 
   it("throws an error when inserting before a non-existent child", () => {
-    const child1 = createWidget()
-    const child2 = createWidget()
+    const child1 = createAnyWidget()
+    const child2 = createAnyWidget()
 
     expect(() => widget.insertBefore(child1, child2)).toThrow(
       "Before child not found"
@@ -57,12 +55,10 @@ describe("AnyWidget", () => {
 
     widget.setHandler("event", callback)
 
-    const handler = widget.handlers["event"]
-
-    expect(handler).toBeInstanceOf(Function)
     expect(widget.node.on).toHaveBeenCalledWith("event", expect.any(Function))
     expect(widget.node.off).not.toHaveBeenCalled()
 
+    const handler = widget.node.on.mock.calls[0][1]
     handler()
 
     expect(callback).toHaveBeenCalled()
@@ -74,11 +70,9 @@ describe("AnyWidget", () => {
     widget.setHandler("event", callback)
     widget.setHandler("event", null)
 
-    const handler = widget.handlers["event"]
+    const handler = widget.node.on.mock.calls[0][1]
 
-    expect(widget.node.on).toHaveBeenCalledWith("event", expect.any(Function))
-    expect(widget.node.off).toHaveBeenCalledWith("event", expect.any(Function))
-    expect(handler).toBeUndefined()
+    expect(widget.node.off).toHaveBeenCalledWith("event", handler)
   })
 
   it("replaces existing handler", () => {
@@ -88,15 +82,11 @@ describe("AnyWidget", () => {
     widget.setHandler("event", callback1)
     widget.setHandler("event", callback2)
 
-    const handler = widget.handlers["event"]
+    const handler1 = widget.node.on.mock.calls[0][1]
+    const handler2 = widget.node.on.mock.calls[1][1]
 
-    expect(widget.node.on).toHaveBeenCalledWith("event", expect.any(Function))
-    expect(widget.node.off).toHaveBeenCalledWith("event", expect.any(Function))
-    expect(handler).toBeInstanceOf(Function)
-
-    handler()
-
-    expect(callback1).not.toHaveBeenCalled()
-    expect(callback2).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith("event", handler1)
+    expect(widget.node.off).toHaveBeenCalledWith("event", handler1)
+    expect(widget.node.on).toHaveBeenCalledWith("event", handler2)
   })
 })

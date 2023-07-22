@@ -5,8 +5,14 @@ import gi from "@girs/node-gtk"
 import Container, { MAX_TIMEOUT } from "../src/container.js"
 import Reconciler from "../src/reconciler.js"
 import { createAnyWidget } from "../test-support/utils.js"
+import ApplicationWindow from "../src/generated/widgets/ApplicationWindow.js"
+import Window from "../src/generated/widgets/Window.js"
+import { withApplicationContext } from "../src/components/ApplicationProvider.js"
 
 jest.mock("react")
+jest.mock("../src/generated/widgets/ApplicationWindow.js")
+jest.mock("../src/generated/widgets/Window.js")
+jest.mock("../src/components/ApplicationProvider.js")
 jest.mock("../src/reconciler.js")
 
 describe("Container", () => {
@@ -17,9 +23,8 @@ describe("Container", () => {
   beforeEach(() => {
     GLib.MainLoop.new.mockReturnValue({
       run: jest.fn(),
+      quit: jest.fn(),
     })
-
-    Container.currentTag = 0
 
     application = new Gtk.Application()
     container = new Container(application)
@@ -49,10 +54,79 @@ describe("Container", () => {
     expect(container.children[0]).toBe(widget2)
   })
 
-  test("should throw an error when trying to remove non-existing child", () => {
+  test("should throw an error when removing non-existing child", () => {
     expect(() => container.removeChild(widget)).toThrow(
       "Removed child not found"
     )
+  })
+
+  test("should throw an error when inserting before non-existing child", () => {
+    const widget2 = createAnyWidget()
+
+    expect(() => container.insertBefore(widget, widget2)).toThrow(
+      "Before child not found"
+    )
+  })
+
+  test("should set application property for ApplicationWindow", () => {
+    ApplicationWindow.mockImplementation(() => {
+      const instance = Object.create(ApplicationWindow.prototype)
+
+      Object.assign(instance, {
+        node: {
+          setApplication: jest.fn(),
+        },
+      })
+
+      return instance
+    })
+
+    const window = new ApplicationWindow()
+    container.appendChild(window)
+    expect(window.node.setApplication).toHaveBeenCalledWith(application)
+  })
+
+  test("should set application property for ApplicationWindow when inserting", () => {
+    ApplicationWindow.mockImplementation(() => {
+      const instance = Object.create(ApplicationWindow.prototype)
+
+      Object.assign(instance, {
+        node: {
+          setApplication: jest.fn(),
+        },
+      })
+
+      return instance
+    })
+
+    const window = new ApplicationWindow()
+    const window2 = new ApplicationWindow()
+
+    container.appendChild(window)
+    container.insertBefore(window2, window)
+
+    expect(window2.node.setApplication).toHaveBeenCalledWith(application)
+  })
+
+  test("should destroy windows when removing them", () => {
+    Window.mockImplementation(() => {
+      const instance = Object.create(Window.prototype)
+
+      Object.assign(instance, {
+        node: {
+          destroy: jest.fn(),
+        },
+      })
+
+      return instance
+    })
+
+    const window = new Window()
+
+    container.appendChild(window)
+    container.removeChild(window)
+
+    expect(window.node.destroy).toHaveBeenCalled()
   })
 
   test("should run the application", () => {
@@ -70,7 +144,7 @@ describe("Container", () => {
       null,
       false,
       null,
-      "1",
+      expect.any(String),
       expect.any(Function),
       null
     )
@@ -89,5 +163,42 @@ describe("Container", () => {
     expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), MAX_TIMEOUT)
     expect(GLib.MainLoop.new.mock.results[0].value.run).toHaveBeenCalled()
     expect(gi.startLoop).toHaveBeenCalled()
+  })
+
+  test("should increment current tag when rendering", () => {
+    new Container(application)
+    const prevTag = Reconciler.createContainer.mock.calls[0][5]
+
+    new Container(application)
+    const nextTag = Reconciler.createContainer.mock.calls[1][5]
+
+    expect(nextTag).toBe((Number(prevTag) + 1).toString())
+  })
+
+  test("should expose an application context", () => {
+    jest.useFakeTimers()
+    jest.spyOn(global, "setTimeout")
+    jest.spyOn(global, "clearTimeout")
+
+    const element = React.createElement("SomeWidget")
+    container.render(element)
+
+    application.on.mock.calls[0][1]()
+
+    expect(withApplicationContext).toHaveBeenCalledWith(
+      element,
+      expect.any(Object)
+    )
+
+    const context = withApplicationContext.mock.calls[0][1]
+    const loop = GLib.MainLoop.new.mock.results[0].value
+    const timeout = setTimeout.mock.results[0].value
+    const result = context.quit()
+
+    expect(result).toBe(false)
+    expect(context.application).toBe(application)
+    expect(application.quit).toHaveBeenCalled()
+    expect(loop.quit).toHaveBeenCalled()
+    expect(clearTimeout).toHaveBeenCalledWith(timeout)
   })
 })

@@ -2,11 +2,12 @@
 
 React Native GTK4 allows you to build native GTK4 applications using React. It provides a bridge between React and the GTK4 toolkit, enabling you to develop cross-platform desktop applications with familiar React components and development patterns.
 
-![Version](https://img.shields.io/npm/v/react-native-gtk4)
-![Build](https://img.shields.io/github/actions/workflow/status/eugeniodepalo/react-native-gtk4/ci.yml)
-![Codecov](https://img.shields.io/codecov/c/github/eugeniodepalo/react-native-gtk4?logo=codecov)
-![Downloads](https://img.shields.io/npm/dw/react-native-gtk4?logo=npm)
-![Stars](https://img.shields.io/github/stars/eugeniodepalo/react-native-gtk4?logo=github)
+[![Version](https://img.shields.io/npm/v/react-native-gtk4?style=flat-square)](https://www.npmjs.com/package/react-native-gtk4)
+[![Build](https://img.shields.io/github/actions/workflow/status/eugeniodepalo/react-native-gtk4/ci.yml?style=flat-square)](https://github.com/eugeniodepalo/react-native-gtk4/actions/workflows/ci.yml)
+[![Codecov](https://img.shields.io/codecov/c/github/eugeniodepalo/react-native-gtk4?logo=codecov&style=flat-square)](https://codecov.io/gh/eugeniodepalo/react-native-gtk4)
+[![Downloads](https://img.shields.io/npm/dw/react-native-gtk4?logo=npm&style=flat-square)](https://npmtrends.com/react-native-gtk4)
+[![Stars](https://img.shields.io/github/stars/eugeniodepalo/react-native-gtk4?logo=github&style=flat-square)](https://github.com/eugeniodepalo/react-native-gtk4/stargazers)
+[![License](https://img.shields.io/npm/l/react-native-gtk4?style=flat-square)](https://github.com/eugeniodepalo/react-native-gtk4/blob/main/LICENSE)
 
 ## Getting Started
 

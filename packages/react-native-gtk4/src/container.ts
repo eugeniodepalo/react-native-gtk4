@@ -21,10 +21,13 @@ export default class Container {
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
 
-  constructor(application: Gtk.Application) {
+  constructor(
+    application: Gtk.Application,
+    reconciler: Reconciler = createReconciler()
+  ) {
     this.application = application
     this.loop = GLib.MainLoop.new(null, false)
-    this.reconciler = createReconciler()
+    this.reconciler = reconciler
 
     this.instance = this.reconciler.createContainer(
       this,

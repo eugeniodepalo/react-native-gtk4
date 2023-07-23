@@ -1,5 +1,5 @@
 import Box from "../../src/generated/widgets/Box.js"
-import { createAnyWidget } from "../../test-support/utils.js"
+import { createAnyWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/Box.js"
 
 describe("Box overrides", () => {

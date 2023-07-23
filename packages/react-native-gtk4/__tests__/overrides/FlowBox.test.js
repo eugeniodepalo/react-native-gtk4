@@ -1,5 +1,5 @@
 import FlowBox from "../../src/generated/widgets/FlowBox.js"
-import { createAnyWidget } from "../../test-support/utils.js"
+import { createAnyWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/FlowBox.js"
 
 describe("FlowBox overrides", () => {

@@ -250,7 +250,7 @@ export default function App() {
           }}
           creditSections={[
             {
-              sectionName: "Section 1",
+              name: "Section 1",
               people: ["Person 1", "Person 2"],
             },
           ]}

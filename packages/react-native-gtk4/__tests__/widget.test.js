@@ -1,4 +1,4 @@
-import { createAnyWidget } from "../test-support/utils.js"
+import { createAnyWidget } from "../src/test-support/utils.js"
 
 describe("AnyWidget", () => {
   let widget

@@ -1,5 +1,5 @@
 import ListBox from "../../src/generated/widgets/ListBox.js"
-import { createAnyWidget } from "../../test-support/utils.js"
+import { createAnyWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/ListBox.js"
 
 describe("ListBox overrides", () => {

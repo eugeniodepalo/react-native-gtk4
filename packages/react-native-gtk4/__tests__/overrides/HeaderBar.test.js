@@ -1,5 +1,5 @@
 import HeaderBar from "../../src/generated/widgets/HeaderBar.js"
-import { createAnyWidget } from "../../test-support/utils.js"
+import { createAnyWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/HeaderBar.js"
 
 describe("HeaderBar overrides", () => {

@@ -5,7 +5,7 @@ import useApplication from "../hooks/useApplication.js"
 import { AboutDialog } from "../generated/intrinsics.js"
 
 export interface AboutDialogCreditSection {
-  sectionName: string
+  name: string
   people: string[]
 }
 
@@ -27,8 +27,8 @@ export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
       return
     }
 
-    for (const { sectionName, people } of creditSections) {
-      node.addCreditSection(sectionName, people)
+    for (const { name, people } of creditSections) {
+      node.addCreditSection(name, people)
     }
 
     const activeWindow = application.getActiveWindow()

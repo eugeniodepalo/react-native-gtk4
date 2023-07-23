@@ -1,4 +1,4 @@
-import AnyWidget from "../src/widget.js"
+import AnyWidget from "../widget.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 export function createAnyWidget() {

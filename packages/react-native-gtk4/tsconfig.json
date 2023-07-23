@@ -13,5 +13,5 @@
     "jsx": "react",
     "baseUrl": "."
   },
-  "include": ["src/index.ts", "test-support/index.js"]
+  "include": ["src/index.ts", "src/test-support/index.js"]
 }

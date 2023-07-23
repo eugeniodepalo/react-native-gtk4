@@ -8,6 +8,99 @@ const reconciler = createReconciler()
 jest.spyOn(reconciler, "createContainer")
 jest.useFakeTimers()
 
+class RenderedTree {
+  constructor(node) {
+    this.node = node
+  }
+
+  findByType(type, node = this.node) {
+    if (node.constructor.name === type) {
+      return new RenderedTree(node)
+    }
+
+    if (node.children.length > 0) {
+      return node.children.find((child) => this.findByType(type, child))
+    }
+
+    return null
+  }
+
+  findByProps(props, node = this.node) {
+    if (node.props) {
+      const keys = Object.keys(props)
+      return keys.every((key) => node.props[key] === props[key])
+        ? new RenderedTree(node)
+        : null
+    }
+
+    if (node.children.length > 0) {
+      return node.children.find((child) => this.findByProps(props, child))
+    }
+
+    return null
+  }
+
+  findByText(text, node = this.node) {
+    if (node.props && node.props.children === text) {
+      return new RenderedTree(node)
+    }
+
+    if (node.children.length > 0) {
+      return node.children.find((child) => this.findByText(text, child))
+    }
+
+    return null
+  }
+
+  findAllByType(type, node = this.node) {
+    if (node.constructor.name === type) {
+      return [new RenderedTree(node)]
+    }
+
+    if (node.children.length > 0) {
+      return node.children.reduce(
+        (acc, child) => [...acc, ...this.findAllByType(type, child)],
+        []
+      )
+    }
+
+    return []
+  }
+
+  findAllByProps(props, node = this.node) {
+    if (node.props) {
+      const keys = Object.keys(props)
+      return keys.every((key) => node.props[key] === props[key])
+        ? [new RenderedTree(node)]
+        : []
+    }
+
+    if (node.children.length > 0) {
+      return node.children.reduce(
+        (acc, child) => [...acc, ...this.findAllByProps(props, child)],
+        []
+      )
+    }
+
+    return []
+  }
+
+  findAllByText(text, node = this.node) {
+    if (node.props && node.props.children === text) {
+      return [new RenderedTree(node)]
+    }
+
+    if (node.children.length > 0) {
+      return node.children.reduce(
+        (acc, child) => [...acc, ...this.findAllByText(text, child)],
+        []
+      )
+    }
+
+    return []
+  }
+}
+
 export class Renderer {
   setup() {
     const application = new Gtk.Application()
@@ -50,7 +143,7 @@ export class Renderer {
 
     jest.runAllTimers()
 
-    return this.container.children
+    return new RenderedTree(this.container)
   }
 }
 

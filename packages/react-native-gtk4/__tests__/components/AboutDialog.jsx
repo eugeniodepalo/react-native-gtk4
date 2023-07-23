@@ -9,17 +9,18 @@ describe("AboutDialog", () => {
   it("renders correctly", () => {
     render(<ApplicationWindow />)
 
-    const [window] = render(
+    const container = render(
       <ApplicationWindow>
         <AboutDialog />
       </ApplicationWindow>
     )
 
-    const [{ node }] = window.children
+    const window = container.findByType("ApplicationWindow")
+    const dialog = container.findByType("AboutDialog")
 
-    expect(node.setDestroyWithParent).toHaveBeenCalledWith(true)
-    expect(node.setModal).toHaveBeenCalledWith(true)
-    expect(node.present).toHaveBeenCalled()
-    expect(node.setTransientFor).toHaveBeenCalledWith(window.node)
+    expect(dialog.node.setDestroyWithParent).toHaveBeenCalledWith(true)
+    expect(dialog.node.setModal).toHaveBeenCalledWith(true)
+    expect(dialog.node.present).toHaveBeenCalled()
+    expect(dialog.node.setTransientFor).toHaveBeenCalledWith(window.node)
   })
 })

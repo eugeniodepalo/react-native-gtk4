@@ -9,8 +9,9 @@
     "strict": true,
     "skipLibCheck": true,
     "declaration": true,
+    "allowJs": true,
     "jsx": "react",
     "baseUrl": "."
   },
-  "include": ["src"]
+  "include": ["src/index.ts", "test-support/index.js"]
 }

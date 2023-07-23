@@ -48,7 +48,10 @@ export class RenderedTree {
 
   findAllByText(text) {
     return this.findAllByPredicate(
-      (node) => node.constructor.name === "Label" && node.props.text === text
+      (node) =>
+        node.constructor.name === "Label" &&
+        node.props.label &&
+        node.props.label.trim() === text
     )
   }
 

@@ -17,27 +17,31 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
 
   useImperativeHandle(ref, () => headerBarRef.current!)
 
-  const setTitleRef = useCallback((node: Gtk.Widget | null) => {
-    const prevNode = titleRef.current
-
-    titleRef.current = node
-
-    if (!node || !headerBarRef.current) {
+  const commitMount = useCallback(() => {
+    if (!headerBarRef.current) {
       return
     }
 
-    if (prevNode) {
-      prevNode.unparent()
-    }
-
-    if (node) {
-      node.unparent()
-      headerBarRef.current.setTitleWidget(node)
+    if (titleRef.current) {
+      titleRef.current.unparent()
+      headerBarRef.current.setTitleWidget(titleRef.current)
     }
   }, [])
 
+  const setHeaderBarRef = useCallback((node: Gtk.HeaderBar | null) => {
+    headerBarRef.current = node
+    commitMount()
+  }, [])
+
+  const setTitleRef = useCallback((node: Gtk.Widget | null) => {
+    const prevNode = titleRef.current
+    titleRef.current = node
+    prevNode?.unparent()
+    commitMount()
+  }, [])
+
   return (
-    <HeaderBar ref={headerBarRef} {...props}>
+    <HeaderBar ref={setHeaderBarRef} {...props}>
       {title
         ? React.cloneElement(title, {
             ref: setTitleRef,

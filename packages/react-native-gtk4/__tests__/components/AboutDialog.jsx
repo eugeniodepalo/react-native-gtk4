@@ -29,6 +29,7 @@ describe("AboutDialog", () => {
       { name: "Foo", people: ["Person 1", "Person 2"] },
       { name: "Bar", people: ["Person 3", "Person 4"] },
     ]
+
     const container = render(
       <ApplicationWindow>
         <AboutDialog creditSections={creditSections} />

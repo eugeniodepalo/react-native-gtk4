@@ -21,34 +21,45 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
   const centerRef = useRef<Gtk.Widget | null>(null)
   const endRef = useRef<Gtk.Widget | null>(null)
 
+  const commitMount = useCallback(() => {
+    if (!centerBoxRef.current) {
+      return
+    }
+
+    if (startRef.current) {
+      startRef.current.unparent()
+      centerBoxRef.current.setStartWidget(startRef.current)
+    }
+
+    if (centerRef.current) {
+      centerRef.current.unparent()
+      centerBoxRef.current.setCenterWidget(centerRef.current)
+    }
+
+    if (endRef.current) {
+      endRef.current.unparent()
+      centerBoxRef.current.setEndWidget(endRef.current)
+    }
+  }, [])
+
   const setStartRef = useCallback((node: Gtk.Widget | null) => {
     startRef.current = node
+    commitMount()
   }, [])
 
   const setEndRef = useCallback((node: Gtk.Widget | null) => {
     endRef.current = node
+    commitMount()
   }, [])
 
   const setCenterRef = useCallback((node: Gtk.Widget | null) => {
     centerRef.current = node
+    commitMount()
   }, [])
 
   const setCenterBoxRef = useCallback((node: Gtk.CenterBox | null) => {
     centerBoxRef.current = node
-
-    if (node) {
-      if (startRef.current) {
-        node.setStartWidget(startRef.current)
-      }
-
-      if (centerRef.current) {
-        node.setCenterWidget(centerRef.current)
-      }
-
-      if (endRef.current) {
-        node.setEndWidget(endRef.current)
-      }
-    }
+    commitMount()
   }, [])
 
   useImperativeHandle(ref, () => centerBoxRef.current!)

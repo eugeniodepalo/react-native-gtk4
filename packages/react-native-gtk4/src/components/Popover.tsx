@@ -24,47 +24,44 @@ export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
 
   useImperativeHandle(ref, () => popoverRef.current!)
 
-  const setContentRef = useCallback((node: Gtk.Widget | null) => {
-    const prevNode = contentRef.current
-
-    contentRef.current = node
-
-    if (prevNode) {
-      prevNode.unparent()
-    }
-
+  const commitMount = useCallback(() => {
     if (!popoverRef.current) {
       return
     }
 
-    if (node) {
-      node.unparent()
-      popoverRef.current.setChild(node)
+    if (childRef.current) {
+      popoverRef.current.unparent()
+      popoverRef.current.setParent(childRef.current)
+    }
+
+    if (contentRef.current) {
+      popoverRef.current.setChild(contentRef.current)
     } else {
       popoverRef.current.setChild(null)
     }
   }, [])
 
+  const setContentRef = useCallback((node: Gtk.Widget | null) => {
+    const prevNode = contentRef.current
+    contentRef.current = node
+    prevNode?.unparent()
+    commitMount()
+  }, [])
+
   const setChildRef = useCallback((node: Gtk.Widget | null) => {
     const prevNode = childRef.current
-
     childRef.current = node
+    prevNode?.unparent()
+    commitMount()
+  }, [])
 
-    if (prevNode) {
-      prevNode.unparent()
-    }
-
-    if (!popoverRef.current) {
-      return
-    }
-
-    if (node) {
-      popoverRef.current.setParent(node)
-    }
+  const setPopoverRef = useCallback((node: Gtk.Popover | null) => {
+    popoverRef.current = node
+    commitMount()
   }, [])
 
   useEffect(() => {
-    if (!popoverRef.current || !contentRef.current) {
+    if (!popoverRef.current || !contentRef.current || !childRef.current) {
       return
     }
 
@@ -80,7 +77,7 @@ export default forwardRef<Gtk.Popover, Props>(function PopoverComponent(
       {React.cloneElement(children, {
         ref: setChildRef,
       })}
-      <Popover ref={popoverRef} {...props}>
+      <Popover ref={setPopoverRef} {...props}>
         {React.cloneElement(content, {
           ref: setContentRef,
         })}

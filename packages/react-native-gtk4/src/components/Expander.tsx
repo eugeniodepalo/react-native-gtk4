@@ -20,15 +20,25 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
 
   useImperativeHandle(ref, () => expanderRef.current!)
 
-  const setLabelRef = useCallback((node: Gtk.Widget | null) => {
-    labelRef.current = node
-
-    if (!node || !expanderRef.current) {
+  const commitMount = useCallback(() => {
+    if (!expanderRef.current) {
       return
     }
 
-    node.unparent()
-    expanderRef.current.setLabelWidget(node)
+    if (labelRef.current) {
+      labelRef.current.unparent()
+      expanderRef.current.setLabelWidget(labelRef.current)
+    }
+  }, [])
+
+  const setLabelRef = useCallback((node: Gtk.Widget | null) => {
+    labelRef.current = node
+    commitMount()
+  }, [])
+
+  const setExpanderRef = useCallback((node: Gtk.Expander | null) => {
+    expanderRef.current = node
+    commitMount()
   }, [])
 
   return (
@@ -39,7 +49,7 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
           })
         : null}
       <Expander
-        ref={expanderRef}
+        ref={setExpanderRef}
         label={typeof label === "string" ? label : undefined}
         {...props}
       />

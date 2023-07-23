@@ -31,6 +31,9 @@ export class Renderer {
       () => {}
     )
 
+    reconciler.flushSync(() => {})
+    reconciler.flushControlled(() => {})
+    reconciler.flushPassiveEffects()
     jest.runAllTimers()
 
     return new RenderedTree(this.container)

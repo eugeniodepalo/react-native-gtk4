@@ -3,9 +3,8 @@ import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants"
 import AbstractWidget from "./abstract/widget.js"
 import Label from "./generated/widgets/Label.js"
-import Container from "./container.js"
 import Gtk from "@girs/node-gtk-4.0"
-import { Portal } from "./portal.js"
+import AbstractContainer from "./abstract/container.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
@@ -26,7 +25,7 @@ function definedProps(obj: Record<string, any>) {
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  Container | Portal,
+  AbstractContainer,
   AbstractWidget,
   AbstractWidget,
   AbstractWidget,

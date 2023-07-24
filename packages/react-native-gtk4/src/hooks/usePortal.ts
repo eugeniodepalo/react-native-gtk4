@@ -5,16 +5,16 @@ export default function usePortal(element: React.ReactNode) {
   const portalRef = useRef<Portal | null>(null)
 
   useEffect(() => {
-    if (!portalRef.current) {
-      portalRef.current = new Portal()
-    }
-
-    portalRef.current.render(element)
+    portalRef.current = new Portal()
 
     return () => {
       portalRef.current?.destroy()
     }
+  }, [])
+
+  useEffect(() => {
+    portalRef.current?.render(element)
   }, [element])
 
-  return portalRef.current
+  return portalRef
 }

@@ -1,5 +1,5 @@
 import Overlay from "../../src/generated/widgets/Overlay.js"
-import { createAnyWidget } from "../../src/test-support/utils.js"
+import { createMockWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/Overlay.js"
 
 describe("Overlay overrides", () => {
@@ -10,13 +10,13 @@ describe("Overlay overrides", () => {
   })
 
   test("should append node on appendChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
     overlay.appendChild(child)
     expect(overlay.node.addOverlay).toHaveBeenCalledWith(child.node)
   })
 
   test("should remove node on removeChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
 
     overlay.appendChild(child)
     overlay.removeChild(child)
@@ -25,9 +25,9 @@ describe("Overlay overrides", () => {
   })
 
   test("should remove all nodes and add them back with addOverlay", () => {
-    const child1 = createAnyWidget()
-    const child2 = createAnyWidget()
-    const beforeChild = createAnyWidget()
+    const child1 = createMockWidget()
+    const child2 = createMockWidget()
+    const beforeChild = createMockWidget()
 
     overlay.appendChild(child1)
     overlay.appendChild(beforeChild)

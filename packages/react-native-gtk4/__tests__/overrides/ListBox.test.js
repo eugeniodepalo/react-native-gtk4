@@ -1,5 +1,5 @@
 import ListBox from "../../src/generated/widgets/ListBox.js"
-import { createAnyWidget } from "../../src/test-support/utils.js"
+import { createMockWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/ListBox.js"
 
 describe("ListBox overrides", () => {
@@ -10,13 +10,13 @@ describe("ListBox overrides", () => {
   })
 
   test("should append node on appendChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
     listBox.appendChild(child)
     expect(listBox.node.append).toHaveBeenCalledWith(child.node)
   })
 
   test("should remove node on removeChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
 
     listBox.appendChild(child)
     listBox.removeChild(child)
@@ -25,9 +25,9 @@ describe("ListBox overrides", () => {
   })
 
   test("should insert node on insertBefore", () => {
-    const child1 = createAnyWidget()
-    const child2 = createAnyWidget()
-    const beforeChild = createAnyWidget()
+    const child1 = createMockWidget()
+    const child2 = createMockWidget()
+    const beforeChild = createMockWidget()
 
     listBox.appendChild(child1)
     listBox.appendChild(beforeChild)
@@ -37,8 +37,8 @@ describe("ListBox overrides", () => {
   })
 
   test("should prepend in case beforeChild is the first child", () => {
-    const child1 = createAnyWidget()
-    const child2 = createAnyWidget()
+    const child1 = createMockWidget()
+    const child2 = createMockWidget()
 
     listBox.appendChild(child1)
     listBox.insertBefore(child2, child1)

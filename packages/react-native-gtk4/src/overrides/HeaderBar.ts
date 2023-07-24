@@ -1,5 +1,5 @@
 import HeaderBar from "../generated/widgets/HeaderBar.js"
-import AnyWidget from "../widget.js"
+import AbstractWidget from "../abstract/widget.js"
 
 const parent = {
   appendChild: HeaderBar.prototype.appendChild,
@@ -7,20 +7,26 @@ const parent = {
   insertBefore: HeaderBar.prototype.insertBefore,
 }
 
-HeaderBar.prototype.appendChild = function (this: HeaderBar, child: AnyWidget) {
+HeaderBar.prototype.appendChild = function (
+  this: HeaderBar,
+  child: AbstractWidget
+) {
   parent.appendChild.call(this, child)
   this.node.packEnd(child.node)
 }
 
-HeaderBar.prototype.removeChild = function (this: HeaderBar, child: AnyWidget) {
+HeaderBar.prototype.removeChild = function (
+  this: HeaderBar,
+  child: AbstractWidget
+) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
 HeaderBar.prototype.insertBefore = function (
   this: HeaderBar,
-  child: AnyWidget,
-  beforeChild: AnyWidget
+  child: AbstractWidget,
+  beforeChild: AbstractWidget
 ) {
   for (const child of this.children) {
     this.node.remove(child.node)

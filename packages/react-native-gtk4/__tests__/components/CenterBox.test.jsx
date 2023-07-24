@@ -6,7 +6,7 @@ import CenterBox from "../../src/components/CenterBox.js"
 describe("CenterBox", () => {
   beforeEach(setupRenderer)
 
-  it("assigns widgets correctly", () => {
+  test("assigns widgets correctly", () => {
     const container = render(
       <CenterBox start={<Label label="Start" />} end={<Label label="End" />}>
         <Label label="Center" />
@@ -26,7 +26,7 @@ describe("CenterBox", () => {
     )
   })
 
-  it("handles absence of start, end, and center widgets gracefully", () => {
+  test("handles absence of start, end, and center widgets gracefully", () => {
     const container = render(<CenterBox />)
     const centerBox = container.findByType("CenterBox")
 

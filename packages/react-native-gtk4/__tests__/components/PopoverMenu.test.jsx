@@ -12,7 +12,7 @@ describe("PopoverMenu", () => {
     mockProperty(Gtk.PopoverMenu, "parent")
   })
 
-  it("renders correctly with a child and content", () => {
+  test("renders correctly with a child and content", () => {
     const container = render(
       <PopoverMenu open={true} content={<Label text="PopoverMenu content" />}>
         <Button label="Click me!" />
@@ -27,7 +27,7 @@ describe("PopoverMenu", () => {
     expect(popover.node.parent).toBe(button.node)
   })
 
-  it("opens and closes the popover when the open prop changes", () => {
+  test("opens and closes the popover when the open prop changes", () => {
     const container = render(
       <PopoverMenu open={false} content={<Label text="PopoverMenu content" />}>
         <Button label="Click me!" />

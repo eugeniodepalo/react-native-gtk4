@@ -6,7 +6,7 @@ import { ApplicationWindow } from "../../src/generated/intrinsics.js"
 describe("AboutDialog", () => {
   beforeEach(setupRenderer)
 
-  it("renders correctly", () => {
+  test("renders correctly", () => {
     render(<ApplicationWindow />)
 
     const container = render(
@@ -24,7 +24,7 @@ describe("AboutDialog", () => {
     expect(dialog.node.setTransientFor).toHaveBeenCalledWith(window.node)
   })
 
-  it("adds credit sections", () => {
+  test("adds credit sections", () => {
     const creditSections = [
       { name: "Foo", people: ["Person 1", "Person 2"] },
       { name: "Bar", people: ["Person 3", "Person 4"] },

@@ -1,5 +1,5 @@
 import FlowBox from "../../src/generated/widgets/FlowBox.js"
-import { createAnyWidget } from "../../src/test-support/utils.js"
+import { createMockWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/FlowBox.js"
 
 describe("FlowBox overrides", () => {
@@ -10,13 +10,13 @@ describe("FlowBox overrides", () => {
   })
 
   test("should append node on appendChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
     flowBox.appendChild(child)
     expect(flowBox.node.append).toHaveBeenCalledWith(child.node)
   })
 
   test("should remove node on removeChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
 
     flowBox.appendChild(child)
     flowBox.removeChild(child)
@@ -25,9 +25,9 @@ describe("FlowBox overrides", () => {
   })
 
   test("should insert node on insertBefore", () => {
-    const child1 = createAnyWidget()
-    const child2 = createAnyWidget()
-    const beforeChild = createAnyWidget()
+    const child1 = createMockWidget()
+    const child2 = createMockWidget()
+    const beforeChild = createMockWidget()
 
     flowBox.appendChild(child1)
     flowBox.appendChild(beforeChild)
@@ -37,8 +37,8 @@ describe("FlowBox overrides", () => {
   })
 
   test("should prepend in case beforeChild is the first child", () => {
-    const child1 = createAnyWidget()
-    const child2 = createAnyWidget()
+    const child1 = createMockWidget()
+    const child2 = createMockWidget()
 
     flowBox.appendChild(child1)
     flowBox.insertBefore(child2, child1)

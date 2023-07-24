@@ -1,5 +1,5 @@
 import FlowBox from "../generated/widgets/FlowBox.js"
-import AnyWidget from "../widget.js"
+import AbstractWidget from "../abstract/widget.js"
 
 const parent = {
   appendChild: FlowBox.prototype.appendChild,
@@ -7,20 +7,26 @@ const parent = {
   insertBefore: FlowBox.prototype.insertBefore,
 }
 
-FlowBox.prototype.appendChild = function (this: FlowBox, child: AnyWidget) {
+FlowBox.prototype.appendChild = function (
+  this: FlowBox,
+  child: AbstractWidget
+) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
 }
 
-FlowBox.prototype.removeChild = function (this: FlowBox, child: AnyWidget) {
+FlowBox.prototype.removeChild = function (
+  this: FlowBox,
+  child: AbstractWidget
+) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
 FlowBox.prototype.insertBefore = function (
   this: FlowBox,
-  child: AnyWidget,
-  beforeChild: AnyWidget
+  child: AbstractWidget,
+  beforeChild: AbstractWidget
 ) {
   const afterIndex = this.children.indexOf(beforeChild) - 1
 

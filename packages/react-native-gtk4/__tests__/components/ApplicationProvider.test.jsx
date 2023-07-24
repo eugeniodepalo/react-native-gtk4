@@ -8,7 +8,7 @@ import ApplicationProvider, {
 describe("ApplicationProvider", () => {
   beforeEach(setupRenderer)
 
-  it("provides the correct context", () => {
+  test("provides the correct context", () => {
     const testApplication = { application: {}, quit: jest.fn() }
 
     const TestComponent = () => {
@@ -24,7 +24,7 @@ describe("ApplicationProvider", () => {
     )
   })
 
-  it("withApplicationContext provides the correct context", () => {
+  test("withApplicationContext provides the correct context", () => {
     const testApplication = { application: {}, quit: jest.fn() }
 
     const TestComponent = () => {

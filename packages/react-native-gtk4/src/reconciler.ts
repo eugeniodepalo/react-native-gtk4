@@ -1,7 +1,7 @@
 import Reconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants"
-import AnyWidget from "./widget.js"
+import AbstractWidget from "./abstract/widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
 import Gtk from "@girs/node-gtk-4.0"
@@ -9,7 +9,7 @@ import { Portal } from "./portal.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
-type WidgetConstructor = new (props: Record<string, any>) => AnyWidget
+type WidgetConstructor = new (props: Record<string, any>) => AbstractWidget
 
 function definedProps(obj: Record<string, any>) {
   return Object.keys(obj).reduce(
@@ -27,14 +27,14 @@ const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
   Container | Portal,
-  AnyWidget,
-  AnyWidget,
-  AnyWidget,
-  AnyWidget,
+  AbstractWidget,
+  AbstractWidget,
+  AbstractWidget,
+  AbstractWidget,
   Gtk.Widget,
   unknown,
   UpdatePayload,
-  Set<AnyWidget>,
+  Set<AbstractWidget>,
   ReturnType<typeof setTimeout>,
   -1
 > = {

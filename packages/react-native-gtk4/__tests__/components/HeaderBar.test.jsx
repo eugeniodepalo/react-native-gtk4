@@ -11,7 +11,7 @@ describe("HeaderBar", () => {
     mockProperty(Gtk.HeaderBar, "titleWidget")
   })
 
-  it("renders correctly without title", () => {
+  test("renders correctly without title", () => {
     const container = render(<HeaderBar />)
     const headerBar = container.findByType("HeaderBar")
 
@@ -19,7 +19,7 @@ describe("HeaderBar", () => {
     expect(headerBar.node.titleWidget).toBeNull()
   })
 
-  it("sets title widget correctly", () => {
+  test("sets title widget correctly", () => {
     const container = render(<HeaderBar title={<Label label="text" />} />)
     const headerBar = container.findByType("HeaderBar")
     const label = container.findByType("Label")

@@ -1,20 +1,20 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
-import AnyWidget from "../../widget.js"
+import AbstractWidget from "../../abstract/widget.js"
 
 export default class Frame<T extends Gtk.Frame = Gtk.Frame> extends Widget<T> {
   createNode() {
     return new Gtk.Frame({}) as T
   }
-  appendChild(child: AnyWidget) {
+  appendChild(child: AbstractWidget) {
     super.appendChild(child)
     this.node.setChild(child.node)
   }
-  removeChild(child: AnyWidget) {
+  removeChild(child: AbstractWidget) {
     super.removeChild(child)
     this.node.setChild(null)
   }
-  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
+  insertBefore(child: AbstractWidget, beforeChild: AbstractWidget) {
     super.insertBefore(child, beforeChild)
     this.node.setChild(child.node)
   }

@@ -42,7 +42,6 @@ interface TabProps {
 
 const NotebookTab = function NotebookItem({ children, label }: TabProps) {
   const notebookNode = useContext(NotebookContext)
-
   const childRef = useRef<Gtk.Widget | null>(null)
   const labelRef = useRef<Gtk.Label | null>(null)
 

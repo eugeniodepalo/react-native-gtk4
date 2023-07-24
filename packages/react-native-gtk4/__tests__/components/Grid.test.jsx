@@ -7,13 +7,31 @@ import Gtk from "@girs/node-gtk-4.0"
 describe("Grid", () => {
   beforeEach(setupRenderer)
 
-  it("GridContainer renders correctly", () => {
+  test("GridContainer renders correctly", () => {
     const container = render(<Grid.Container />)
     const grid = container.findByType("Grid")
     expect(grid).toBeTruthy()
   })
 
-  it("GridItem attaches its child to the grid correctly", () => {
+  test("GridItem attaches to default row and column", () => {
+    render(
+      <Grid.Container>
+        <Grid.Item>
+          <Button />
+        </Grid.Item>
+      </Grid.Container>
+    )
+
+    expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
+      expect.anything(),
+      0,
+      0,
+      1,
+      1
+    )
+  })
+
+  test("GridItem attaches its child to the grid correctly", () => {
     const container = render(
       <Grid.Container>
         <Grid.Item col={1} row={2} width={3} height={4}>
@@ -32,7 +50,7 @@ describe("Grid", () => {
     )
   })
 
-  it("GridItem removes its previous child before attaching a new child", () => {
+  test("GridItem removes its previous child before attaching a new child", () => {
     const container = render(
       <Grid.Container>
         <Grid.Item col={1} row={2} width={3} height={4}>

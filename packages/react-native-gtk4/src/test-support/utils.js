@@ -1,14 +1,26 @@
-import AnyWidget from "../widget.js"
+import AbstractNode from "../abstract/node.js"
+import AbstractWidget from "../abstract/widget.js"
+import AbstractContainer from "../abstract/container.js"
 import Gtk from "@girs/node-gtk-4.0"
 
-export function createAnyWidget() {
-  return new (class Widget extends AnyWidget {
+export function createMockWidget() {
+  return new (class extends AbstractWidget {
     node = this.createNode()
+    set = jest.fn()
+    commitMount = jest.fn()
 
     createNode() {
       return new Gtk.Widget()
     }
   })()
+}
+
+export function createMockNode() {
+  return new (class extends AbstractNode {})()
+}
+
+export function createMockContainer() {
+  return new (class extends AbstractContainer {})()
 }
 
 export function mockProperty(klass, name) {

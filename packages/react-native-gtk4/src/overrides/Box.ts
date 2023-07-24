@@ -1,5 +1,5 @@
 import Box from "../generated/widgets/Box.js"
-import AnyWidget from "../widget.js"
+import AbstractWidget from "../abstract/widget.js"
 
 const parent = {
   appendChild: Box.prototype.appendChild,
@@ -7,20 +7,20 @@ const parent = {
   insertBefore: Box.prototype.insertBefore,
 }
 
-Box.prototype.appendChild = function (this: Box, child: AnyWidget) {
+Box.prototype.appendChild = function (this: Box, child: AbstractWidget) {
   parent.appendChild.call(this, child)
   this.node.append(child.node)
 }
 
-Box.prototype.removeChild = function (this: Box, child: AnyWidget) {
+Box.prototype.removeChild = function (this: Box, child: AbstractWidget) {
   parent.removeChild.call(this, child)
   this.node.remove(child.node)
 }
 
 Box.prototype.insertBefore = function (
   this: Box,
-  child: AnyWidget,
-  beforeChild: AnyWidget
+  child: AbstractWidget,
+  beforeChild: AbstractWidget
 ) {
   const afterIndex = this.children.indexOf(beforeChild) - 1
 

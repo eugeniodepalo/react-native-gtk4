@@ -6,7 +6,7 @@ import { Button, Label } from "../../src/generated/intrinsics.js"
 describe("Stack Components", () => {
   beforeEach(setupRenderer)
 
-  it("renders StackContainer and StackItem correctly", () => {
+  test("renders StackContainer and StackItem correctly", () => {
     const container = render(
       <Stack.Container visibleChildName="item1">
         <Stack.Item name="item1" title="Item 1">
@@ -43,7 +43,7 @@ describe("Stack Components", () => {
     expect(stack.node.setVisibleChildName).toHaveBeenCalledWith("item1")
   })
 
-  it("updates visible child when the visibleChildName prop changes", () => {
+  test("updates visible child when the visibleChildName prop changes", () => {
     const container = render(
       <Stack.Container visibleChildName="item1">
         <Stack.Item name="item1" title="Item 1">

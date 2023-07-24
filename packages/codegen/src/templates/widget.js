@@ -7,7 +7,7 @@ export default function (widgetClass) {
   ts += `import ${widgetClass.parentImport.name} from "${widgetClass.parentImport.moduleName}"\n`
 
   if (widgetClass.isContainer) {
-    ts += `import AnyWidget from "../../widget.js"\n`
+    ts += `import AbstractWidget from "../../abstract/widget.js"\n`
   }
 
   ts += `\n`
@@ -25,23 +25,31 @@ export default function (widgetClass) {
   ts += `  }) as T\n`
   ts += `}\n`
 
+  if (widgetClass.name === "Widget") {
+    ts += `commitMount() {}\n`
+  }
+
   if (widgetClass.isContainer) {
-    ts += `appendChild(child: AnyWidget) {\n`
+    ts += `appendChild(child: AbstractWidget) {\n`
     ts += `  super.appendChild(child)\n`
     ts += `  this.node.setChild(child.node)\n`
     ts += `}\n`
-    ts += `removeChild(child: AnyWidget) {\n`
+    ts += `removeChild(child: AbstractWidget) {\n`
     ts += `  super.removeChild(child)\n`
     ts += `  this.node.setChild(null)\n`
     ts += `}\n`
-    ts += `insertBefore(child: AnyWidget, beforeChild: AnyWidget) {\n`
+    ts += `insertBefore(child: AbstractWidget, beforeChild: AbstractWidget) {\n`
     ts += `  super.insertBefore(child, beforeChild)\n`
     ts += `  this.node.setChild(child.node)\n`
     ts += `}\n`
   }
 
   ts += `set(propName: string, newValue: any) {\n`
-  ts += `  super.set(propName, newValue)\n`
+
+  if (widgetClass.name !== "Widget") {
+    ts += `  super.set(propName, newValue)\n`
+  }
+
   ts += `  switch (propName) {\n`
 
   for (const prop of widgetClass.settableProps) {

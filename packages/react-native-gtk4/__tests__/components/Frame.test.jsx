@@ -12,7 +12,7 @@ describe("Frame", () => {
     mockProperty(Gtk.Frame, "label")
   })
 
-  it("renders correctly without label", () => {
+  test("renders correctly without label", () => {
     const container = render(<Frame />)
     const frame = container.findByType("Frame")
 
@@ -21,7 +21,7 @@ describe("Frame", () => {
     expect(frame.node.labelWidget).toBeUndefined()
   })
 
-  it("renders correctly with string label", () => {
+  test("renders correctly with string label", () => {
     const label = "test"
     const container = render(<Frame label={label} />)
     const frame = container.findByType("Frame")
@@ -30,7 +30,7 @@ describe("Frame", () => {
     expect(frame.node.label).toBe(label)
   })
 
-  it("renders correctly with ReactElement label", () => {
+  test("renders correctly with ReactElement label", () => {
     const container = render(<Frame label={<Label label="text" />} />)
     const frame = container.findByType("Frame")
     const label = container.findByType("Label")

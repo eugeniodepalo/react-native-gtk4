@@ -1,25 +1,25 @@
 import { createReconciler } from "../src/reconciler.js"
 import Container from "../src/container.js"
 import ReactReconciler from "react-reconciler"
-import AnyWidget from "../src/widget.js"
+import AbstractWidget from "../src/abstract/widget.js"
 import Label from "../src/generated/widgets/Label.js"
-import { createAnyWidget } from "../src/test-support/utils.js"
+import { createMockWidget } from "../src/test-support/utils.js"
 import { DefaultEventPriority } from "react-reconciler/constants.js"
 
 jest.mock("../src/generated/widgets.js", () => ({
   __esModule: true,
   Label: jest.requireMock("../src/generated/widgets/Label.js").default,
-  AnyWidget: jest.requireMock("../src/widget.js").default,
+  AbstractWidget: jest.requireMock("../src/abstract/widget.js").default,
 }))
 
 jest.mock("react-reconciler")
 jest.mock("../src/generated/widgets/Label.js")
 jest.mock("../src/container.js")
-jest.mock("../src/widget.js")
+jest.mock("../src/abstract/widget.js")
 
 describe("Reconciler", () => {
   describe("createReconciler", () => {
-    it("should merge the host config", () => {
+    test("should merge the host config", () => {
       const createInstance = jest.fn()
 
       createReconciler({ createInstance })
@@ -49,7 +49,7 @@ describe("Reconciler", () => {
     })
 
     describe("defaults", () => {
-      it("should have the correct defaults", () => {
+      test("should have the correct defaults", () => {
         expect(hostConfig).toMatchObject({
           supportsMutation: true,
           supportsPersistence: false,
@@ -93,21 +93,21 @@ describe("Reconciler", () => {
     })
 
     describe("createInstance", () => {
-      it("should create a widget", () => {
+      test("should create a widget", () => {
         const props = { some: "Prop" }
-        hostConfig.createInstance("AnyWidget", props)
-        expect(AnyWidget).toHaveBeenCalledWith(props)
+        hostConfig.createInstance("AbstractWidget", props)
+        expect(AbstractWidget).toHaveBeenCalledWith(props)
       })
 
-      it("should remove undefined props", () => {
+      test("should remove undefined props", () => {
         const props = { some: "Prop", undefined: undefined }
-        hostConfig.createInstance("AnyWidget", props)
-        expect(AnyWidget).toHaveBeenCalledWith({ some: "Prop" })
+        hostConfig.createInstance("AbstractWidget", props)
+        expect(AbstractWidget).toHaveBeenCalledWith({ some: "Prop" })
       })
     })
 
     describe("createTextInstance", () => {
-      it("should create a label", () => {
+      test("should create a label", () => {
         const text = "Some text"
         hostConfig.createTextInstance(text)
         expect(Label).toHaveBeenCalledWith({ label: text })
@@ -115,9 +115,9 @@ describe("Reconciler", () => {
     })
 
     describe("appendInitialChild", () => {
-      it("should append a child", () => {
-        const parent = createAnyWidget()
-        const child = createAnyWidget()
+      test("should append a child", () => {
+        const parent = createMockWidget()
+        const child = createMockWidget()
 
         hostConfig.appendInitialChild(parent, child)
 
@@ -126,15 +126,15 @@ describe("Reconciler", () => {
     })
 
     describe("finalizeInitialChildren", () => {
-      it("should return true", () => {
+      test("should return true", () => {
         expect(hostConfig.finalizeInitialChildren()).toBe(true)
       })
     })
 
     describe("appendChild", () => {
-      it("should append a child", () => {
-        const parent = createAnyWidget()
-        const child = createAnyWidget()
+      test("should append a child", () => {
+        const parent = createMockWidget()
+        const child = createMockWidget()
 
         hostConfig.appendChild(parent, child)
 
@@ -143,9 +143,9 @@ describe("Reconciler", () => {
     })
 
     describe("removeChild", () => {
-      it("should remove a child", () => {
-        const parent = createAnyWidget()
-        const child = createAnyWidget()
+      test("should remove a child", () => {
+        const parent = createMockWidget()
+        const child = createMockWidget()
 
         hostConfig.removeChild(parent, child)
 
@@ -154,10 +154,10 @@ describe("Reconciler", () => {
     })
 
     describe("insertBefore", () => {
-      it("should insert a child", () => {
-        const parent = createAnyWidget()
-        const child = createAnyWidget()
-        const beforeChild = createAnyWidget()
+      test("should insert a child", () => {
+        const parent = createMockWidget()
+        const child = createMockWidget()
+        const beforeChild = createMockWidget()
 
         hostConfig.insertBefore(parent, child, beforeChild)
 
@@ -166,9 +166,9 @@ describe("Reconciler", () => {
     })
 
     describe("removeChildFromContainer", () => {
-      it("should remove a child", () => {
-        const parent = createAnyWidget()
-        const child = createAnyWidget()
+      test("should remove a child", () => {
+        const parent = createMockWidget()
+        const child = createMockWidget()
 
         hostConfig.removeChildFromContainer(parent, child)
 
@@ -177,13 +177,13 @@ describe("Reconciler", () => {
     })
 
     describe("prepareUpdate", () => {
-      it("should return a payload with the updates to apply", () => {
+      test("should return a payload with the updates to apply", () => {
         const oldProps = { old: "Prop" }
         const newProps = { ...oldProps, new: "Prop" }
 
         const payload = hostConfig.prepareUpdate(
           container,
-          "AnyWidget",
+          "AbstractWidget",
           oldProps,
           newProps
         )
@@ -193,16 +193,16 @@ describe("Reconciler", () => {
     })
 
     describe("commitMount", () => {
-      it("should call commitMount on the widget", () => {
-        const widget = createAnyWidget()
+      test("should call commitMount on the widget", () => {
+        const widget = createMockWidget()
         hostConfig.commitMount(widget)
         expect(widget.commitMount).toHaveBeenCalled()
       })
     })
 
     describe("commitUpdate", () => {
-      it("should set the props on the widget", () => {
-        const widget = createAnyWidget()
+      test("should set the props on the widget", () => {
+        const widget = createMockWidget()
 
         const payload = [
           ["some", "prop"],
@@ -218,8 +218,8 @@ describe("Reconciler", () => {
     })
 
     describe("commitTextUpdate", () => {
-      it("should set the text on the label", () => {
-        const label = createAnyWidget()
+      test("should set the text on the label", () => {
+        const label = createMockWidget()
         const text = "Some text"
 
         hostConfig.commitTextUpdate(label, null, text)
@@ -229,19 +229,19 @@ describe("Reconciler", () => {
     })
 
     describe("shouldSetTextContent", () => {
-      it("should return false", () => {
+      test("should return false", () => {
         expect(hostConfig.shouldSetTextContent()).toBe(false)
       })
     })
 
     describe("getRootHostContext", () => {
-      it("should return null", () => {
+      test("should return null", () => {
         expect(hostConfig.getRootHostContext()).toBe(null)
       })
     })
 
     describe("getChildHostContext", () => {
-      it("should return the parent context", () => {
+      test("should return the parent context", () => {
         const parentContext = {}
 
         expect(hostConfig.getChildHostContext(parentContext)).toBe(
@@ -251,32 +251,32 @@ describe("Reconciler", () => {
     })
 
     describe("getPublicInstance", () => {
-      it("should return the widget node", () => {
-        const widget = createAnyWidget()
+      test("should return the widget node", () => {
+        const widget = createMockWidget()
         expect(hostConfig.getPublicInstance(widget)).toBe(widget.node)
       })
     })
 
     describe("prepareForCommit", () => {
-      it("should return null", () => {
+      test("should return null", () => {
         expect(hostConfig.prepareForCommit()).toBe(null)
       })
     })
 
     describe("resetAfterCommit", () => {
-      it("should return null", () => {
+      test("should return null", () => {
         expect(hostConfig.resetAfterCommit()).toBe(null)
       })
     })
 
     describe("preparePortalMount", () => {
-      it("should be a noop", () => {
+      test("should be a noop", () => {
         expect(hostConfig.preparePortalMount()).toBe(undefined)
       })
     })
 
     describe("scheduleTimeout", () => {
-      it("should call setTimeout", () => {
+      test("should call setTimeout", () => {
         jest.useFakeTimers()
         jest.spyOn(global, "setTimeout")
 
@@ -290,7 +290,7 @@ describe("Reconciler", () => {
     })
 
     describe("cancelTimeout", () => {
-      it("should call clearTimeout", () => {
+      test("should call clearTimeout", () => {
         jest.useFakeTimers()
         jest.spyOn(global, "clearTimeout")
 
@@ -303,53 +303,53 @@ describe("Reconciler", () => {
     })
 
     describe("getCurrentEventPriority", () => {
-      it("should return DefaultEventPriority", () => {
+      test("should return DefaultEventPriority", () => {
         expect(hostConfig.getCurrentEventPriority()).toBe(DefaultEventPriority)
       })
     })
 
     describe("getInstanceFromNode", () => {
-      it("should return null", () => {
+      test("should return null", () => {
         expect(hostConfig.getInstanceFromNode()).toBe(null)
       })
     })
 
     describe("beforeActiveInstanceBlur", () => {
-      it("should be a noop", () => {
+      test("should be a noop", () => {
         expect(hostConfig.beforeActiveInstanceBlur()).toBe(undefined)
       })
     })
 
     describe("afterActiveInstanceBlur", () => {
-      it("should be a noop", () => {
+      test("should be a noop", () => {
         expect(hostConfig.afterActiveInstanceBlur()).toBe(undefined)
       })
     })
 
     describe("prepareScopeUpdate", () => {
-      it("should be a noop", () => {
+      test("should be a noop", () => {
         expect(hostConfig.prepareScopeUpdate()).toBe(undefined)
       })
     })
 
     describe("getInstanceFromScope", () => {
-      it("should return null", () => {
+      test("should return null", () => {
         expect(hostConfig.getInstanceFromScope()).toBe(null)
       })
     })
 
     describe("detachDeletedInstance", () => {
-      it("should be a noop", () => {
+      test("should be a noop", () => {
         expect(hostConfig.detachDeletedInstance()).toBe(undefined)
       })
     })
 
     describe("clearContainer", () => {
-      it("should remove all children from the container", () => {
+      test("should remove all children from the container", () => {
         container.children = [
-          createAnyWidget(),
-          createAnyWidget(),
-          createAnyWidget(),
+          createMockWidget(),
+          createMockWidget(),
+          createMockWidget(),
         ]
 
         hostConfig.clearContainer(container)
@@ -361,17 +361,17 @@ describe("Reconciler", () => {
     })
 
     describe("appendChildToContainer", () => {
-      it("should append a child to the container", () => {
-        const child = createAnyWidget()
+      test("should append a child to the container", () => {
+        const child = createMockWidget()
         hostConfig.appendChildToContainer(container, child)
         expect(container.appendChild).toHaveBeenCalledWith(child)
       })
     })
 
     describe("insertInContainerBefore", () => {
-      it("should insert a child in the container", () => {
-        const child = createAnyWidget()
-        const beforeChild = createAnyWidget()
+      test("should insert a child in the container", () => {
+        const child = createMockWidget()
+        const beforeChild = createMockWidget()
 
         hostConfig.insertInContainerBefore(container, child, beforeChild)
 
@@ -380,7 +380,7 @@ describe("Reconciler", () => {
     })
 
     describe("scheduleMicrotask", () => {
-      it("should call queueMicrotask", () => {
+      test("should call queueMicrotask", () => {
         jest.useFakeTimers()
         jest.spyOn(global, "queueMicrotask")
 

@@ -1,5 +1,5 @@
 import HeaderBar from "../../src/generated/widgets/HeaderBar.js"
-import { createAnyWidget } from "../../src/test-support/utils.js"
+import { createMockWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/HeaderBar.js"
 
 describe("HeaderBar overrides", () => {
@@ -10,13 +10,13 @@ describe("HeaderBar overrides", () => {
   })
 
   test("should append node on appendChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
     headerBar.appendChild(child)
     expect(headerBar.node.packEnd).toHaveBeenCalledWith(child.node)
   })
 
   test("should remove node on removeChild", () => {
-    const child = createAnyWidget()
+    const child = createMockWidget()
 
     headerBar.appendChild(child)
     headerBar.removeChild(child)
@@ -25,9 +25,9 @@ describe("HeaderBar overrides", () => {
   })
 
   test("should remove all nodes and add them back with packEnd", () => {
-    const child1 = createAnyWidget()
-    const child2 = createAnyWidget()
-    const beforeChild = createAnyWidget()
+    const child1 = createMockWidget()
+    const child2 = createMockWidget()
+    const beforeChild = createMockWidget()
 
     headerBar.appendChild(child1)
     headerBar.appendChild(beforeChild)

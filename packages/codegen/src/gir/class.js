@@ -31,8 +31,8 @@ export class GirClass {
   get parentImport() {
     if (!this.parent) {
       return {
-        name: "BaseWidget",
-        moduleName: "../../widget.js",
+        name: "AbstractWidget",
+        moduleName: "../../abstract/widget.js",
       }
     }
 

@@ -6,7 +6,7 @@ jest.mock("react")
 jest.mock("../../src/components/ApplicationProvider.js")
 
 describe("useApplication", () => {
-  it("returns the application when available", () => {
+  test("returns the application when available", () => {
     const application = {}
 
     useContext.mockReturnValue(application)
@@ -17,7 +17,7 @@ describe("useApplication", () => {
     expect(result).toBe(application)
   })
 
-  it("throws an error when application is not available", () => {
+  test("throws an error when application is not available", () => {
     useContext.mockReturnValue(null)
 
     expect(useApplication).toThrow("Application is not available")

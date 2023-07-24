@@ -12,7 +12,7 @@ describe("Paned", () => {
     mockProperty(Gtk.Paned, "endChild")
   })
 
-  it("renders correctly with children", () => {
+  test("renders correctly with children", () => {
     const container = render(
       <Paned>
         <Label label="Start Content" />
@@ -29,7 +29,7 @@ describe("Paned", () => {
     expect(paned.node.endChild).toBe(button.node)
   })
 
-  it("sets startChild and endChild correctly", () => {
+  test("sets startChild and endChild correctly", () => {
     const container = render(
       <Paned>
         <Label label="Start Content" />

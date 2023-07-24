@@ -1,31 +1,28 @@
 export class RenderedTree {
-  constructor(node, portals = []) {
-    this._node = node
-    this._portals = portals
+  constructor(root, portals = []) {
+    this.root = root
+    this.portals = portals
   }
 
   get node() {
-    return this._node.node
+    return this.root.node
   }
 
   get props() {
-    return this._node.props
+    return this.root.props
   }
 
   get children() {
     return [
-      ...this._node.children,
-      ...this._portals.reduce(
-        (acc, portal) => [...acc, ...portal.children],
-        []
-      ),
+      ...this.root.children,
+      ...this.portals.reduce((acc, portal) => [...acc, ...portal.children], []),
     ].map((node) => new RenderedTree(node))
   }
 
   findAllByPredicate(predicate, root = this) {
     let result = []
 
-    if (predicate(root._node)) {
+    if (predicate(root.root)) {
       result.push(root)
     }
 
@@ -81,7 +78,7 @@ export class RenderedTree {
   }
 
   fireEvent(event, ...args) {
-    const handler = this._node.handlers[event]
+    const handler = this.root.handlers[event]
 
     if (!handler) {
       return

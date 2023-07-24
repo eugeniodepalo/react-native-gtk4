@@ -12,7 +12,7 @@ describe("Expander", () => {
     mockProperty(Gtk.Expander, "label")
   })
 
-  it("renders correctly without label", () => {
+  test("renders correctly without label", () => {
     const container = render(<Expander />)
     const expander = container.findByType("Expander")
 
@@ -21,7 +21,7 @@ describe("Expander", () => {
     expect(expander.node.labelWidget).toBeNull()
   })
 
-  it("renders correctly with string label", () => {
+  test("renders correctly with string label", () => {
     const label = "test"
     const container = render(<Expander label={label} />)
     const expander = container.findByType("Expander")
@@ -30,7 +30,7 @@ describe("Expander", () => {
     expect(expander.node.label).toBe(label)
   })
 
-  it("renders correctly with ReactElement label", () => {
+  test("renders correctly with ReactElement label", () => {
     const container = render(<Expander label={<Label label="text" />} />)
     const expander = container.findByType("Expander")
     const label = container.findByType("Label")

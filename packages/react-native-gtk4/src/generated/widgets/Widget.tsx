@@ -1,16 +1,16 @@
 import Gtk from "@girs/node-gtk-4.0"
-import BaseWidget from "../../widget.js"
+import AbstractWidget from "../../abstract/widget.js"
 
 export default class Widget<
   T extends Gtk.Widget = Gtk.Widget,
-> extends BaseWidget<T> {
+> extends AbstractWidget<T> {
   createNode() {
     return new Gtk.Widget({
       cssName: this.props.cssName,
     }) as T
   }
+  commitMount() {}
   set(propName: string, newValue: any) {
-    super.set(propName, newValue)
     switch (propName) {
       case "canFocus":
         if (this.node.getCanFocus() !== newValue) {

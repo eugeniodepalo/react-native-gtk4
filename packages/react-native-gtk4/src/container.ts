@@ -1,33 +1,28 @@
 import gi from "@girs/node-gtk"
 import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
-import { Reconciler, createReconciler } from "./reconciler.js"
+import { Reconciler } from "./reconciler.js"
 import {
-  Application,
+  ApplicationContext,
   withApplicationContext,
 } from "./components/ApplicationProvider.js"
-import AnyWidget from "./widget.js"
-import { ApplicationWindow, Window } from "./generated/widgets.js"
+import AbstractWidget from "./abstract/widget.js"
+import { ApplicationWindow } from "./generated/widgets.js"
+import AbstractContainer from "./abstract/container.js"
 
 export const MAX_TIMEOUT = 2147483647
 
-export default class Container {
-  children: AnyWidget[] = []
-
-  private root: Application
-  private static currentTag = 0
-  private container: any
-  private reconciler: Reconciler
+export default class Container extends AbstractContainer {
+  private context: ApplicationContext
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
 
-  constructor(
-    application: Gtk.Application,
-    reconciler: Reconciler = createReconciler()
-  ) {
-    this.root = {
+  constructor(application: Gtk.Application, reconciler?: Reconciler) {
+    super(reconciler)
+
+    this.context = {
       quit: () => {
-        this.root.application.quit()
+        this.context.application.quit()
         this.loop.quit()
         clearTimeout(this.timeout)
         return false
@@ -36,28 +31,11 @@ export default class Container {
     }
 
     this.loop = GLib.MainLoop.new(null, false)
-    this.reconciler = reconciler
-
-    this.container = this.reconciler.createContainer(
-      this,
-      0,
-      null,
-      false,
-      null,
-      (Container.currentTag++).toString(),
-      () => {},
-      null
-    )
   }
 
   render(element: React.ReactNode) {
-    this.root.application.on("activate", () => {
-      this.reconciler.updateContainer(
-        withApplicationContext(element, this.root),
-        this.container,
-        null,
-        () => {}
-      )
+    this.context.application.on("activate", () => {
+      this.update(withApplicationContext(element, this.context))
 
       const loop = () => {
         this.timeout = setTimeout(loop, MAX_TIMEOUT)
@@ -68,49 +46,22 @@ export default class Container {
       this.loop.run()
     })
 
-    this.root.application.run([])
+    this.context.application.run([])
   }
 
-  appendChild(child: AnyWidget) {
+  appendChild(child: AbstractWidget) {
+    super.appendChild(child)
+    this.afterInsert(child)
+  }
+
+  insertBefore(child: AbstractWidget, beforeChild: AbstractWidget) {
+    super.insertBefore(child, beforeChild)
+    this.afterInsert(child)
+  }
+
+  private afterInsert(child: AbstractWidget) {
     if (child instanceof ApplicationWindow) {
-      child.node.setApplication(this.root.application)
-    }
-
-    this.children.push(child)
-  }
-
-  removeChild(child: AnyWidget) {
-    const index = this.children.indexOf(child)
-
-    if (index === -1) {
-      throw new Error("Removed child not found")
-    }
-
-    this.children.splice(index, 1)
-
-    if (child instanceof Window) {
-      child.node.destroy()
-    } else {
-      child.node.unparent()
-    }
-  }
-
-  insertBefore(child: AnyWidget, beforeChild: AnyWidget) {
-    const beforeIndex = this.children.indexOf(beforeChild)
-    const index = beforeIndex - 1
-
-    if (beforeIndex === -1) {
-      throw new Error("Before child not found")
-    }
-
-    if (index < 0) {
-      this.children.unshift(child)
-    } else {
-      this.children.splice(index, 0, child)
-    }
-
-    if (child instanceof ApplicationWindow) {
-      child.node.setApplication(this.root.application)
+      child.node.setApplication(this.context.application)
     }
   }
 }

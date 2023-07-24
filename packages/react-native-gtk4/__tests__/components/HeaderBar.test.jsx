@@ -16,7 +16,7 @@ describe("HeaderBar", () => {
     const headerBar = container.findByType("HeaderBar")
 
     expect(headerBar).toBeTruthy()
-    expect(headerBar.node.titleWidget).toBeUndefined()
+    expect(headerBar.node.titleWidget).toBeNull()
   })
 
   it("sets title widget correctly", () => {
@@ -26,19 +26,5 @@ describe("HeaderBar", () => {
 
     expect(headerBar).toBeTruthy()
     expect(headerBar.node.titleWidget).toBe(label.node)
-  })
-
-  it("removes its previous title widget before setting a new one", () => {
-    const container = render(<HeaderBar title={<Label label="Old title" />} />)
-
-    const headerBar = container.findByType("HeaderBar")
-    const oldLabel = container.findByType("Label")
-
-    render(<HeaderBar title={<Label label="New title" />} />)
-
-    const newLabel = container.findByType("Label")
-
-    expect(oldLabel.node.unparent).toHaveBeenCalled()
-    expect(headerBar.node.titleWidget).toBe(newLabel.node)
   })
 })

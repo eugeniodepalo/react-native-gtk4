@@ -2,6 +2,7 @@ import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Expander } from "../generated/intrinsics.js"
+import usePortal from "../hooks/usePortal.js"
 
 type Props = Omit<
   JSX.IntrinsicElements["Expander"],
@@ -18,17 +19,12 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
   const labelRef = useRef<Gtk.Widget | null>(null)
   const expanderRef = useRef<Gtk.Expander | null>(null)
 
-  useImperativeHandle(ref, () => expanderRef.current!)
-
   const commitMount = useCallback(() => {
     if (!expanderRef.current) {
       return
     }
 
-    if (labelRef.current) {
-      labelRef.current.unparent()
-      expanderRef.current.setLabelWidget(labelRef.current)
-    }
+    expanderRef.current.setLabelWidget(labelRef.current)
   }, [])
 
   const setLabelRef = useCallback((node: Gtk.Widget | null) => {
@@ -41,18 +37,21 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
     commitMount()
   }, [])
 
+  usePortal(
+    label && typeof label !== "string"
+      ? React.cloneElement(label, {
+          ref: setLabelRef,
+        })
+      : null
+  )
+
+  useImperativeHandle(ref, () => expanderRef.current!)
+
   return (
-    <>
-      {label && typeof label !== "string"
-        ? React.cloneElement(label, {
-            ref: setLabelRef,
-          })
-        : null}
-      <Expander
-        ref={setExpanderRef}
-        label={typeof label === "string" ? label : undefined}
-        {...props}
-      />
-    </>
+    <Expander
+      ref={setExpanderRef}
+      label={typeof label === "string" ? label : undefined}
+      {...props}
+    />
   )
 })

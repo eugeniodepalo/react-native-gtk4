@@ -1,5 +1,6 @@
 import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
+import usePortal from "../hooks/usePortal.js"
 import Gtk from "@girs/node-gtk-4.0"
 import useApplication from "../hooks/useApplication.js"
 import { AboutDialog } from "../generated/intrinsics.js"
@@ -17,8 +18,8 @@ export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
   { creditSections = [], ...props },
   ref
 ) {
-  const aboutDialogRef = useRef<Gtk.AboutDialog | null>(null)
   const { application } = useApplication()
+  const aboutDialogRef = useRef<Gtk.AboutDialog | null>(null)
 
   const setAboutDialogRef = useCallback((node: Gtk.AboutDialog | null) => {
     aboutDialogRef.current = node
@@ -42,7 +43,8 @@ export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
     node.present()
   }, [])
 
+  usePortal(<AboutDialog ref={setAboutDialogRef} {...props} />)
   useImperativeHandle(ref, () => aboutDialogRef.current!)
 
-  return <AboutDialog ref={setAboutDialogRef} {...props} />
+  return null
 })

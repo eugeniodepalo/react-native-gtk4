@@ -5,6 +5,7 @@ import AnyWidget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Container from "./container.js"
 import Gtk from "@girs/node-gtk-4.0"
+import { Portal } from "./portal.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
@@ -13,7 +14,7 @@ type WidgetConstructor = new (props: Record<string, any>) => AnyWidget
 function definedProps(obj: Record<string, any>) {
   return Object.keys(obj).reduce(
     (acc, key) => {
-      if (obj[key] !== undefined) {
+      if (key !== "children" && obj[key] !== undefined) {
         acc[key] = obj[key]
       }
       return acc
@@ -25,7 +26,7 @@ function definedProps(obj: Record<string, any>) {
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  Container,
+  Container | Portal,
   AnyWidget,
   AnyWidget,
   AnyWidget,

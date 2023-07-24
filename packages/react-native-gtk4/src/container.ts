@@ -14,9 +14,9 @@ export const MAX_TIMEOUT = 2147483647
 export default class Container {
   children: AnyWidget[] = []
 
-  private application: Gtk.Application
+  private root: Application
   private static currentTag = 0
-  private instance: any
+  private container: any
   private reconciler: Reconciler
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
@@ -25,11 +25,20 @@ export default class Container {
     application: Gtk.Application,
     reconciler: Reconciler = createReconciler()
   ) {
-    this.application = application
+    this.root = {
+      quit: () => {
+        this.root.application.quit()
+        this.loop.quit()
+        clearTimeout(this.timeout)
+        return false
+      },
+      application,
+    }
+
     this.loop = GLib.MainLoop.new(null, false)
     this.reconciler = reconciler
 
-    this.instance = this.reconciler.createContainer(
+    this.container = this.reconciler.createContainer(
       this,
       0,
       null,
@@ -42,20 +51,10 @@ export default class Container {
   }
 
   render(element: React.ReactNode) {
-    this.application.on("activate", () => {
-      const application: Application = {
-        quit: () => {
-          this.application.quit()
-          this.loop.quit()
-          clearTimeout(this.timeout)
-          return false
-        },
-        application: this.application,
-      }
-
+    this.root.application.on("activate", () => {
       this.reconciler.updateContainer(
-        withApplicationContext(element, application),
-        this.instance,
+        withApplicationContext(element, this.root),
+        this.container,
         null,
         () => {}
       )
@@ -69,12 +68,12 @@ export default class Container {
       this.loop.run()
     })
 
-    this.application.run([])
+    this.root.application.run([])
   }
 
   appendChild(child: AnyWidget) {
     if (child instanceof ApplicationWindow) {
-      child.node.setApplication(this.application)
+      child.node.setApplication(this.root.application)
     }
 
     this.children.push(child)
@@ -91,6 +90,8 @@ export default class Container {
 
     if (child instanceof Window) {
       child.node.destroy()
+    } else {
+      child.node.unparent()
     }
   }
 
@@ -109,7 +110,7 @@ export default class Container {
     }
 
     if (child instanceof ApplicationWindow) {
-      child.node.setApplication(this.application)
+      child.node.setApplication(this.root.application)
     }
   }
 }

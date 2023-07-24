@@ -7,6 +7,7 @@ import React, {
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { PopoverMenu } from "../generated/intrinsics.js"
+import usePortal from "../hooks/usePortal.js"
 
 type Props = JSX.IntrinsicElements["PopoverMenu"] & {
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
@@ -34,24 +35,16 @@ export default forwardRef<Gtk.PopoverMenu, Props>(function PopoverMenuComponent(
       popoverRef.current.setParent(childRef.current)
     }
 
-    if (contentRef.current) {
-      popoverRef.current.setChild(contentRef.current)
-    } else {
-      popoverRef.current.setChild(null)
-    }
+    popoverRef.current.setChild(contentRef.current)
   }, [])
 
   const setContentRef = useCallback((node: Gtk.Widget | null) => {
-    const prevNode = contentRef.current
     contentRef.current = node
-    prevNode?.unparent()
     commitMount()
   }, [])
 
   const setChildRef = useCallback((node: Gtk.Widget | null) => {
-    const prevNode = childRef.current
     childRef.current = node
-    prevNode?.unparent()
     commitMount()
   }, [])
 
@@ -59,6 +52,15 @@ export default forwardRef<Gtk.PopoverMenu, Props>(function PopoverMenuComponent(
     popoverRef.current = node
     commitMount()
   }, [])
+
+  usePortal(
+    <>
+      <PopoverMenu ref={setPopoverMenuRef} {...props} />
+      {React.cloneElement(content, {
+        ref: setContentRef,
+      })}
+    </>
+  )
 
   useEffect(() => {
     if (!popoverRef.current || !contentRef.current || !childRef.current) {
@@ -72,16 +74,7 @@ export default forwardRef<Gtk.PopoverMenu, Props>(function PopoverMenuComponent(
     }
   }, [open])
 
-  return (
-    <>
-      {React.cloneElement(children, {
-        ref: setChildRef,
-      })}
-      <PopoverMenu ref={setPopoverMenuRef} {...props}>
-        {React.cloneElement(content, {
-          ref: setContentRef,
-        })}
-      </PopoverMenu>
-    </>
-  )
+  return React.cloneElement(children, {
+    ref: setChildRef,
+  })
 })

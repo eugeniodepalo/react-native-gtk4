@@ -30,8 +30,8 @@ describe("CenterBox", () => {
     const container = render(<CenterBox />)
     const centerBox = container.findByType("CenterBox")
 
-    expect(centerBox.node.setStartWidget).not.toHaveBeenCalled()
-    expect(centerBox.node.setCenterWidget).not.toHaveBeenCalled()
-    expect(centerBox.node.setEndWidget).not.toHaveBeenCalled()
+    expect(centerBox.node.setStartWidget).toHaveBeenCalledWith(null)
+    expect(centerBox.node.setCenterWidget).toHaveBeenCalledWith(null)
+    expect(centerBox.node.setEndWidget).toHaveBeenCalledWith(null)
   })
 })

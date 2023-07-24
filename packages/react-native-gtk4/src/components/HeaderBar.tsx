@@ -2,6 +2,7 @@ import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { HeaderBar } from "../generated/intrinsics.js"
+import usePortal from "../hooks/usePortal.js"
 
 type Props = Omit<JSX.IntrinsicElements["HeaderBar"], "title"> & {
   children: React.ReactNode
@@ -22,10 +23,7 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
       return
     }
 
-    if (titleRef.current) {
-      titleRef.current.unparent()
-      headerBarRef.current.setTitleWidget(titleRef.current)
-    }
+    headerBarRef.current.setTitleWidget(titleRef.current)
   }, [])
 
   const setHeaderBarRef = useCallback((node: Gtk.HeaderBar | null) => {
@@ -34,19 +32,17 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
   }, [])
 
   const setTitleRef = useCallback((node: Gtk.Widget | null) => {
-    const prevNode = titleRef.current
     titleRef.current = node
-    prevNode?.unparent()
     commitMount()
   }, [])
 
-  return (
-    <HeaderBar ref={setHeaderBarRef} {...props}>
-      {title
-        ? React.cloneElement(title, {
-            ref: setTitleRef,
-          })
-        : null}
-    </HeaderBar>
+  usePortal(
+    title
+      ? React.cloneElement(title, {
+          ref: setTitleRef,
+        })
+      : null
   )
+
+  return <HeaderBar ref={setHeaderBarRef} {...props} />
 })

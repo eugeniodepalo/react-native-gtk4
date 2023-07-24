@@ -1,6 +1,7 @@
 export class RenderedTree {
-  constructor(node) {
+  constructor(node, portals = []) {
     this._node = node
+    this._portals = portals
   }
 
   get node() {
@@ -12,18 +13,24 @@ export class RenderedTree {
   }
 
   get children() {
-    return this._node.children.map((child) => new RenderedTree(child))
+    return [
+      ...this._node.children,
+      ...this._portals.reduce(
+        (acc, portal) => [...acc, ...portal.children],
+        []
+      ),
+    ].map((node) => new RenderedTree(node))
   }
 
-  findAllByPredicate(predicate, node = this._node) {
+  findAllByPredicate(predicate, root = this) {
     let result = []
 
-    if (predicate(node)) {
-      result.push(new RenderedTree(node))
+    if (predicate(root._node)) {
+      result.push(root)
     }
 
-    if (node.children && node.children.length > 0) {
-      const childrenResults = node.children.reduce(
+    if (root.children && root.children.length > 0) {
+      const childrenResults = root.children.reduce(
         (acc, child) => [...acc, ...this.findAllByPredicate(predicate, child)],
         []
       )
@@ -38,11 +45,13 @@ export class RenderedTree {
     return this.findAllByPredicate((node) => node.constructor.name === type)
   }
 
-  findAllByProps(props) {
+  findAllByProps(props = {}) {
     return this.findAllByPredicate((node) => {
-      if (!node.props) return false
-      const keys = Object.keys(props)
-      return keys.every((key) => node.props[key] === props[key])
+      if (!node.props) {
+        return false
+      }
+
+      return Object.keys(props).every((key) => node.props[key] === props[key])
     })
   }
 

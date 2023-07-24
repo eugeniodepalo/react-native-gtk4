@@ -2,6 +2,7 @@ import React, { useCallback, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CenterBox } from "../generated/intrinsics.js"
+import usePortal from "../hooks/usePortal.js"
 
 type Props = Omit<
   JSX.IntrinsicElements["CenterBox"],
@@ -20,27 +21,6 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
   const startRef = useRef<Gtk.Widget | null>(null)
   const centerRef = useRef<Gtk.Widget | null>(null)
   const endRef = useRef<Gtk.Widget | null>(null)
-
-  const commitMount = useCallback(() => {
-    if (!centerBoxRef.current) {
-      return
-    }
-
-    if (startRef.current) {
-      startRef.current.unparent()
-      centerBoxRef.current.setStartWidget(startRef.current)
-    }
-
-    if (centerRef.current) {
-      centerRef.current.unparent()
-      centerBoxRef.current.setCenterWidget(centerRef.current)
-    }
-
-    if (endRef.current) {
-      endRef.current.unparent()
-      centerBoxRef.current.setEndWidget(endRef.current)
-    }
-  }, [])
 
   const setStartRef = useCallback((node: Gtk.Widget | null) => {
     startRef.current = node
@@ -62,10 +42,8 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
     commitMount()
   }, [])
 
-  useImperativeHandle(ref, () => centerBoxRef.current!)
-
-  return (
-    <CenterBox ref={setCenterBoxRef} {...props}>
+  usePortal(
+    <>
       {start
         ? React.cloneElement(start, {
             ref: setStartRef,
@@ -81,6 +59,20 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
             ref: setEndRef,
           })
         : null}
-    </CenterBox>
+    </>
   )
+
+  const commitMount = useCallback(() => {
+    if (!centerBoxRef.current) {
+      return
+    }
+
+    centerBoxRef.current.setStartWidget(startRef.current)
+    centerBoxRef.current.setCenterWidget(centerRef.current)
+    centerBoxRef.current.setEndWidget(endRef.current)
+  }, [])
+
+  useImperativeHandle(ref, () => centerBoxRef.current!)
+
+  return <CenterBox ref={setCenterBoxRef} {...props} />
 })

@@ -3,9 +3,11 @@ import Container from "../../container.js"
 import { createApplication } from "./application.js"
 import { RenderedTree } from "./tree.js"
 import { withApplicationContext } from "../../components/ApplicationProvider.js"
+import { Portal } from "../../portal.js"
 import "../../overrides.js"
 
 const reconciler = createReconciler()
+
 jest.spyOn(reconciler, "createContainer")
 jest.useFakeTimers()
 
@@ -21,6 +23,8 @@ export class Renderer {
       application,
       quit: jest.fn(),
     }
+
+    Portal.instances = []
   }
 
   render(element) {
@@ -36,6 +40,6 @@ export class Renderer {
     reconciler.flushPassiveEffects()
     jest.runAllTimers()
 
-    return new RenderedTree(this.container)
+    return new RenderedTree(this.container, Portal.instances)
   }
 }

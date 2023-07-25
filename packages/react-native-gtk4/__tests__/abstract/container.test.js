@@ -1,4 +1,7 @@
-import { createMockContainer } from "../../src/test-support/utils.js"
+import {
+  createMockContainer,
+  createMockWidget,
+} from "../../src/test-support/utils.js"
 import { createReconciler } from "../../src/reconciler.js"
 import Window from "../../src/generated/widgets/Window.js"
 
@@ -47,6 +50,15 @@ describe("AbstractContainer", () => {
     node.removeChild(window)
 
     expect(window.node.destroy).toHaveBeenCalled()
+  })
+
+  test("should unparent widgets when removing them", () => {
+    const widget = createMockWidget()
+
+    node.appendChild(widget)
+    node.removeChild(widget)
+
+    expect(widget.node.unparent).toHaveBeenCalled()
   })
 
   test("should increment current tag when rendering", () => {

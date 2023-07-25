@@ -21,7 +21,7 @@ export default abstract class AbstractContainer extends AbstractNode<AbstractWid
       false,
       null,
       (currentTag++).toString(),
-      () => {},
+      /* istanbul ignore next */ () => {},
       null
     )
   }
@@ -37,6 +37,11 @@ export default abstract class AbstractContainer extends AbstractNode<AbstractWid
   }
 
   protected update(element: React.ReactNode) {
-    this.reconciler.updateContainer(element, this.container, null, () => {})
+    this.reconciler.updateContainer(
+      element,
+      this.container,
+      null,
+      /* istanbul ignore next */ () => {}
+    )
   }
 }

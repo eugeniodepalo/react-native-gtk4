@@ -39,4 +39,16 @@ describe("Expander", () => {
     expect(expander.node.label).toBeUndefined()
     expect(expander.node.labelWidget).toBe(label.node)
   })
+
+  test("handles a null ref", () => {
+    render(<Expander />)
+
+    Gtk.Expander.prototype.setLabelWidget.mockClear()
+    Gtk.Expander.prototype.setLabel.mockClear()
+
+    render(null)
+
+    expect(Gtk.Expander.prototype.setLabelWidget).not.toHaveBeenCalled()
+    expect(Gtk.Expander.prototype.setLabel).not.toHaveBeenCalled()
+  })
 })

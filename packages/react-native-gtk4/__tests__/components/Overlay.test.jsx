@@ -37,4 +37,18 @@ describe("Overlay", () => {
 
     expect(overlay.node.child).toBe(button.node)
   })
+
+  test("handles a null ref", () => {
+    render(
+      <Overlay content={<Button label="Overlay Button" />}>
+        <Label label="Underneath Content" />
+      </Overlay>
+    )
+
+    Gtk.Overlay.prototype.addOverlay.mockClear()
+
+    render(null)
+
+    expect(Gtk.Overlay.prototype.addOverlay).not.toHaveBeenCalled()
+  })
 })

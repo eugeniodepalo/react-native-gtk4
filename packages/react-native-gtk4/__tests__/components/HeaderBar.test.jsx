@@ -27,4 +27,14 @@ describe("HeaderBar", () => {
     expect(headerBar).toBeTruthy()
     expect(headerBar.node.titleWidget).toBe(label.node)
   })
+
+  test("handles a null ref", () => {
+    render(<HeaderBar />)
+
+    Gtk.HeaderBar.prototype.setTitleWidget.mockClear()
+
+    render(null)
+
+    expect(Gtk.HeaderBar.prototype.setTitleWidget).not.toHaveBeenCalled()
+  })
 })

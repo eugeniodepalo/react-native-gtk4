@@ -46,4 +46,17 @@ describe("Popover", () => {
 
     expect(popover.node.popup).toHaveBeenCalled()
   })
+
+  test("should be closed by default", () => {
+    const container = render(
+      <Popover content={<Label text="Popover content" />}>
+        <Button label="Click me!" />
+      </Popover>
+    )
+
+    const popover = container.findByType("Popover")
+
+    expect(popover.node.popup).not.toHaveBeenCalled()
+    expect(popover.node.popdown).toHaveBeenCalled()
+  })
 })

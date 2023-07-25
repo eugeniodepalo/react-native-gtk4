@@ -60,4 +60,10 @@ describe("CssProvider", () => {
 
     expect(container.findByType("Box")).toBeTruthy()
   })
+
+  test("handles a null ref", () => {
+    render(<CssProvider path="styles.css" />)
+    Gtk.CssProvider.mockReturnValue(null)
+    expect(Gtk.StyleContext.removeProviderForDisplay).not.toHaveBeenCalled()
+  })
 })

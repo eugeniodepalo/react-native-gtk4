@@ -2,6 +2,7 @@ import React from "react"
 import { render, setupRenderer } from "../../src/test-support/render.js"
 import { Label } from "../../src/generated/intrinsics.js"
 import CenterBox from "../../src/components/CenterBox.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 describe("CenterBox", () => {
   beforeEach(setupRenderer)
@@ -33,5 +34,19 @@ describe("CenterBox", () => {
     expect(centerBox.node.setStartWidget).toHaveBeenCalledWith(null)
     expect(centerBox.node.setCenterWidget).toHaveBeenCalledWith(null)
     expect(centerBox.node.setEndWidget).toHaveBeenCalledWith(null)
+  })
+
+  test("handles a null ref", () => {
+    render(<CenterBox />)
+
+    Gtk.CenterBox.prototype.setStartWidget.mockClear()
+    Gtk.CenterBox.prototype.setCenterWidget.mockClear()
+    Gtk.CenterBox.prototype.setEndWidget.mockClear()
+
+    render(null)
+
+    expect(Gtk.CenterBox.prototype.setStartWidget).not.toHaveBeenCalled()
+    expect(Gtk.CenterBox.prototype.setCenterWidget).not.toHaveBeenCalled()
+    expect(Gtk.CenterBox.prototype.setEndWidget).not.toHaveBeenCalled()
   })
 })

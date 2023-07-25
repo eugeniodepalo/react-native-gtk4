@@ -61,9 +61,15 @@ describe("CssProvider", () => {
     expect(container.findByType("Box")).toBeTruthy()
   })
 
-  test("should handle unmount gracefully", () => {
+  test("should handle null ref gracefully", () => {
+    jest.spyOn(React, "useRef")
+
     render(<CssProvider path="styles.css" />)
-    Gtk.CssProvider.mockReturnValue(null)
+
+    React.useRef.mock.results[0].value.current = null
+
+    render(null)
+
     expect(Gtk.StyleContext.removeProviderForDisplay).not.toHaveBeenCalled()
   })
 })

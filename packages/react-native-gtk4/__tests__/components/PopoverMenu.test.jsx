@@ -46,4 +46,39 @@ describe("PopoverMenu", () => {
 
     expect(popover.node.popup).toHaveBeenCalled()
   })
+
+  test("should be closed by default", () => {
+    const container = render(
+      <PopoverMenu content={<Label text="PopoverMenu content" />}>
+        <Button label="Click me!" />
+      </PopoverMenu>
+    )
+
+    const popover = container.findByType("PopoverMenu")
+
+    expect(popover.node.popup).not.toHaveBeenCalled()
+    expect(popover.node.popdown).toHaveBeenCalled()
+  })
+
+  test("should handle unmount gracefully", () => {
+    jest.spyOn(React, "useRef")
+
+    render(
+      <PopoverMenu open={true} content={<Label text="PopoverMenu content" />}>
+        <Button label="Click me!" />
+      </PopoverMenu>
+    )
+
+    Gtk.PopoverMenu.prototype.popup.mockClear()
+    Gtk.PopoverMenu.prototype.popdown.mockClear()
+
+    for (const ref of React.useRef.mock.results.map((r) => r.value)) {
+      ref.current = null
+    }
+
+    render(null)
+
+    expect(Gtk.PopoverMenu.prototype.popup).not.toHaveBeenCalled()
+    expect(Gtk.PopoverMenu.prototype.popdown).not.toHaveBeenCalled()
+  })
 })

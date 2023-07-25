@@ -59,4 +59,48 @@ describe("Popover", () => {
     expect(popover.node.popup).not.toHaveBeenCalled()
     expect(popover.node.popdown).toHaveBeenCalled()
   })
+
+  test("should handle unmount gracefully", () => {
+    jest.spyOn(React, "useRef")
+
+    render(
+      <Popover open={true} content={<Label text="Popover content" />}>
+        <Button label="Click me!" />
+      </Popover>
+    )
+
+    Gtk.Popover.prototype.popup.mockClear()
+    Gtk.Popover.prototype.popdown.mockClear()
+
+    for (const ref of React.useRef.mock.results.map((r) => r.value)) {
+      ref.current = null
+    }
+
+    render(null)
+
+    expect(Gtk.Popover.prototype.popup).not.toHaveBeenCalled()
+    expect(Gtk.Popover.prototype.popdown).not.toHaveBeenCalled()
+  })
+
+  test("should handle open change with null refs", () => {
+    jest.spyOn(React, "useRef")
+
+    render(
+      <Popover open={true} content={<Label text="Popover content" />}>
+        <Button label="Click me!" />
+      </Popover>
+    )
+
+    Gtk.Popover.prototype.popup.mockClear()
+    Gtk.Popover.prototype.popdown.mockClear()
+
+    for (const ref of React.useRef.mock.results.map((r) => r.value)) {
+      ref.current = null
+    }
+
+    render(null)
+
+    expect(Gtk.Popover.prototype.popup).not.toHaveBeenCalled()
+    expect(Gtk.Popover.prototype.popdown).not.toHaveBeenCalled()
+  })
 })

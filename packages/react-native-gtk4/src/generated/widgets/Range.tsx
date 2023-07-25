@@ -84,6 +84,7 @@ export default class Range<T extends Gtk.Range = Gtk.Range> extends Widget<T> {
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

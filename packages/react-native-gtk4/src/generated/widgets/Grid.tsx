@@ -64,6 +64,7 @@ export default class Grid<T extends Gtk.Grid = Gtk.Grid> extends Widget<T> {
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

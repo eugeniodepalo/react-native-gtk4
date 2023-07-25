@@ -64,6 +64,7 @@ export default class AppChooserButton<
       case "onNotifyContentType":
         this.setHandler("notify::content-type", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

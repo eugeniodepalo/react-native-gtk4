@@ -48,6 +48,7 @@ export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

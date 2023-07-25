@@ -56,6 +56,7 @@ export default class Scale<T extends Gtk.Scale = Gtk.Scale> extends Range<T> {
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

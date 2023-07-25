@@ -106,6 +106,7 @@ export default class FileChooserWidget<
       case "onNotifyShortcutFolders":
         this.setHandler("notify::shortcut-folders", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

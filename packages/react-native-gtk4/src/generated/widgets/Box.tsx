@@ -48,6 +48,7 @@ export default class Box<T extends Gtk.Box = Gtk.Box> extends Widget<T> {
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

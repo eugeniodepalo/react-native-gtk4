@@ -66,6 +66,7 @@ export default class Picture<
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

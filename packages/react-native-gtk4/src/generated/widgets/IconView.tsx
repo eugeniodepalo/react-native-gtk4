@@ -207,6 +207,7 @@ export default class IconView<
       case "onNotifyVscrollPolicy":
         this.setHandler("notify::vscroll-policy", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

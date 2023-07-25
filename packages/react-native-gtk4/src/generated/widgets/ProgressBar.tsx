@@ -74,6 +74,7 @@ export default class ProgressBar<
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

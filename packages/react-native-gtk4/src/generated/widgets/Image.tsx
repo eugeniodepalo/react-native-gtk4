@@ -83,6 +83,7 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

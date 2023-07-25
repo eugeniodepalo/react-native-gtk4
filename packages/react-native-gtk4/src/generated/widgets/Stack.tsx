@@ -78,6 +78,7 @@ export default class Stack<T extends Gtk.Stack = Gtk.Stack> extends Widget<T> {
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

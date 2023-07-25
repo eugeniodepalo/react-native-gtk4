@@ -110,6 +110,7 @@ export default class FontButton<
       case "onNotifyShowPreviewEntry":
         this.setHandler("notify::show-preview-entry", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

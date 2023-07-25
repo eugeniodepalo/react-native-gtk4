@@ -96,6 +96,7 @@ export default class CheckButton<
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

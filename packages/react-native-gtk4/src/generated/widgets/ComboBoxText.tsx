@@ -32,6 +32,7 @@ export default class ComboBoxText<
       case "onNotifyEditingCanceled":
         this.setHandler("notify::editing-canceled", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

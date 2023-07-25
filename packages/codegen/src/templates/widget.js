@@ -81,6 +81,7 @@ export default function (widgetClass) {
     ts += `        break\n`
   }
 
+  ts += `      /* istanbul ignore next */\n`
   ts += `      default:\n`
   ts += `        break\n`
   ts += `    }\n`

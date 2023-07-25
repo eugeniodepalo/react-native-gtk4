@@ -35,6 +35,7 @@ export default class AppChooserDialog<
       case "onNotifyContentType":
         this.setHandler("notify::content-type", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

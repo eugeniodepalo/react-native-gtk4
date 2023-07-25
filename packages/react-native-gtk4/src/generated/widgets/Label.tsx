@@ -183,6 +183,7 @@ export default class Label<T extends Gtk.Label = Gtk.Label> extends Widget<T> {
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

@@ -34,6 +34,7 @@ export default class VolumeButton<
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

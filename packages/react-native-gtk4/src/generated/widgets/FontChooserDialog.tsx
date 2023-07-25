@@ -72,6 +72,7 @@ export default class FontChooserDialog<
       case "onNotifyShowPreviewEntry":
         this.setHandler("notify::show-preview-entry", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

@@ -34,6 +34,7 @@ export default class Scrollbar<
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

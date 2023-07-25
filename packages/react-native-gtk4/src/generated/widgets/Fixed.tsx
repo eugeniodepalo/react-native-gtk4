@@ -16,6 +16,7 @@ export default class Fixed<T extends Gtk.Fixed = Gtk.Fixed> extends Widget<T> {
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

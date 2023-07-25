@@ -116,6 +116,7 @@ export default class PasswordEntry<
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

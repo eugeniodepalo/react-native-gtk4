@@ -89,6 +89,7 @@ export default class EditableLabel<
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

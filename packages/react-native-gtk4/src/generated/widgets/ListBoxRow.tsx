@@ -69,6 +69,7 @@ export default class ListBoxRow<
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

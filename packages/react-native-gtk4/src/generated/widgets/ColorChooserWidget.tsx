@@ -45,6 +45,7 @@ export default class ColorChooserWidget<
       case "onNotifyUseAlpha":
         this.setHandler("notify::use-alpha", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

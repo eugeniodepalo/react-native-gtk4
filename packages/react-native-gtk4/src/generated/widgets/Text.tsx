@@ -251,6 +251,7 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

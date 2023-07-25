@@ -53,6 +53,7 @@ export default class LinkButton<
       case "onNotifyActionTarget":
         this.setHandler("notify::action-target", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

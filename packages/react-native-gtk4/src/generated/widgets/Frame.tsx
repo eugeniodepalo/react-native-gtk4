@@ -56,6 +56,7 @@ export default class Frame<T extends Gtk.Frame = Gtk.Frame> extends Widget<T> {
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

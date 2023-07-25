@@ -394,6 +394,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
       case "onNotifyXalign":
         this.setHandler("notify::xalign", newValue)
         break
+      /* istanbul ignore next */
       default:
         break
     }

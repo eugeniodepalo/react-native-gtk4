@@ -7,6 +7,16 @@ interface Props {
   children: React.ReactNode
 }
 
+function getDefaultDisplay() {
+  const display = Gdk.Display.getDefault()
+
+  if (!display) {
+    throw new Error("Could not get default display")
+  }
+
+  return display
+}
+
 export default function CssProvider({ path, children }: Props) {
   const providerRef = useRef<Gtk.CssProvider | null>()
 
@@ -14,23 +24,22 @@ export default function CssProvider({ path, children }: Props) {
     if (!providerRef.current) {
       providerRef.current = new Gtk.CssProvider()
 
-      const display = Gdk.Display.getDefault()
-
-      if (!display) {
-        throw new Error("Could not get default display")
-      }
-
-      if (display) {
-        Gtk.StyleContext.addProviderForDisplay(
-          display,
-          providerRef.current,
-          Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
-      }
+      Gtk.StyleContext.addProviderForDisplay(
+        getDefaultDisplay(),
+        providerRef.current,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+      )
     }
 
     return () => {
-      providerRef.current?.unref()
+      if (!providerRef.current) {
+        return
+      }
+
+      Gtk.StyleContext.removeProviderForDisplay(
+        getDefaultDisplay(),
+        providerRef.current
+      )
     }
   }, [])
 

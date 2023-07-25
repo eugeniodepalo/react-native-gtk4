@@ -269,12 +269,6 @@ describe("Reconciler", () => {
       })
     })
 
-    describe("preparePortalMount", () => {
-      test("should be a noop", () => {
-        expect(hostConfig.preparePortalMount()).toBe(undefined)
-      })
-    })
-
     describe("scheduleTimeout", () => {
       test("should call setTimeout", () => {
         jest.useFakeTimers()
@@ -314,33 +308,9 @@ describe("Reconciler", () => {
       })
     })
 
-    describe("beforeActiveInstanceBlur", () => {
-      test("should be a noop", () => {
-        expect(hostConfig.beforeActiveInstanceBlur()).toBe(undefined)
-      })
-    })
-
-    describe("afterActiveInstanceBlur", () => {
-      test("should be a noop", () => {
-        expect(hostConfig.afterActiveInstanceBlur()).toBe(undefined)
-      })
-    })
-
-    describe("prepareScopeUpdate", () => {
-      test("should be a noop", () => {
-        expect(hostConfig.prepareScopeUpdate()).toBe(undefined)
-      })
-    })
-
     describe("getInstanceFromScope", () => {
       test("should return null", () => {
         expect(hostConfig.getInstanceFromScope()).toBe(null)
-      })
-    })
-
-    describe("detachDeletedInstance", () => {
-      test("should be a noop", () => {
-        expect(hostConfig.detachDeletedInstance()).toBe(undefined)
       })
     })
 

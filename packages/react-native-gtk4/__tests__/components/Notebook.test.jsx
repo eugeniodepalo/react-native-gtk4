@@ -9,7 +9,7 @@ describe("Notebook", () => {
     setupRenderer()
   })
 
-  test("appends pages when tabs are added", () => {
+  test("should append pages when tabs are added", () => {
     const container = render(
       <Notebook.Container>
         <Notebook.Tab label="Tab 1">
@@ -38,7 +38,7 @@ describe("Notebook", () => {
     )
   })
 
-  test("removes pages when tabs are removed", () => {
+  test("should remove pages when tabs are removed", () => {
     Gtk.Notebook.prototype.pageNum.mockReturnValue(0)
 
     const container = render(
@@ -67,7 +67,7 @@ describe("Notebook", () => {
     expect(notebook.node.removePage).toHaveBeenCalledWith(0)
   })
 
-  test("allows custom page labels", () => {
+  test("should allow custom page labels", () => {
     const container = render(
       <Notebook.Container>
         <Notebook.Tab label={<Button label="Tab 1" />}>

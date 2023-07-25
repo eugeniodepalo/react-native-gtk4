@@ -11,7 +11,7 @@ describe("Overlay", () => {
     mockProperty(Gtk.Overlay, "child")
   })
 
-  test("renders correctly with child content", () => {
+  test("should render correctly with child content", () => {
     const container = render(
       <Overlay content={<Button label="Overlay Button" />}>
         <Label label="Underneath Content" />
@@ -25,7 +25,7 @@ describe("Overlay", () => {
     expect(overlay.node.child).toBe(button.node)
   })
 
-  test("sets child content correctly", () => {
+  test("should set child content correctly", () => {
     const container = render(
       <Overlay content={<Button label="Overlay Button" />}>
         <Label label="Underneath Content" />
@@ -38,7 +38,7 @@ describe("Overlay", () => {
     expect(overlay.node.child).toBe(button.node)
   })
 
-  test("handles a null ref", () => {
+  test("should handle unmount gracefully", () => {
     render(
       <Overlay content={<Button label="Overlay Button" />}>
         <Label label="Underneath Content" />

@@ -7,7 +7,7 @@ describe("AbstractWidget", () => {
     widget = createMockWidget()
   })
 
-  test("sets handler and connects to signal", () => {
+  test("should set handler and connects to signal", () => {
     const callback = jest.fn()
 
     widget.setHandler("event", callback)
@@ -16,12 +16,13 @@ describe("AbstractWidget", () => {
     expect(widget.node.off).not.toHaveBeenCalled()
 
     const handler = widget.node.on.mock.calls[0][1]
+
     handler()
 
     expect(callback).toHaveBeenCalled()
   })
 
-  test("sets handler and disconnects from signal", () => {
+  test("should set handler and disconnects from signal", () => {
     const callback = jest.fn()
 
     widget.setHandler("event", callback)
@@ -32,7 +33,7 @@ describe("AbstractWidget", () => {
     expect(widget.node.off).toHaveBeenCalledWith("event", handler)
   })
 
-  test("replaces existing handler", () => {
+  test("should replace existing handler", () => {
     const callback1 = jest.fn()
     const callback2 = jest.fn()
 

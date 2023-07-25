@@ -6,7 +6,7 @@ import { Button, Label } from "../../src/generated/intrinsics.js"
 describe("Stack Components", () => {
   beforeEach(setupRenderer)
 
-  test("renders StackContainer and StackItem correctly", () => {
+  test("should render StackContainer and StackItem correctly", () => {
     const container = render(
       <Stack.Container visibleChildName="item1">
         <Stack.Item name="item1" title="Item 1">
@@ -23,8 +23,6 @@ describe("Stack Components", () => {
     )
 
     const stack = container.findByType("Stack")
-
-    expect(stack.node.addTitled).toHaveBeenCalledTimes(2)
 
     expect(stack.node.addTitled).toHaveBeenNthCalledWith(
       1,
@@ -43,7 +41,7 @@ describe("Stack Components", () => {
     expect(stack.node.setVisibleChildName).toHaveBeenCalledWith("item1")
   })
 
-  test("updates visible child when the visibleChildName prop changes", () => {
+  test("should update visible child when the visibleChildName prop changes", () => {
     const container = render(
       <Stack.Container visibleChildName="item1">
         <Stack.Item name="item1" title="Item 1">

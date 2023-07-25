@@ -7,68 +7,73 @@ import Gtk from "@girs/node-gtk-4.0"
 describe("Grid", () => {
   beforeEach(setupRenderer)
 
-  test("GridContainer renders correctly", () => {
-    const container = render(<Grid.Container />)
-    const grid = container.findByType("Grid")
-    expect(grid).toBeTruthy()
+  describe("Container", () => {
+    test("should render correctly", () => {
+      const container = render(<Grid.Container />)
+      const grid = container.findByType("Grid")
+      expect(grid).toBeTruthy()
+    })
   })
 
-  test("GridItem attaches to default row and column", () => {
-    render(
-      <Grid.Container>
-        <Grid.Item>
-          <Button />
-        </Grid.Item>
-      </Grid.Container>
-    )
+  describe("Item", () => {
+    test("should attach to default row and column", () => {
+      render(
+        <Grid.Container>
+          <Grid.Item>
+            <Button />
+          </Grid.Item>
+        </Grid.Container>
+      )
 
-    expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
-      expect.anything(),
-      0,
-      0,
-      1,
-      1
-    )
-  })
+      expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
+        expect.anything(),
+        0,
+        0,
+        1,
+        1
+      )
+    })
 
-  test("GridItem attaches its child to the grid correctly", () => {
-    const container = render(
-      <Grid.Container>
-        <Grid.Item col={1} row={2} width={3} height={4}>
-          <Button />
-        </Grid.Item>
-      </Grid.Container>
-    )
-    const button = container.findByType("Button")
+    test("should attach its child to the grid correctly", () => {
+      const container = render(
+        <Grid.Container>
+          <Grid.Item col={1} row={2} width={3} height={4}>
+            <Button />
+          </Grid.Item>
+        </Grid.Container>
+      )
 
-    expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
-      button.node,
-      1,
-      2,
-      3,
-      4
-    )
-  })
+      const button = container.findByType("Button")
 
-  test("GridItem removes its previous child before attaching a new child", () => {
-    const container = render(
-      <Grid.Container>
-        <Grid.Item col={1} row={2} width={3} height={4}>
-          <Button />
-        </Grid.Item>
-      </Grid.Container>
-    )
+      expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
+        button.node,
+        1,
+        2,
+        3,
+        4
+      )
+    })
 
-    const prevButton = container.findByType("Button")
+    test("should remove its previous child before attaching a new child", () => {
+      const container = render(
+        <Grid.Container>
+          <Grid.Item col={1} row={2} width={3} height={4}>
+            <Button />
+          </Grid.Item>
+        </Grid.Container>
+      )
 
-    render(
-      <Grid.Container>
-        <Grid.Item col={1} row={2} width={3} height={4} key="new">
-          <Button label="New" />
-        </Grid.Item>
-      </Grid.Container>
-    )
+      const prevButton = container.findByType("Button")
 
-    expect(Gtk.Grid.prototype.remove).toHaveBeenCalledWith(prevButton.node)
+      render(
+        <Grid.Container>
+          <Grid.Item col={1} row={2} width={3} height={4} key="new">
+            <Button label="New" />
+          </Grid.Item>
+        </Grid.Container>
+      )
+
+      expect(Gtk.Grid.prototype.remove).toHaveBeenCalledWith(prevButton.node)
+    })
   })
 })

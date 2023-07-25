@@ -8,7 +8,7 @@ import ApplicationProvider, {
 describe("ApplicationProvider", () => {
   beforeEach(setupRenderer)
 
-  test("provides the correct context", () => {
+  test("should provide the correct context", () => {
     const testApplication = { application: {}, quit: jest.fn() }
 
     const TestComponent = () => {
@@ -24,15 +24,17 @@ describe("ApplicationProvider", () => {
     )
   })
 
-  test("withApplicationContext provides the correct context", () => {
-    const testApplication = { application: {}, quit: jest.fn() }
+  describe("withApplicationContext", () => {
+    test("should provide the correct context", () => {
+      const testApplication = { application: {}, quit: jest.fn() }
 
-    const TestComponent = () => {
-      const context = React.useContext(ApplicationContext)
-      expect(context).toEqual(testApplication)
-      return null
-    }
+      const TestComponent = () => {
+        const context = React.useContext(ApplicationContext)
+        expect(context).toEqual(testApplication)
+        return null
+      }
 
-    render(withApplicationContext(<TestComponent />, testApplication))
+      render(withApplicationContext(<TestComponent />, testApplication))
+    })
   })
 })

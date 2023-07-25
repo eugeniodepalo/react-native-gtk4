@@ -22,6 +22,7 @@ describe("Portal", () => {
 
   test("should remove portal from instances", () => {
     portal.destroy()
+
     expect(Portal.instances).not.toContain(portal)
 
     expect(reconciler.updateContainer).toHaveBeenCalledWith(

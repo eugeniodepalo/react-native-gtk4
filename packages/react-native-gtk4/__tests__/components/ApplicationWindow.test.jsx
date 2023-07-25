@@ -6,13 +6,13 @@ import { Label } from "../../src/generated/intrinsics.js"
 describe("ApplicationWindow", () => {
   beforeEach(setupRenderer)
 
-  test("renders correctly", () => {
+  test("should render correctly", () => {
     const container = render(<ApplicationWindow />)
     const window = container.findByType("ApplicationWindow")
     expect(window).not.toBeNull()
   })
 
-  test("adds titlebar when present", () => {
+  test("should add titlebar when present", () => {
     const container = render(
       <ApplicationWindow titlebar={<Label id="titlebar-label">Title</Label>} />
     )
@@ -24,7 +24,7 @@ describe("ApplicationWindow", () => {
     expect(window.props.titlebar).toBe(titlebar.node)
   })
 
-  test("does not add titlebar when not present", () => {
+  test("should not add titlebar when not present", () => {
     const container = render(<ApplicationWindow />)
     const window = container.findByType("ApplicationWindow")
     expect(window.props.titlebar).toBeUndefined()

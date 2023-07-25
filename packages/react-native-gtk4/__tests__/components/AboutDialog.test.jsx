@@ -7,7 +7,7 @@ import Gtk from "@girs/node-gtk-4.0"
 describe("AboutDialog", () => {
   beforeEach(setupRenderer)
 
-  test("renders correctly", () => {
+  test("should render correctly", () => {
     render(<ApplicationWindow />)
 
     const container = render(
@@ -25,7 +25,7 @@ describe("AboutDialog", () => {
     expect(dialog.node.setTransientFor).toHaveBeenCalledWith(window.node)
   })
 
-  test("adds credit sections", () => {
+  test("should add credit sections", () => {
     const creditSections = [
       { name: "Foo", people: ["Person 1", "Person 2"] },
       { name: "Bar", people: ["Person 3", "Person 4"] },
@@ -47,7 +47,7 @@ describe("AboutDialog", () => {
     }
   })
 
-  test("handles a null ref", () => {
+  test("should handle unmount gracefully", () => {
     render(
       <ApplicationWindow>
         <AboutDialog />

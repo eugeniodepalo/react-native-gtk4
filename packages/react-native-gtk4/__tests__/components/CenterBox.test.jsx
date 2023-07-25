@@ -7,7 +7,7 @@ import Gtk from "@girs/node-gtk-4.0"
 describe("CenterBox", () => {
   beforeEach(setupRenderer)
 
-  test("assigns widgets correctly", () => {
+  test("should assign widgets correctly", () => {
     const container = render(
       <CenterBox start={<Label label="Start" />} end={<Label label="End" />}>
         <Label label="Center" />
@@ -27,7 +27,7 @@ describe("CenterBox", () => {
     )
   })
 
-  test("handles absence of start, end, and center widgets gracefully", () => {
+  test("should handle absence of start, end, and center widgets gracefully", () => {
     const container = render(<CenterBox />)
     const centerBox = container.findByType("CenterBox")
 
@@ -36,7 +36,7 @@ describe("CenterBox", () => {
     expect(centerBox.node.setEndWidget).toHaveBeenCalledWith(null)
   })
 
-  test("handles a null ref", () => {
+  test("should handle unmount gracefully", () => {
     render(<CenterBox />)
 
     Gtk.CenterBox.prototype.setStartWidget.mockClear()

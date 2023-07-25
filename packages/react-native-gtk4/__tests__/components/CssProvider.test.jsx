@@ -11,7 +11,7 @@ describe("CssProvider", () => {
     Gdk.Display.getDefault.mockReturnValue(new Gdk.Display())
   })
 
-  test("loads the provided CSS file", () => {
+  test("should load the provided CSS file", () => {
     render(<CssProvider path="styles.css" />)
 
     expect(Gtk.CssProvider).toHaveBeenCalled()
@@ -27,7 +27,7 @@ describe("CssProvider", () => {
     )
   })
 
-  test("removes the CSS provider on unmount", () => {
+  test("should remove the CSS provider on unmount", () => {
     render(<CssProvider path="styles.css" />)
     render(null)
 
@@ -37,7 +37,7 @@ describe("CssProvider", () => {
     )
   })
 
-  test("throws if a default display cannot be found", () => {
+  test("should throw if a default display cannot be found", () => {
     Gdk.Display.getDefault.mockReturnValue(null)
 
     expect(() => {
@@ -61,7 +61,7 @@ describe("CssProvider", () => {
     expect(container.findByType("Box")).toBeTruthy()
   })
 
-  test("handles a null ref", () => {
+  test("should handle unmount gracefully", () => {
     render(<CssProvider path="styles.css" />)
     Gtk.CssProvider.mockReturnValue(null)
     expect(Gtk.StyleContext.removeProviderForDisplay).not.toHaveBeenCalled()

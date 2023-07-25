@@ -7,17 +7,17 @@ describe("AbstractNode", () => {
     node = createMockNode()
   })
 
-  test("initializes with empty children", () => {
+  test("should initialize with empty children", () => {
     expect(node.children).toEqual([])
   })
 
-  test("can append a child", () => {
+  test("should append a child", () => {
     const child = createMockNode()
     node.appendChild(child)
     expect(node.children).toContain(child)
   })
 
-  test("can remove a child", () => {
+  test("should remove a child", () => {
     const child = createMockNode()
 
     node.appendChild(child)
@@ -26,12 +26,12 @@ describe("AbstractNode", () => {
     expect(node.children).not.toContain(child)
   })
 
-  test("throws an error when removing a non-existent child", () => {
+  test("should throw an error when removing a non-existent child", () => {
     const child = createMockNode()
     expect(() => node.removeChild(child)).toThrow("Removed child not found")
   })
 
-  test("can insert a child before another", () => {
+  test("should insert a child before another", () => {
     const child1 = createMockNode()
     const child2 = createMockNode()
 
@@ -41,7 +41,7 @@ describe("AbstractNode", () => {
     expect(node.children[0]).toBe(child2)
   })
 
-  test("throws an error when inserting before a non-existent child", () => {
+  test("should throw an error when inserting before a non-existent child", () => {
     const child1 = createMockNode()
     const child2 = createMockNode()
 

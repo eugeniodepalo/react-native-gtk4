@@ -12,7 +12,7 @@ describe("Expander", () => {
     mockProperty(Gtk.Expander, "label")
   })
 
-  test("renders correctly without label", () => {
+  test("should render correctly without label", () => {
     const container = render(<Expander />)
     const expander = container.findByType("Expander")
 
@@ -21,7 +21,7 @@ describe("Expander", () => {
     expect(expander.node.labelWidget).toBeNull()
   })
 
-  test("renders correctly with string label", () => {
+  test("should render correctly with string label", () => {
     const label = "test"
     const container = render(<Expander label={label} />)
     const expander = container.findByType("Expander")
@@ -30,7 +30,7 @@ describe("Expander", () => {
     expect(expander.node.label).toBe(label)
   })
 
-  test("renders correctly with ReactElement label", () => {
+  test("should render correctly with ReactElement label", () => {
     const container = render(<Expander label={<Label label="text" />} />)
     const expander = container.findByType("Expander")
     const label = container.findByType("Label")
@@ -40,7 +40,7 @@ describe("Expander", () => {
     expect(expander.node.labelWidget).toBe(label.node)
   })
 
-  test("handles a null ref", () => {
+  test("should handle unmount gracefully", () => {
     render(<Expander />)
 
     Gtk.Expander.prototype.setLabelWidget.mockClear()

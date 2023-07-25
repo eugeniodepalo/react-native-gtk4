@@ -7,7 +7,7 @@ jest.mock("react")
 jest.mock("../../src/portal.js")
 
 describe("usePortal", () => {
-  test("creates a portal and renders the provided element", () => {
+  test("should create a portal and render the provided element", () => {
     useEffect.mockImplementation((fn) => fn())
     useRef.mockReturnValue({ current: null })
 

@@ -35,10 +35,12 @@ export class Renderer {
       () => {}
     )
 
+    jest.spyOn(console, "error").mockImplementation(() => {})
     reconciler.flushSync(() => {})
     reconciler.flushControlled(() => {})
     reconciler.flushPassiveEffects()
     jest.runAllTimers()
+    console.error.mockRestore()
 
     return new RenderedTree(this.container, Portal.instances)
   }

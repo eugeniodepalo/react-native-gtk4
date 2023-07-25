@@ -1,5 +1,5 @@
 {
-  "name": "kitchen-sink",
+  "name": "kitchen-sink-example",
   "version": "1.0.0",
   "description": "An example of a React Native GTK4 app showcasing most of the components",
   "main": "dist/index.js",

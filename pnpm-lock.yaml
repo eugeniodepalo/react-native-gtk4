@@ -94,6 +94,25 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  examples/stylesheet:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-native-gtk4:
+        specifier: workspace:*
+        version: link:../../packages/react-native-gtk4
+    devDependencies:
+      '@types/node':
+        specifier: ^20.4.1
+        version: 20.4.1
+      '@types/react':
+        specifier: ^18.2.14
+        version: 18.2.14
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+
   packages/codegen:
     devDependencies:
       '@babel/cli':
@@ -2775,6 +2794,7 @@ packages:
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -3821,6 +3841,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: false
@@ -3900,6 +3921,7 @@ packages:
   /is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
     engines: {node: '>=8'}
+    requiresBuild: true
     dependencies:
       binary-extensions: 2.2.0
     dev: true
@@ -5217,6 +5239,7 @@ packages:
   /readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
+    requiresBuild: true
     dependencies:
       picomatch: 2.3.1
     dev: true
@@ -5366,6 +5389,7 @@ packages:
 
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+    requiresBuild: true
     dev: false
     optional: true
 

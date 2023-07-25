@@ -16,6 +16,7 @@ export {
   AboutDialog,
   ApplicationWindow,
   CenterBox,
+  CssProvider,
   Expander,
   Frame,
   Grid,

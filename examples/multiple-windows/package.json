@@ -1,5 +1,5 @@
 {
-  "name": "multiple-windows",
+  "name": "multiple-windows-example",
   "version": "1.0.0",
   "description": "An example of multiple windows within a React Native GTK app",
   "main": "dist/index.js",

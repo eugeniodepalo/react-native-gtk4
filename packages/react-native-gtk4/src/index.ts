@@ -18,6 +18,7 @@ export {
   ApplicationWindow,
   CenterBox,
   CheckButton,
+  ColorDialogButton,
   CssProvider,
   Expander,
   Frame,

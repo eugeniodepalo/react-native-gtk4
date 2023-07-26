@@ -30,6 +30,7 @@ import {
   CenterBox,
   useApplication,
   ActionBar,
+  ColorDialogButton,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -249,6 +250,7 @@ export default function App() {
                 <Label label="Paned Start" />
                 <Label label="Paned End" />
               </Paned>
+              <ColorDialogButton title="Color Dialog" hexpand vexpand />
             </Box>
           </Grid.Item>
           <Grid.Item col={1} row={1} width={1} height={1}>

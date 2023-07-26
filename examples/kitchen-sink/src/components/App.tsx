@@ -48,6 +48,7 @@ export default function App() {
   const [showActionBarStart, setShowActionBarStart] = useState(true)
   const [showActionBarEnd, setShowActionBarEnd] = useState(true)
   const [actionBarText, setActionBarText] = useState("")
+  const [selectedRadio, setSelectedRadio] = useState(0)
   const { quit } = useApplication()
 
   const stackRef = useCallback((node: Gtk.Stack | null) => {
@@ -198,8 +199,32 @@ export default function App() {
                 placeholderText="Type here..."
               />
               <TextView />
-              <CheckButton label="Radio Button 1" active />
-              <CheckButton label="Radio Button 2" />
+              <CheckButton label="Check Button 1" active />
+              <CheckButton label="Check Button 2" />
+              <CheckButton
+                label="Radio Button 1"
+                radio
+                active={selectedRadio === 0}
+                onToggled={() => setSelectedRadio(0)}
+              />
+              <CheckButton
+                label="Radio Button 2"
+                radio
+                active={selectedRadio === 1}
+                onToggled={() => setSelectedRadio(1)}
+              />
+              <CheckButton
+                label="Radio Button 3"
+                radio
+                active={selectedRadio === 2}
+                onToggled={() => setSelectedRadio(2)}
+              />
+              <CheckButton
+                label="Radio Button 4"
+                radio
+                active={selectedRadio === 3}
+                onToggled={() => setSelectedRadio(3)}
+              />
               <Box>
                 <Switch
                   active={switchActive}

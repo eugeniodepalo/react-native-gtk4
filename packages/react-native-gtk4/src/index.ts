@@ -17,6 +17,7 @@ export {
   ActionBar,
   ApplicationWindow,
   CenterBox,
+  CheckButton,
   CssProvider,
   Expander,
   Frame,

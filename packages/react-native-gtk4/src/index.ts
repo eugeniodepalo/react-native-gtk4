@@ -14,6 +14,7 @@ export * from "./hooks.js"
 
 export {
   AboutDialog,
+  ActionBar,
   ApplicationWindow,
   CenterBox,
   CssProvider,

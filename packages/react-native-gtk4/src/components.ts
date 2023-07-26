@@ -1,4 +1,5 @@
 export { default as AboutDialog } from "./components/AboutDialog.js"
+export { default as ActionBar } from "./components/ActionBar.js"
 export { default as ApplicationWindow } from "./components/ApplicationWindow.js"
 export { default as CenterBox } from "./components/CenterBox.js"
 export { default as Expander } from "./components/Expander.js"

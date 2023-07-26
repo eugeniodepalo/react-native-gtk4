@@ -29,6 +29,7 @@ import {
   AboutDialog,
   CenterBox,
   useApplication,
+  ActionBar,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -44,6 +45,9 @@ export default function App() {
   const [showTitlebar, setShowTitlebar] = useState(true)
   const [stackVisibleChildName, setStackVisibleChildName] = useState("child1")
   const [notebookPage, setNotebookPage] = useState(0)
+  const [showActionBarStart, setShowActionBarStart] = useState(true)
+  const [showActionBarEnd, setShowActionBarEnd] = useState(true)
+  const [actionBarText, setActionBarText] = useState("")
   const { quit } = useApplication()
 
   const stackRef = useCallback((node: Gtk.Stack | null) => {
@@ -88,6 +92,35 @@ export default function App() {
                   <Label label="Stack 2" />
                 </Stack.Item>
               </Stack.Container>
+              <ActionBar.Container hexpand vexpand>
+                {showActionBarStart ? (
+                  <ActionBar.Section align="start">
+                    <Button
+                      label="Action Bar 1"
+                      onClicked={() => setShowActionBarEnd(!showActionBarEnd)}
+                    />
+                  </ActionBar.Section>
+                ) : null}
+                <ActionBar.Section align="center">
+                  <Entry
+                    text={actionBarText}
+                    onChanged={(entry) => {
+                      setActionBarText(entry.text ?? "")
+                    }}
+                    placeholderText="Type here..."
+                  />
+                </ActionBar.Section>
+                {showActionBarEnd ? (
+                  <ActionBar.Section align="end">
+                    <Button
+                      label="Action Bar 2"
+                      onClicked={() =>
+                        setShowActionBarStart(!showActionBarStart)
+                      }
+                    />
+                  </ActionBar.Section>
+                ) : null}
+              </ActionBar.Container>
               <Overlay
                 content={
                   <Image iconName="face-smile" iconSize={Gtk.IconSize.LARGE} />

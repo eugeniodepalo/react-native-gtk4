@@ -1,11 +1,12 @@
 import { Reconciler } from "./reconciler.js"
 import AbstractContainer from "./abstract/container.js"
+import { ApplicationContext } from "./components/ApplicationProvider.js"
 
 export class Portal extends AbstractContainer {
   static instances: Portal[] = []
 
-  constructor(reconciler?: Reconciler) {
-    super(reconciler)
+  constructor(context: ApplicationContext, reconciler?: Reconciler) {
+    super(context, reconciler)
     Portal.instances.push(this)
   }
 

@@ -41,6 +41,7 @@ describe("Reconciler", () => {
       Container.mockImplementation(() =>
         Object.assign(Object.create(Container.prototype), {
           children: [],
+          context: {},
         })
       )
 
@@ -95,22 +96,27 @@ describe("Reconciler", () => {
     describe("createInstance", () => {
       test("should create a widget", () => {
         const props = { some: "Prop" }
-        hostConfig.createInstance("AbstractWidget", props)
-        expect(AbstractWidget).toHaveBeenCalledWith(props)
+        hostConfig.createInstance("AbstractWidget", props, container)
+        expect(AbstractWidget).toHaveBeenCalledWith(props, container.context)
       })
 
       test("should remove undefined props", () => {
         const props = { some: "Prop", undefined: undefined }
-        hostConfig.createInstance("AbstractWidget", props)
-        expect(AbstractWidget).toHaveBeenCalledWith({ some: "Prop" })
+
+        hostConfig.createInstance("AbstractWidget", props, container)
+
+        expect(AbstractWidget).toHaveBeenCalledWith(
+          { some: "Prop" },
+          container.context
+        )
       })
     })
 
     describe("createTextInstance", () => {
       test("should create a label", () => {
         const text = "Some text"
-        hostConfig.createTextInstance(text)
-        expect(Label).toHaveBeenCalledWith({ label: text })
+        hostConfig.createTextInstance(text, container)
+        expect(Label).toHaveBeenCalledWith({ label: text }, container.context)
       })
     })
 

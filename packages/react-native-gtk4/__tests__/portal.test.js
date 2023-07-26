@@ -12,8 +12,10 @@ describe("Portal", () => {
     updateContainer: jest.fn(),
   }
 
+  const context = {}
+
   beforeEach(() => {
-    portal = new Portal(reconciler)
+    portal = new Portal(context, reconciler)
   })
 
   test("should add portal to instances", () => {

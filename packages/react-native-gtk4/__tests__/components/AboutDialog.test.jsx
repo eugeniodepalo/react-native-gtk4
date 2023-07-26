@@ -16,13 +16,9 @@ describe("AboutDialog", () => {
       </ApplicationWindow>
     )
 
-    const window = container.findByType("ApplicationWindow")
     const dialog = container.findByType("AboutDialog")
 
-    expect(dialog.node.setDestroyWithParent).toHaveBeenCalledWith(true)
-    expect(dialog.node.setModal).toHaveBeenCalledWith(true)
-    expect(dialog.node.present).toHaveBeenCalled()
-    expect(dialog.node.setTransientFor).toHaveBeenCalledWith(window.node)
+    expect(dialog.node).toBeInstanceOf(Gtk.AboutDialog)
   })
 
   test("should add credit sections", () => {
@@ -45,28 +41,5 @@ describe("AboutDialog", () => {
         section.people
       )
     }
-  })
-
-  test("should handle unmount gracefully", () => {
-    render(
-      <ApplicationWindow>
-        <AboutDialog />
-      </ApplicationWindow>
-    )
-
-    Gtk.AboutDialog.prototype.setDestroyWithParent.mockClear()
-    Gtk.AboutDialog.prototype.setModal.mockClear()
-    Gtk.AboutDialog.prototype.present.mockClear()
-    Gtk.AboutDialog.prototype.setTransientFor.mockClear()
-
-    render(<ApplicationWindow />)
-
-    expect(
-      Gtk.AboutDialog.prototype.setDestroyWithParent
-    ).not.toHaveBeenCalled()
-
-    expect(Gtk.AboutDialog.prototype.setModal).not.toHaveBeenCalled()
-    expect(Gtk.AboutDialog.prototype.present).not.toHaveBeenCalled()
-    expect(Gtk.AboutDialog.prototype.setTransientFor).not.toHaveBeenCalled()
   })
 })

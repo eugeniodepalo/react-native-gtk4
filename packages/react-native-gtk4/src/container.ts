@@ -2,10 +2,7 @@ import gi from "@girs/node-gtk"
 import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
 import { Reconciler } from "./reconciler.js"
-import {
-  ApplicationContext,
-  withApplicationContext,
-} from "./components/ApplicationProvider.js"
+import { withApplicationContext } from "./components/ApplicationProvider.js"
 import AbstractWidget from "./abstract/widget.js"
 import { ApplicationWindow } from "./generated/widgets.js"
 import AbstractContainer from "./abstract/container.js"
@@ -13,14 +10,11 @@ import AbstractContainer from "./abstract/container.js"
 export const MAX_TIMEOUT = 2147483647
 
 export default class Container extends AbstractContainer {
-  private context: ApplicationContext
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
 
   constructor(application: Gtk.Application, reconciler?: Reconciler) {
-    super(reconciler)
-
-    this.context = {
+    const context = {
       quit: () => {
         this.context.application.quit()
         this.loop.quit()
@@ -29,6 +23,8 @@ export default class Container extends AbstractContainer {
       },
       application,
     }
+
+    super(context, reconciler)
 
     this.loop = GLib.MainLoop.new(null, false)
   }

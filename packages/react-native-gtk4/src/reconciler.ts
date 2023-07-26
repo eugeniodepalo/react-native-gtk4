@@ -5,10 +5,15 @@ import AbstractWidget from "./abstract/widget.js"
 import Label from "./generated/widgets/Label.js"
 import Gtk from "@girs/node-gtk-4.0"
 import AbstractContainer from "./abstract/container.js"
+import { ApplicationContext } from "./components/ApplicationProvider.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
-type WidgetConstructor = new (props: Record<string, any>) => AbstractWidget
+
+type WidgetConstructor = new (
+  props: Record<string, any>,
+  context: ApplicationContext
+) => AbstractWidget
 
 function definedProps(obj: Record<string, any>) {
   return Object.keys(obj).reduce(
@@ -43,12 +48,12 @@ const hostConfig: HostConfig<
   supportsHydration: false,
   isPrimaryRenderer: true,
   noTimeout: -1,
-  createInstance(type, props) {
+  createInstance(type, props, container) {
     const Widget = widgets[type] as WidgetConstructor
-    return new Widget(definedProps(props))
+    return new Widget(definedProps(props), container.context)
   },
-  createTextInstance(text) {
-    return new Label({ label: text })
+  createTextInstance(text, container) {
+    return new Label({ label: text }, container.context)
   },
   appendInitialChild(parentInstance, child) {
     parentInstance.appendChild(child)

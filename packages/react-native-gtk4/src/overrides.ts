@@ -1,3 +1,4 @@
+import "./overrides/AboutDialog.js"
 import "./overrides/ApplicationWindow.js"
 import "./overrides/Box.js"
 import "./overrides/FlowBox.js"

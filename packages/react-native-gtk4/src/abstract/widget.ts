@@ -1,5 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import AbstractNode from "./node.js"
+import { ApplicationContext } from "../components/ApplicationProvider.js"
 
 export default abstract class AbstractWidget<
   T extends Gtk.Widget = Gtk.Widget,
@@ -7,12 +8,14 @@ export default abstract class AbstractWidget<
   node: T
   handlers: Record<string, any> = {}
   props: Record<string, any> = {}
+  context: ApplicationContext
 
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: Record<string, any> = {}, context: ApplicationContext) {
     super()
 
     this.props = props
     this.node = this.createNode()
+    this.context = context
 
     for (const propName in props) {
       this.set(propName, props[propName])

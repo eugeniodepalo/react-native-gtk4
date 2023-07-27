@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -9,83 +10,98 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { ActionBar } from "../generated/intrinsics.js"
 
-const ActionBarContext = React.createContext<Gtk.ActionBar | null>(null)
+type Position = "start" | "center" | "end"
+
+const Context = React.createContext<Gtk.ActionBar | null>(null)
+const PositionContext = React.createContext<Position | null>(null)
 
 type Props = JSX.IntrinsicElements["ActionBar"] & {
   children: React.ReactNode
 }
 
-const ActionBarContainer = forwardRef<Gtk.ActionBar, Props>(
-  function ActionBarContainer({ children, ...props }, ref) {
-    const [actionBarNode, setActionBarNode] = useState<Gtk.ActionBar | null>(
-      null
-    )
+const Container = forwardRef<Gtk.ActionBar, Props>(function ActionBarContainer(
+  { children, ...props },
+  ref
+) {
+  const [node, setNode] = useState<Gtk.ActionBar | null>(null)
 
-    useImperativeHandle(ref, () => actionBarNode!)
+  useImperativeHandle(ref, () => node!)
 
-    const actionBarRef = useCallback((node: Gtk.ActionBar | null) => {
-      setActionBarNode(node)
-    }, [])
+  const innerRef = useCallback((node: Gtk.ActionBar | null) => {
+    setNode(node)
+  }, [])
 
-    return (
-      <ActionBarContext.Provider value={actionBarNode}>
-        <ActionBar ref={actionBarRef} {...props}>
-          {children}
-        </ActionBar>
-      </ActionBarContext.Provider>
-    )
+  return (
+    <Context.Provider value={node}>
+      <ActionBar ref={innerRef} {...props}>
+        {node ? children : null}
+      </ActionBar>
+    </Context.Provider>
+  )
+})
+
+interface ItemProps {
+  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+}
+
+const Item = forwardRef<Gtk.Widget, ItemProps>(function Item(
+  { children },
+  ref
+) {
+  const actionBar = useContext(Context)
+  const position = useContext(PositionContext) ?? "start"
+  const innerRef = useRef<Gtk.Widget | null>(null)
+
+  if (!actionBar) {
+    throw new Error("Item must be a child of ActionBar.Container")
   }
-)
+
+  useImperativeHandle(ref, () => innerRef.current!)
+
+  useEffect(() => {
+    if (!innerRef.current) {
+      return
+    }
+
+    const node = innerRef.current
+
+    switch (position) {
+      case "start":
+        actionBar.packStart(node)
+        break
+      case "center":
+        actionBar.setCenterWidget(node)
+        break
+      case "end":
+        actionBar.packEnd(node)
+        break
+    }
+
+    return () => {
+      actionBar.remove(node)
+    }
+  }, [])
+
+  return React.cloneElement(children, {
+    ref: innerRef,
+  })
+})
 
 interface SectionProps {
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  align?: "start" | "center" | "end"
+  position?: Position
 }
 
-const ActionBarSection = function ActionBarSection({
-  children,
-  align = "start",
-}: SectionProps) {
-  const actionBarNode = useContext(ActionBarContext)
-  const childRef = useRef<Gtk.Widget | null>(null)
-
-  const setChildRef = useCallback(
-    (node: Gtk.Widget | null) => {
-      const prevNode = childRef.current
-
-      childRef.current = node
-
-      if (!actionBarNode) {
-        return
-      }
-
-      if (prevNode) {
-        actionBarNode.remove(prevNode)
-      }
-
-      if (node) {
-        switch (align) {
-          case "start":
-            actionBarNode.packStart(node)
-            break
-          case "center":
-            actionBarNode.setCenterWidget(node)
-            break
-          case "end":
-            actionBarNode.packEnd(node)
-            break
-        }
-      }
-    },
-    [actionBarNode, align]
+const Section = function Section({ children, position }: SectionProps) {
+  return (
+    <PositionContext.Provider value={position ?? null}>
+      {children}
+    </PositionContext.Provider>
   )
-
-  return React.cloneElement(children, {
-    ref: setChildRef,
-  })
 }
 
 export default {
-  Container: ActionBarContainer,
-  Section: ActionBarSection,
+  Container,
+  Section,
+  Item,
 }

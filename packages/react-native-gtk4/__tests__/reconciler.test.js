@@ -1,5 +1,5 @@
 import { createReconciler } from "../src/reconciler.js"
-import Container from "../src/container.js"
+import { Container } from "../src/container.js"
 import ReactReconciler from "react-reconciler"
 import AbstractWidget from "../src/abstract/widget.js"
 import Label from "../src/generated/widgets/Label.js"

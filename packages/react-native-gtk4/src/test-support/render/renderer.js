@@ -1,5 +1,5 @@
 import { createReconciler } from "../../reconciler.js"
-import Container from "../../container.js"
+import { Container } from "../../container.js"
 import { createApplication } from "./application.js"
 import { RenderedTree } from "./tree.js"
 import { withApplicationContext } from "../../components/ApplicationProvider.js"

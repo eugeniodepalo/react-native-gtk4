@@ -3,7 +3,7 @@ import { render, setupRenderer } from "../../src/test-support/render.js"
 import Stack from "../../src/components/Stack.js"
 import { Button, Label } from "../../src/generated/intrinsics.js"
 
-describe("Stack Components", () => {
+describe("Stack", () => {
   beforeEach(setupRenderer)
 
   test("should render StackContainer and StackItem correctly", () => {
@@ -75,5 +75,24 @@ describe("Stack Components", () => {
     )
 
     expect(stack.node.setVisibleChildName).toHaveBeenCalledWith("item2")
+  })
+
+  test("should remove previous item when unmounting", () => {
+    const container = render(
+      <Stack.Container visibleChildName="item1">
+        <Stack.Item name="item1" title="Item 1">
+          <Button>
+            <Label text="Item 1" />
+          </Button>
+        </Stack.Item>
+      </Stack.Container>
+    )
+
+    const stack = container.findByType("Stack")
+    const button = container.findByType("Button")
+
+    render(null)
+
+    expect(stack.node.remove).toHaveBeenCalledWith(button.node)
   })
 })

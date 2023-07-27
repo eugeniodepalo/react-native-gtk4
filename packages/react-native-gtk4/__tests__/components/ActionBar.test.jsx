@@ -20,7 +20,9 @@ describe("ActionBar", () => {
       render(
         <ActionBar.Container>
           <ActionBar.Section>
-            <Button />
+            <ActionBar.Item>
+              <Button />
+            </ActionBar.Item>
           </ActionBar.Section>
         </ActionBar.Container>
       )
@@ -30,11 +32,13 @@ describe("ActionBar", () => {
       )
     })
 
-    test("should pack its child to the correct alignment", () => {
+    test("should pack its child to the correct position", () => {
       const container = render(
         <ActionBar.Container>
-          <ActionBar.Section align="end">
-            <Button />
+          <ActionBar.Section position="end">
+            <ActionBar.Item>
+              <Button />
+            </ActionBar.Item>
           </ActionBar.Section>
         </ActionBar.Container>
       )
@@ -47,8 +51,10 @@ describe("ActionBar", () => {
     test("should set its child as the center widget correctly", () => {
       const container = render(
         <ActionBar.Container>
-          <ActionBar.Section align="center">
-            <Button />
+          <ActionBar.Section position="center">
+            <ActionBar.Item>
+              <Button />
+            </ActionBar.Item>
           </ActionBar.Section>
         </ActionBar.Container>
       )
@@ -63,8 +69,10 @@ describe("ActionBar", () => {
     test("should remove its previous child before adding a new child", () => {
       const container = render(
         <ActionBar.Container>
-          <ActionBar.Section align="start">
-            <Button />
+          <ActionBar.Section position="start">
+            <ActionBar.Item>
+              <Button />
+            </ActionBar.Item>
           </ActionBar.Section>
         </ActionBar.Container>
       )
@@ -73,8 +81,10 @@ describe("ActionBar", () => {
 
       render(
         <ActionBar.Container>
-          <ActionBar.Section align="start" key="new">
-            <Button label="New" />
+          <ActionBar.Section position="start" key="new">
+            <ActionBar.Item>
+              <Button label="New" />
+            </ActionBar.Item>
           </ActionBar.Section>
         </ActionBar.Container>
       )

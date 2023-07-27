@@ -1,5 +1,5 @@
 import Gtk from "@girs/node-gtk-4.0"
-import Container from "./container.js"
+import { Container } from "./container.js"
 import "./generated/jsx.js"
 import "./overrides.js"
 

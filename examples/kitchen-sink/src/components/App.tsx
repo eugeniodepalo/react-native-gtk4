@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useState } from "react"
 import {
   ApplicationWindow,
   Box,
@@ -12,7 +12,6 @@ import {
   ListBox,
   ListBoxRow,
   Image,
-  StackSidebar,
   Paned,
   Expander,
   CheckButton,
@@ -35,7 +34,6 @@ import {
 
 export default function App() {
   const [count, setCount] = useState(0)
-  const [stackNode, setStackNode] = useState<Gtk.Stack | null>(null)
   const [revealed, setRevealed] = useState(false)
   const [popoverOpen, setPopoverOpen] = useState(false)
   const [entryText, setEntryText] = useState("")
@@ -51,10 +49,6 @@ export default function App() {
   const [actionBarText, setActionBarText] = useState("")
   const [selectedRadio, setSelectedRadio] = useState(0)
   const { quit } = useApplication()
-
-  const stackRef = useCallback((node: Gtk.Stack | null) => {
-    setStackNode(node)
-  }, [])
 
   return (
     <>
@@ -75,51 +69,59 @@ export default function App() {
         <Grid.Container hexpand vexpand>
           <Grid.Item col={0} row={0} width={1} height={1}>
             <Box orientation={Gtk.Orientation.VERTICAL} hexpand vexpand>
-              {stackNode ? (
-                <StackSidebar stack={stackNode} hexpand vexpand />
-              ) : null}
-              <Stack.Container
-                hexpand
-                vexpand
-                visibleChildName={stackVisibleChildName ?? ""}
-                onNotifyVisibleChildName={(stack) => {
-                  setStackVisibleChildName(stack.visibleChildName ?? "")
-                }}
-                ref={stackRef}
-              >
-                <Stack.Item name="child1">
-                  <Label label="Stack 1" />
-                </Stack.Item>
-                <Stack.Item name="child2">
-                  <Label label="Stack 2" />
-                </Stack.Item>
-              </Stack.Container>
+              <Box orientation={Gtk.Orientation.HORIZONTAL} hexpand>
+                <Stack.Container
+                  hexpand
+                  vexpand
+                  visibleChildName={stackVisibleChildName ?? ""}
+                  onNotifyVisibleChildName={(stack) => {
+                    setStackVisibleChildName(stack.visibleChildName ?? "")
+                  }}
+                >
+                  <Stack.Sidebar hexpand vexpand />
+                  <Stack.Item name="child1">
+                    <Label label="Stack 1" />
+                  </Stack.Item>
+                  <Stack.Item name="child2">
+                    <Label label="Stack 2" />
+                  </Stack.Item>
+                  <Stack.Item name="child3">
+                    <Label label="Stack 3" />
+                  </Stack.Item>
+                </Stack.Container>
+              </Box>
               <ActionBar.Container hexpand vexpand>
                 {showActionBarStart ? (
-                  <ActionBar.Section align="start">
-                    <Button
-                      label="Action Bar 1"
-                      onClicked={() => setShowActionBarEnd(!showActionBarEnd)}
-                    />
+                  <ActionBar.Section position="start">
+                    <ActionBar.Item>
+                      <Button
+                        label="Action Bar 1"
+                        onClicked={() => setShowActionBarEnd(!showActionBarEnd)}
+                      />
+                    </ActionBar.Item>
                   </ActionBar.Section>
                 ) : null}
-                <ActionBar.Section align="center">
-                  <Entry
-                    text={actionBarText}
-                    onChanged={(entry) => {
-                      setActionBarText(entry.text ?? "")
-                    }}
-                    placeholderText="Type here..."
-                  />
+                <ActionBar.Section position="center">
+                  <ActionBar.Item>
+                    <Entry
+                      text={actionBarText}
+                      onChanged={(entry) => {
+                        setActionBarText(entry.text ?? "")
+                      }}
+                      placeholderText="Type here..."
+                    />
+                  </ActionBar.Item>
                 </ActionBar.Section>
                 {showActionBarEnd ? (
-                  <ActionBar.Section align="end">
-                    <Button
-                      label="Action Bar 2"
-                      onClicked={() =>
-                        setShowActionBarStart(!showActionBarStart)
-                      }
-                    />
+                  <ActionBar.Section position="end">
+                    <ActionBar.Item>
+                      <Button
+                        label="Action Bar 2"
+                        onClicked={() =>
+                          setShowActionBarStart(!showActionBarStart)
+                        }
+                      />
+                    </ActionBar.Item>
                   </ActionBar.Section>
                 ) : null}
               </ActionBar.Container>

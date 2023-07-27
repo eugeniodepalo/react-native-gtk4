@@ -9,7 +9,7 @@ import AbstractContainer from "./abstract/container.js"
 
 export const MAX_TIMEOUT = 2147483647
 
-export default class Container extends AbstractContainer {
+export class Container extends AbstractContainer {
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
 

@@ -1,4 +1,10 @@
-import React, { useCallback, useImperativeHandle, useRef } from "react"
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Overlay } from "../generated/intrinsics.js"
@@ -13,33 +19,33 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
   { children, content, ...props },
   ref
 ) {
-  const overlayRef = useRef<Gtk.Overlay | null>(null)
-  const contentRef = useRef<Gtk.Widget | null>(null)
+  const innerRef = useRef<Gtk.Overlay | null>(null)
+  const [contentWidget, setContentWidget] = useState<Gtk.Widget | null>(null)
 
-  useImperativeHandle(ref, () => overlayRef.current!)
+  useImperativeHandle(ref, () => innerRef.current!)
 
-  const setContentRef = useCallback((node: Gtk.Widget | null) => {
-    contentRef.current = node
-    commitMount()
+  const contentRef = useCallback((node: Gtk.Widget | null) => {
+    setContentWidget(node)
   }, [])
 
-  const setOverlayRef = useCallback((node: Gtk.Overlay | null) => {
-    overlayRef.current = node
-    commitMount()
-  }, [])
+  usePortal(React.cloneElement(content, { ref: contentRef }))
 
-  usePortal(React.cloneElement(content, { ref: setContentRef }))
+  useEffect(() => {
+    const overlay = innerRef.current
 
-  const commitMount = useCallback(() => {
-    if (!overlayRef.current) {
+    if (!overlay || !contentWidget) {
       return
     }
 
-    overlayRef.current.setChild(contentRef.current)
-  }, [])
+    overlay.setChild(contentWidget)
+
+    return () => {
+      overlay.setChild(null)
+    }
+  }, [innerRef, contentWidget])
 
   return (
-    <Overlay ref={setOverlayRef} {...props}>
+    <Overlay ref={innerRef} {...props}>
       {children}
     </Overlay>
   )

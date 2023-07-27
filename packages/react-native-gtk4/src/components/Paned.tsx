@@ -20,32 +20,30 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
   ref
 ) {
   const panedRef = useRef<Gtk.Paned | null>(null)
-  const [startChildNode, setStartChildNode] = useState<Gtk.Widget | null>(null)
-  const [endChildNode, setEndChildNode] = useState<Gtk.Widget | null>(null)
+  const [startChild, setStartChild] = useState<Gtk.Widget | null>(null)
+  const [endChild, setEndChild] = useState<Gtk.Widget | null>(null)
 
   useImperativeHandle(ref, () => panedRef.current!)
 
-  const [startChild, endChild] = children
-
   const startChildRef = useCallback((node: Gtk.Widget | null) => {
-    setStartChildNode(node)
+    setStartChild(node)
   }, [])
 
   const endChildRef = useCallback((node: Gtk.Widget | null) => {
-    setEndChildNode(node)
+    setEndChild(node)
   }, [])
 
   return (
     <Paned
       ref={panedRef}
-      startChild={startChildNode ?? undefined}
-      endChild={endChildNode ?? undefined}
+      startChild={startChild ?? undefined}
+      endChild={endChild ?? undefined}
       {...props}
     >
-      {React.cloneElement(startChild, {
+      {React.cloneElement(children[0], {
         ref: startChildRef,
       })}
-      {React.cloneElement(endChild, {
+      {React.cloneElement(children[1], {
         ref: endChildRef,
       })}
     </Paned>

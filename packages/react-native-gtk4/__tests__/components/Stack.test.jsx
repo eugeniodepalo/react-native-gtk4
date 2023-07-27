@@ -91,6 +91,8 @@ describe("Stack", () => {
     const stack = container.findByType("Stack")
     const button = container.findByType("Button")
 
+    button.node.getParent = jest.fn(() => stack.node)
+
     render(null)
 
     expect(stack.node.remove).toHaveBeenCalledWith(button.node)

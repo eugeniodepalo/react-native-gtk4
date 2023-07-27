@@ -35,15 +35,19 @@ const Container = forwardRef<Gtk.Stack, Props>(function Container(
   }, [])
 
   return (
-    <Context.Provider
-      value={{
-        stack,
-        visibleChildName,
-      }}
-    >
+    <>
       <Stack ref={stackRef} {...props} />
-      {stack ? children : null}
-    </Context.Provider>
+      {stack ? (
+        <Context.Provider
+          value={{
+            stack,
+            visibleChildName,
+          }}
+        >
+          {children}
+        </Context.Provider>
+      ) : null}
+    </>
   )
 })
 
@@ -76,7 +80,9 @@ const ItemPortal = forwardRef<Gtk.Widget, ItemPortalProps>(function ItemPortal(
     stack.addTitled(node, name, title ?? name)
 
     return () => {
-      stack.remove(node)
+      if (node.getParent() === stack) {
+        stack.remove(node)
+      }
     }
   }, [stack, name, title])
 

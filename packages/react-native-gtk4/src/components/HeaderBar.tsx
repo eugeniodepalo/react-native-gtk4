@@ -1,4 +1,10 @@
-import React, { useCallback, useImperativeHandle, useRef } from "react"
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { HeaderBar } from "../generated/intrinsics.js"
@@ -13,36 +19,36 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
   { title, ...props },
   ref
 ) {
-  const titleRef = useRef<Gtk.Widget | null>(null)
-  const headerBarRef = useRef<Gtk.HeaderBar | null>(null)
+  const [titleWidget, setTitleWidget] = useState<Gtk.Widget | null>(null)
+  const innerRef = useRef<Gtk.HeaderBar | null>(null)
 
-  useImperativeHandle(ref, () => headerBarRef.current!)
+  useImperativeHandle(ref, () => innerRef.current!)
 
-  const commitMount = useCallback(() => {
-    if (!headerBarRef.current) {
+  useEffect(() => {
+    const headerBar = innerRef.current
+
+    if (!headerBar) {
       return
     }
 
-    headerBarRef.current.setTitleWidget(titleRef.current)
-  }, [])
+    headerBar.setTitleWidget(titleWidget)
 
-  const setHeaderBarRef = useCallback((node: Gtk.HeaderBar | null) => {
-    headerBarRef.current = node
-    commitMount()
-  }, [])
+    return () => {
+      headerBar.setTitleWidget(null)
+    }
+  }, [titleWidget])
 
-  const setTitleRef = useCallback((node: Gtk.Widget | null) => {
-    titleRef.current = node
-    commitMount()
+  const titleRef = useCallback((node: Gtk.Widget | null) => {
+    setTitleWidget(node)
   }, [])
 
   usePortal(
     title
       ? React.cloneElement(title, {
-          ref: setTitleRef,
+          ref: titleRef,
         })
       : null
   )
 
-  return <HeaderBar ref={setHeaderBarRef} {...props} />
+  return <HeaderBar ref={innerRef} {...props} />
 })

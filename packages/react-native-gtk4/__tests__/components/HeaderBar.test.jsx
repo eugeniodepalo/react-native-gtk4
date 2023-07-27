@@ -35,6 +35,6 @@ describe("HeaderBar", () => {
 
     render(null)
 
-    expect(Gtk.HeaderBar.prototype.setTitleWidget).not.toHaveBeenCalled()
+    expect(Gtk.HeaderBar.prototype.setTitleWidget).toHaveBeenCalledWith(null)
   })
 })

@@ -44,7 +44,7 @@ interface ItemProps {
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
 }
 
-const Item = forwardRef<Gtk.Widget, ItemProps>(function Item(
+const Item = forwardRef<Gtk.Widget, ItemProps>(function ActionBarItem(
   { children },
   ref
 ) {
@@ -92,7 +92,10 @@ interface SectionProps {
   position?: Position
 }
 
-const Section = function Section({ children, position }: SectionProps) {
+const Section = function ActionBarSection({
+  children,
+  position,
+}: SectionProps) {
   return (
     <PositionContext.Provider value={position ?? null}>
       {children}

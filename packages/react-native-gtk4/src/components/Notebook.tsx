@@ -16,36 +16,37 @@ type Props = JSX.IntrinsicElements["Notebook"] & {
   children: React.ReactNode
 }
 
-const NotebookContainer = forwardRef<Gtk.Notebook, Props>(
-  function NotebookContainer({ children, ...props }, ref) {
-    const [notebook, setNotebook] = useState<Gtk.Notebook | null>(null)
+const Container = forwardRef<Gtk.Notebook, Props>(function NotebookContainer(
+  { children, ...props },
+  ref
+) {
+  const [notebook, setNotebook] = useState<Gtk.Notebook | null>(null)
 
-    useImperativeHandle(ref, () => notebook!)
+  useImperativeHandle(ref, () => notebook!)
 
-    const notebookRef = useCallback((node: Gtk.Notebook | null) => {
-      setNotebook(node)
-    }, [])
+  const notebookRef = useCallback((node: Gtk.Notebook | null) => {
+    setNotebook(node)
+  }, [])
 
-    return (
-      <Notebook ref={notebookRef} {...props}>
-        {notebook ? (
-          <Context.Provider value={notebook}>{children}</Context.Provider>
-        ) : null}
-      </Notebook>
-    )
-  }
-)
+  return (
+    <Notebook ref={notebookRef} {...props}>
+      {notebook ? (
+        <Context.Provider value={notebook}>{children}</Context.Provider>
+      ) : null}
+    </Notebook>
+  )
+})
 
 interface TabProps {
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   label?: string | React.ReactElement<JSX.IntrinsicElements["Widget"]>
 }
 
-const NotebookTab = function NotebookItem({ children, label }: TabProps) {
+const Tab = function NotebookTab({ children, label }: TabProps) {
   const notebook = useContext(Context)
 
   if (!notebook) {
-    throw new Error("NotebookTab must be a child of NotebookContainer")
+    throw new Error("Tab must be a child of Container")
   }
 
   const childRef = useRef<Gtk.Widget | null>(null)
@@ -86,6 +87,6 @@ const NotebookTab = function NotebookItem({ children, label }: TabProps) {
 }
 
 export default {
-  Container: NotebookContainer,
-  Tab: NotebookTab,
+  Container,
+  Tab,
 }

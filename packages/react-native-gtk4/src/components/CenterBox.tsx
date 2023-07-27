@@ -26,7 +26,12 @@ type PortalProps = {
   centerBox: Gtk.CenterBox
 }
 
-const Portal = function Portal({ start, end, center, centerBox }: PortalProps) {
+const Portal = function CenterBoxPortal({
+  start,
+  end,
+  center,
+  centerBox,
+}: PortalProps) {
   const startRef = useRef<Gtk.Widget | null>(null)
   const centerRef = useRef<Gtk.Widget | null>(null)
   const endRef = useRef<Gtk.Widget | null>(null)

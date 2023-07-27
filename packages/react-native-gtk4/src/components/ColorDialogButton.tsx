@@ -11,7 +11,7 @@ type Props = Omit<
 > &
   Partial<ColorDialog>
 
-const ColorDialogButtonComponent = forwardRef<Gtk.ColorDialogButton, Props>(
+export default forwardRef<Gtk.ColorDialogButton, Props>(
   function ColorDialogButtonComponent({ title, modal = true, ...props }, ref) {
     if (!Gtk.ColorDialog) {
       return null
@@ -29,5 +29,3 @@ const ColorDialogButtonComponent = forwardRef<Gtk.ColorDialogButton, Props>(
     return <ColorDialogButton ref={ref} dialog={dialog} {...props} />
   }
 )
-
-export default ColorDialogButtonComponent

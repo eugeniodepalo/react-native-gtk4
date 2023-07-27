@@ -22,7 +22,7 @@ type Props = JSX.IntrinsicElements["Stack"] & {
   children: React.ReactNode
 }
 
-const Container = forwardRef<Gtk.Stack, Props>(function Container(
+const Container = forwardRef<Gtk.Stack, Props>(function StackContainer(
   { children, visibleChildName, ...props },
   ref
 ) {
@@ -62,42 +62,44 @@ interface ItemPortalProps extends ItemProps {
   visibleChildName?: string
 }
 
-const ItemPortal = forwardRef<Gtk.Widget, ItemPortalProps>(function ItemPortal(
-  { children, name, title, stack, visibleChildName },
-  ref
-) {
-  const innerRef = useRef<Gtk.Widget | null>(null)
+const ItemPortal = forwardRef<Gtk.Widget, ItemPortalProps>(
+  function StackItemPortal(
+    { children, name, title, stack, visibleChildName },
+    ref
+  ) {
+    const innerRef = useRef<Gtk.Widget | null>(null)
 
-  useImperativeHandle(ref, () => innerRef.current!)
+    useImperativeHandle(ref, () => innerRef.current!)
 
-  useEffect(() => {
-    const node = innerRef.current
+    useEffect(() => {
+      const node = innerRef.current
 
-    if (!node) {
-      return
-    }
-
-    stack.addTitled(node, name, title ?? name)
-
-    return () => {
-      if (node.getParent() === stack) {
-        stack.remove(node)
+      if (!node) {
+        return
       }
-    }
-  }, [stack, name, title])
 
-  useEffect(() => {
-    if (visibleChildName === name) {
-      stack.setVisibleChildName(name)
-    }
-  }, [stack, visibleChildName, name])
+      stack.addTitled(node, name, title ?? name)
 
-  return React.cloneElement(children, {
-    ref: innerRef,
-  })
-})
+      return () => {
+        if (node.getParent() === stack) {
+          stack.remove(node)
+        }
+      }
+    }, [stack, name, title])
 
-const Item = function Item(props: ItemProps) {
+    useEffect(() => {
+      if (visibleChildName === name) {
+        stack.setVisibleChildName(name)
+      }
+    }, [stack, visibleChildName, name])
+
+    return React.cloneElement(children, {
+      ref: innerRef,
+    })
+  }
+)
+
+const Item = function StackItem(props: ItemProps) {
   const context = useContext(Context)
 
   if (!context || !context.stack) {
@@ -117,7 +119,7 @@ const Item = function Item(props: ItemProps) {
 type SidebarProps = Omit<JSX.IntrinsicElements["StackSidebar"], "stack">
 
 const Sidebar = forwardRef<Gtk.StackSidebar, SidebarProps>(
-  function Sidebar(props, ref) {
+  function StackSidebarComponent(props, ref) {
     const context = useContext(Context)
 
     if (!context || !context.stack) {

@@ -20,6 +20,7 @@ export {
   CheckButton,
   ColorDialogButton,
   CssProvider,
+  EmojiChooser,
   Expander,
   Frame,
   Grid,

@@ -17,53 +17,52 @@ type Props = Omit<
   radio?: boolean
 }
 
-const CheckButtonComponent = forwardRef<Gtk.CheckButton, Props>(
-  function CheckButtonComponent({ radio, active, ...props }, ref) {
-    const [group, setGroup] = useState<Gtk.CheckButton | null>(null)
-    const innerRef = useRef<Gtk.CheckButton | null>(null)
+export default forwardRef<Gtk.CheckButton, Props>(function CheckButtonComponent(
+  { radio, active, ...props },
+  ref
+) {
+  const [group, setGroup] = useState<Gtk.CheckButton | null>(null)
+  const innerRef = useRef<Gtk.CheckButton | null>(null)
 
-    const groupRef = useCallback((node: Gtk.CheckButton | null) => {
-      setGroup(node)
-    }, [])
+  const groupRef = useCallback((node: Gtk.CheckButton | null) => {
+    setGroup(node)
+  }, [])
 
-    useImperativeHandle(ref, () => innerRef.current!)
+  useImperativeHandle(ref, () => innerRef.current!)
 
-    useEffect(() => {
-      const checkButton = innerRef.current
+  useEffect(() => {
+    const checkButton = innerRef.current
 
-      if (!checkButton) {
-        return
-      }
+    if (!checkButton) {
+      return
+    }
 
-      if (radio) {
-        checkButton.setGroup(group)
-      } else {
-        checkButton.setGroup(null)
-      }
+    if (radio) {
+      checkButton.setGroup(group)
+    } else {
+      checkButton.setGroup(null)
+    }
 
-      return () => {
-        checkButton.setGroup(null)
-      }
-    }, [group])
+    return () => {
+      checkButton.setGroup(null)
+    }
+  }, [group])
 
-    useEffect(() => {
-      const checkButton = innerRef.current
+  useEffect(() => {
+    const checkButton = innerRef.current
 
-      if (!checkButton) {
-        return
-      }
+    if (!checkButton) {
+      return
+    }
 
-      checkButton.setActive(active ?? false)
+    checkButton.setActive(active ?? false)
 
-      return () => {
-        checkButton.setActive(false)
-      }
-    }, [active])
+    return () => {
+      checkButton.setActive(false)
+    }
+  }, [active])
 
-    usePortal(radio ? <CheckButton ref={groupRef} visible={false} /> : null)
+  usePortal(radio ? <CheckButton ref={groupRef} visible={false} /> : null)
 
-    return <CheckButton ref={innerRef} active={active} {...props} />
-  }
-)
-
-export default CheckButtonComponent
+  return <CheckButton ref={innerRef} active={active} {...props} />
+})

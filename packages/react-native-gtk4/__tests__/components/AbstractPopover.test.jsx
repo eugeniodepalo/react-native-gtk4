@@ -1,11 +1,13 @@
 import React from "react"
 import { render, setupRenderer } from "../../src/test-support/render.js"
-import Popover from "../../src/components/Popover.js"
+import AbstractPopover from "../../src/components/AbstractPopover.js"
 import { Button, Label } from "../../src/generated/intrinsics.js"
 import { mockProperty } from "../../src/test-support/utils.js"
 import Gtk from "@girs/node-gtk-4.0"
 
-describe("Popover", () => {
+describe("AbstractPopover", () => {
+  const elementType = "Popover"
+
   beforeEach(() => {
     setupRenderer()
     mockProperty(Gtk.Popover, "child")
@@ -14,9 +16,13 @@ describe("Popover", () => {
 
   test("should render correctly with a child and content", () => {
     const container = render(
-      <Popover open={true} content={<Label text="Popover content" />}>
+      <AbstractPopover
+        open={true}
+        content={<Label text="Popover content" />}
+        elementType={elementType}
+      >
         <Button label="Click me!" />
-      </Popover>
+      </AbstractPopover>
     )
 
     const popover = container.findByType("Popover")
@@ -29,9 +35,13 @@ describe("Popover", () => {
 
   test("should open and close the popover when the open prop changes", () => {
     const container = render(
-      <Popover open={false} content={<Label text="Popover content" />}>
+      <AbstractPopover
+        open={false}
+        content={<Label text="Popover content" />}
+        elementType={elementType}
+      >
         <Button label="Click me!" />
-      </Popover>
+      </AbstractPopover>
     )
 
     const popover = container.findByType("Popover")
@@ -39,9 +49,13 @@ describe("Popover", () => {
     expect(popover.node.popup).not.toHaveBeenCalled()
 
     render(
-      <Popover open={true} content={<Label text="Popover content" />}>
+      <AbstractPopover
+        open={true}
+        content={<Label text="Popover content" />}
+        elementType={elementType}
+      >
         <Button label="Click me!" />
-      </Popover>
+      </AbstractPopover>
     )
 
     expect(popover.node.popup).toHaveBeenCalled()
@@ -49,9 +63,12 @@ describe("Popover", () => {
 
   test("should be closed by default", () => {
     const container = render(
-      <Popover content={<Label text="Popover content" />}>
+      <AbstractPopover
+        content={<Label text="Popover content" />}
+        elementType={elementType}
+      >
         <Button label="Click me!" />
-      </Popover>
+      </AbstractPopover>
     )
 
     const popover = container.findByType("Popover")
@@ -64,9 +81,13 @@ describe("Popover", () => {
     jest.spyOn(React, "useRef")
 
     render(
-      <Popover open={true} content={<Label text="Popover content" />}>
+      <AbstractPopover
+        open={true}
+        content={<Label text="Popover content" />}
+        elementType={elementType}
+      >
         <Button label="Click me!" />
-      </Popover>
+      </AbstractPopover>
     )
 
     Gtk.Popover.prototype.popup.mockClear()
@@ -86,9 +107,13 @@ describe("Popover", () => {
     jest.spyOn(React, "useRef")
 
     render(
-      <Popover open={true} content={<Label text="Popover content" />}>
+      <AbstractPopover
+        open={true}
+        content={<Label text="Popover content" />}
+        elementType={elementType}
+      >
         <Button label="Click me!" />
-      </Popover>
+      </AbstractPopover>
     )
 
     Gtk.Popover.prototype.popup.mockClear()

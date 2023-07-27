@@ -13,7 +13,7 @@ type Props = JSX.IntrinsicElements["AboutDialog"] & {
   creditSections?: AboutDialogCreditSection[]
 }
 
-const Portal = forwardRef<Gtk.AboutDialog, Props>(function Portal(
+const Portal = forwardRef<Gtk.AboutDialog, Props>(function AboutDialogPortal(
   { creditSections = [], ...props },
   ref
 ) {

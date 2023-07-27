@@ -2,8 +2,8 @@ import {
   createMockContainer,
   createMockWidget,
 } from "../../src/test-support/utils.js"
-import { createReconciler } from "../../src/reconciler.js"
 import Window from "../../src/generated/widgets/Window.js"
+import { Reconciler } from "../../src/reconciler.js"
 
 jest.mock("../../src/reconciler.js")
 jest.mock("../../src/generated/widgets/Window.js")
@@ -12,17 +12,12 @@ describe("AbstractContainer", () => {
   let node
 
   beforeEach(() => {
-    createReconciler.mockReturnValue({
-      createContainer: jest.fn(),
-      updateContainer: jest.fn(),
-    })
-
+    Reconciler.createContainer = jest.fn()
+    Reconciler.updateContainer = jest.fn()
     node = createMockContainer()
   })
 
   test("should create a reconciler container", () => {
-    const Reconciler = createReconciler.mock.results[0].value
-
     expect(Reconciler.createContainer).toHaveBeenCalledWith(
       node,
       0,
@@ -62,12 +57,12 @@ describe("AbstractContainer", () => {
   })
 
   test("should increment current tag when rendering", () => {
-    const Reconciler = createReconciler.mock.results[0].value
-
     createMockContainer()
+
     const prevTag = Reconciler.createContainer.mock.calls[0][5]
 
     createMockContainer()
+
     const nextTag = Reconciler.createContainer.mock.calls[1][5]
 
     expect(nextTag).toBe((Number(prevTag) + 1).toString())

@@ -1,4 +1,4 @@
-import { createReconciler } from "../../reconciler.js"
+import { Reconciler } from "../../reconciler.js"
 import { Container } from "../../container.js"
 import { createApplication } from "./application.js"
 import { RenderedTree } from "./tree.js"
@@ -6,18 +6,16 @@ import { withApplicationContext } from "../../components/ApplicationProvider.js"
 import { Portal } from "../../portal.js"
 import "../../overrides.js"
 
-const reconciler = createReconciler()
-
-jest.spyOn(reconciler, "createContainer")
 jest.useFakeTimers()
+jest.spyOn(Reconciler, "createContainer")
 
 export class Renderer {
   setup() {
     const application = createApplication()
 
     this.application = application
-    this.container = new Container(application, reconciler)
-    this.instance = reconciler.createContainer.mock.results[0].value
+    this.container = new Container(application)
+    this.instance = Reconciler.createContainer.mock.results[0].value
 
     this.applicationContext = {
       application,
@@ -28,7 +26,7 @@ export class Renderer {
   }
 
   render(element) {
-    reconciler.updateContainer(
+    Reconciler.updateContainer(
       withApplicationContext(element, this.applicationContext),
       this.instance,
       null,
@@ -36,9 +34,9 @@ export class Renderer {
     )
 
     jest.spyOn(console, "error").mockImplementation(() => {})
-    reconciler.flushSync(() => {})
-    reconciler.flushControlled(() => {})
-    reconciler.flushPassiveEffects()
+    Reconciler.flushSync(() => {})
+    Reconciler.flushControlled(() => {})
+    Reconciler.flushPassiveEffects()
     jest.runAllTimers()
     console.error.mockRestore()
 

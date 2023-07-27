@@ -1,42 +1,33 @@
-import { createReconciler } from "../src/reconciler.js"
 import { Container } from "../src/container.js"
-import ReactReconciler from "react-reconciler"
-import AbstractWidget from "../src/abstract/widget.js"
-import Label from "../src/generated/widgets/Label.js"
-import { createMockWidget } from "../src/test-support/utils.js"
 import { DefaultEventPriority } from "react-reconciler/constants.js"
 
-jest.mock("../src/generated/widgets.js", () => ({
-  __esModule: true,
-  Label: jest.requireMock("../src/generated/widgets/Label.js").default,
-  AbstractWidget: jest.requireMock("../src/abstract/widget.js").default,
-}))
-
-jest.mock("react-reconciler")
-jest.mock("../src/generated/widgets/Label.js")
 jest.mock("../src/container.js")
-jest.mock("../src/abstract/widget.js")
 
 describe("Reconciler", () => {
-  describe("createReconciler", () => {
-    test("should merge the host config", () => {
-      const createInstance = jest.fn()
-
-      createReconciler({ createInstance })
-
-      const hostConfig = ReactReconciler.mock.calls[0][0]
-
-      expect(Object.keys(hostConfig).length).toBeGreaterThan(1)
-      expect(hostConfig.createInstance).toBe(createInstance)
-    })
-  })
-
   describe("host config", () => {
     let container
     let hostConfig
+    let ReactReconciler
+    let Label
+    let AbstractWidget
+    let createWidget
 
     beforeEach(() => {
-      createReconciler()
+      jest.doMock("../src/generated/widgets/Label.js")
+      jest.doMock("../src/abstract/widget.js")
+      Label = require("../src/generated/widgets/Label.js").default
+      AbstractWidget = require("../src/abstract/widget.js").default
+
+      jest.doMock("../src/generated/widgets.js", () => ({
+        __esModule: true,
+        Label,
+        AbstractWidget,
+      }))
+
+      jest.doMock("react-reconciler")
+      ReactReconciler = require("react-reconciler")
+      createWidget = require("../src/test-support/utils.js").createMockWidget
+      require("../src/reconciler.js")
 
       Container.mockImplementation(() =>
         Object.assign(Object.create(Container.prototype), {
@@ -122,8 +113,8 @@ describe("Reconciler", () => {
 
     describe("appendInitialChild", () => {
       test("should append a child", () => {
-        const parent = createMockWidget()
-        const child = createMockWidget()
+        const parent = createWidget()
+        const child = createWidget()
 
         hostConfig.appendInitialChild(parent, child)
 
@@ -139,8 +130,8 @@ describe("Reconciler", () => {
 
     describe("appendChild", () => {
       test("should append a child", () => {
-        const parent = createMockWidget()
-        const child = createMockWidget()
+        const parent = createWidget()
+        const child = createWidget()
 
         hostConfig.appendChild(parent, child)
 
@@ -150,8 +141,8 @@ describe("Reconciler", () => {
 
     describe("removeChild", () => {
       test("should remove a child", () => {
-        const parent = createMockWidget()
-        const child = createMockWidget()
+        const parent = createWidget()
+        const child = createWidget()
 
         hostConfig.removeChild(parent, child)
 
@@ -161,9 +152,9 @@ describe("Reconciler", () => {
 
     describe("insertBefore", () => {
       test("should insert a child", () => {
-        const parent = createMockWidget()
-        const child = createMockWidget()
-        const beforeChild = createMockWidget()
+        const parent = createWidget()
+        const child = createWidget()
+        const beforeChild = createWidget()
 
         hostConfig.insertBefore(parent, child, beforeChild)
 
@@ -173,8 +164,8 @@ describe("Reconciler", () => {
 
     describe("removeChildFromContainer", () => {
       test("should remove a child", () => {
-        const parent = createMockWidget()
-        const child = createMockWidget()
+        const parent = createWidget()
+        const child = createWidget()
 
         hostConfig.removeChildFromContainer(parent, child)
 
@@ -200,7 +191,7 @@ describe("Reconciler", () => {
 
     describe("commitMount", () => {
       test("should call commitMount on the widget", () => {
-        const widget = createMockWidget()
+        const widget = createWidget()
         hostConfig.commitMount(widget)
         expect(widget.commitMount).toHaveBeenCalled()
       })
@@ -208,7 +199,7 @@ describe("Reconciler", () => {
 
     describe("commitUpdate", () => {
       test("should set the props on the widget", () => {
-        const widget = createMockWidget()
+        const widget = createWidget()
 
         const payload = [
           ["some", "prop"],
@@ -225,7 +216,7 @@ describe("Reconciler", () => {
 
     describe("commitTextUpdate", () => {
       test("should set the text on the label", () => {
-        const label = createMockWidget()
+        const label = createWidget()
         const text = "Some text"
 
         hostConfig.commitTextUpdate(label, null, text)
@@ -258,7 +249,7 @@ describe("Reconciler", () => {
 
     describe("getPublicInstance", () => {
       test("should return the widget node", () => {
-        const widget = createMockWidget()
+        const widget = createWidget()
         expect(hostConfig.getPublicInstance(widget)).toBe(widget.node)
       })
     })
@@ -322,11 +313,7 @@ describe("Reconciler", () => {
 
     describe("clearContainer", () => {
       test("should remove all children from the container", () => {
-        container.children = [
-          createMockWidget(),
-          createMockWidget(),
-          createMockWidget(),
-        ]
+        container.children = [createWidget(), createWidget(), createWidget()]
 
         hostConfig.clearContainer(container)
 
@@ -338,7 +325,7 @@ describe("Reconciler", () => {
 
     describe("appendChildToContainer", () => {
       test("should append a child to the container", () => {
-        const child = createMockWidget()
+        const child = createWidget()
         hostConfig.appendChildToContainer(container, child)
         expect(container.appendChild).toHaveBeenCalledWith(child)
       })
@@ -346,8 +333,8 @@ describe("Reconciler", () => {
 
     describe("insertInContainerBefore", () => {
       test("should insert a child in the container", () => {
-        const child = createMockWidget()
-        const beforeChild = createMockWidget()
+        const child = createWidget()
+        const beforeChild = createWidget()
 
         hostConfig.insertInContainerBefore(container, child, beforeChild)
 

@@ -1,7 +1,7 @@
 import AbstractNode from "./node.js"
 import AbstractWidget from "./widget.js"
 import Window from "../generated/widgets/Window.js"
-import { Reconciler, createReconciler } from "../reconciler.js"
+import { Reconciler } from "../reconciler.js"
 import { ApplicationContext } from "src/components/ApplicationProvider.js"
 
 let currentTag = 0
@@ -9,18 +9,13 @@ let currentTag = 0
 export default abstract class AbstractContainer extends AbstractNode<AbstractWidget> {
   context: ApplicationContext
   protected container: any
-  protected reconciler: Reconciler
 
-  constructor(
-    context: ApplicationContext,
-    reconciler: Reconciler = createReconciler()
-  ) {
+  constructor(context: ApplicationContext) {
     super()
 
-    this.reconciler = reconciler
     this.context = context
 
-    this.container = this.reconciler.createContainer(
+    this.container = Reconciler.createContainer(
       this,
       0,
       null,
@@ -43,7 +38,7 @@ export default abstract class AbstractContainer extends AbstractNode<AbstractWid
   }
 
   protected update(element: React.ReactNode) {
-    this.reconciler.updateContainer(
+    Reconciler.updateContainer(
       element,
       this.container,
       null,

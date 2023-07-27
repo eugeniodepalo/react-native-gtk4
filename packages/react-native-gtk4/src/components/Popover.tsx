@@ -3,90 +3,92 @@ import React, {
   useEffect,
   useImperativeHandle,
   useRef,
+  useState,
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import usePortal from "../hooks/usePortal.js"
 
-export type BasePopoverProps = JSX.IntrinsicElements["Popover"] & {
+export type BasePopoverProps = Omit<
+  JSX.IntrinsicElements["Popover"],
+  "children"
+> & {
   elementType: "Popover" | "PopoverMenu"
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   content: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   open?: boolean
 }
 
+type PortalProps = Omit<BasePopoverProps, "children"> & {
+  child: Gtk.Widget
+}
+
+const Portal = forwardRef<Gtk.Popover, PortalProps>(function Portal(
+  { content, elementType, open, child, ...props },
+  ref
+) {
+  const innerRef = useRef<Gtk.Popover | null>(null)
+  const contentRef = useRef<Gtk.Widget | null>(null)
+
+  useImperativeHandle(ref, () => innerRef.current!)
+
+  useEffect(() => {
+    const content = contentRef.current
+    const popover = innerRef.current
+
+    if (!content || !popover) {
+      return
+    }
+
+    popover.unparent()
+    popover.setParent(child)
+    content.unparent()
+    popover.setChild(content)
+  }, [child])
+
+  useEffect(() => {
+    const popover = innerRef.current
+
+    if (!popover) {
+      return
+    }
+
+    if (open) {
+      popover.popup()
+    } else {
+      popover.popdown()
+    }
+  }, [open])
+
+  return (
+    <>
+      {React.createElement(elementType, {
+        ref: innerRef,
+        ...props,
+      })}
+      {React.cloneElement(content, {
+        ref: contentRef,
+      })}
+    </>
+  )
+})
+
 export const BasePopover = forwardRef<Gtk.Popover, BasePopoverProps>(
-  function PopoverComponent(
-    {
-      children,
-      content,
-      elementType,
-      open = false,
-      ...props
-    }: BasePopoverProps,
-    ref: React.Ref<Gtk.Popover>
-  ) {
-    const popoverRef = useRef<Gtk.Popover | null>(null)
-    const childRef = useRef<Gtk.Widget | null>(null)
-    const contentRef = useRef<Gtk.Widget | null>(null)
+  function PopoverComponent({ children, content, ...props }, ref) {
+    const [child, setChild] = useState<Gtk.Widget | null>(null)
 
-    useImperativeHandle(ref, () => popoverRef.current!)
-
-    const commitMount = useCallback(() => {
-      if (!popoverRef.current) {
-        return
-      }
-
-      if (childRef.current) {
-        popoverRef.current.unparent()
-        popoverRef.current.setParent(childRef.current)
-      }
-
-      contentRef.current?.unparent()
-      popoverRef.current.setChild(contentRef.current)
-    }, [])
-
-    const setContentRef = useCallback((node: Gtk.Widget | null) => {
-      contentRef.current = node
-      commitMount()
-    }, [])
-
-    const setChildRef = useCallback((node: Gtk.Widget | null) => {
-      childRef.current = node
-      commitMount()
-    }, [])
-
-    const setPopoverRef = useCallback((node: Gtk.Popover | null) => {
-      popoverRef.current = node
-      commitMount()
+    const childRef = useCallback((node: Gtk.Widget | null) => {
+      setChild(node)
     }, [])
 
     usePortal(
-      <>
-        {React.createElement(elementType, {
-          ref: setPopoverRef,
-          ...props,
-        })}
-        {React.cloneElement(content, {
-          ref: setContentRef,
-        })}
-      </>
+      child ? (
+        <Portal content={content} child={child} ref={ref} {...props} />
+      ) : null
     )
 
-    useEffect(() => {
-      if (!popoverRef.current || !contentRef.current || !childRef.current) {
-        return
-      }
-
-      if (open) {
-        popoverRef.current.popup()
-      } else {
-        popoverRef.current.popdown()
-      }
-    }, [open])
-
     return React.cloneElement(children, {
-      ref: setChildRef,
+      ref: childRef,
     })
   }
 )
@@ -95,8 +97,6 @@ type Props = Omit<BasePopoverProps, "elementType">
 
 export default forwardRef<Gtk.Popover, Props>(
   function PopoverComponent(props, ref) {
-    const popoverRef = useRef<Gtk.Popover | null>(null)
-    useImperativeHandle(ref, () => popoverRef.current!)
-    return <BasePopover {...props} ref={popoverRef} elementType="Popover" />
+    return <BasePopover {...props} ref={ref} elementType="Popover" />
   }
 )

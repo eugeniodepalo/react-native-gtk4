@@ -1,4 +1,5 @@
 import { Portal } from "../src/portal.js"
+import { Reconciler } from "../src/reconciler.js"
 
 jest.mock("../src/generated/widgets/Window.js")
 jest.mock("../src/components/ApplicationProvider.js")
@@ -7,15 +8,10 @@ jest.mock("../src/reconciler.js")
 describe("Portal", () => {
   let portal
 
-  const reconciler = {
-    createContainer: jest.fn(),
-    updateContainer: jest.fn(),
-  }
-
   const context = {}
 
   beforeEach(() => {
-    portal = new Portal(context, reconciler)
+    portal = new Portal(context)
   })
 
   test("should add portal to instances", () => {
@@ -27,7 +23,7 @@ describe("Portal", () => {
 
     expect(Portal.instances).not.toContain(portal)
 
-    expect(reconciler.updateContainer).toHaveBeenCalledWith(
+    expect(Reconciler.updateContainer).toHaveBeenCalledWith(
       null,
       portal.container,
       null,

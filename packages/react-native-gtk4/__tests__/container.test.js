@@ -3,7 +3,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
 import gi from "@girs/node-gtk"
 import { Container, MAX_TIMEOUT } from "../src/container.js"
-import { createReconciler } from "../src/reconciler.js"
+import { Reconciler } from "../src/reconciler.js"
 import ApplicationWindow from "../src/generated/widgets/ApplicationWindow.js"
 import { withApplicationContext } from "../src/components/ApplicationProvider.js"
 
@@ -22,10 +22,8 @@ describe("Container", () => {
       quit: jest.fn(),
     })
 
-    createReconciler.mockReturnValue({
-      createContainer: jest.fn(),
-      updateContainer: jest.fn(),
-    })
+    Reconciler.createContainer = jest.fn()
+    Reconciler.updateContainer = jest.fn()
 
     application = new Gtk.Application()
     container = new Container(application)

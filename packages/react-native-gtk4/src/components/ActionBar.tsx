@@ -32,11 +32,11 @@ const Container = forwardRef<Gtk.ActionBar, Props>(function ActionBarContainer(
   }, [])
 
   return (
-    <Context.Provider value={node}>
-      <ActionBar ref={innerRef} {...props}>
-        {node ? children : null}
-      </ActionBar>
-    </Context.Provider>
+    <ActionBar ref={innerRef} {...props}>
+      {node ? (
+        <Context.Provider value={node}>{children}</Context.Provider>
+      ) : null}
+    </ActionBar>
   )
 })
 

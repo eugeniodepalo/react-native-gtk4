@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -11,7 +12,7 @@ import { Stack, StackSidebar } from "../generated/intrinsics.js"
 import usePortal from "../hooks/usePortal.js"
 
 interface Context {
-  node: Gtk.Stack | null
+  stack: Gtk.Stack | null
   visibleChildName?: string
 }
 
@@ -25,23 +26,23 @@ const Container = forwardRef<Gtk.Stack, Props>(function Container(
   { children, visibleChildName, ...props },
   ref
 ) {
-  const [stackNode, setStackNode] = useState<Gtk.Stack | null>(null)
+  const [stack, setStack] = useState<Gtk.Stack | null>(null)
 
-  useImperativeHandle(ref, () => stackNode!)
+  useImperativeHandle(ref, () => stack!)
 
   const stackRef = useCallback((node: Gtk.Stack | null) => {
-    setStackNode(node)
+    setStack(node)
   }, [])
 
   return (
     <Context.Provider
       value={{
-        node: stackNode,
+        stack,
         visibleChildName,
       }}
     >
       <Stack ref={stackRef} {...props} />
-      {children}
+      {stack ? children : null}
     </Context.Provider>
   )
 })
@@ -52,41 +53,58 @@ interface ItemProps {
   title?: string
 }
 
-const Item = function Item({ children, name, title }: ItemProps) {
-  const stack = useContext(Context)
-  const childRef = useRef<Gtk.Widget | null>(null)
+interface ItemPortalProps extends ItemProps {
+  stack: Gtk.Stack
+  visibleChildName?: string
+}
 
-  const setChildRef = useCallback(
-    (node: Gtk.Widget | null) => {
-      const prevNode = childRef.current
+const ItemPortal = forwardRef<Gtk.Widget, ItemPortalProps>(function ItemPortal(
+  { children, name, title, stack, visibleChildName },
+  ref
+) {
+  const innerRef = useRef<Gtk.Widget | null>(null)
 
-      childRef.current = node
+  useImperativeHandle(ref, () => innerRef.current!)
 
-      if (!stack || !stack.node) {
-        return
-      }
+  useEffect(() => {
+    const node = innerRef.current
 
-      if (prevNode) {
-        stack.node.remove(prevNode)
-      }
+    if (!node) {
+      return
+    }
 
-      if (node) {
-        stack.node.addTitled(node, name, title ?? name)
+    stack.addTitled(node, name, title ?? name)
 
-        if (stack.visibleChildName === name) {
-          stack.node.setVisibleChildName(name)
-        }
-      }
-    },
-    [stack, name, title]
-  )
+    return () => {
+      stack.remove(node)
+    }
+  }, [stack, name, title])
+
+  useEffect(() => {
+    if (visibleChildName === name) {
+      stack.setVisibleChildName(name)
+    }
+  }, [stack, visibleChildName, name])
+
+  return React.cloneElement(children, {
+    ref: innerRef,
+  })
+})
+
+const Item = function Item(props: ItemProps) {
+  const context = useContext(Context)
+
+  if (!context || !context.stack) {
+    throw new Error("Item must be a child of Stack.Container")
+  }
 
   usePortal(
-    React.cloneElement(children, {
-      ref: setChildRef,
-    })
+    <ItemPortal
+      stack={context.stack}
+      visibleChildName={context.visibleChildName}
+      {...props}
+    />
   )
-
   return null
 }
 
@@ -94,13 +112,13 @@ type SidebarProps = Omit<JSX.IntrinsicElements["StackSidebar"], "stack">
 
 const Sidebar = forwardRef<Gtk.StackSidebar, SidebarProps>(
   function Sidebar(props, ref) {
-    const stack = useContext(Context)
+    const context = useContext(Context)
 
-    if (!stack || !stack.node) {
-      return null
+    if (!context || !context.stack) {
+      throw new Error("Sidebar must be a child of Stack.Container")
     }
 
-    return <StackSidebar ref={ref} stack={stack.node} {...props} />
+    return <StackSidebar ref={ref} stack={context.stack} {...props} />
   }
 )
 

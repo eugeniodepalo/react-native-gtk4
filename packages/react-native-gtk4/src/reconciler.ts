@@ -1,4 +1,4 @@
-import Reconciler, { HostConfig } from "react-reconciler"
+import ReactReconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants"
 import AbstractWidget from "./abstract/widget.js"
@@ -146,13 +146,5 @@ const hostConfig: HostConfig<
   },
 }
 
-export type Reconciler = ReturnType<typeof Reconciler>
-
-export function createReconciler(
-  externalHostConfig: Partial<typeof hostConfig> = {}
-) {
-  return Reconciler({
-    ...hostConfig,
-    ...externalHostConfig,
-  })
-}
+export type Reconciler = ReturnType<typeof ReactReconciler>
+export const Reconciler = ReactReconciler(hostConfig)

@@ -12,17 +12,17 @@ export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
   { label, ...props },
   ref
 ) {
-  const [labelNode, setLabelNode] = useState<Gtk.Widget | null>(null)
+  const [labelWidget, setLabelWidget] = useState<Gtk.Widget | null>(null)
 
   const labelRef = useCallback((node: Gtk.Widget | null) => {
-    setLabelNode(node)
+    setLabelWidget(node)
   }, [])
 
   return (
     <Frame
       ref={ref}
       label={typeof label === "string" ? label : undefined}
-      labelWidget={labelNode ?? undefined}
+      labelWidget={labelWidget ?? undefined}
       {...props}
     >
       {label && typeof label !== "string"

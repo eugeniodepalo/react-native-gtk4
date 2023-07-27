@@ -1,4 +1,10 @@
-import React, { useCallback, useImperativeHandle, useRef } from "react"
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Expander } from "../generated/intrinsics.js"
@@ -16,40 +22,40 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
   { label, ...props },
   ref
 ) {
-  const labelRef = useRef<Gtk.Widget | null>(null)
-  const expanderRef = useRef<Gtk.Expander | null>(null)
+  const [labelWidget, setLabelWidget] = useState<Gtk.Widget | null>(null)
+  const innerRef = useRef<Gtk.Expander | null>(null)
 
-  const commitMount = useCallback(() => {
-    if (!expanderRef.current) {
+  useEffect(() => {
+    const expander = innerRef.current
+
+    if (!expander) {
       return
     }
 
-    expanderRef.current.setLabelWidget(labelRef.current)
-  }, [])
+    expander.setLabelWidget(labelWidget)
 
-  const setLabelRef = useCallback((node: Gtk.Widget | null) => {
-    labelRef.current = node
-    commitMount()
-  }, [])
+    return () => {
+      expander.setLabelWidget(null)
+    }
+  }, [labelWidget])
 
-  const setExpanderRef = useCallback((node: Gtk.Expander | null) => {
-    expanderRef.current = node
-    commitMount()
+  const labelRef = useCallback((node: Gtk.Widget | null) => {
+    setLabelWidget(node)
   }, [])
 
   usePortal(
     label && typeof label !== "string"
       ? React.cloneElement(label, {
-          ref: setLabelRef,
+          ref: labelRef,
         })
       : null
   )
 
-  useImperativeHandle(ref, () => expanderRef.current!)
+  useImperativeHandle(ref, () => innerRef.current!)
 
   return (
     <Expander
-      ref={setExpanderRef}
+      ref={innerRef}
       label={typeof label === "string" ? label : undefined}
       {...props}
     />

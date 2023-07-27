@@ -48,7 +48,7 @@ describe("Expander", () => {
 
     render(null)
 
-    expect(Gtk.Expander.prototype.setLabelWidget).not.toHaveBeenCalled()
+    expect(Gtk.Expander.prototype.setLabelWidget).toHaveBeenCalledWith(null)
     expect(Gtk.Expander.prototype.setLabel).not.toHaveBeenCalled()
   })
 })

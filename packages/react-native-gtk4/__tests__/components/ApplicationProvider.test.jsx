@@ -1,12 +1,12 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import ApplicationProvider, {
   ApplicationContext,
   withApplicationContext,
 } from "../../src/components/ApplicationProvider.js"
 
 describe("ApplicationProvider", () => {
-  beforeEach(setupRenderer)
+  beforeEach(setup)
 
   test("should provide the correct context", () => {
     const testApplication = { application: {}, quit: jest.fn() }

@@ -7,23 +7,28 @@ import React, {
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-import usePortal from "../hooks/usePortal.js"
+import { createPortal } from "../portal.js"
 
-export type AbstractPopoverProps = Omit<
-  JSX.IntrinsicElements["Popover"],
+type ElementType = "Popover" | "PopoverMenu" | "EmojiChooser"
+
+export type AbstractPopoverProps<T extends ElementType> = Omit<
+  JSX.IntrinsicElements[T],
   "children"
 > & {
-  elementType: "Popover" | "PopoverMenu" | "EmojiChooser"
+  elementType: T
   children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  content: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  content?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   open?: boolean
 }
 
-type PortalProps = Omit<AbstractPopoverProps, "children"> & {
+type PortalProps<T extends ElementType> = Omit<
+  AbstractPopoverProps<T>,
+  "children"
+> & {
   child: Gtk.Widget
 }
 
-const Portal = forwardRef<Gtk.Popover, PortalProps>(
+const Portal = forwardRef<Gtk.Popover, PortalProps<ElementType>>(
   function AbstractPopoverPortal(
     { content, elementType, open, child, ...props },
     ref
@@ -37,15 +42,18 @@ const Portal = forwardRef<Gtk.Popover, PortalProps>(
       const content = contentRef.current
       const popover = innerRef.current
 
-      if (!content || !popover) {
+      if (!popover) {
         return
       }
 
       popover.unparent()
       popover.setParent(child)
-      content.unparent()
-      popover.setChild(content)
-    }, [child, content])
+
+      if (content) {
+        content.unparent()
+        popover.setChild(content)
+      }
+    }, [])
 
     useEffect(() => {
       const popover = innerRef.current
@@ -67,15 +75,17 @@ const Portal = forwardRef<Gtk.Popover, PortalProps>(
           ref: innerRef,
           ...props,
         })}
-        {React.cloneElement(content, {
-          ref: contentRef,
-        })}
+        {content
+          ? React.cloneElement(content, {
+              ref: contentRef,
+            })
+          : null}
       </>
     )
   }
 )
 
-export default forwardRef<Gtk.Popover, AbstractPopoverProps>(
+export default forwardRef<Gtk.Popover, AbstractPopoverProps<ElementType>>(
   function AbstractPopoverComponent({ children, content, ...props }, ref) {
     const [child, setChild] = useState<Gtk.Widget | null>(null)
 
@@ -83,14 +93,17 @@ export default forwardRef<Gtk.Popover, AbstractPopoverProps>(
       setChild(node)
     }, [])
 
-    usePortal(
-      child ? (
-        <Portal content={content} child={child} ref={ref} {...props} />
-      ) : null
+    return (
+      <>
+        {createPortal(
+          child ? (
+            <Portal content={content} child={child} ref={ref} {...props} />
+          ) : null
+        )}
+        {React.cloneElement(children, {
+          ref: childRef,
+        })}
+      </>
     )
-
-    return React.cloneElement(children, {
-      ref: childRef,
-    })
   }
 )

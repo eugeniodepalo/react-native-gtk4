@@ -1,12 +1,12 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import ColorDialogButton from "../../src/components/ColorDialogButton.js"
 import { mockProperty } from "../../src/test-support/utils.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("ColorDialogButton", () => {
   beforeEach(() => {
-    setupRenderer()
+    setup()
     mockProperty(Gtk.ColorDialogButton, "dialog")
 
     Gtk.ColorDialog.mockImplementation(function ({ modal, title }) {
@@ -20,8 +20,8 @@ describe("ColorDialogButton", () => {
 
     Gtk.ColorDialog = undefined
 
-    const container = render(<ColorDialogButton />)
-    const button = container.findByType("ColorDialogButton")
+    render(<ColorDialogButton />)
+    const button = findBy({ type: "ColorDialogButton" })
 
     expect(button).toBeNull()
 
@@ -29,8 +29,8 @@ describe("ColorDialogButton", () => {
   })
 
   test("should render correctly", () => {
-    const container = render(<ColorDialogButton title="test" modal={true} />)
-    const button = container.findByType("ColorDialogButton")
+    render(<ColorDialogButton title="test" modal={true} />)
+    const button = findBy({ type: "ColorDialogButton" })
 
     expect(button).not.toBeNull()
     expect(button.node.dialog.title).toEqual("test")
@@ -38,8 +38,8 @@ describe("ColorDialogButton", () => {
   })
 
   test("should default modal prop to true", () => {
-    const container = render(<ColorDialogButton title="test" />)
-    const button = container.findByType("ColorDialogButton")
+    render(<ColorDialogButton title="test" />)
+    const button = findBy({ type: "ColorDialogButton" })
 
     expect(button.node.dialog.modal).toEqual(true)
   })

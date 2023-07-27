@@ -3,7 +3,8 @@ import Gdk from "@girs/node-gdk-4.0"
 import { useEffect, useRef } from "react"
 
 interface Props {
-  path: string
+  path?: string
+  content?: string
   children: React.ReactNode
 }
 
@@ -17,7 +18,7 @@ function getDefaultDisplay() {
   return display
 }
 
-export default function CssProvider({ path, children }: Props) {
+export default function CssProvider({ path, content, children }: Props) {
   const providerRef = useRef<Gtk.CssProvider | null>()
 
   useEffect(() => {
@@ -44,8 +45,24 @@ export default function CssProvider({ path, children }: Props) {
   }, [])
 
   useEffect(() => {
-    providerRef.current?.loadFromPath(path)
-  }, [path])
+    if (!path && !content) {
+      throw new Error("Either path or content must be provided")
+    }
+
+    if (!providerRef.current) {
+      return
+    }
+
+    if (content) {
+      providerRef.current.loadFromData(content, -1)
+      return
+    }
+
+    if (path) {
+      providerRef.current.loadFromPath(path)
+      return
+    }
+  }, [path, content])
 
   return children
 }

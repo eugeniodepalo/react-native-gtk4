@@ -1,8 +1,8 @@
 import React, { useEffect, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
-import usePortal from "../hooks/usePortal.js"
 import Gtk from "@girs/node-gtk-4.0"
 import { AboutDialog } from "../generated/intrinsics.js"
+import { createPortal } from "../portal.js"
 
 export interface AboutDialogCreditSection {
   name: string
@@ -36,7 +36,6 @@ const Portal = forwardRef<Gtk.AboutDialog, Props>(function AboutDialogPortal(
 
 export default forwardRef<Gtk.AboutDialog, Props>(
   function AboutDialogComponent(props, ref) {
-    usePortal(<Portal ref={ref} {...props} />)
-    return null
+    return createPortal(<Portal ref={ref} {...props} />)
   }
 )

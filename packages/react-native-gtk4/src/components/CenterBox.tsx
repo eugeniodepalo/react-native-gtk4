@@ -8,7 +8,7 @@ import React, {
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CenterBox } from "../generated/intrinsics.js"
-import usePortal from "../hooks/usePortal.js"
+import { createPortal } from "../portal.js"
 
 type Props = Omit<
   JSX.IntrinsicElements["CenterBox"],
@@ -73,13 +73,21 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
     setCenterBox(node)
   }, [])
 
-  usePortal(
-    centerBox ? (
-      <Portal start={start} end={end} center={children} centerBox={centerBox} />
-    ) : null
-  )
-
   useImperativeHandle(ref, () => centerBox!)
 
-  return <CenterBox ref={innerRef} {...props} />
+  return (
+    <>
+      {createPortal(
+        centerBox ? (
+          <Portal
+            start={start}
+            end={end}
+            center={children}
+            centerBox={centerBox}
+          />
+        ) : null
+      )}
+      <CenterBox ref={innerRef} {...props} />
+    </>
+  )
 })

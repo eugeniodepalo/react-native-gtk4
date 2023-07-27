@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import AbstractPopover from "../../src/components/AbstractPopover.js"
 import { Button, Label } from "../../src/generated/intrinsics.js"
 import { mockProperty } from "../../src/test-support/utils.js"
@@ -9,13 +9,13 @@ describe("AbstractPopover", () => {
   const elementType = "Popover"
 
   beforeEach(() => {
-    setupRenderer()
+    setup()
     mockProperty(Gtk.Popover, "child")
     mockProperty(Gtk.Popover, "parent")
   })
 
   test("should render correctly with a child and content", () => {
-    const container = render(
+    render(
       <AbstractPopover
         open={true}
         content={<Label text="Popover content" />}
@@ -25,16 +25,16 @@ describe("AbstractPopover", () => {
       </AbstractPopover>
     )
 
-    const popover = container.findByType("Popover")
-    const button = container.findByType("Button")
-    const label = container.findByType("Label")
+    const popover = findBy({ type: "Popover" })
+    const button = findBy({ type: "Button" })
+    const label = findBy({ type: "Label" })
 
     expect(popover.node.child).toBe(label.node)
     expect(popover.node.parent).toBe(button.node)
   })
 
   test("should open and close the popover when the open prop changes", () => {
-    const container = render(
+    render(
       <AbstractPopover
         open={false}
         content={<Label text="Popover content" />}
@@ -44,7 +44,7 @@ describe("AbstractPopover", () => {
       </AbstractPopover>
     )
 
-    const popover = container.findByType("Popover")
+    const popover = findBy({ type: "Popover" })
 
     expect(popover.node.popup).not.toHaveBeenCalled()
 
@@ -62,7 +62,7 @@ describe("AbstractPopover", () => {
   })
 
   test("should be closed by default", () => {
-    const container = render(
+    render(
       <AbstractPopover
         content={<Label text="Popover content" />}
         elementType={elementType}
@@ -71,7 +71,7 @@ describe("AbstractPopover", () => {
       </AbstractPopover>
     )
 
-    const popover = container.findByType("Popover")
+    const popover = findBy({ type: "Popover" })
 
     expect(popover.node.popup).not.toHaveBeenCalled()
     expect(popover.node.popdown).toHaveBeenCalled()

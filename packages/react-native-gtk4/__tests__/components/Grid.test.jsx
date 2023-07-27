@@ -1,16 +1,16 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import Grid from "../../src/components/Grid.js"
 import { Button } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("Grid", () => {
-  beforeEach(setupRenderer)
+  beforeEach(setup)
 
   describe("Container", () => {
     test("should render correctly", () => {
-      const container = render(<Grid.Container />)
-      const grid = container.findByType("Grid")
+      render(<Grid.Container />)
+      const grid = findBy({ type: "Grid" })
       expect(grid).toBeTruthy()
     })
   })
@@ -35,7 +35,7 @@ describe("Grid", () => {
     })
 
     test("should attach its child to the grid correctly", () => {
-      const container = render(
+      render(
         <Grid.Container>
           <Grid.Item col={1} row={2} width={3} height={4}>
             <Button />
@@ -43,7 +43,7 @@ describe("Grid", () => {
         </Grid.Container>
       )
 
-      const button = container.findByType("Button")
+      const button = findBy({ type: "Button" })
 
       expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
         button.node,
@@ -55,7 +55,7 @@ describe("Grid", () => {
     })
 
     test("should remove its previous child before attaching a new child", () => {
-      const container = render(
+      render(
         <Grid.Container>
           <Grid.Item col={1} row={2} width={3} height={4}>
             <Button />
@@ -63,7 +63,7 @@ describe("Grid", () => {
         </Grid.Container>
       )
 
-      const prevButton = container.findByType("Button")
+      const prevButton = findBy({ type: "Button" })
 
       render(
         <Grid.Container>

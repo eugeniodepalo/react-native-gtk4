@@ -1,6 +1,5 @@
 import AbstractNode from "../abstract/node.js"
 import AbstractWidget from "../abstract/widget.js"
-import AbstractContainer from "../abstract/container.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 export function createMockWidget() {
@@ -17,10 +16,6 @@ export function createMockWidget() {
 
 export function createMockNode() {
   return new (class extends AbstractNode {})()
-}
-
-export function createMockContainer() {
-  return new (class extends AbstractContainer {})()
 }
 
 export function mockProperty(klass, name) {

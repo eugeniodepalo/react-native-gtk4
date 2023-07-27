@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import Frame from "../../src/components/Frame.js"
 import { Label } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
@@ -7,14 +7,14 @@ import { mockProperty } from "../../src/test-support/utils.js"
 
 describe("Frame", () => {
   beforeEach(() => {
-    setupRenderer()
+    setup()
     mockProperty(Gtk.Frame, "labelWidget")
     mockProperty(Gtk.Frame, "label")
   })
 
   test("should render correctly without label", () => {
-    const container = render(<Frame />)
-    const frame = container.findByType("Frame")
+    render(<Frame />)
+    const frame = findBy({ type: "Frame" })
 
     expect(frame).toBeTruthy()
     expect(frame.node.label).toBeUndefined()
@@ -23,17 +23,17 @@ describe("Frame", () => {
 
   test("should render correctly with string label", () => {
     const label = "test"
-    const container = render(<Frame label={label} />)
-    const frame = container.findByType("Frame")
+    render(<Frame label={label} />)
+    const frame = findBy({ type: "Frame" })
 
     expect(frame).toBeTruthy()
     expect(frame.node.label).toBe(label)
   })
 
   test("should render correctly with ReactElement label", () => {
-    const container = render(<Frame label={<Label label="text" />} />)
-    const frame = container.findByType("Frame")
-    const label = container.findByType("Label")
+    render(<Frame label={<Label label="text" />} />)
+    const frame = findBy({ type: "Frame" })
+    const label = findBy({ type: "Label" })
 
     expect(frame).toBeTruthy()
     expect(frame.node.label).toBeUndefined()

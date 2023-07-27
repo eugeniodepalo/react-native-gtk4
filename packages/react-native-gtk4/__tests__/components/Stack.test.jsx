@@ -1,13 +1,13 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import Stack from "../../src/components/Stack.js"
 import { Button, Label } from "../../src/generated/intrinsics.js"
 
 describe("Stack", () => {
-  beforeEach(setupRenderer)
+  beforeEach(setup)
 
   test("should render StackContainer and StackItem correctly", () => {
-    const container = render(
+    render(
       <Stack.Container visibleChildName="item1">
         <Stack.Item name="item1" title="Item 1">
           <Button>
@@ -22,7 +22,7 @@ describe("Stack", () => {
       </Stack.Container>
     )
 
-    const stack = container.findByType("Stack")
+    const stack = findBy({ type: "Stack" })
 
     expect(stack.node.addTitled).toHaveBeenNthCalledWith(
       1,
@@ -42,7 +42,7 @@ describe("Stack", () => {
   })
 
   test("should update visible child when the visibleChildName prop changes", () => {
-    const container = render(
+    render(
       <Stack.Container visibleChildName="item1">
         <Stack.Item name="item1" title="Item 1">
           <Button>
@@ -57,7 +57,7 @@ describe("Stack", () => {
       </Stack.Container>
     )
 
-    const stack = container.findByType("Stack")
+    const stack = findBy({ type: "Stack" })
 
     render(
       <Stack.Container visibleChildName="item2">
@@ -78,7 +78,7 @@ describe("Stack", () => {
   })
 
   test("should remove previous item when unmounting", () => {
-    const container = render(
+    render(
       <Stack.Container visibleChildName="item1">
         <Stack.Item name="item1" title="Item 1">
           <Button>
@@ -88,8 +88,8 @@ describe("Stack", () => {
       </Stack.Container>
     )
 
-    const stack = container.findByType("Stack")
-    const button = container.findByType("Button")
+    const stack = findBy({ type: "Stack" })
+    const button = findBy({ type: "Button" })
 
     button.node.getParent = jest.fn(() => stack.node)
 

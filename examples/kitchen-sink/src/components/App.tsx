@@ -30,6 +30,8 @@ import {
   useApplication,
   ActionBar,
   ColorDialogButton,
+  EmojiChooser,
+  CssProvider,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -48,6 +50,8 @@ export default function App() {
   const [showActionBarEnd, setShowActionBarEnd] = useState(true)
   const [actionBarText, setActionBarText] = useState("")
   const [selectedRadio, setSelectedRadio] = useState(0)
+  const [emojiChooserOpen, setEmojiChooserOpen] = useState(false)
+  const [selectedEmoji, setSelectedEmoji] = useState("😊")
   const { quit } = useApplication()
 
   return (
@@ -127,12 +131,46 @@ export default function App() {
               </ActionBar.Container>
               <Overlay
                 content={
-                  <Image iconName="face-smile" iconSize={Gtk.IconSize.LARGE} />
+                  <Box hexpand vexpand>
+                    <EmojiChooser
+                      open={emojiChooserOpen}
+                      onEmojiPicked={(_, emoji) => {
+                        setSelectedEmoji(emoji ?? "")
+                      }}
+                      onShow={() => {
+                        setEmojiChooserOpen(true)
+                      }}
+                      onHide={() => {
+                        setEmojiChooserOpen(false)
+                      }}
+                    >
+                      <Button
+                        label="Emoji Chooser"
+                        onClicked={() => {
+                          setEmojiChooserOpen(!emojiChooserOpen)
+                        }}
+                      />
+                    </EmojiChooser>
+                  </Box>
                 }
                 hexpand
                 vexpand
               >
-                <Label label="Label 1" />
+                <CssProvider
+                  content={`
+                  .emoji-label {
+                    font-size: 40px;
+                  }
+                `}
+                >
+                  <Label
+                    label={selectedEmoji}
+                    canTarget={false}
+                    hexpand
+                    vexpand
+                    cssClasses={["emoji-label"]}
+                  />
+                </CssProvider>
               </Overlay>
               <Notebook.Container
                 hexpand

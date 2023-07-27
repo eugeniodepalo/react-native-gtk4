@@ -1,20 +1,32 @@
-import AbstractContainer from "./abstract/container.js"
-import { ApplicationContext } from "./components/ApplicationProvider.js"
+import { ReactPortal } from "react"
+import { useApplication } from "./hooks.js"
+import { PRIVATE_CONTAINER_KEY } from "./components/ApplicationProvider.js"
 
-export class Portal extends AbstractContainer {
-  static instances: Portal[] = []
+export const REACT_PORTAL_TYPE = Symbol.for("react.portal")
 
-  constructor(context: ApplicationContext) {
-    super(context)
-    Portal.instances.push(this)
-  }
+function createPortalImpl(
+  children: React.ReactNode,
+  containerInfo: any,
+  implementation: any,
+  key = null
+): ReactPortal {
+  return {
+    $$typeof: REACT_PORTAL_TYPE,
+    key: key == null ? null : "" + key,
+    children,
+    containerInfo,
+    implementation,
+  } as unknown as ReactPortal
+}
 
-  destroy() {
-    Portal.instances.splice(Portal.instances.indexOf(this), 1)
-    this.render(null)
-  }
-
-  render(element: React.ReactNode) {
-    this.update(element)
-  }
+export function createPortal(
+  children: React.ReactNode,
+  key = null
+): ReactPortal {
+  return createPortalImpl(
+    children,
+    useApplication()[PRIVATE_CONTAINER_KEY],
+    null,
+    key
+  )
 }

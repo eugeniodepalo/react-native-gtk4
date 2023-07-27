@@ -11,6 +11,7 @@ export { default as GObject } from "@girs/node-gobject-2.0"
 export { default as Pango } from "@girs/node-pango-1.0"
 export * from "./generated/intrinsics.js"
 export * from "./hooks.js"
+export * from "./portal.js"
 
 export {
   AboutDialog,

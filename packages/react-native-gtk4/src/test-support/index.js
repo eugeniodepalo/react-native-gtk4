@@ -1,1 +1,1 @@
-export { render, setupRenderer } from "./render"
+export { render, setup } from "./render"

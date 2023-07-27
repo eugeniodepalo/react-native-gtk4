@@ -8,7 +8,7 @@ import React, {
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CheckButton } from "../generated/intrinsics.js"
-import usePortal from "../hooks/usePortal.js"
+import { createPortal } from "../portal.js"
 
 type Props = Omit<
   JSX.IntrinsicElements["CheckButton"],
@@ -62,7 +62,12 @@ export default forwardRef<Gtk.CheckButton, Props>(function CheckButtonComponent(
     }
   }, [active])
 
-  usePortal(radio ? <CheckButton ref={groupRef} visible={false} /> : null)
-
-  return <CheckButton ref={innerRef} active={active} {...props} />
+  return (
+    <>
+      {createPortal(
+        radio ? <CheckButton ref={groupRef} visible={false} /> : null
+      )}
+      <CheckButton ref={innerRef} active={active} {...props} />
+    </>
+  )
 })

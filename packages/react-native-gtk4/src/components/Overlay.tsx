@@ -8,7 +8,7 @@ import React, {
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Overlay } from "../generated/intrinsics.js"
-import usePortal from "../hooks/usePortal.js"
+import { createPortal } from "../portal.js"
 
 type Props = JSX.IntrinsicElements["Overlay"] & {
   children: React.ReactNode
@@ -28,8 +28,6 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
     setContentWidget(node)
   }, [])
 
-  usePortal(React.cloneElement(content, { ref: contentRef }))
-
   useEffect(() => {
     const overlay = innerRef.current
 
@@ -45,8 +43,11 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
   }, [innerRef, contentWidget])
 
   return (
-    <Overlay ref={innerRef} {...props}>
-      {children}
-    </Overlay>
+    <>
+      {createPortal(React.cloneElement(content, { ref: contentRef }))}
+      <Overlay ref={innerRef} {...props}>
+        {children}
+      </Overlay>
+    </>
   )
 })

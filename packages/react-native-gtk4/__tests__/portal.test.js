@@ -1,33 +1,32 @@
-import { Portal } from "../src/portal.js"
-import { Reconciler } from "../src/reconciler.js"
+import { PRIVATE_CONTAINER_KEY } from "../src/components/ApplicationProvider.js"
+import { Container } from "../src/container.js"
+import { createPortal, REACT_PORTAL_TYPE } from "../src/portal.js"
+import useApplication from "../src/hooks/useApplication.js"
+import Gtk from "@girs/node-gtk-4.0"
 
-jest.mock("../src/generated/widgets/Window.js")
-jest.mock("../src/components/ApplicationProvider.js")
-jest.mock("../src/reconciler.js")
+jest.mock("../src/container.js")
+jest.mock("../src/hooks/useApplication.js")
 
 describe("Portal", () => {
   let portal
-
-  const context = {}
+  let key = "key"
+  let container = new Container(new Gtk.Application())
 
   beforeEach(() => {
-    portal = new Portal(context)
+    useApplication.mockReturnValue({
+      [PRIVATE_CONTAINER_KEY]: container,
+    })
+
+    portal = createPortal(null, key)
   })
 
-  test("should add portal to instances", () => {
-    expect(Portal.instances).toContain(portal)
-  })
-
-  test("should remove portal from instances", () => {
-    portal.destroy()
-
-    expect(Portal.instances).not.toContain(portal)
-
-    expect(Reconciler.updateContainer).toHaveBeenCalledWith(
-      null,
-      portal.container,
-      null,
-      expect.any(Function)
-    )
+  test("should create a portal with a container", () => {
+    expect(portal).toMatchObject({
+      $$typeof: REACT_PORTAL_TYPE,
+      key,
+      children: null,
+      containerInfo: container,
+      implementation: null,
+    })
   })
 })

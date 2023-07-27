@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import CssProvider from "../../src/components/CssProvider.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
@@ -7,7 +7,7 @@ import Gdk from "@girs/node-gdk-4.0"
 
 describe("CssProvider", () => {
   beforeEach(() => {
-    setupRenderer()
+    setup()
     Gdk.Display.getDefault.mockReturnValue(new Gdk.Display())
   })
 
@@ -52,13 +52,13 @@ describe("CssProvider", () => {
   })
 
   test("should render children", () => {
-    const container = render(
+    render(
       <CssProvider path="styles.css">
         <Box />
       </CssProvider>
     )
 
-    expect(container.findByType("Box")).toBeTruthy()
+    expect(findBy({ type: "Box" })).toBeTruthy()
   })
 
   test("should handle null ref gracefully", () => {

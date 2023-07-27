@@ -9,7 +9,7 @@ import React, {
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Stack, StackSidebar } from "../generated/intrinsics.js"
-import usePortal from "../hooks/usePortal.js"
+import { createPortal } from "../portal.js"
 
 interface Context {
   stack: Gtk.Stack | null
@@ -106,14 +106,13 @@ const Item = function StackItem(props: ItemProps) {
     throw new Error("Item must be a child of Stack.Container")
   }
 
-  usePortal(
+  return createPortal(
     <ItemPortal
       stack={context.stack}
       visibleChildName={context.visibleChildName}
       {...props}
     />
   )
-  return null
 }
 
 type SidebarProps = Omit<JSX.IntrinsicElements["StackSidebar"], "stack">

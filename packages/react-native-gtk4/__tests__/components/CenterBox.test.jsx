@@ -1,23 +1,23 @@
 import React from "react"
-import { render, setupRenderer } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/render.js"
 import { Label } from "../../src/generated/intrinsics.js"
 import CenterBox from "../../src/components/CenterBox.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("CenterBox", () => {
-  beforeEach(setupRenderer)
+  beforeEach(setup)
 
   test("should assign widgets correctly", () => {
-    const container = render(
+    render(
       <CenterBox start={<Label label="Start" />} end={<Label label="End" />}>
         <Label label="Center" />
       </CenterBox>
     )
 
-    const centerBox = container.findByType("CenterBox")
-    const startLabel = container.findByText("Start")
-    const centerLabel = container.findByText("Center")
-    const endLabel = container.findByText("End")
+    const centerBox = findBy({ type: "CenterBox" })
+    const startLabel = findBy({ text: "Start" })
+    const centerLabel = findBy({ text: "Center" })
+    const endLabel = findBy({ text: "End" })
 
     expect(centerBox.node.setStartWidget).toHaveBeenCalledWith(startLabel.node)
     expect(centerBox.node.setEndWidget).toHaveBeenCalledWith(endLabel.node)
@@ -28,8 +28,8 @@ describe("CenterBox", () => {
   })
 
   test("should handle absence of start, end, and center widgets gracefully", () => {
-    const container = render(<CenterBox />)
-    const centerBox = container.findByType("CenterBox")
+    render(<CenterBox />)
+    const centerBox = findBy({ type: "CenterBox" })
 
     expect(centerBox.node.setStartWidget).toHaveBeenCalledWith(null)
     expect(centerBox.node.setCenterWidget).toHaveBeenCalledWith(null)

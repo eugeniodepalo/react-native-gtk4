@@ -5,9 +5,12 @@ import gi from "@girs/node-gtk"
 import { Container, MAX_TIMEOUT } from "../src/container.js"
 import { Reconciler } from "../src/reconciler.js"
 import ApplicationWindow from "../src/generated/widgets/ApplicationWindow.js"
+import Window from "../src/generated/widgets/Window.js"
 import { withApplicationContext } from "../src/components/ApplicationProvider.js"
+import { createMockWidget } from "../src/test-support/utils.js"
 
 jest.mock("react")
+jest.mock("../src/generated/widgets/Window.js")
 jest.mock("../src/generated/widgets/ApplicationWindow.js")
 jest.mock("../src/components/ApplicationProvider.js")
 jest.mock("../src/reconciler.js")
@@ -109,5 +112,56 @@ describe("Container", () => {
     expect(application.quit).toHaveBeenCalled()
     expect(loop.quit).toHaveBeenCalled()
     expect(clearTimeout).toHaveBeenCalledWith(timeout)
+  })
+
+  test("should create a reconciler container", () => {
+    expect(Reconciler.createContainer).toHaveBeenCalledWith(
+      container,
+      0,
+      null,
+      false,
+      null,
+      expect.any(String),
+      expect.any(Function),
+      null
+    )
+  })
+
+  test("should destroy windows when removing them", () => {
+    Window.mockImplementation(() =>
+      Object.assign(Object.create(Window.prototype), {
+        node: {
+          destroy: jest.fn(),
+        },
+      })
+    )
+
+    const window = new Window()
+
+    container.appendChild(window)
+    container.removeChild(window)
+
+    expect(window.node.destroy).toHaveBeenCalled()
+  })
+
+  test("should unparent widgets when removing them", () => {
+    const widget = createMockWidget()
+
+    container.appendChild(widget)
+    container.removeChild(widget)
+
+    expect(widget.node.unparent).toHaveBeenCalled()
+  })
+
+  test("should increment current tag when rendering", () => {
+    new Container(application)
+
+    const prevTag = Reconciler.createContainer.mock.calls[0][5]
+
+    new Container(application)
+
+    const nextTag = Reconciler.createContainer.mock.calls[1][5]
+
+    expect(nextTag).toBe((Number(prevTag) + 1).toString())
   })
 })

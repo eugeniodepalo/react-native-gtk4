@@ -48,6 +48,6 @@ describe("CheckButton", () => {
 
     render(null)
 
-    expect(Gtk.CheckButton.prototype.setActive).not.toHaveBeenCalled()
+    expect(Gtk.CheckButton.prototype.setActive).toHaveBeenCalledWith(false)
   })
 })

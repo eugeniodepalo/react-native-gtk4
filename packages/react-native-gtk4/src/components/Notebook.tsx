@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -9,7 +10,7 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Notebook, Label } from "../generated/intrinsics.js"
 
-const NotebookContext = React.createContext<Gtk.Notebook | null>(null)
+const Context = React.createContext<Gtk.Notebook | null>(null)
 
 type Props = JSX.IntrinsicElements["Notebook"] & {
   children: React.ReactNode
@@ -17,20 +18,20 @@ type Props = JSX.IntrinsicElements["Notebook"] & {
 
 const NotebookContainer = forwardRef<Gtk.Notebook, Props>(
   function NotebookContainer({ children, ...props }, ref) {
-    const [notebookNode, setNotebookNode] = useState<Gtk.Notebook | null>(null)
+    const [notebook, setNotebook] = useState<Gtk.Notebook | null>(null)
 
-    useImperativeHandle(ref, () => notebookNode!)
+    useImperativeHandle(ref, () => notebook!)
 
     const notebookRef = useCallback((node: Gtk.Notebook | null) => {
-      setNotebookNode(node)
+      setNotebook(node)
     }, [])
 
     return (
-      <NotebookContext.Provider value={notebookNode}>
-        <Notebook ref={notebookRef} {...props}>
-          {children}
-        </Notebook>
-      </NotebookContext.Provider>
+      <Notebook ref={notebookRef} {...props}>
+        {notebook ? (
+          <Context.Provider value={notebook}>{children}</Context.Provider>
+        ) : null}
+      </Notebook>
     )
   }
 )
@@ -41,30 +42,29 @@ interface TabProps {
 }
 
 const NotebookTab = function NotebookItem({ children, label }: TabProps) {
-  const notebookNode = useContext(NotebookContext)
+  const notebook = useContext(Context)
+
+  if (!notebook) {
+    throw new Error("NotebookTab must be a child of NotebookContainer")
+  }
+
   const childRef = useRef<Gtk.Widget | null>(null)
   const labelRef = useRef<Gtk.Label | null>(null)
 
-  const setLabelRef = useCallback(
-    (node: Gtk.Label | null) => {
-      const prevNode = labelRef.current
+  useEffect(() => {
+    const child = childRef.current
+    const label = labelRef.current
 
-      labelRef.current = node
+    if (!child || !label) {
+      return
+    }
 
-      if (!notebookNode) {
-        return
-      }
+    notebook.appendPage(child, label)
 
-      if (prevNode) {
-        notebookNode.removePage(notebookNode.pageNum(prevNode))
-      }
-
-      if (node && childRef.current) {
-        notebookNode.appendPage(childRef.current, node)
-      }
-    },
-    [notebookNode, label]
-  )
+    return () => {
+      notebook.removePage(notebook.pageNum(label))
+    }
+  }, [notebook, label])
 
   return (
     <>
@@ -75,10 +75,10 @@ const NotebookTab = function NotebookItem({ children, label }: TabProps) {
         label && typeof label !== "string" ? (
           label
         ) : (
-          <Label ref={setLabelRef} label={label} />
+          <Label ref={labelRef} label={label} />
         ),
         {
-          ref: setLabelRef,
+          ref: labelRef,
         }
       )}
     </>

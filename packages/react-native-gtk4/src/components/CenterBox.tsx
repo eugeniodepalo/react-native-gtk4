@@ -1,4 +1,10 @@
-import React, { useCallback, useImperativeHandle, useRef } from "react"
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CenterBox } from "../generated/intrinsics.js"
@@ -13,66 +19,62 @@ type Props = Omit<
   children?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
 }
 
-export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
-  { start, end, children, ...props },
-  ref
-) {
-  const centerBoxRef = useRef<Gtk.CenterBox | null>(null)
+type PortalProps = {
+  start?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
+  end?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
+  center?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
+  centerBox: Gtk.CenterBox
+}
+
+const Portal = function Portal({ start, end, center, centerBox }: PortalProps) {
   const startRef = useRef<Gtk.Widget | null>(null)
   const centerRef = useRef<Gtk.Widget | null>(null)
   const endRef = useRef<Gtk.Widget | null>(null)
 
-  const setStartRef = useCallback((node: Gtk.Widget | null) => {
-    startRef.current = node
-    commitMount()
-  }, [])
+  useEffect(() => {
+    centerBox.setStartWidget(startRef.current)
+    centerBox.setCenterWidget(centerRef.current)
+    centerBox.setEndWidget(endRef.current)
+  }, [start, end, center, centerBox])
 
-  const setEndRef = useCallback((node: Gtk.Widget | null) => {
-    endRef.current = node
-    commitMount()
-  }, [])
-
-  const setCenterRef = useCallback((node: Gtk.Widget | null) => {
-    centerRef.current = node
-    commitMount()
-  }, [])
-
-  const setCenterBoxRef = useCallback((node: Gtk.CenterBox | null) => {
-    centerBoxRef.current = node
-    commitMount()
-  }, [])
-
-  usePortal(
+  return (
     <>
       {start
         ? React.cloneElement(start, {
-            ref: setStartRef,
+            ref: startRef,
           })
         : null}
-      {children
-        ? React.cloneElement(children, {
-            ref: setCenterRef,
+      {center
+        ? React.cloneElement(center, {
+            ref: centerRef,
           })
         : null}
       {end
         ? React.cloneElement(end, {
-            ref: setEndRef,
+            ref: endRef,
           })
         : null}
     </>
   )
+}
 
-  const commitMount = useCallback(() => {
-    if (!centerBoxRef.current) {
-      return
-    }
+export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
+  { start, end, children, ...props },
+  ref
+) {
+  const [centerBox, setCenterBox] = useState<Gtk.CenterBox | null>(null)
 
-    centerBoxRef.current.setStartWidget(startRef.current)
-    centerBoxRef.current.setCenterWidget(centerRef.current)
-    centerBoxRef.current.setEndWidget(endRef.current)
+  const innerRef = useCallback((node: Gtk.CenterBox | null) => {
+    setCenterBox(node)
   }, [])
 
-  useImperativeHandle(ref, () => centerBoxRef.current!)
+  usePortal(
+    centerBox ? (
+      <Portal start={start} end={end} center={children} centerBox={centerBox} />
+    ) : null
+  )
 
-  return <CenterBox ref={setCenterBoxRef} {...props} />
+  useImperativeHandle(ref, () => centerBox!)
+
+  return <CenterBox ref={innerRef} {...props} />
 })

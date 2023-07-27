@@ -44,7 +44,7 @@ const Portal = forwardRef<Gtk.Popover, PortalProps>(function Portal(
     popover.setParent(child)
     content.unparent()
     popover.setChild(content)
-  }, [child])
+  }, [child, content])
 
   useEffect(() => {
     const popover = innerRef.current

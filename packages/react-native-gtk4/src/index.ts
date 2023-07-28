@@ -23,8 +23,8 @@ export {
   CssProvider,
   EmojiChooser,
   Expander,
-  Frame,
   FontDialogButton,
+  Frame,
   Grid,
   HeaderBar,
   Notebook,
@@ -33,6 +33,7 @@ export {
   Paned,
   Popover,
   PopoverMenu,
+  PrintUnixDialog,
   Stack,
 } from "./components.js"
 

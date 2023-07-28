@@ -34,6 +34,7 @@ import {
   CssProvider,
   FontDialogButton,
   PageSetupUnixDialog,
+  PrintUnixDialog,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -55,6 +56,7 @@ export default function App() {
   const [emojiChooserOpen, setEmojiChooserOpen] = useState(false)
   const [selectedEmoji, setSelectedEmoji] = useState("😊")
   const [showPageSetupDialog, setShowPageSetupDialog] = useState(false)
+  const [showPrintDialog, setShowPrintDialog] = useState(false)
   const { quit } = useApplication()
 
   return (
@@ -293,26 +295,50 @@ export default function App() {
                 <Label label="Paned Start" />
                 <Label label="Paned End" />
               </Paned>
-              <ColorDialogButton title="Color Dialog" hexpand vexpand />
-              <FontDialogButton title="Font Dialog" hexpand vexpand />
-              <Button
-                onClicked={() => setShowPageSetupDialog(true)}
-                label="Page Setup Dialog"
-              />
-              {showPageSetupDialog ? (
-                <PageSetupUnixDialog
-                  title="Page Setup Unix Dialog"
+              <Box orientation={Gtk.Orientation.HORIZONTAL} hexpand vexpand>
+                <ColorDialogButton title="Color Dialog" hexpand vexpand />
+                <FontDialogButton title="Font Dialog" hexpand vexpand />
+                <Button
+                  onClicked={() => setShowPageSetupDialog(true)}
+                  label="Page Setup Dialog"
                   hexpand
                   vexpand
-                  onResponse={() => {
-                    setShowPageSetupDialog(false)
-                  }}
-                  onCloseRequest={() => {
-                    setShowPageSetupDialog(false)
-                    return false
-                  }}
                 />
-              ) : null}
+                <Button
+                  onClicked={() => setShowPrintDialog(true)}
+                  label="Print Dialog"
+                  hexpand
+                  vexpand
+                />
+                {showPageSetupDialog ? (
+                  <PageSetupUnixDialog
+                    title="Page Setup Unix Dialog"
+                    hexpand
+                    vexpand
+                    onResponse={() => {
+                      setShowPageSetupDialog(false)
+                    }}
+                    onCloseRequest={() => {
+                      setShowPageSetupDialog(false)
+                      return false
+                    }}
+                  />
+                ) : null}
+                {showPrintDialog ? (
+                  <PrintUnixDialog
+                    title="Print Unix Dialog"
+                    hexpand
+                    vexpand
+                    onResponse={() => {
+                      setShowPrintDialog(false)
+                    }}
+                    onCloseRequest={() => {
+                      setShowPrintDialog(false)
+                      return false
+                    }}
+                  />
+                ) : null}
+              </Box>
             </Box>
           </Grid.Item>
           <Grid.Item col={1} row={1} width={1} height={1}>

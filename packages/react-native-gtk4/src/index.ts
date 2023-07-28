@@ -29,6 +29,7 @@ export {
   HeaderBar,
   Notebook,
   Overlay,
+  PageSetupUnixDialog,
   Paned,
   Popover,
   PopoverMenu,

@@ -14,7 +14,6 @@ These components can be instantiated, but they're not following React's state mo
 - LevelBar
 - ListView
 - MenuButton
-- PageSetupUnixDialog
 - PopoverMenuBar
 - PrintUnixDialog
 - Scale

@@ -33,6 +33,7 @@ import {
   EmojiChooser,
   CssProvider,
   FontDialogButton,
+  PageSetupUnixDialog,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -53,6 +54,7 @@ export default function App() {
   const [selectedRadio, setSelectedRadio] = useState(0)
   const [emojiChooserOpen, setEmojiChooserOpen] = useState(false)
   const [selectedEmoji, setSelectedEmoji] = useState("😊")
+  const [showPageSetupDialog, setShowPageSetupDialog] = useState(false)
   const { quit } = useApplication()
 
   return (
@@ -293,6 +295,24 @@ export default function App() {
               </Paned>
               <ColorDialogButton title="Color Dialog" hexpand vexpand />
               <FontDialogButton title="Font Dialog" hexpand vexpand />
+              <Button
+                onClicked={() => setShowPageSetupDialog(true)}
+                label="Page Setup Dialog"
+              />
+              {showPageSetupDialog ? (
+                <PageSetupUnixDialog
+                  title="Page Setup Unix Dialog"
+                  hexpand
+                  vexpand
+                  onResponse={() => {
+                    setShowPageSetupDialog(false)
+                  }}
+                  onCloseRequest={() => {
+                    setShowPageSetupDialog(false)
+                    return false
+                  }}
+                />
+              ) : null}
             </Box>
           </Grid.Item>
           <Grid.Item col={1} row={1} width={1} height={1}>

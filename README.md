@@ -9,7 +9,6 @@ Check out the package [README](packages/react-native-gtk4/README.md) for more in
 These components can be instantiated, but they're not following React's state model yet. This means that they can't be used without resorting to imperative code.
 
 - ColumnView
-- DropDown
 - GridView
 - LevelBar
 - ListView

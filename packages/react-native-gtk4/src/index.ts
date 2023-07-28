@@ -21,6 +21,7 @@ export {
   CheckButton,
   ColorDialogButton,
   CssProvider,
+  DropDown,
   EmojiChooser,
   Expander,
   FontDialogButton,

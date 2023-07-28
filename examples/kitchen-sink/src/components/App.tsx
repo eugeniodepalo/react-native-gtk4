@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { ForwardedRef, useState } from "react"
 import {
   ApplicationWindow,
   Box,
@@ -35,6 +35,7 @@ import {
   FontDialogButton,
   PageSetupUnixDialog,
   PrintUnixDialog,
+  DropDown,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -287,6 +288,19 @@ export default function App() {
               >
                 <Label label="Center Box Center" />
               </CenterBox>
+              <DropDown.Container
+                hexpand
+                vexpand
+                renderItem={(ref, item) => <Label ref={ref} label={item} />}
+              >
+                {Array.from(Array(50).keys()).map((i) => (
+                  <DropDown.Item
+                    key={i}
+                    id={i.toString()}
+                    value={`Item ${i}`}
+                  />
+                ))}
+              </DropDown.Container>
             </Box>
           </Grid.Item>
           <Grid.Item col={0} row={1} width={1} height={1}>

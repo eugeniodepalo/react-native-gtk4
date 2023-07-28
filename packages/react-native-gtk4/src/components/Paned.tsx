@@ -19,11 +19,11 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
   { children, ...props },
   ref
 ) {
-  const panedRef = useRef<Gtk.Paned | null>(null)
+  const innerRef = useRef<Gtk.Paned | null>(null)
   const [startChild, setStartChild] = useState<Gtk.Widget | null>(null)
   const [endChild, setEndChild] = useState<Gtk.Widget | null>(null)
 
-  useImperativeHandle(ref, () => panedRef.current!)
+  useImperativeHandle(ref, () => innerRef.current!)
 
   const startChildRef = useCallback((node: Gtk.Widget | null) => {
     setStartChild(node)
@@ -35,7 +35,7 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
 
   return (
     <Paned
-      ref={panedRef}
+      ref={innerRef}
       startChild={startChild ?? undefined}
       endChild={endChild ?? undefined}
       {...props}

@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useEffect, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CenterBox } from "../generated/intrinsics.js"
@@ -19,73 +13,55 @@ type Props = Omit<
   children?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
 }
 
-type PortalProps = {
-  start?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
-  end?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
-  center?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
-  centerBox: Gtk.CenterBox
-}
-
-const Portal = function CenterBoxPortal({
-  start,
-  end,
-  center,
-  centerBox,
-}: PortalProps) {
-  const startRef = useRef<Gtk.Widget | null>(null)
-  const centerRef = useRef<Gtk.Widget | null>(null)
-  const endRef = useRef<Gtk.Widget | null>(null)
-
-  useEffect(() => {
-    centerBox.setStartWidget(startRef.current)
-    centerBox.setCenterWidget(centerRef.current)
-    centerBox.setEndWidget(endRef.current)
-  }, [start, end, center, centerBox])
-
-  return (
-    <>
-      {start
-        ? React.cloneElement(start, {
-            ref: startRef,
-          })
-        : null}
-      {center
-        ? React.cloneElement(center, {
-            ref: centerRef,
-          })
-        : null}
-      {end
-        ? React.cloneElement(end, {
-            ref: endRef,
-          })
-        : null}
-    </>
-  )
-}
-
 export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
   { start, end, children, ...props },
   ref
 ) {
-  const [centerBox, setCenterBox] = useState<Gtk.CenterBox | null>(null)
+  const innerRef = useRef<Gtk.CenterBox | null>(null)
+  const startRef = useRef<Gtk.Widget | null>(null)
+  const centerRef = useRef<Gtk.Widget | null>(null)
+  const endRef = useRef<Gtk.Widget | null>(null)
 
-  const innerRef = useCallback((node: Gtk.CenterBox | null) => {
-    setCenterBox(node)
-  }, [])
+  useImperativeHandle(ref, () => innerRef.current!)
 
-  useImperativeHandle(ref, () => centerBox!)
+  useEffect(() => {
+    const centerBox = innerRef.current
+
+    if (!centerBox) {
+      return
+    }
+
+    centerBox.setStartWidget(startRef.current)
+    centerBox.setCenterWidget(centerRef.current)
+    centerBox.setEndWidget(endRef.current)
+
+    return () => {
+      centerBox.setStartWidget(null)
+      centerBox.setCenterWidget(null)
+      centerBox.setEndWidget(null)
+    }
+  }, [start, end, children])
 
   return (
     <>
       {createPortal(
-        centerBox ? (
-          <Portal
-            start={start}
-            end={end}
-            center={children}
-            centerBox={centerBox}
-          />
-        ) : null
+        <>
+          {start
+            ? React.cloneElement(start, {
+                ref: startRef,
+              })
+            : null}
+          {children
+            ? React.cloneElement(children, {
+                ref: centerRef,
+              })
+            : null}
+          {end
+            ? React.cloneElement(end, {
+                ref: endRef,
+              })
+            : null}
+        </>
       )}
       <CenterBox ref={innerRef} {...props} />
     </>

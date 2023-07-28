@@ -46,7 +46,7 @@ const Tab = function NotebookTab({ children, label }: TabProps) {
   const notebook = useContext(Context)
 
   if (!notebook) {
-    throw new Error("Tab must be a child of Container")
+    throw new Error("Notebook.Tab must be a child of Notebook.Container")
   }
 
   const childRef = useRef<Gtk.Widget | null>(null)

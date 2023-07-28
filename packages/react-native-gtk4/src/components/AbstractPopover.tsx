@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useEffect, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { createPortal } from "../portal.js"
@@ -21,18 +15,12 @@ export type AbstractPopoverProps<T extends ElementType> = Omit<
   open?: boolean
 }
 
-type PortalProps<T extends ElementType> = Omit<
-  AbstractPopoverProps<T>,
-  "children"
-> & {
-  child: Gtk.Widget
-}
-
-const Portal = forwardRef<Gtk.Popover, PortalProps<ElementType>>(
-  function AbstractPopoverPortal(
-    { content, elementType, open, child, ...props },
+export default forwardRef<Gtk.Popover, AbstractPopoverProps<ElementType>>(
+  function AbstractPopoverComponent(
+    { content, elementType, open, children, ...props },
     ref
   ) {
+    const childRef = useRef<Gtk.Widget | null>(null)
     const innerRef = useRef<Gtk.Popover | null>(null)
     const contentRef = useRef<Gtk.Widget | null>(null)
 
@@ -41,8 +29,9 @@ const Portal = forwardRef<Gtk.Popover, PortalProps<ElementType>>(
     useEffect(() => {
       const content = contentRef.current
       const popover = innerRef.current
+      const child = childRef.current
 
-      if (!popover) {
+      if (!popover || !child) {
         return
       }
 
@@ -71,34 +60,18 @@ const Portal = forwardRef<Gtk.Popover, PortalProps<ElementType>>(
 
     return (
       <>
-        {React.createElement(elementType, {
-          ref: innerRef,
-          ...props,
-        })}
-        {content
-          ? React.cloneElement(content, {
-              ref: contentRef,
-            })
-          : null}
-      </>
-    )
-  }
-)
-
-export default forwardRef<Gtk.Popover, AbstractPopoverProps<ElementType>>(
-  function AbstractPopoverComponent({ children, content, ...props }, ref) {
-    const [child, setChild] = useState<Gtk.Widget | null>(null)
-
-    const childRef = useCallback((node: Gtk.Widget | null) => {
-      setChild(node)
-    }, [])
-
-    return (
-      <>
         {createPortal(
-          child ? (
-            <Portal content={content} child={child} ref={ref} {...props} />
-          ) : null
+          <>
+            {React.createElement(elementType, {
+              ref: innerRef,
+              ...props,
+            })}
+            {content
+              ? React.cloneElement(content, {
+                  ref: contentRef,
+                })
+              : null}
+          </>
         )}
         {React.cloneElement(children, {
           ref: childRef,

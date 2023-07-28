@@ -45,8 +45,8 @@ describe("CenterBox", () => {
 
     render(null)
 
-    expect(Gtk.CenterBox.prototype.setStartWidget).not.toHaveBeenCalled()
-    expect(Gtk.CenterBox.prototype.setCenterWidget).not.toHaveBeenCalled()
-    expect(Gtk.CenterBox.prototype.setEndWidget).not.toHaveBeenCalled()
+    expect(Gtk.CenterBox.prototype.setStartWidget).toHaveBeenCalledWith(null)
+    expect(Gtk.CenterBox.prototype.setCenterWidget).toHaveBeenCalledWith(null)
+    expect(Gtk.CenterBox.prototype.setEndWidget).toHaveBeenCalledWith(null)
   })
 })

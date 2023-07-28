@@ -19,7 +19,11 @@ describe("useApplication", () => {
 
   test("should throw an error when application is not available", () => {
     useContext.mockReturnValue(null)
-    expect(useApplication).toThrow("Application is not available")
+
+    expect(useApplication).toThrow(
+      "useApplication must be used within an ApplicationProvider"
+    )
+
     expect(useContext).toHaveBeenCalledWith(ApplicationContext)
   })
 })

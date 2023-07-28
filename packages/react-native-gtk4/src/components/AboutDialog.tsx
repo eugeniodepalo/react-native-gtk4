@@ -13,7 +13,7 @@ type Props = JSX.IntrinsicElements["AboutDialog"] & {
   creditSections?: AboutDialogCreditSection[]
 }
 
-const Portal = forwardRef<Gtk.AboutDialog, Props>(function AboutDialogPortal(
+export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
   { creditSections = [], ...props },
   ref
 ) {
@@ -31,11 +31,5 @@ const Portal = forwardRef<Gtk.AboutDialog, Props>(function AboutDialogPortal(
     }
   }, [])
 
-  return <AboutDialog ref={innerRef} {...props} />
+  return createPortal(<AboutDialog ref={innerRef} {...props} />)
 })
-
-export default forwardRef<Gtk.AboutDialog, Props>(
-  function AboutDialogComponent(props, ref) {
-    return createPortal(<Portal ref={ref} {...props} />)
-  }
-)

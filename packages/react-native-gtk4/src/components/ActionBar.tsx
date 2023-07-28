@@ -53,7 +53,7 @@ const Item = forwardRef<Gtk.Widget, ItemProps>(function ActionBarItem(
   const innerRef = useRef<Gtk.Widget | null>(null)
 
   if (!actionBar) {
-    throw new Error("Item must be a child of ActionBar.Container")
+    throw new Error("ActionBar.Item must be a child of ActionBar.Container")
   }
 
   useImperativeHandle(ref, () => innerRef.current!)

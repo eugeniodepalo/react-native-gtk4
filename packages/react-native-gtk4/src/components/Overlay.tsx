@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useEffect, useImperativeHandle, useRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Overlay } from "../generated/intrinsics.js"
@@ -20,27 +14,24 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
   ref
 ) {
   const innerRef = useRef<Gtk.Overlay | null>(null)
-  const [contentWidget, setContentWidget] = useState<Gtk.Widget | null>(null)
+  const contentRef = useRef<Gtk.Widget | null>(null)
 
   useImperativeHandle(ref, () => innerRef.current!)
 
-  const contentRef = useCallback((node: Gtk.Widget | null) => {
-    setContentWidget(node)
-  }, [])
-
   useEffect(() => {
     const overlay = innerRef.current
+    const content = contentRef.current
 
-    if (!overlay || !contentWidget) {
+    if (!overlay || !content) {
       return
     }
 
-    overlay.setChild(contentWidget)
+    overlay.setChild(content)
 
     return () => {
       overlay.setChild(null)
     }
-  }, [innerRef, contentWidget])
+  }, [])
 
   return (
     <>

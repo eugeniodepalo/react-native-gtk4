@@ -21,6 +21,10 @@ function getDefaultDisplay() {
 export default function CssProvider({ path, content, children }: Props) {
   const providerRef = useRef<Gtk.CssProvider | null>()
 
+  if (!path && !content) {
+    throw new Error("Either path or content must be provided")
+  }
+
   useEffect(() => {
     if (!providerRef.current) {
       providerRef.current = new Gtk.CssProvider()
@@ -45,10 +49,6 @@ export default function CssProvider({ path, content, children }: Props) {
   }, [])
 
   useEffect(() => {
-    if (!path && !content) {
-      throw new Error("Either path or content must be provided")
-    }
-
     if (!providerRef.current) {
       return
     }

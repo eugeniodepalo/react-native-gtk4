@@ -56,7 +56,7 @@ const GridItem = function GridItem({
   const childRef = useRef<Gtk.Widget | null>(null)
 
   if (!grid) {
-    throw new Error("GridItem must be a child of Grid")
+    throw new Error("Grid.Item must be a child of Grid.Container")
   }
 
   useEffect(() => {

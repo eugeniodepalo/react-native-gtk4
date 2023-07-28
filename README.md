@@ -10,7 +10,6 @@ These components can be instantiated, but they're not following React's state mo
 
 - ColumnView
 - DropDown
-- FontDialogButton
 - GridView
 - LevelBar
 - ListView

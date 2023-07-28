@@ -24,6 +24,7 @@ export {
   EmojiChooser,
   Expander,
   Frame,
+  FontDialogButton,
   Grid,
   HeaderBar,
   Notebook,

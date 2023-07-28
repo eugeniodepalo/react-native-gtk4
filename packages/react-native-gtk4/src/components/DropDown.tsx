@@ -111,6 +111,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
         factory.on("unbind", onFactoryUnbind)
 
         return () => {
+          setBoundItems([])
           factory.off("bind", onFactoryBind)
           factory.off("unbind", onFactoryUnbind)
         }

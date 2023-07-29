@@ -55,6 +55,8 @@ export class Renderer {
   }
 
   render(element) {
+    jest.spyOn(console, "error").mockImplementation(() => {})
+
     Reconciler.updateContainer(
       withApplicationContext(element, this.applicationContext),
       this.instance,
@@ -62,7 +64,6 @@ export class Renderer {
       () => {}
     )
 
-    jest.spyOn(console, "error").mockImplementation(() => {})
     Reconciler.flushSync(() => {})
     Reconciler.flushControlled(() => {})
     Reconciler.flushPassiveEffects()

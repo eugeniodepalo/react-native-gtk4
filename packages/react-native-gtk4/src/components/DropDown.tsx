@@ -70,6 +70,32 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
       []
     )
 
+    const PopoverItemComponent = useMemo(
+      () =>
+        renderPopoverItem
+          ? forwardRef<any, { value: T }>(function PopoverItemComponent(
+              { value },
+              ref
+            ) {
+              return renderPopoverItem(ref, value)
+            })
+          : null,
+      [renderPopoverItem]
+    )
+
+    const ItemComponent = useMemo(
+      () =>
+        renderItem
+          ? forwardRef<any, { value: T }>(function ItemComponent(
+              { value },
+              ref
+            ) {
+              return renderItem(ref, value)
+            })
+          : null,
+      [renderItem]
+    )
+
     const setupFactory = useCallback(
       (factory: Gtk.SignalListItemFactory, type: FactoryType) => {
         const onFactoryBind = (object: GObject.Object) => {
@@ -102,25 +128,16 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
     )
 
     useEffect(() => {
-      let teardownItemFactory: (() => void) | null = null
-      let teardownPopoverItemFactory: (() => void) | null = null
-
-      if (itemFactory) {
-        teardownItemFactory = setupFactory(itemFactory, "item")
+      if (renderItem) {
+        return setupFactory(itemFactory, "item")
       }
+    }, [renderItem])
 
-      if (popoverItemFactory) {
-        teardownPopoverItemFactory = setupFactory(
-          popoverItemFactory,
-          "popoverItem"
-        )
+    useEffect(() => {
+      if (renderPopoverItem) {
+        return setupFactory(popoverItemFactory, "popoverItem")
       }
-
-      return () => {
-        teardownItemFactory?.()
-        teardownPopoverItemFactory?.()
-      }
-    }, [renderItem, renderPopoverItem])
+    }, [renderPopoverItem])
 
     useImperativeHandle(ref, () => innerRef.current!)
 
@@ -128,9 +145,10 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
       <>
         {createPortal(
           boundItems.map(({ type, value }) => {
-            const renderFn = type === "item" ? renderItem : renderPopoverItem
+            const Component =
+              type === "item" ? ItemComponent : PopoverItemComponent
 
-            if (!renderFn) {
+            if (!Component) {
               return null
             }
 
@@ -139,13 +157,15 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
             const id = item.getProperty("string") as string
 
             return (
-              <React.Fragment key={`${type}-${id}`}>
-                {renderFn((node) => {
+              <Component
+                key={`${type}-${id}`}
+                ref={(node) => {
                   if (node) {
                     listItem.setChild(node)
                   }
-                }, items[id].value)}
-              </React.Fragment>
+                }}
+                value={items[id].value}
+              />
             )
           })
         )}

@@ -60,31 +60,14 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
     const model = useMemo<Gtk.StringList>(() => new Gtk.StringList(), [])
     const [boundItems, setBoundItems] = useState<BoundItem[]>([])
 
-    const itemFactory = useMemo<Gtk.SignalListItemFactory | null>(
-      () => (renderItem ? new Gtk.SignalListItemFactory() : null),
-      [renderItem]
+    const itemFactory = useMemo<Gtk.SignalListItemFactory>(
+      () => new Gtk.SignalListItemFactory(),
+      []
     )
 
-    const popoverItemFactory = useMemo<Gtk.SignalListItemFactory | null>(
-      () => (renderPopoverItem ? new Gtk.SignalListItemFactory() : null),
-      [renderPopoverItem]
-    )
-
-    const PopoverItemComponent = useCallback(
-      forwardRef<any, { value: T }>(function PopoverItemComponent(
-        { value },
-        ref
-      ) {
-        return renderPopoverItem ? renderPopoverItem(ref, value) : null
-      }),
-      [renderPopoverItem]
-    )
-
-    const ItemComponent = useCallback(
-      forwardRef<any, { value: T }>(function ItemComponent({ value }, ref) {
-        return renderItem ? renderItem(ref, value) : null
-      }),
-      [renderItem]
+    const popoverItemFactory = useMemo<Gtk.SignalListItemFactory>(
+      () => new Gtk.SignalListItemFactory(),
+      []
     )
 
     const setupFactory = useCallback(
@@ -111,7 +94,6 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
         factory.on("unbind", onFactoryUnbind)
 
         return () => {
-          setBoundItems([])
           factory.off("bind", onFactoryBind)
           factory.off("unbind", onFactoryUnbind)
         }
@@ -138,7 +120,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
         teardownItemFactory?.()
         teardownPopoverItemFactory?.()
       }
-    }, [ItemComponent, PopoverItemComponent])
+    }, [renderItem, renderPopoverItem])
 
     useImperativeHandle(ref, () => innerRef.current!)
 
@@ -146,31 +128,32 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
       <>
         {createPortal(
           boundItems.map(({ type, value }) => {
-            const Component =
-              type === "item" ? ItemComponent : PopoverItemComponent
+            const renderFn = type === "item" ? renderItem : renderPopoverItem
+
+            if (!renderFn) {
+              return null
+            }
 
             const listItem = value
             const item = listItem.item
             const id = item.getProperty("string") as string
 
             return (
-              <Component
-                key={`${id}-${type}`}
-                ref={(node) => {
+              <React.Fragment key={`${type}-${id}`}>
+                {renderFn((node) => {
                   if (node) {
                     listItem.setChild(node)
                   }
-                }}
-                value={items[id].value}
-              />
+                }, items[id].value)}
+              </React.Fragment>
             )
           })
         )}
         <DropDown
           model={model}
           ref={innerRef}
-          factory={itemFactory ?? undefined}
-          listFactory={popoverItemFactory ?? undefined}
+          factory={renderItem ? itemFactory : undefined}
+          listFactory={renderPopoverItem ? popoverItemFactory : undefined}
           {...props}
         />
         <Context.Provider
@@ -203,13 +186,16 @@ const Item = function DropDownItemComponent({ value, id }: ItemProps) {
 
     items[id] = {
       value,
-      index: model.getNItems() - 1,
+      index: model.getNItems(),
     }
 
     model.append(id)
 
     return () => {
-      model.remove(items[id].index)
+      if (model.getString(items[id].index) === id) {
+        model.remove(items[id].index)
+      }
+
       delete items[id]
     }
   }, [value, id])

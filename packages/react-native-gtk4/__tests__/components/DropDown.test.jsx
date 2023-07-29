@@ -11,6 +11,7 @@ describe("DropDown", () => {
 
     Gtk.StringList.mockImplementation(function () {
       this.items = []
+      this.getString = (index) => this.items[index]
       this.getNItems = () => this.items.length
       this.append = (item) => this.items.push(item)
       this.remove = (index) => this.items.splice(index, 1)
@@ -51,13 +52,11 @@ describe("DropDown", () => {
         </DropDown.Container>
       )
 
-      let dropDown = findBy({ type: "DropDown" })
+      const dropDown = findBy({ type: "DropDown" })
 
       expect(dropDown.node.model.items).toContain(id)
 
       render(<DropDown.Container renderItem={() => <></>} />)
-
-      dropDown = findBy({ type: "DropDown" })
 
       expect(dropDown.node.model.items).not.toContain(id)
     })

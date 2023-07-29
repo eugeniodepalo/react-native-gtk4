@@ -61,15 +61,30 @@ describe("CssProvider", () => {
     expect(findBy({ type: "Box" })).toBeTruthy()
   })
 
-  test("should handle null ref gracefully", () => {
-    jest.spyOn(React, "useRef")
+  test("should allow string content", () => {
+    jest.spyOn(Buffer, "from")
 
-    render(<CssProvider path="styles.css" />)
+    render(
+      <CssProvider content=".box { background-color: red; }">
+        <Box className="box" />
+      </CssProvider>
+    )
 
-    React.useRef.mock.results[0].value.current = null
+    expect(Gtk.CssProvider).toHaveBeenCalled()
 
-    render(null)
+    expect(Gtk.StyleContext.addProviderForDisplay).toHaveBeenCalledWith(
+      Gdk.Display.getDefault.mock.results[0].value,
+      Gtk.CssProvider.mock.instances[0],
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    )
 
-    expect(Gtk.StyleContext.removeProviderForDisplay).not.toHaveBeenCalled()
+    expect(Buffer.from).toHaveBeenCalledWith(".box { background-color: red; }")
+
+    const bytes = Buffer.from.mock.results[0].value
+
+    expect(Gtk.CssProvider.mock.instances[0].loadFromData).toHaveBeenCalledWith(
+      bytes,
+      -1
+    )
   })
 })

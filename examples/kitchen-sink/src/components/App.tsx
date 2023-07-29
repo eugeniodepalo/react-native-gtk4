@@ -1,4 +1,4 @@
-import React, { ForwardedRef, useState } from "react"
+import React, { ForwardedRef, useEffect, useState } from "react"
 import {
   ApplicationWindow,
   Box,
@@ -9,9 +9,9 @@ import {
   Notebook,
   Overlay,
   Stack,
+  LevelBar,
   ListBox,
   ListBoxRow,
-  Image,
   Paned,
   Expander,
   CheckButton,
@@ -58,7 +58,27 @@ export default function App() {
   const [selectedEmoji, setSelectedEmoji] = useState("😊")
   const [showPageSetupDialog, setShowPageSetupDialog] = useState(false)
   const [showPrintDialog, setShowPrintDialog] = useState(false)
-  const { quit } = useApplication()
+  const [levelBarValue, setLevelBarValue] = useState(0.0)
+  const { quit, application } = useApplication()
+
+  useEffect(() => {
+    let timeout: number
+
+    const increaseValue = () => {
+      setLevelBarValue((value) => (value + 0.01) % 1.0)
+      timeout = setTimeout(increaseValue, 100)
+    }
+
+    increaseValue()
+
+    application.on("shutdown", () => {
+      clearTimeout(timeout)
+    })
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [])
 
   return (
     <>
@@ -222,7 +242,50 @@ export default function App() {
                 </ListBoxRow>
               </ListBox>
               <Spinner spinning />
-              <ProgressBar fraction={0.5} showText />
+              <Box
+                orientation={Gtk.Orientation.VERTICAL}
+                hexpand
+                vexpand
+                spacing={10}
+              >
+                <ProgressBar fraction={0.5} showText />
+                <CssProvider
+                  content={`
+                    levelbar block.veryLow {
+                      background-color: #ff0000;
+                    }
+
+                    levelbar block.low {
+                      background-color: #ff8000;
+                    }
+
+                    levelbar block.medium {
+                      background-color: #ffff00;
+                    }
+
+                    levelbar block.high {
+                      background-color: #80ff00;
+                    }
+
+                    levelbar block.veryHigh {
+                      background-color: #00ff00;
+                    }
+                `}
+                >
+                  <LevelBar
+                    value={levelBarValue}
+                    offsets={{
+                      veryLow: 0.1,
+                      low: 0.25,
+                      medium: 0.5,
+                      high: 0.75,
+                      veryHigh: 0.9,
+                    }}
+                    minValue={0}
+                    maxValue={1}
+                  />
+                </CssProvider>
+              </Box>
               <Scale digits={1} drawValue />
               <SearchBar searchModeEnabled={searchModeEnabled}>
                 <Entry

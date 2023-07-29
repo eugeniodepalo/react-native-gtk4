@@ -28,6 +28,7 @@ export {
   Frame,
   Grid,
   HeaderBar,
+  LevelBar,
   Notebook,
   Overlay,
   PageSetupUnixDialog,

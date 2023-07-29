@@ -1,6 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Gdk from "@girs/node-gdk-4.0"
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo } from "react"
 
 interface Props {
   path?: string
@@ -19,47 +19,33 @@ function getDefaultDisplay() {
 }
 
 export default function CssProvider({ path, content, children }: Props) {
-  const providerRef = useRef<Gtk.CssProvider | null>()
+  const provider = useMemo(() => new Gtk.CssProvider(), [])
 
   if (!path && !content) {
     throw new Error("Either path or content must be provided")
   }
 
   useEffect(() => {
-    if (!providerRef.current) {
-      providerRef.current = new Gtk.CssProvider()
-
-      Gtk.StyleContext.addProviderForDisplay(
-        getDefaultDisplay(),
-        providerRef.current,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-      )
-    }
+    Gtk.StyleContext.addProviderForDisplay(
+      getDefaultDisplay(),
+      provider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    )
 
     return () => {
-      if (!providerRef.current) {
-        return
-      }
-
-      Gtk.StyleContext.removeProviderForDisplay(
-        getDefaultDisplay(),
-        providerRef.current
-      )
+      Gtk.StyleContext.removeProviderForDisplay(getDefaultDisplay(), provider)
     }
   }, [])
 
   useEffect(() => {
-    if (!providerRef.current) {
-      return
-    }
-
     if (content) {
-      providerRef.current.loadFromData(content, -1)
+      const contentAsBytes = Buffer.from(content) as unknown as string
+      provider.loadFromData(contentAsBytes, -1)
       return
     }
 
     if (path) {
-      providerRef.current.loadFromPath(path)
+      provider.loadFromPath(path)
       return
     }
   }, [path, content])

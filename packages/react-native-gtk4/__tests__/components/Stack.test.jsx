@@ -97,4 +97,34 @@ describe("Stack", () => {
 
     expect(stack.node.remove).toHaveBeenCalledWith(button.node)
   })
+
+  test("should render Sidebar correctly", () => {
+    render(
+      <Stack.Container>
+        <Stack.Sidebar />
+      </Stack.Container>
+    )
+
+    const sidebar = findBy({ type: "StackSidebar" })
+
+    expect(sidebar.node).toBeTruthy()
+  })
+
+  test("should throw an error when Sidebar is not inside a Container", () => {
+    expect(() => render(<Stack.Sidebar />)).toThrow(
+      "Stack.Sidebar must be a child of Stack.Container"
+    )
+  })
+
+  test("should throw an error when Item is not inside a Container", () => {
+    expect(() =>
+      render(
+        <Stack.Item name="item1" title="Item 1">
+          <Button>
+            <Label text="Item 1" />
+          </Button>
+        </Stack.Item>
+      )
+    ).toThrow("Stack.Item must be a child of Stack.Container")
+  })
 })

@@ -13,5 +13,4 @@ These components can be instantiated, but they're not following React's state mo
 - ListView
 - MenuButton
 - PopoverMenuBar
-- Scale
 - TreeExpander

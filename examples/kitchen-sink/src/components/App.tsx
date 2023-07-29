@@ -59,6 +59,7 @@ export default function App() {
   const [showPageSetupDialog, setShowPageSetupDialog] = useState(false)
   const [showPrintDialog, setShowPrintDialog] = useState(false)
   const [levelBarValue, setLevelBarValue] = useState(0.0)
+  const [scaleValue, setScaleValue] = useState(0.0)
   const { quit, application } = useApplication()
 
   useEffect(() => {
@@ -286,7 +287,21 @@ export default function App() {
                   />
                 </CssProvider>
               </Box>
-              <Scale digits={1} drawValue />
+              <Scale
+                drawValue
+                showFillLevel
+                range={[0, 1]}
+                onChangeValue={(_node, _scroll, value) => {
+                  setScaleValue(value ?? 0)
+                  return false
+                }}
+                value={scaleValue}
+                marks={[
+                  { value: 0, position: Gtk.PositionType.BOTTOM, label: "0" },
+                  { value: 0.5, position: Gtk.PositionType.TOP, label: "0.5" },
+                  { value: 1, position: Gtk.PositionType.BOTTOM, label: "1" },
+                ]}
+              />
               <SearchBar searchModeEnabled={searchModeEnabled}>
                 <Entry
                   text={searchText}

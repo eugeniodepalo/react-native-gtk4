@@ -36,6 +36,7 @@ export {
   Popover,
   PopoverMenu,
   PrintUnixDialog,
+  Scale,
   Stack,
 } from "./components.js"
 

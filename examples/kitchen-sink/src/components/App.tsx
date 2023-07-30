@@ -1,5 +1,12 @@
-import React, { ForwardedRef, useEffect, useState } from "react"
+import React, {
+  ForwardedRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import {
+  ActionGroupProvider,
   ApplicationWindow,
   Box,
   Button,
@@ -12,6 +19,7 @@ import {
   LevelBar,
   ListBox,
   ListBoxRow,
+  MenuButton,
   Paned,
   Expander,
   CheckButton,
@@ -38,6 +46,8 @@ import {
   DropDown,
 } from "react-native-gtk4"
 
+let prev: any = null
+
 export default function App() {
   const [count, setCount] = useState(0)
   const [revealed, setRevealed] = useState(false)
@@ -61,6 +71,21 @@ export default function App() {
   const [levelBarValue, setLevelBarValue] = useState(0.0)
   const [scaleValue, setScaleValue] = useState(0.0)
   const { quit, application } = useApplication()
+
+  const renderDropDownItem = useCallback(
+    (ref: ForwardedRef<Gtk.Label>, item: string) => (
+      <Label ref={ref} label={item} />
+    ),
+    []
+  )
+
+  const onIncreaseAction = useCallback(() => {
+    setCount((count) => count + 1)
+  }, [])
+
+  const onDecreaseAction = useCallback(() => {
+    setCount((count) => count - 1)
+  }, [])
 
   useEffect(() => {
     let timeout: number
@@ -369,7 +394,7 @@ export default function App() {
               <DropDown.Container
                 hexpand
                 vexpand
-                renderItem={(ref, item) => <Label ref={ref} label={item} />}
+                renderItem={renderDropDownItem}
               >
                 {Array.from(Array(50).keys()).map((i) => (
                   <DropDown.Item
@@ -458,14 +483,7 @@ export default function App() {
                 onHide={() => {
                   setPopoverOpen(false)
                 }}
-              >
-                <Button
-                  label="Popover"
-                  onClicked={() => {
-                    setPopoverOpen(!popoverOpen)
-                  }}
-                />
-              </Popover>
+              />
               <Button
                 label={
                   showAboutDialog ? "Hide About Dialog" : "Show About Dialog"
@@ -474,6 +492,18 @@ export default function App() {
                   setShowAboutDialog(!showAboutDialog)
                 }}
               />
+              <ActionGroupProvider
+                name="menu"
+                actions={{
+                  increase: onIncreaseAction,
+                  decrease: onDecreaseAction,
+                }}
+              >
+                <MenuButton.Container hexpand vexpand label="Menu Button">
+                  <MenuButton.Item action="menu.increase" label="Increase" />
+                  <MenuButton.Item action="menu.decrease" label="Decrease" />
+                </MenuButton.Container>
+              </ActionGroupProvider>
             </Box>
           </Grid.Item>
         </Grid.Container>

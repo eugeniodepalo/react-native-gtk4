@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useImperativeHandle } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { LevelBar } from "../generated/intrinsics.js"
-import { shallowEqual } from "../utils.js"
+import _ from "lodash"
 
 type Props = Omit<JSX.IntrinsicElements["LevelBar"], "children"> & {
   offsets?: Record<string, number>
@@ -14,24 +14,19 @@ export const DEFAULT_OFFSETS = {
   [Gtk.LEVEL_BAR_OFFSET_FULL!]: 1.0,
 }
 
-export default forwardRef<Gtk.LevelBar | null, Props>(
-  function LevelBarComponent({ offsets, ...props }, ref) {
+export default React.memo(
+  forwardRef<Gtk.LevelBar | null, Props>(function LevelBarComponent(
+    { offsets, ...props },
+    ref
+  ) {
     const innerRef = useRef<Gtk.LevelBar | null>(null)
-    const prevOffsetsRef = useRef<Record<string, number>>({})
 
     useImperativeHandle(ref, () => innerRef.current!)
 
     useEffect(() => {
       const levelBar = innerRef.current
-      const prevOffsets = prevOffsetsRef.current
 
       if (!levelBar || !offsets) {
-        return
-      }
-
-      prevOffsetsRef.current = offsets
-
-      if (shallowEqual(offsets, prevOffsets)) {
         return
       }
 
@@ -57,5 +52,6 @@ export default forwardRef<Gtk.LevelBar | null, Props>(
     }, [offsets])
 
     return <LevelBar ref={innerRef} {...props}></LevelBar>
-  }
+  }),
+  _.isEqual
 )

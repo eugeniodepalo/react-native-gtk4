@@ -3,6 +3,7 @@ import React, {
   useContext,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from "react"
@@ -12,7 +13,7 @@ import { Stack, StackSidebar } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 
 interface Context {
-  stack: Gtk.Stack
+  stack: Gtk.Stack | null
   visibleChildName?: string
 }
 
@@ -28,6 +29,11 @@ const Container = forwardRef<Gtk.Stack, Props>(function StackContainer(
 ) {
   const [stack, setStack] = useState<Gtk.Stack | null>(null)
 
+  const value = useMemo(
+    () => ({ stack, visibleChildName }),
+    [stack, visibleChildName]
+  )
+
   const stackRef = useCallback((node: Gtk.Stack | null) => {
     setStack(node)
   }, [])
@@ -38,14 +44,7 @@ const Container = forwardRef<Gtk.Stack, Props>(function StackContainer(
     <>
       <Stack ref={stackRef} {...props} />
       {stack ? (
-        <Context.Provider
-          value={{
-            stack,
-            visibleChildName,
-          }}
-        >
-          {children}
-        </Context.Provider>
+        <Context.Provider value={value}>{children}</Context.Provider>
       ) : null}
     </>
   )
@@ -67,16 +66,16 @@ const Item = forwardRef<Gtk.Widget, ItemProps>(function StackItem(
     throw new Error("Stack.Item must be a child of Stack.Container")
   }
 
-  const stack = context.stack
-  const visibleChildName = context.visibleChildName
+  const { stack, visibleChildName } = context
   const innerRef = useRef<Gtk.Widget | null>(null)
 
   useImperativeHandle(ref, () => innerRef.current!)
 
   useEffect(() => {
     const node = innerRef.current
+    const stack = context.stack
 
-    if (!node) {
+    if (!node || !stack) {
       return
     }
 
@@ -87,13 +86,13 @@ const Item = forwardRef<Gtk.Widget, ItemProps>(function StackItem(
         stack.remove(node)
       }
     }
-  }, [stack, name, title])
+  }, [context, name, title])
 
   useEffect(() => {
     if (visibleChildName === name) {
-      stack.setVisibleChildName(name)
+      stack?.setVisibleChildName(name)
     }
-  }, [stack, visibleChildName, name])
+  }, [context, name])
 
   return createPortal(
     React.cloneElement(children, {

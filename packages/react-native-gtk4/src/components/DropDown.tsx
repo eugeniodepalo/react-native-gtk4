@@ -2,6 +2,7 @@ import React, {
   ForwardedRef,
   createContext,
   useCallback,
+  useContext,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -13,6 +14,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import { DropDown } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import GObject from "@girs/node-gobject-2.0"
+import _ from "lodash"
 
 type FactoryType = "item" | "popoverItem"
 
@@ -39,14 +41,14 @@ interface Context {
 }
 
 interface BoundItem {
-  value: Gtk.ListItem
+  listItem: Gtk.ListItem
   type: FactoryType
 }
 
 const Context = createContext<Context | null>(null)
 
-const Container = forwardRef<Gtk.DropDown, Props<any>>(
-  function DropDownComponent<T>(
+const Container = React.memo(
+  forwardRef<Gtk.DropDown, Props<any>>(function DropDownComponent<T>(
     {
       children,
       renderItem,
@@ -59,6 +61,14 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
     const items = useMemo<ItemRecord<T>>(() => ({}), [])
     const model = useMemo<Gtk.StringList>(() => new Gtk.StringList(), [])
     const [boundItems, setBoundItems] = useState<BoundItem[]>([])
+
+    const value = useMemo<Context>(
+      () => ({
+        items,
+        model,
+      }),
+      [items, model]
+    )
 
     const itemFactory = useMemo<Gtk.SignalListItemFactory>(
       () => new Gtk.SignalListItemFactory(),
@@ -99,12 +109,12 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
     const setupFactory = useCallback(
       (factory: Gtk.SignalListItemFactory, type: FactoryType) => {
         const onFactoryBind = (object: GObject.Object) => {
-          const value = object as Gtk.ListItem
+          const listItem = object as Gtk.ListItem
 
           setBoundItems((boundItems) => [
             ...boundItems,
             {
-              value,
+              listItem,
               type,
             },
           ])
@@ -112,7 +122,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
 
         const onFactoryUnbind = (object: GObject.Object) => {
           setBoundItems((boundItems) =>
-            boundItems.filter((item) => item.value !== object)
+            boundItems.filter((item) => item.listItem !== object)
           )
         }
 
@@ -144,7 +154,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
     return (
       <>
         {createPortal(
-          boundItems.map(({ type, value }) => {
+          boundItems.map(({ type, listItem }) => {
             const Component =
               type === "item" ? ItemComponent : PopoverItemComponent
 
@@ -152,7 +162,6 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
               return null
             }
 
-            const listItem = value
             const item = listItem.item
             const id = item.getProperty("string") as string
 
@@ -176,17 +185,11 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
           listFactory={renderPopoverItem ? popoverItemFactory : undefined}
           {...props}
         />
-        <Context.Provider
-          value={{
-            items,
-            model,
-          }}
-        >
-          {children}
-        </Context.Provider>
+        <Context.Provider value={value}>{children}</Context.Provider>
       </>
     )
-  }
+  }),
+  _.isEqual
 )
 
 interface ItemProps {
@@ -195,7 +198,7 @@ interface ItemProps {
 }
 
 const Item = function DropDownItemComponent({ value, id }: ItemProps) {
-  const context = React.useContext(Context)
+  const context = useContext(Context)
 
   if (!context) {
     throw new Error("DropDown.Item must be used inside a DropDown.Container")

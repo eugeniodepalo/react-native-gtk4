@@ -15,6 +15,7 @@ export * from "./portal.js"
 
 export {
   AboutDialog,
+  ActionGroupProvider,
   ActionBar,
   ApplicationWindow,
   CenterBox,
@@ -29,6 +30,7 @@ export {
   Grid,
   HeaderBar,
   LevelBar,
+  MenuButton,
   Notebook,
   Overlay,
   PageSetupUnixDialog,

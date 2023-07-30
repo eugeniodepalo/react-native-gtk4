@@ -25,7 +25,8 @@
       "parser": "@typescript-eslint/parser",
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-namespace": "off"
+        "@typescript-eslint/no-namespace": "off",
+        "react/prop-types": "off"
       },
       "extends": ["plugin:@typescript-eslint/recommended"],
       "plugins": ["@typescript-eslint"]

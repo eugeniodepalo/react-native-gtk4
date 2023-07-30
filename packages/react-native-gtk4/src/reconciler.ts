@@ -6,6 +6,7 @@ import Label from "./generated/widgets/Label.js"
 import Gtk from "@girs/node-gtk-4.0"
 import { ApplicationContext } from "./components/ApplicationProvider.js"
 import { Container } from "./container.js"
+import _ from "lodash"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
@@ -16,14 +17,9 @@ type WidgetConstructor = new (
 ) => AbstractWidget
 
 function definedProps(obj: Record<string, any>) {
-  return Object.keys(obj).reduce(
-    (acc, key) => {
-      if (key !== "children" && obj[key] !== undefined) {
-        acc[key] = obj[key]
-      }
-      return acc
-    },
-    {} as Record<string, any>
+  return _.omitBy(
+    obj,
+    (value, key) => value === undefined || key === "children"
   )
 }
 

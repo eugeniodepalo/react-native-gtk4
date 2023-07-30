@@ -10,7 +10,7 @@ export type AbstractPopoverProps<T extends ElementType> = Omit<
   "children"
 > & {
   elementType: T
-  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   content?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
   open?: boolean
 }
@@ -73,9 +73,11 @@ export default forwardRef<Gtk.Popover, AbstractPopoverProps<ElementType>>(
               : null}
           </>
         )}
-        {React.cloneElement(children, {
-          ref: childRef,
-        })}
+        {children
+          ? React.cloneElement(children, {
+              ref: childRef,
+            })
+          : null}
       </>
     )
   }

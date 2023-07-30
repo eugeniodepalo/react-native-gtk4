@@ -35,6 +35,7 @@
     "@girs/node-gtk": "^3.2.0",
     "@girs/node-gtk-4.0": "4.10.4-3.2.0",
     "@girs/node-pango-1.0": "1.50.14-3.2.0",
+    "lodash": "^4.17.21",
     "node-gtk": "^0.12.0",
     "react": "^18.2.0",
     "react-reconciler": "^0.29.0"
@@ -45,6 +46,7 @@
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@types/jest": "^29.5.3",
+    "@types/lodash": "^4.14.196",
     "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",
     "@types/react-reconciler": "^0.28.2",

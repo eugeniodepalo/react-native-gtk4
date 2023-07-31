@@ -41,9 +41,7 @@ export default class TextView<
         }
         break
       case "imModule":
-        if (this.node.imModule !== newValue) {
-          this.node.imModule = newValue
-        }
+        this.node.imModule = newValue
         break
       case "indent":
         if (this.node.getIndent() !== newValue) {

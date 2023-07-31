@@ -16,9 +16,7 @@ export default class ToggleButton<
         }
         break
       case "group":
-        if (this.node.group !== newValue) {
-          this.node.setGroup(newValue)
-        }
+        this.node.setGroup(newValue)
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {
@@ -31,9 +29,7 @@ export default class ToggleButton<
         }
         break
       case "actionTarget":
-        if (this.node.actionTarget !== newValue) {
-          this.node.actionTarget = newValue
-        }
+        this.node.actionTarget = newValue
         break
       case "onToggled":
         this.setHandler("toggled", newValue)

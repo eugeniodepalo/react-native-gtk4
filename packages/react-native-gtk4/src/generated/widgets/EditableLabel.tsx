@@ -46,9 +46,7 @@ export default class EditableLabel<
         }
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
-          this.node.xalign = newValue
-        }
+        this.node.xalign = newValue
         break
       case "onChanged":
         this.setHandler("changed", newValue)

@@ -19,9 +19,7 @@ export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
         }
         break
       case "positionSet":
-        if (this.node.positionSet !== newValue) {
-          this.node.positionSet = newValue
-        }
+        this.node.positionSet = newValue
         break
       case "resizeEndChild":
         if (this.node.getResizeEndChild() !== newValue) {

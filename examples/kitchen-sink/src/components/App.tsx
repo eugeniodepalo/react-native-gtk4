@@ -1,12 +1,5 @@
-import React, {
-  ForwardedRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import React, { ForwardedRef, useCallback, useEffect, useState } from "react"
 import {
-  ActionGroupProvider,
   ApplicationWindow,
   Box,
   Button,
@@ -39,14 +32,14 @@ import {
   ActionBar,
   ColorDialogButton,
   EmojiChooser,
-  CssProvider,
   FontDialogButton,
   PageSetupUnixDialog,
   PrintUnixDialog,
   DropDown,
+  useActionGroup,
+  useMenu,
+  useInlineStyleSheet,
 } from "react-native-gtk4"
-
-let prev: any = null
 
 export default function App() {
   const [count, setCount] = useState(0)
@@ -79,13 +72,80 @@ export default function App() {
     []
   )
 
-  const onIncreaseAction = useCallback(() => {
-    setCount((count) => count + 1)
-  }, [])
+  const actionGroup = useActionGroup(
+    {
+      increaseCount: () => {
+        setCount((count) => count + 1)
+      },
+      decreaseCount: () => {
+        setCount((count) => count - 1)
+      },
+    },
+    []
+  )
 
-  const onDecreaseAction = useCallback(() => {
-    setCount((count) => count - 1)
-  }, [])
+  const menu = useMenu(
+    [
+      {
+        icon: "list-add",
+        action: "menu.increaseCount",
+      },
+      {
+        icon: "list-remove",
+        action: "menu.decreaseCount",
+      },
+      {
+        label: "Section",
+        section: true,
+        children: [
+          {
+            label: "Item 1",
+          },
+          {
+            label: "Item 2",
+          },
+        ],
+      },
+      {
+        label: "Submenu",
+        children: [
+          {
+            label: "Item 3",
+          },
+          {
+            label: "Item 4",
+          },
+        ],
+      },
+    ],
+    []
+  )
+
+  useInlineStyleSheet(`
+    .emoji-label {
+      font-size: 40px;
+    }
+
+    levelbar block.veryLow {
+      background-color: #ff0000;
+    }
+
+    levelbar block.low {
+      background-color: #ff8000;
+    }
+
+    levelbar block.medium {
+      background-color: #ffff00;
+    }
+
+    levelbar block.high {
+      background-color: #80ff00;
+    }
+
+    levelbar block.veryHigh {
+      background-color: #00ff00;
+    }   
+  `)
 
   useEffect(() => {
     let timeout: number
@@ -208,21 +268,13 @@ export default function App() {
                 hexpand
                 vexpand
               >
-                <CssProvider
-                  content={`
-                  .emoji-label {
-                    font-size: 40px;
-                  }
-                `}
-                >
-                  <Label
-                    label={selectedEmoji}
-                    canTarget={false}
-                    hexpand
-                    vexpand
-                    cssClasses={["emoji-label"]}
-                  />
-                </CssProvider>
+                <Label
+                  label={selectedEmoji}
+                  canTarget={false}
+                  hexpand
+                  vexpand
+                  cssClasses={["emoji-label"]}
+                />
               </Overlay>
               <Notebook.Container
                 hexpand
@@ -275,42 +327,18 @@ export default function App() {
                 spacing={10}
               >
                 <ProgressBar fraction={0.5} showText />
-                <CssProvider
-                  content={`
-                    levelbar block.veryLow {
-                      background-color: #ff0000;
-                    }
-
-                    levelbar block.low {
-                      background-color: #ff8000;
-                    }
-
-                    levelbar block.medium {
-                      background-color: #ffff00;
-                    }
-
-                    levelbar block.high {
-                      background-color: #80ff00;
-                    }
-
-                    levelbar block.veryHigh {
-                      background-color: #00ff00;
-                    }
-                `}
-                >
-                  <LevelBar
-                    value={levelBarValue}
-                    offsets={{
-                      veryLow: 0.1,
-                      low: 0.25,
-                      medium: 0.5,
-                      high: 0.75,
-                      veryHigh: 0.9,
-                    }}
-                    minValue={0}
-                    maxValue={1}
-                  />
-                </CssProvider>
+                <LevelBar
+                  value={levelBarValue}
+                  offsets={{
+                    veryLow: 0.1,
+                    low: 0.25,
+                    medium: 0.5,
+                    high: 0.75,
+                    veryHigh: 0.9,
+                  }}
+                  minValue={0}
+                  maxValue={1}
+                />
               </Box>
               <Scale
                 drawValue
@@ -492,18 +520,14 @@ export default function App() {
                   setShowAboutDialog(!showAboutDialog)
                 }}
               />
-              <ActionGroupProvider
-                name="menu"
-                actions={{
-                  increase: onIncreaseAction,
-                  decrease: onDecreaseAction,
-                }}
-              >
-                <MenuButton.Container hexpand vexpand label="Menu Button">
-                  <MenuButton.Item action="menu.increase" label="Increase" />
-                  <MenuButton.Item action="menu.decrease" label="Decrease" />
-                </MenuButton.Container>
-              </ActionGroupProvider>
+              <MenuButton
+                hexpand
+                vexpand
+                label="Menu Button"
+                actionGroup={actionGroup}
+                actionPrefix="menu"
+                menuModel={menu}
+              />
             </Box>
           </Grid.Item>
         </Grid.Container>

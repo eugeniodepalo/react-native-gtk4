@@ -16,29 +16,19 @@ export default class LockButton<
         }
         break
       case "textLock":
-        if (this.node.textLock !== newValue) {
-          this.node.textLock = newValue
-        }
+        this.node.textLock = newValue
         break
       case "textUnlock":
-        if (this.node.textUnlock !== newValue) {
-          this.node.textUnlock = newValue
-        }
+        this.node.textUnlock = newValue
         break
       case "tooltipLock":
-        if (this.node.tooltipLock !== newValue) {
-          this.node.tooltipLock = newValue
-        }
+        this.node.tooltipLock = newValue
         break
       case "tooltipNotAuthorized":
-        if (this.node.tooltipNotAuthorized !== newValue) {
-          this.node.tooltipNotAuthorized = newValue
-        }
+        this.node.tooltipNotAuthorized = newValue
         break
       case "tooltipUnlock":
-        if (this.node.tooltipUnlock !== newValue) {
-          this.node.tooltipUnlock = newValue
-        }
+        this.node.tooltipUnlock = newValue
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {
@@ -51,9 +41,7 @@ export default class LockButton<
         }
         break
       case "actionTarget":
-        if (this.node.actionTarget !== newValue) {
-          this.node.actionTarget = newValue
-        }
+        this.node.actionTarget = newValue
         break
       case "onNotifyPermission":
         this.setHandler("notify::permission", newValue)

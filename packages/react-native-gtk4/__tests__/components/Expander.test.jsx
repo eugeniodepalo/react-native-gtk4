@@ -18,7 +18,7 @@ describe("Expander", () => {
 
     expect(expander).toBeTruthy()
     expect(expander.node.label).toBeUndefined()
-    expect(expander.node.labelWidget).toBeNull()
+    expect(expander.node.labelWidget).toBeUndefined()
   })
 
   test("should render correctly with string label", () => {

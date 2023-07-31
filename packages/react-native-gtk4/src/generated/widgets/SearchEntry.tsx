@@ -11,9 +11,7 @@ export default class SearchEntry<
     super.set(propName, newValue)
     switch (propName) {
       case "activatesDefault":
-        if (this.node.activatesDefault !== newValue) {
-          this.node.activatesDefault = newValue
-        }
+        this.node.activatesDefault = newValue
         break
       case "placeholderText":
         if (this.node.getPlaceholderText() !== newValue) {
@@ -56,9 +54,7 @@ export default class SearchEntry<
         }
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
-          this.node.xalign = newValue
-        }
+        this.node.xalign = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

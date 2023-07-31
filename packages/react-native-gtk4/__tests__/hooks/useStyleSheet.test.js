@@ -1,18 +1,24 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
-import CssProvider from "../../src/components/CssProvider.js"
-import { Box } from "../../src/generated/intrinsics.js"
+import useStyleSheet, {
+  useInlineStyleSheet,
+} from "../../src/hooks/useStyleSheet.js"
 import Gtk from "@girs/node-gtk-4.0"
 import Gdk from "@girs/node-gdk-4.0"
 
-describe("CssProvider", () => {
+jest.mock("react")
+
+describe("useStyleSheet", () => {
   beforeEach(() => {
-    setup()
     Gdk.Display.getDefault.mockReturnValue(new Gdk.Display())
+    React.useMemo = jest.fn((fn) => fn())
   })
 
   test("should load the provided CSS file", () => {
-    render(<CssProvider path="styles.css" />)
+    useStyleSheet("styles.css")
+
+    for (const call of React.useEffect.mock.calls) {
+      call[0]()
+    }
 
     expect(Gtk.CssProvider).toHaveBeenCalled()
 
@@ -28,8 +34,11 @@ describe("CssProvider", () => {
   })
 
   test("should remove the CSS provider on unmount", () => {
-    render(<CssProvider path="styles.css" />)
-    render(null)
+    useStyleSheet("styles.css")
+
+    for (const call of React.useEffect.mock.calls) {
+      call[0]()?.()
+    }
 
     expect(Gtk.StyleContext.removeProviderForDisplay).toHaveBeenCalledWith(
       Gdk.Display.getDefault.mock.results[0].value,
@@ -41,7 +50,11 @@ describe("CssProvider", () => {
     Gdk.Display.getDefault.mockReturnValue(null)
 
     expect(() => {
-      render(<CssProvider path="styles.css" />)
+      useStyleSheet("styles.css")
+
+      for (const call of React.useEffect.mock.calls) {
+        call[0]()
+      }
     }).toThrow("Could not get default display")
 
     expect(Gtk.StyleContext.addProviderForDisplay).not.toHaveBeenCalled()
@@ -51,24 +64,14 @@ describe("CssProvider", () => {
     ).not.toHaveBeenCalled()
   })
 
-  test("should render children", () => {
-    render(
-      <CssProvider path="styles.css">
-        <Box />
-      </CssProvider>
-    )
-
-    expect(findBy({ type: "Box" })).toBeTruthy()
-  })
-
   test("should allow string content", () => {
     jest.spyOn(Buffer, "from")
 
-    render(
-      <CssProvider content=".box { background-color: red; }">
-        <Box className="box" />
-      </CssProvider>
-    )
+    useInlineStyleSheet(".box { background-color: red; }")
+
+    for (const call of React.useEffect.mock.calls) {
+      call[0]()
+    }
 
     expect(Gtk.CssProvider).toHaveBeenCalled()
 

@@ -16,7 +16,7 @@ describe("HeaderBar", () => {
     const headerBar = findBy({ type: "HeaderBar" })
 
     expect(headerBar).toBeTruthy()
-    expect(headerBar.node.titleWidget).toBeNull()
+    expect(headerBar.node.titleWidget).toBeUndefined()
   })
 
   test("should set title widget correctly", () => {
@@ -26,15 +26,5 @@ describe("HeaderBar", () => {
 
     expect(headerBar).toBeTruthy()
     expect(headerBar.node.titleWidget).toBe(label.node)
-  })
-
-  test("should handle unmount gracefully", () => {
-    render(<HeaderBar />)
-
-    Gtk.HeaderBar.prototype.setTitleWidget.mockClear()
-
-    render(null)
-
-    expect(Gtk.HeaderBar.prototype.setTitleWidget).toHaveBeenCalledWith(null)
   })
 })

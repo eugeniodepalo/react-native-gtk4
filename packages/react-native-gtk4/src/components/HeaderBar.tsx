@@ -1,4 +1,9 @@
-import React, { useEffect, useImperativeHandle, useRef } from "react"
+import React, {
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { HeaderBar } from "../generated/intrinsics.js"
@@ -13,23 +18,13 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
   { title, ...props },
   ref
 ) {
-  const titleRef = useRef<Gtk.Widget | null>(null)
+  const [titleNode, setTitleNode] = useState<Gtk.Widget | null>(null)
   const innerRef = useRef<Gtk.HeaderBar | null>(null)
 
   useImperativeHandle(ref, () => innerRef.current!)
 
-  useEffect(() => {
-    const headerBar = innerRef.current
-
-    if (!headerBar) {
-      return
-    }
-
-    headerBar.setTitleWidget(titleRef.current)
-
-    return () => {
-      headerBar.setTitleWidget(null)
-    }
+  const titleRef = useCallback((node: Gtk.Widget | null) => {
+    setTitleNode(node)
   }, [])
 
   return (
@@ -41,7 +36,11 @@ export default forwardRef<Gtk.HeaderBar, Props>(function HeaderBarComponent(
             })
           )
         : null}
-      <HeaderBar ref={innerRef} {...props} />
+      <HeaderBar
+        ref={innerRef}
+        titleWidget={titleNode ?? undefined}
+        {...props}
+      />
     </>
   )
 })

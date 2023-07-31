@@ -11,9 +11,7 @@ export default class FileChooserWidget<
     super.set(propName, newValue)
     switch (propName) {
       case "searchMode":
-        if (this.node.searchMode !== newValue) {
-          this.node.searchMode = newValue
-        }
+        this.node.searchMode = newValue
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

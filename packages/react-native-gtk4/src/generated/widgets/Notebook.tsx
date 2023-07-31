@@ -11,9 +11,7 @@ export default class Notebook<
     super.set(propName, newValue)
     switch (propName) {
       case "enablePopup":
-        if (this.node.enablePopup !== newValue) {
-          this.node.enablePopup = newValue
-        }
+        this.node.enablePopup = newValue
         break
       case "groupName":
         if (this.node.getGroupName() !== newValue) {

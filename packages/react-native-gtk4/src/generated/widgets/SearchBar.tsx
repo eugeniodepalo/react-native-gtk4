@@ -29,9 +29,7 @@ export default class SearchBar<
         }
         break
       case "searchModeEnabled":
-        if (this.node.searchModeEnabled !== newValue) {
-          this.node.searchModeEnabled = newValue
-        }
+        this.node.searchModeEnabled = newValue
         break
       case "showCloseButton":
         if (this.node.getShowCloseButton() !== newValue) {

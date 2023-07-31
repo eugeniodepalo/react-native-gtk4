@@ -32,7 +32,7 @@ describe("CheckButton", () => {
   test("should not set group when radio prop is false", () => {
     render(<CheckButton radio={false} />)
     const button = findBy({ type: "CheckButton" })
-    expect(button.node.group).toBeNull()
+    expect(button.node.group).toBeUndefined()
   })
 
   test("should handle unmount gracefully", () => {

@@ -11,9 +11,7 @@ export default class VolumeButton<
     super.set(propName, newValue)
     switch (propName) {
       case "useSymbolic":
-        if (this.node.useSymbolic !== newValue) {
-          this.node.useSymbolic = newValue
-        }
+        this.node.useSymbolic = newValue
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

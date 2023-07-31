@@ -1,5 +1,5 @@
 import Gtk from "@girs/node-gtk-4.0"
-import React from "react"
+import React, { createContext } from "react"
 import { Container } from "../container.js"
 
 export const PRIVATE_CONTAINER_KEY = Symbol("container")
@@ -10,8 +10,7 @@ export interface ApplicationContext {
   [PRIVATE_CONTAINER_KEY]: Container
 }
 
-export const ApplicationContext =
-  React.createContext<ApplicationContext | null>(null)
+export const ApplicationContext = createContext<ApplicationContext | null>(null)
 
 export default function ApplicationProvider({
   children,

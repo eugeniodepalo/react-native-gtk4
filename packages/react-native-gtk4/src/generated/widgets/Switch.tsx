@@ -31,9 +31,7 @@ export default class Switch<
         }
         break
       case "actionTarget":
-        if (this.node.actionTarget !== newValue) {
-          this.node.actionTarget = newValue
-        }
+        this.node.actionTarget = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

@@ -2,12 +2,6 @@ import Gtk from "@girs/node-gtk-4.0"
 import Gdk from "@girs/node-gdk-4.0"
 import { useEffect, useMemo } from "react"
 
-interface Props {
-  path?: string
-  content?: string
-  children: React.ReactNode
-}
-
 function getDefaultDisplay() {
   const display = Gdk.Display.getDefault()
 
@@ -18,12 +12,8 @@ function getDefaultDisplay() {
   return display
 }
 
-export default function CssProvider({ path, content, children }: Props) {
+function useProvider() {
   const provider = useMemo(() => new Gtk.CssProvider(), [])
-
-  if (!path && !content) {
-    throw new Error("Either path or content must be provided")
-  }
 
   useEffect(() => {
     Gtk.StyleContext.addProviderForDisplay(
@@ -37,18 +27,27 @@ export default function CssProvider({ path, content, children }: Props) {
     }
   }, [])
 
+  return provider
+}
+
+export function useInlineStyleSheet(content: string) {
+  const provider = useProvider()
+
   useEffect(() => {
-    if (content) {
-      const contentAsBytes = Buffer.from(content) as unknown as string
-      provider.loadFromData(contentAsBytes, -1)
-      return
-    }
+    const contentAsBytes = Buffer.from(content) as unknown as string
+    provider.loadFromData(contentAsBytes, -1)
+    return
+  }, [content])
 
-    if (path) {
-      provider.loadFromPath(path)
-      return
-    }
-  }, [path, content])
+  return provider
+}
 
-  return children
+export default function useStyleSheet(path: string) {
+  const provider = useProvider()
+
+  useEffect(() => {
+    provider.loadFromPath(path)
+  }, [path])
+
+  return provider
 }

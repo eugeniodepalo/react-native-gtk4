@@ -56,9 +56,7 @@ export default class SpinButton<
         }
         break
       case "editingCanceled":
-        if (this.node.editingCanceled !== newValue) {
-          this.node.editingCanceled = newValue
-        }
+        this.node.editingCanceled = newValue
         break
       case "editable":
         if (this.node.getEditable() !== newValue) {
@@ -86,9 +84,7 @@ export default class SpinButton<
         }
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
-          this.node.xalign = newValue
-        }
+        this.node.xalign = newValue
         break
       case "orientation":
         if (this.node.getOrientation() !== newValue) {

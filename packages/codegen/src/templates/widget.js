@@ -63,9 +63,14 @@ export default function (widgetClass) {
       ? `this.node.${prop.setter}(newValue)`
       : `this.node.${prop.name} = newValue`
 
-    ts += `if (${getter} !== newValue) {\n`
-    ts += `  ${setter}\n`
-    ts += `}\n`
+    if (prop.isWriteonly) {
+      ts += `${setter}\n`
+    } else {
+      ts += `if (${getter} !== newValue) {\n`
+      ts += `  ${setter}\n`
+      ts += `}\n`
+    }
+
     ts += `break\n`
   }
 

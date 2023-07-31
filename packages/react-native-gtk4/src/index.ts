@@ -15,13 +15,11 @@ export * from "./portal.js"
 
 export {
   AboutDialog,
-  ActionGroupProvider,
   ActionBar,
   ApplicationWindow,
   CenterBox,
   CheckButton,
   ColorDialogButton,
-  CssProvider,
   DropDown,
   EmojiChooser,
   Expander,

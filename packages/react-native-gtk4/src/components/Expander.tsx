@@ -1,4 +1,9 @@
-import React, { useEffect, useImperativeHandle, useRef } from "react"
+import React, {
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Expander } from "../generated/intrinsics.js"
@@ -16,20 +21,14 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
   { label, ...props },
   ref
 ) {
-  const labelRef = useRef<Gtk.Widget | null>(null)
+  const [labelNode, setLabelNode] = useState<Gtk.Widget | null>(null)
   const innerRef = useRef<Gtk.Expander | null>(null)
 
-  useEffect(() => {
-    const expander = innerRef.current
-
-    if (!expander) {
-      return
-    }
-
-    expander.setLabelWidget(labelRef.current)
-  }, [])
-
   useImperativeHandle(ref, () => innerRef.current!)
+
+  const labelRef = useCallback((node: Gtk.Widget | null) => {
+    setLabelNode(node)
+  }, [])
 
   return (
     <>
@@ -43,6 +42,7 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
       <Expander
         ref={innerRef}
         label={typeof label === "string" ? label : undefined}
+        labelWidget={labelNode ?? undefined}
         {...props}
       />
     </>

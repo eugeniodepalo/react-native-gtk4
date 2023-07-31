@@ -16,9 +16,7 @@ export default class ComboBoxText<
         }
         break
       case "editingCanceled":
-        if (this.node.editingCanceled !== newValue) {
-          this.node.editingCanceled = newValue
-        }
+        this.node.editingCanceled = newValue
         break
       case "onEditingDone":
         this.setHandler("editing-done", newValue)

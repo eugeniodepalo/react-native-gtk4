@@ -36,9 +36,7 @@ export default class PrintUnixDialog<
         }
         break
       case "printSettings":
-        if (this.node.printSettings !== newValue) {
-          this.node.printSettings = newValue
-        }
+        this.node.printSettings = newValue
         break
       case "supportSelection":
         if (this.node.getSupportSelection() !== newValue) {

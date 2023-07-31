@@ -46,9 +46,7 @@ export default class ComboBox<
         }
         break
       case "hasFrame":
-        if (this.node.hasFrame !== newValue) {
-          this.node.hasFrame = newValue
-        }
+        this.node.hasFrame = newValue
         break
       case "idColumn":
         if (this.node.getIdColumn() !== newValue) {
@@ -71,9 +69,7 @@ export default class ComboBox<
         }
         break
       case "editingCanceled":
-        if (this.node.editingCanceled !== newValue) {
-          this.node.editingCanceled = newValue
-        }
+        this.node.editingCanceled = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

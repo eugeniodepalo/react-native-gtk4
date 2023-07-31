@@ -11,24 +11,16 @@ export default class ShortcutsGroup<
     super.set(propName, newValue)
     switch (propName) {
       case "accelSizeGroup":
-        if (this.node.accelSizeGroup !== newValue) {
-          this.node.accelSizeGroup = newValue
-        }
+        this.node.accelSizeGroup = newValue
         break
       case "title":
-        if (this.node.title !== newValue) {
-          this.node.title = newValue
-        }
+        this.node.title = newValue
         break
       case "titleSizeGroup":
-        if (this.node.titleSizeGroup !== newValue) {
-          this.node.titleSizeGroup = newValue
-        }
+        this.node.titleSizeGroup = newValue
         break
       case "view":
-        if (this.node.view !== newValue) {
-          this.node.view = newValue
-        }
+        this.node.view = newValue
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

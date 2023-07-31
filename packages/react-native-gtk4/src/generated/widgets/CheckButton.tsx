@@ -29,9 +29,7 @@ export default class CheckButton<
         }
         break
       case "group":
-        if (this.node.group !== newValue) {
-          this.node.setGroup(newValue)
-        }
+        this.node.setGroup(newValue)
         break
       case "inconsistent":
         if (this.node.getInconsistent() !== newValue) {
@@ -59,9 +57,7 @@ export default class CheckButton<
         }
         break
       case "actionTarget":
-        if (this.node.actionTarget !== newValue) {
-          this.node.actionTarget = newValue
-        }
+        this.node.actionTarget = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

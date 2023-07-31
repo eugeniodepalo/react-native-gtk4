@@ -34,9 +34,7 @@ export default class ScrolledWindow<
         }
         break
       case "hscrollbarPolicy":
-        if (this.node.hscrollbarPolicy !== newValue) {
-          this.node.hscrollbarPolicy = newValue
-        }
+        this.node.hscrollbarPolicy = newValue
         break
       case "kineticScrolling":
         if (this.node.getKineticScrolling() !== newValue) {
@@ -84,14 +82,10 @@ export default class ScrolledWindow<
         }
         break
       case "vscrollbarPolicy":
-        if (this.node.vscrollbarPolicy !== newValue) {
-          this.node.vscrollbarPolicy = newValue
-        }
+        this.node.vscrollbarPolicy = newValue
         break
       case "windowPlacement":
-        if (this.node.windowPlacement !== newValue) {
-          this.node.windowPlacement = newValue
-        }
+        this.node.windowPlacement = newValue
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

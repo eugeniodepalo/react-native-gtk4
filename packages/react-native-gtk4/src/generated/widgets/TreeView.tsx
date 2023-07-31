@@ -16,9 +16,7 @@ export default class TreeView<
         }
         break
       case "enableGridLines":
-        if (this.node.enableGridLines !== newValue) {
-          this.node.enableGridLines = newValue
-        }
+        this.node.enableGridLines = newValue
         break
       case "enableSearch":
         if (this.node.getEnableSearch() !== newValue) {

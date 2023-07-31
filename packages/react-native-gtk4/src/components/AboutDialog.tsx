@@ -13,23 +13,36 @@ type Props = JSX.IntrinsicElements["AboutDialog"] & {
   creditSections?: AboutDialogCreditSection[]
 }
 
+const Inner = forwardRef<Gtk.AboutDialog, Props>(
+  function AboutDialogInnerComponent({ creditSections = [], ...props }, ref) {
+    const innerRef = useRef<Gtk.AboutDialog | null>(null)
+
+    useImperativeHandle(ref, () => innerRef.current!)
+
+    useEffect(() => {
+      if (!innerRef.current) {
+        return
+      }
+
+      for (const { name, people } of creditSections) {
+        innerRef.current.addCreditSection(name, people)
+      }
+    }, [])
+
+    return <AboutDialog ref={innerRef} {...props} />
+  }
+)
+
 export default forwardRef<Gtk.AboutDialog, Props>(function AboutDialogComponent(
   { creditSections = [], ...props },
   ref
 ) {
-  const innerRef = useRef<Gtk.AboutDialog | null>(null)
-
-  useImperativeHandle(ref, () => innerRef.current!)
-
-  useEffect(() => {
-    if (!innerRef.current) {
-      return
-    }
-
-    for (const { name, people } of creditSections) {
-      innerRef.current.addCreditSection(name, people)
-    }
-  }, [])
-
-  return createPortal(<AboutDialog ref={innerRef} {...props} />)
+  return createPortal(
+    <Inner
+      key={JSON.stringify(creditSections)}
+      ref={ref}
+      creditSections={creditSections}
+      {...props}
+    />
+  )
 })

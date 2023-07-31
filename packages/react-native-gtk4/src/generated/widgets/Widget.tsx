@@ -53,9 +53,7 @@ export default class Widget<
         }
         break
       case "heightRequest":
-        if (this.node.heightRequest !== newValue) {
-          this.node.heightRequest = newValue
-        }
+        this.node.heightRequest = newValue
         break
       case "hexpand":
         if (this.node.getHexpand() !== newValue) {
@@ -148,9 +146,7 @@ export default class Widget<
         }
         break
       case "widthRequest":
-        if (this.node.widthRequest !== newValue) {
-          this.node.widthRequest = newValue
-        }
+        this.node.widthRequest = newValue
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

@@ -29,9 +29,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "enableEmojiCompletion":
-        if (this.node.enableEmojiCompletion !== newValue) {
-          this.node.enableEmojiCompletion = newValue
-        }
+        this.node.enableEmojiCompletion = newValue
         break
       case "extraMenu":
         if (this.node.getExtraMenu() !== newValue) {
@@ -44,9 +42,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "imModule":
-        if (this.node.imModule !== newValue) {
-          this.node.imModule = newValue
-        }
+        this.node.imModule = newValue
         break
       case "inputHints":
         if (this.node.getInputHints() !== newValue) {
@@ -64,9 +60,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "invisibleCharSet":
-        if (this.node.invisibleCharSet !== newValue) {
-          this.node.invisibleCharSet = newValue
-        }
+        this.node.invisibleCharSet = newValue
         break
       case "maxLength":
         if (this.node.getMaxLength() !== newValue) {
@@ -84,39 +78,25 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "primaryIconActivatable":
-        if (this.node.primaryIconActivatable !== newValue) {
-          this.node.primaryIconActivatable = newValue
-        }
+        this.node.primaryIconActivatable = newValue
         break
       case "primaryIconGicon":
-        if (this.node.primaryIconGicon !== newValue) {
-          this.node.primaryIconGicon = newValue
-        }
+        this.node.primaryIconGicon = newValue
         break
       case "primaryIconName":
-        if (this.node.primaryIconName !== newValue) {
-          this.node.primaryIconName = newValue
-        }
+        this.node.primaryIconName = newValue
         break
       case "primaryIconPaintable":
-        if (this.node.primaryIconPaintable !== newValue) {
-          this.node.primaryIconPaintable = newValue
-        }
+        this.node.primaryIconPaintable = newValue
         break
       case "primaryIconSensitive":
-        if (this.node.primaryIconSensitive !== newValue) {
-          this.node.primaryIconSensitive = newValue
-        }
+        this.node.primaryIconSensitive = newValue
         break
       case "primaryIconTooltipMarkup":
-        if (this.node.primaryIconTooltipMarkup !== newValue) {
-          this.node.primaryIconTooltipMarkup = newValue
-        }
+        this.node.primaryIconTooltipMarkup = newValue
         break
       case "primaryIconTooltipText":
-        if (this.node.primaryIconTooltipText !== newValue) {
-          this.node.primaryIconTooltipText = newValue
-        }
+        this.node.primaryIconTooltipText = newValue
         break
       case "progressFraction":
         if (this.node.getProgressFraction() !== newValue) {
@@ -129,44 +109,28 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "secondaryIconActivatable":
-        if (this.node.secondaryIconActivatable !== newValue) {
-          this.node.secondaryIconActivatable = newValue
-        }
+        this.node.secondaryIconActivatable = newValue
         break
       case "secondaryIconGicon":
-        if (this.node.secondaryIconGicon !== newValue) {
-          this.node.secondaryIconGicon = newValue
-        }
+        this.node.secondaryIconGicon = newValue
         break
       case "secondaryIconName":
-        if (this.node.secondaryIconName !== newValue) {
-          this.node.secondaryIconName = newValue
-        }
+        this.node.secondaryIconName = newValue
         break
       case "secondaryIconPaintable":
-        if (this.node.secondaryIconPaintable !== newValue) {
-          this.node.secondaryIconPaintable = newValue
-        }
+        this.node.secondaryIconPaintable = newValue
         break
       case "secondaryIconSensitive":
-        if (this.node.secondaryIconSensitive !== newValue) {
-          this.node.secondaryIconSensitive = newValue
-        }
+        this.node.secondaryIconSensitive = newValue
         break
       case "secondaryIconTooltipMarkup":
-        if (this.node.secondaryIconTooltipMarkup !== newValue) {
-          this.node.secondaryIconTooltipMarkup = newValue
-        }
+        this.node.secondaryIconTooltipMarkup = newValue
         break
       case "secondaryIconTooltipText":
-        if (this.node.secondaryIconTooltipText !== newValue) {
-          this.node.secondaryIconTooltipText = newValue
-        }
+        this.node.secondaryIconTooltipText = newValue
         break
       case "showEmojiIcon":
-        if (this.node.showEmojiIcon !== newValue) {
-          this.node.showEmojiIcon = newValue
-        }
+        this.node.showEmojiIcon = newValue
         break
       case "tabs":
         if (this.node.getTabs() !== newValue) {
@@ -174,9 +138,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "truncateMultiline":
-        if (this.node.truncateMultiline !== newValue) {
-          this.node.truncateMultiline = newValue
-        }
+        this.node.truncateMultiline = newValue
         break
       case "visibility":
         if (this.node.getVisibility() !== newValue) {
@@ -189,9 +151,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "editingCanceled":
-        if (this.node.editingCanceled !== newValue) {
-          this.node.editingCanceled = newValue
-        }
+        this.node.editingCanceled = newValue
         break
       case "editable":
         if (this.node.getEditable() !== newValue) {
@@ -219,9 +179,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
-          this.node.xalign = newValue
-        }
+        this.node.xalign = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

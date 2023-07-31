@@ -24,6 +24,10 @@ export class GirProperty {
     return this.prop.$.writable !== "1" && !this.setter
   }
 
+  get isWriteonly() {
+    return this.prop.$.readable !== "1" && !this.getter
+  }
+
   get rawName() {
     return this.prop.$.name
   }

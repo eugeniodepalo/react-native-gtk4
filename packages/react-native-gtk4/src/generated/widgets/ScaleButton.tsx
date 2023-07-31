@@ -16,9 +16,7 @@ export default class ScaleButton<
         }
         break
       case "icons":
-        if (this.node.icons !== newValue) {
-          this.node.setIcons(newValue)
-        }
+        this.node.setIcons(newValue)
         break
       case "value":
         if (this.node.getValue() !== newValue) {

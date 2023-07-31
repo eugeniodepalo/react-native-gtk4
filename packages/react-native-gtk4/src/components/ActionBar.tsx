@@ -23,18 +23,18 @@ const Container = forwardRef<Gtk.ActionBar, Props>(function ActionBarContainer(
   { children, ...props },
   ref
 ) {
-  const [node, setNode] = useState<Gtk.ActionBar | null>(null)
+  const [actionBar, setActionBar] = useState<Gtk.ActionBar | null>(null)
 
-  useImperativeHandle(ref, () => node!)
+  useImperativeHandle(ref, () => actionBar!)
 
   const innerRef = useCallback((node: Gtk.ActionBar | null) => {
-    setNode(node)
+    setActionBar(node)
   }, [])
 
   return (
     <ActionBar ref={innerRef} {...props}>
-      {node ? (
-        <Context.Provider value={node}>{children}</Context.Provider>
+      {actionBar ? (
+        <Context.Provider value={actionBar}>{children}</Context.Provider>
       ) : null}
     </ActionBar>
   )

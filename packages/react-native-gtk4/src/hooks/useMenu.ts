@@ -1,4 +1,5 @@
 import Gio from "@girs/node-gio-2.0"
+import GLib from "@girs/node-glib-2.0"
 import { useEffect, useMemo } from "react"
 
 interface MenuItem {
@@ -6,6 +7,7 @@ interface MenuItem {
   icon?: string
   action?: string
   section?: boolean
+  attributes?: Record<string, GLib.Variant>
   children?: MenuItem[]
 }
 
@@ -24,6 +26,12 @@ function buildMenu(menu: Gio.Menu, items: MenuItem[]) {
 
     if (item.action) {
       menuItem.setDetailedAction(item.action)
+    }
+
+    if (item.attributes) {
+      for (const [key, value] of Object.entries(item.attributes)) {
+        menuItem.setAttributeValue(key, value)
+      }
     }
 
     if (item.children) {

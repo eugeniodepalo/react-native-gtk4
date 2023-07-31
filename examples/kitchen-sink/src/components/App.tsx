@@ -39,6 +39,7 @@ import {
   useActionGroup,
   useMenu,
   useInlineStyleSheet,
+  PopoverMenuBar,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -114,6 +115,52 @@ export default function App() {
           },
           {
             label: "Item 4",
+          },
+        ],
+      },
+    ],
+    []
+  )
+
+  const menuBar = useMenu(
+    [
+      {
+        label: "File",
+        icon: "document-new",
+        children: [
+          {
+            label: "Open",
+          },
+          {
+            label: "Save",
+          },
+          {
+            label: "Save As",
+          },
+          {
+            label: "Close",
+          },
+        ],
+      },
+      {
+        label: "Edit",
+        children: [
+          {
+            label: "Cut",
+          },
+          {
+            label: "Copy",
+          },
+          {
+            label: "Paste",
+          },
+        ],
+      },
+      {
+        label: "Help",
+        children: [
+          {
+            label: "About",
           },
         ],
       },
@@ -528,6 +575,7 @@ export default function App() {
                 actionPrefix="menu"
                 menuModel={menu}
               />
+              <PopoverMenuBar.Container hexpand vexpand menuModel={menuBar} />
             </Box>
           </Grid.Item>
         </Grid.Container>

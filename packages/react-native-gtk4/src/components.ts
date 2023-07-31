@@ -19,6 +19,7 @@ export { default as PageSetupUnixDialog } from "./components/PageSetupUnixDialog
 export { default as Paned } from "./components/Paned.js"
 export { default as Popover } from "./components/Popover.js"
 export { default as PopoverMenu } from "./components/PopoverMenu.js"
+export { default as PopoverMenuBar } from "./components/PopoverMenuBar.js"
 export { default as PrintUnixDialog } from "./components/PrintUnixDialog.js"
 export { default as Scale } from "./components/Scale.js"
 export { default as Stack } from "./components/Stack.js"

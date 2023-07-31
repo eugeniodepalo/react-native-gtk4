@@ -35,6 +35,7 @@ export {
   Paned,
   Popover,
   PopoverMenu,
+  PopoverMenuBar,
   PrintUnixDialog,
   Scale,
   Stack,

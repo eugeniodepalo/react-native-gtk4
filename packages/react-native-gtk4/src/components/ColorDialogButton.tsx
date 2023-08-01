@@ -5,10 +5,7 @@ import { ColorDialogButton } from "../generated/intrinsics.js"
 
 type ColorDialog = Pick<Gtk.ColorDialog, "title" | "modal">
 
-type Props = Omit<
-  JSX.IntrinsicElements["ColorDialogButton"],
-  "children" | "dialog"
-> &
+type Props = Omit<JSX.IntrinsicElements["ColorDialogButton"], "dialog"> &
   Partial<ColorDialog>
 
 export default forwardRef<Gtk.ColorDialogButton, Props>(

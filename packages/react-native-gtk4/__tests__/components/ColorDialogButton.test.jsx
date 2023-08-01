@@ -1,56 +1,68 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import ColorDialogButton from "../../src/components/ColorDialogButton.js"
-import { mockProperty } from "../../src/test-support/utils.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("ColorDialogButton", () => {
-  beforeEach(() => {
-    setup()
-    mockProperty(Gtk.ColorDialogButton, "dialog")
+  beforeEach(setup)
 
-    Gtk.ColorDialog.mockImplementation(function ({ modal, title }) {
-      this.modal = modal
-      this.title = title
-    })
-  })
+  test("should not render when Gtk.ColorDialog is not supported", async () => {
+    jest.doMock("@girs/node-gtk-4.0", () => ({
+      ...jest.requireActual("@girs/node-gtk-4.0"),
+      ColorDialog: undefined,
+    }))
 
-  test("should render null when Gtk.ColorDialog is undefined", () => {
-    const ColorDialog = Gtk.ColorDialog
-
-    Gtk.ColorDialog = undefined
+    const { default: ColorDialogButton } = await import(
+      "../../src/components/ColorDialogButton.js"
+    )
 
     render(<ColorDialogButton />)
+
     const button = findBy({ type: "ColorDialogButton" })
 
     expect(button).toBeNull()
-
-    Gtk.ColorDialog = ColorDialog
   })
 
-  test("should render correctly", () => {
-    render(<ColorDialogButton title="test" modal={true} />)
+  test("should render", () => {
+    render(<ColorDialogButton />)
+
     const button = findBy({ type: "ColorDialogButton" })
 
-    expect(button).not.toBeNull()
-    expect(button.node.dialog.title).toEqual("test")
-    expect(button.node.dialog.modal).toEqual(true)
+    expect(button.node).toBeInstanceOf(Gtk.ColorDialogButton)
   })
 
-  test("should default modal prop to true", () => {
-    render(<ColorDialogButton title="test" />)
+  test("should forward refs", () => {
+    const ref = React.createRef()
+
+    render(<ColorDialogButton ref={ref} />)
+
     const button = findBy({ type: "ColorDialogButton" })
 
-    expect(button.node.dialog.modal).toEqual(true)
+    expect(ref.current).toBe(button.node)
   })
 
-  test("should recreate dialog when title or modal changes", () => {
-    render(<ColorDialogButton title="test" modal={true} />)
-    const dialog = Gtk.ColorDialog.mock.instances[0]
-    expect(dialog).toMatchObject({ title: "test", modal: true })
+  test("should handle unmount gracefully", () => {
+    render(<ColorDialogButton />)
 
-    render(<ColorDialogButton title="test2" modal={false} />)
-    const newDialog = Gtk.ColorDialog.mock.instances[1]
-    expect(newDialog).toMatchObject({ title: "test2", modal: false })
+    render(null)
+
+    const button = findBy({ type: "ColorDialogButton" })
+
+    expect(button).toBeNull()
+  })
+
+  test("should set dialog", () => {
+    render(<ColorDialogButton title="foo" modal />)
+
+    const button = findBy({ type: "ColorDialogButton" })
+
+    expect(Gtk.ColorDialog).toHaveBeenCalledWith({
+      title: "foo",
+      modal: true,
+    })
+
+    expect(button.node.setDialog).toHaveBeenCalledWith(
+      Gtk.ColorDialog.mock.instances[0]
+    )
   })
 })

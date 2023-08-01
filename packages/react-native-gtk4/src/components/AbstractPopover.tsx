@@ -1,7 +1,8 @@
-import React, { useEffect, useImperativeHandle, useRef } from "react"
+import React, { useEffect } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { createPortal } from "../portal.js"
+import { useForwardedRef } from "../utils.js"
 
 type ElementType = "Popover" | "PopoverMenu" | "EmojiChooser"
 
@@ -10,8 +11,8 @@ export type AbstractPopoverProps<T extends ElementType> = Omit<
   "children"
 > & {
   elementType: T
-  children?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  content?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children?: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  content?: React.ReactElement & React.RefAttributes<Gtk.Widget>
   open?: boolean
 }
 
@@ -20,11 +21,9 @@ export default forwardRef<Gtk.Popover, AbstractPopoverProps<ElementType>>(
     { content, elementType, open, children, ...props },
     ref
   ) {
-    const childRef = useRef<Gtk.Widget | null>(null)
-    const innerRef = useRef<Gtk.Popover | null>(null)
-    const contentRef = useRef<Gtk.Widget | null>(null)
-
-    useImperativeHandle(ref, () => innerRef.current!)
+    const [innerRef, setInnerRef] = useForwardedRef(ref)
+    const [childRef, setChildRef] = useForwardedRef(children?.ref)
+    const [contentRef, setContentRef] = useForwardedRef(content?.ref)
 
     useEffect(() => {
       const content = contentRef.current
@@ -63,19 +62,19 @@ export default forwardRef<Gtk.Popover, AbstractPopoverProps<ElementType>>(
         {createPortal(
           <>
             {React.createElement(elementType, {
-              ref: innerRef,
+              ref: setInnerRef,
               ...props,
             })}
             {content
               ? React.cloneElement(content, {
-                  ref: contentRef,
+                  ref: setContentRef,
                 })
               : null}
           </>
         )}
         {children
           ? React.cloneElement(children, {
-              ref: childRef,
+              ref: setChildRef,
             })
           : null}
       </>

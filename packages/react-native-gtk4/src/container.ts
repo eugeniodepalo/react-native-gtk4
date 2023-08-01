@@ -21,7 +21,7 @@ export class Container extends AbstractNode<AbstractWidget> {
 
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
-  private container: any
+  private reconciler: any
 
   constructor(application: Gtk.Application) {
     super()
@@ -37,7 +37,7 @@ export class Container extends AbstractNode<AbstractWidget> {
       [PRIVATE_CONTAINER_KEY]: this,
     }
 
-    this.container = Reconciler.createContainer(
+    this.reconciler = Reconciler.createContainer(
       this,
       0,
       null,
@@ -55,7 +55,7 @@ export class Container extends AbstractNode<AbstractWidget> {
     this.context.application.on("activate", () => {
       Reconciler.updateContainer(
         withApplicationContext(element, this.context),
-        this.container,
+        this.reconciler,
         null,
         /* istanbul ignore next */ () => {}
       )

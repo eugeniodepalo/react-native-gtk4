@@ -1,8 +1,9 @@
-import React, { useEffect, useImperativeHandle, useRef } from "react"
+import React, { useEffect } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { AboutDialog } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
+import { useForwardedRef } from "../utils.js"
 
 export interface AboutDialogCreditSection {
   name: string
@@ -15,9 +16,7 @@ type Props = JSX.IntrinsicElements["AboutDialog"] & {
 
 const Inner = forwardRef<Gtk.AboutDialog, Props>(
   function AboutDialogInnerComponent({ creditSections = [], ...props }, ref) {
-    const innerRef = useRef<Gtk.AboutDialog | null>(null)
-
-    useImperativeHandle(ref, () => innerRef.current!)
+    const [innerRef, setInnerRef] = useForwardedRef(ref)
 
     useEffect(() => {
       if (!innerRef.current) {
@@ -29,7 +28,7 @@ const Inner = forwardRef<Gtk.AboutDialog, Props>(
       }
     }, [])
 
-    return <AboutDialog ref={innerRef} {...props} />
+    return <AboutDialog ref={setInnerRef} {...props} />
   }
 )
 

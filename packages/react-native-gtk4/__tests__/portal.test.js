@@ -7,15 +7,17 @@ import Gtk from "@girs/node-gtk-4.0"
 jest.mock("../src/container.js")
 jest.mock("../src/hooks/useApplication.js")
 
-describe("Portal", () => {
+describe("createPortal", () => {
+  const key = "key"
   let portal
-  let key = "key"
-  let container = new Container(new Gtk.Application())
+  let container
 
   beforeEach(() => {
-    useApplication.mockReturnValue({
+    container = new Container(new Gtk.Application())
+
+    useApplication.mockImplementation(() => ({
       [PRIVATE_CONTAINER_KEY]: container,
-    })
+    }))
 
     portal = createPortal(null, key)
   })

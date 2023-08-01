@@ -6,4 +6,5 @@ module.exports = {
   clearMocks: true,
   resetModules: true,
   resetMocks: true,
+  restoreMocks: true,
 }

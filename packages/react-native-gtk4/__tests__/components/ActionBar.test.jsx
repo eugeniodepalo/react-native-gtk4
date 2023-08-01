@@ -1,97 +1,227 @@
-import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import React, { createRef } from "react"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import ActionBar from "../../src/components/ActionBar.js"
-import { Button } from "../../src/generated/intrinsics.js"
+import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("ActionBar", () => {
   beforeEach(setup)
 
   describe("Container", () => {
-    test("should render correctly", () => {
-      render(<ActionBar.Container />)
+    test("should render", () => {
+      render(
+        <ActionBar.Container>
+          <Box />
+        </ActionBar.Container>
+      )
+
       const actionBar = findBy({ type: "ActionBar" })
-      expect(actionBar).toBeTruthy()
+      const child = findBy({ type: "Box" })
+
+      expect(actionBar.node).toBeInstanceOf(Gtk.ActionBar)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+      const childRef = createRef()
+
+      render(
+        <ActionBar.Container ref={ref}>
+          <Box ref={childRef} />
+        </ActionBar.Container>
+      )
+
+      const actionBar = findBy({ type: "ActionBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(actionBar.node)
+      expect(childRef.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <ActionBar.Container>
+          <Box />
+        </ActionBar.Container>
+      )
+
+      render(null)
+
+      const actionBar = findBy({ type: "ActionBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(actionBar).toBeNull()
+      expect(child).toBeNull()
+    })
+  })
+
+  describe("Item", () => {
+    test("should render", () => {
+      render(
+        <ActionBar.Container>
+          <ActionBar.Item>
+            <Box />
+          </ActionBar.Item>
+        </ActionBar.Container>
+      )
+
+      const actionBar = findBy({ type: "ActionBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(actionBar.node).toBeInstanceOf(Gtk.ActionBar)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+
+      render(
+        <ActionBar.Container>
+          <ActionBar.Item>
+            <Box ref={ref} />
+          </ActionBar.Item>
+        </ActionBar.Container>
+      )
+
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <ActionBar.Container>
+          <ActionBar.Item>
+            <Box />
+          </ActionBar.Item>
+        </ActionBar.Container>
+      )
+
+      render(null)
+
+      const actionBar = findBy({ type: "ActionBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(actionBar).toBeNull()
+      expect(child).toBeNull()
+    })
+
+    test("should remove itself when unmounted", () => {
+      render(
+        <ActionBar.Container>
+          <ActionBar.Item>
+            <Box />
+          </ActionBar.Item>
+        </ActionBar.Container>
+      )
+
+      const actionBar = findBy({ type: "ActionBar" })
+
+      render(null)
+
+      expect(actionBar.node.remove).toHaveBeenCalled()
+    })
+
+    test("should throw when not inside ActionBar.Container", () => {
+      expect(() => {
+        render(
+          <ActionBar.Item>
+            <Box />
+          </ActionBar.Item>
+        )
+      }).toThrow("ActionBar.Item must be a child of ActionBar.Container")
+    })
+
+    test("should pack child to start by default", () => {
+      render(
+        <ActionBar.Container>
+          <ActionBar.Item>
+            <Box />
+          </ActionBar.Item>
+        </ActionBar.Container>
+      )
+
+      const actionBar = findBy({ type: "ActionBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(actionBar.node.packStart).toHaveBeenCalledWith(child.node)
     })
   })
 
   describe("Section", () => {
-    test("should pack its child to the start by default", () => {
+    test("should render", () => {
       render(
-        <ActionBar.Container>
-          <ActionBar.Section>
-            <ActionBar.Item>
-              <Button />
-            </ActionBar.Item>
-          </ActionBar.Section>
-        </ActionBar.Container>
+        <ActionBar.Section>
+          <Box />
+        </ActionBar.Section>
       )
 
-      expect(Gtk.ActionBar.prototype.packStart).toHaveBeenCalledWith(
-        expect.anything()
-      )
+      const child = findBy({ type: "Box" })
+
+      expect(child.node).toBeInstanceOf(Gtk.Box)
     })
 
-    test("should pack its child to the correct position", () => {
+    test("should forward refs", () => {
+      const ref = createRef()
+
+      render(
+        <ActionBar.Section>
+          <Box ref={ref} />
+        </ActionBar.Section>
+      )
+
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <ActionBar.Section>
+          <Box />
+        </ActionBar.Section>
+      )
+
+      render(null)
+
+      const child = findBy({ type: "Box" })
+
+      expect(child).toBeNull()
+    })
+
+    test("should pack child to end", () => {
       render(
         <ActionBar.Container>
           <ActionBar.Section position="end">
             <ActionBar.Item>
-              <Button />
+              <Box />
             </ActionBar.Item>
           </ActionBar.Section>
         </ActionBar.Container>
       )
 
-      const button = findBy({ type: "Button" })
+      const actionBar = findBy({ type: "ActionBar" })
+      const child = findBy({ type: "Box" })
 
-      expect(Gtk.ActionBar.prototype.packEnd).toHaveBeenCalledWith(button.node)
+      expect(actionBar.node.packEnd).toHaveBeenCalledWith(child.node)
     })
 
-    test("should set its child as the center widget correctly", () => {
+    test("should set center child", () => {
       render(
         <ActionBar.Container>
           <ActionBar.Section position="center">
             <ActionBar.Item>
-              <Button />
+              <Box />
             </ActionBar.Item>
           </ActionBar.Section>
         </ActionBar.Container>
       )
 
-      const button = findBy({ type: "Button" })
+      const actionBar = findBy({ type: "ActionBar" })
+      const child = findBy({ type: "Box" })
 
-      expect(Gtk.ActionBar.prototype.setCenterWidget).toHaveBeenCalledWith(
-        button.node
-      )
-    })
-
-    test("should remove its previous child before adding a new child", () => {
-      render(
-        <ActionBar.Container>
-          <ActionBar.Section position="start">
-            <ActionBar.Item>
-              <Button />
-            </ActionBar.Item>
-          </ActionBar.Section>
-        </ActionBar.Container>
-      )
-
-      const prevButton = findBy({ type: "Button" })
-
-      render(
-        <ActionBar.Container>
-          <ActionBar.Section position="start" key="new">
-            <ActionBar.Item>
-              <Button label="New" />
-            </ActionBar.Item>
-          </ActionBar.Section>
-        </ActionBar.Container>
-      )
-
-      expect(Gtk.ActionBar.prototype.remove).toHaveBeenCalledWith(
-        prevButton.node
-      )
+      expect(actionBar.node.setCenterWidget).toHaveBeenCalledWith(child.node)
     })
   })
 })

@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import { Label } from "../../src/generated/intrinsics.js"
 import DropDown from "../../src/components/DropDown.js"
 import { mockProperty } from "../../src/test-support/utils.js"

@@ -1,19 +1,11 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CheckButton } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
+import { useForwardedRef } from "../utils.js"
 
-type Props = Omit<
-  JSX.IntrinsicElements["CheckButton"],
-  "group" | "children"
-> & {
+type Props = Omit<JSX.IntrinsicElements["CheckButton"], "group"> & {
   radio?: boolean
 }
 
@@ -22,9 +14,7 @@ export default forwardRef<Gtk.CheckButton, Props>(function CheckButtonComponent(
   ref
 ) {
   const [group, setGroup] = useState<Gtk.CheckButton | null>(null)
-  const innerRef = useRef<Gtk.CheckButton | null>(null)
-
-  useImperativeHandle(ref, () => innerRef.current!)
+  const [innerRef, setInnerRef] = useForwardedRef(ref)
 
   const groupRef = useCallback((node: Gtk.CheckButton | null) => {
     setGroup(node)
@@ -47,7 +37,7 @@ export default forwardRef<Gtk.CheckButton, Props>(function CheckButtonComponent(
   return (
     <>
       {radio ? createPortal(<CheckButton ref={groupRef} />) : null}
-      <CheckButton ref={innerRef} group={group ?? undefined} {...props} />
+      <CheckButton ref={setInnerRef} group={group ?? undefined} {...props} />
     </>
   )
 })

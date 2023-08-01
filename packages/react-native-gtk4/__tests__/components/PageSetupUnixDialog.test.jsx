@@ -1,5 +1,5 @@
 import React from "react"
-import { render, findBy, setup } from "../../src/test-support/render.js"
+import { render, findBy, setup } from "../../src/test-support/index.js"
 import PageSetupUnixDialog from "../../src/components/PageSetupUnixDialog.js"
 import { ApplicationWindow } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"

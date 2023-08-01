@@ -1,40 +1,41 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import { render, setup } from "../../src/test-support/index.js"
 import ApplicationProvider, {
   ApplicationContext,
   withApplicationContext,
 } from "../../src/components/ApplicationProvider.js"
 
+function Component() {
+  React.useContext(ApplicationContext)
+  return null
+}
+
 describe("ApplicationProvider", () => {
-  beforeEach(setup)
+  let context
+
+  beforeEach(() => {
+    setup()
+    context = {}
+    jest.spyOn(React, "useContext")
+  })
 
   test("should provide the correct context", () => {
-    const testApplication = { application: {}, quit: jest.fn() }
-
-    const TestComponent = () => {
-      const context = React.useContext(ApplicationContext)
-      expect(context).toEqual(testApplication)
-      return null
-    }
-
     render(
-      <ApplicationProvider value={testApplication}>
-        <TestComponent />
+      <ApplicationProvider value={context}>
+        <Component />
       </ApplicationProvider>
     )
+
+    expect(React.useContext).toHaveBeenCalledWith(ApplicationContext)
+    expect(React.useContext).toHaveReturnedWith(context)
   })
 
   describe("withApplicationContext", () => {
     test("should provide the correct context", () => {
-      const testApplication = { application: {}, quit: jest.fn() }
+      render(withApplicationContext(<Component />, context))
 
-      const TestComponent = () => {
-        const context = React.useContext(ApplicationContext)
-        expect(context).toEqual(testApplication)
-        return null
-      }
-
-      render(withApplicationContext(<TestComponent />, testApplication))
+      expect(React.useContext).toHaveBeenCalledWith(ApplicationContext)
+      expect(React.useContext).toHaveReturnedWith(context)
     })
   })
 })

@@ -1,11 +1,9 @@
-jest.mock("@girs/node-gtk", () => {
-  return {
-    __esModule: true,
-    default: {
-      startLoop: jest.fn(),
-    },
-  }
-})
+jest.mock("@girs/node-gtk", () => ({
+  __esModule: true,
+  default: {
+    startLoop: jest.fn(),
+  },
+}))
 
 jest.mock("@girs/node-gtk-4.0")
 jest.mock("@girs/node-gdk-4.0")

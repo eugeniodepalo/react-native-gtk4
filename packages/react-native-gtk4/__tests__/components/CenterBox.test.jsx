@@ -1,52 +1,87 @@
-import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
-import { Label } from "../../src/generated/intrinsics.js"
+import React, { createRef } from "react"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import CenterBox from "../../src/components/CenterBox.js"
+import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("CenterBox", () => {
   beforeEach(setup)
 
-  test("should assign widgets correctly", () => {
+  test("should render", () => {
+    render(<CenterBox />)
+
+    const box = findBy({ type: "CenterBox" })
+
+    expect(box.node).toBeInstanceOf(Gtk.CenterBox)
+  })
+
+  test("should forward refs", () => {
+    const ref = createRef()
+    const startRef = createRef()
+    const endRef = createRef()
+    const centerRef = createRef()
+
     render(
-      <CenterBox start={<Label label="Start" />} end={<Label label="End" />}>
-        <Label label="Center" />
+      <CenterBox
+        ref={ref}
+        start={<Box ref={startRef} id="start" />}
+        end={<Box ref={endRef} id="end" />}
+      >
+        <Box ref={centerRef} id="center" />
       </CenterBox>
     )
 
-    const centerBox = findBy({ type: "CenterBox" })
-    const startLabel = findBy({ text: "Start" })
-    const centerLabel = findBy({ text: "Center" })
-    const endLabel = findBy({ text: "End" })
+    const box = findBy({ type: "CenterBox" })
+    const start = findBy({ props: { id: "start" } })
+    const end = findBy({ props: { id: "end" } })
+    const center = findBy({ props: { id: "center" } })
 
-    expect(centerBox.node.setStartWidget).toHaveBeenCalledWith(startLabel.node)
-    expect(centerBox.node.setEndWidget).toHaveBeenCalledWith(endLabel.node)
-
-    expect(centerBox.node.setCenterWidget).toHaveBeenCalledWith(
-      centerLabel.node
-    )
-  })
-
-  test("should handle absence of start, end, and center widgets gracefully", () => {
-    render(<CenterBox />)
-    const centerBox = findBy({ type: "CenterBox" })
-
-    expect(centerBox.node.setStartWidget).toHaveBeenCalledWith(null)
-    expect(centerBox.node.setCenterWidget).toHaveBeenCalledWith(null)
-    expect(centerBox.node.setEndWidget).toHaveBeenCalledWith(null)
+    expect(ref.current).toBe(box.node)
+    expect(startRef.current).toBe(start.node)
+    expect(endRef.current).toBe(end.node)
+    expect(centerRef.current).toBe(center.node)
   })
 
   test("should handle unmount gracefully", () => {
     render(<CenterBox />)
 
-    Gtk.CenterBox.prototype.setStartWidget.mockClear()
-    Gtk.CenterBox.prototype.setCenterWidget.mockClear()
-    Gtk.CenterBox.prototype.setEndWidget.mockClear()
+    render(null)
+
+    const box = findBy({ type: "CenterBox" })
+
+    expect(box).toBeNull()
+  })
+
+  test("should set start, end and center", () => {
+    render(
+      <CenterBox start={<Box id="start" />} end={<Box id="end" />}>
+        <Box id="center" />
+      </CenterBox>
+    )
+
+    const box = findBy({ type: "CenterBox" })
+    const start = findBy({ props: { id: "start" } })
+    const end = findBy({ props: { id: "end" } })
+    const center = findBy({ props: { id: "center" } })
+
+    expect(box.node.setStartWidget).toHaveBeenCalledWith(start.node)
+    expect(box.node.setEndWidget).toHaveBeenCalledWith(end.node)
+    expect(box.node.setCenterWidget).toHaveBeenCalledWith(center.node)
+  })
+
+  test("should unset start, end and center when unmounted", () => {
+    render(
+      <CenterBox start={<Box />} end={<Box />}>
+        <Box />
+      </CenterBox>
+    )
+
+    const box = findBy({ type: "CenterBox" })
 
     render(null)
 
-    expect(Gtk.CenterBox.prototype.setStartWidget).toHaveBeenCalledWith(null)
-    expect(Gtk.CenterBox.prototype.setCenterWidget).toHaveBeenCalledWith(null)
-    expect(Gtk.CenterBox.prototype.setEndWidget).toHaveBeenCalledWith(null)
+    expect(box.node.setStartWidget).toHaveBeenCalledWith(null)
+    expect(box.node.setEndWidget).toHaveBeenCalledWith(null)
+    expect(box.node.setCenterWidget).toHaveBeenCalledWith(null)
   })
 })

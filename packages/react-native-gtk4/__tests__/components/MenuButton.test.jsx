@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import MenuButton from "../../src/components/MenuButton.js"
 import Gio from "@girs/node-gio-2.0"
 

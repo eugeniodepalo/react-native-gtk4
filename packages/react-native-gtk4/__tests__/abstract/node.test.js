@@ -1,52 +1,67 @@
-import { createMockNode } from "../../src/test-support/utils.js"
+import AbstractNode from "../../src/abstract/node.js"
 
 describe("AbstractNode", () => {
   let node
 
   beforeEach(() => {
-    node = createMockNode()
+    node = new (class extends AbstractNode {})()
   })
 
-  test("should initialize with empty children", () => {
-    expect(node.children).toEqual([])
+  describe("constructor", () => {
+    test("should initialize instance", () => {
+      expect(node.children).toEqual([])
+    })
   })
 
-  test("should append a child", () => {
-    const child = createMockNode()
-    node.appendChild(child)
-    expect(node.children).toContain(child)
+  describe("appendChild", () => {
+    test("should append", () => {
+      const child = {}
+
+      node.appendChild(child)
+
+      expect(node.children).toContain(child)
+    })
   })
 
-  test("should remove a child", () => {
-    const child = createMockNode()
+  describe("removeChild", () => {
+    test("should remove", () => {
+      const child = {}
 
-    node.appendChild(child)
-    node.removeChild(child)
+      node.appendChild(child)
 
-    expect(node.children).not.toContain(child)
+      node.removeChild(child)
+
+      expect(node.children).not.toContain(child)
+    })
+
+    test("should throw an error when not found", () => {
+      expect(() => node.removeChild({})).toThrow(
+        "Child to be removed not found in parent"
+      )
+    })
   })
 
-  test("should throw an error when removing a non-existent child", () => {
-    const child = createMockNode()
-    expect(() => node.removeChild(child)).toThrow("Removed child not found")
-  })
+  describe("insertBefore", () => {
+    test("should insert before another", () => {
+      const child1 = {}
+      const child2 = {}
+      const child3 = {}
 
-  test("should insert a child before another", () => {
-    const child1 = createMockNode()
-    const child2 = createMockNode()
+      node.appendChild(child1)
+      node.appendChild(child2)
 
-    node.appendChild(child1)
-    node.insertBefore(child2, child1)
+      node.insertBefore(child3, child2)
 
-    expect(node.children[0]).toBe(child2)
-  })
+      expect(node.children).toEqual([child1, child3, child2])
+    })
 
-  test("should throw an error when inserting before a non-existent child", () => {
-    const child1 = createMockNode()
-    const child2 = createMockNode()
+    test("should throw an error when not found", () => {
+      const child1 = {}
+      const child2 = {}
 
-    expect(() => node.insertBefore(child1, child2)).toThrow(
-      "Before child not found"
-    )
+      expect(() => node.insertBefore(child1, child2)).toThrow(
+        "Node before which to insert child not found in parent"
+      )
+    })
   })
 })

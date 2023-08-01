@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import Stack from "../../src/components/Stack.js"
 import { Button, Label } from "../../src/generated/intrinsics.js"
 

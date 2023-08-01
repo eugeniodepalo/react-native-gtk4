@@ -1,32 +1,61 @@
-import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import React, { createRef } from "react"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import ApplicationWindow from "../../src/components/ApplicationWindow.js"
-import { Label } from "../../src/generated/intrinsics.js"
+import { Box } from "../../src/generated/intrinsics.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 describe("ApplicationWindow", () => {
   beforeEach(setup)
 
-  test("should render correctly", () => {
+  test("should render", () => {
     render(<ApplicationWindow />)
+
     const window = findBy({ type: "ApplicationWindow" })
-    expect(window).not.toBeNull()
+
+    expect(window.node).toBeInstanceOf(Gtk.ApplicationWindow)
   })
 
-  test("should add titlebar when present", () => {
-    render(
-      <ApplicationWindow titlebar={<Label id="titlebar-label">Title</Label>} />
-    )
+  test("should forward refs", () => {
+    const ref = createRef()
+    const titlebarRef = createRef()
+
+    render(<ApplicationWindow ref={ref} titlebar={<Box ref={titlebarRef} />} />)
 
     const window = findBy({ type: "ApplicationWindow" })
-    const titlebar = findBy({ props: { id: "titlebar-label" } })
+    const titlebar = findBy({ type: "Box" })
 
-    expect(titlebar).not.toBeNull()
-    expect(window.props.titlebar).toBe(titlebar.node)
+    expect(ref.current).toBe(window.node)
+    expect(titlebarRef.current).toBe(titlebar.node)
   })
 
-  test("should not add titlebar when not present", () => {
+  test("should handle unmount gracefully", () => {
     render(<ApplicationWindow />)
+
+    render(null)
+
     const window = findBy({ type: "ApplicationWindow" })
-    expect(window.props.titlebar).toBeUndefined()
+
+    expect(window).toBeNull()
+  })
+
+  test("should set titlebar", () => {
+    render(<ApplicationWindow titlebar={<Box />} />)
+
+    const window = findBy({ type: "ApplicationWindow" })
+    const titlebar = findBy({ type: "Box" })
+
+    expect(window.node.setTitlebar).toHaveBeenCalledWith(titlebar.node)
+  })
+
+  test("should render with a different key when titlebar changes", () => {
+    render(<ApplicationWindow titlebar={<Box />} />)
+
+    const window1 = findBy({ type: "ApplicationWindow" })
+
+    render(<ApplicationWindow />)
+
+    const window2 = findBy({ type: "ApplicationWindow" })
+
+    expect(window1.node).not.toBe(window2.node)
   })
 })

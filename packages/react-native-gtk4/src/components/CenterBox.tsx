@@ -1,28 +1,27 @@
-import React, { useEffect, useImperativeHandle, useRef } from "react"
+import React, { useEffect } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CenterBox } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
+import { useForwardedRef } from "../utils.js"
 
 type Props = Omit<
   JSX.IntrinsicElements["CenterBox"],
   "startWidget" | "endWidget" | "centerWidget" | "children"
 > & {
-  start?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
-  end?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
-  children?: React.ReactElement<JSX.IntrinsicElements["Widget"]> | null
+  start?: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  end?: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children?: React.ReactElement & React.RefAttributes<Gtk.Widget>
 }
 
 export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
   { start, end, children, ...props },
   ref
 ) {
-  const innerRef = useRef<Gtk.CenterBox | null>(null)
-  const startRef = useRef<Gtk.Widget | null>(null)
-  const centerRef = useRef<Gtk.Widget | null>(null)
-  const endRef = useRef<Gtk.Widget | null>(null)
-
-  useImperativeHandle(ref, () => innerRef.current!)
+  const [innerRef, setInnerRef] = useForwardedRef(ref)
+  const [startRef, setStartRef] = useForwardedRef(start?.ref)
+  const [centerRef, setCenterRef] = useForwardedRef(children?.ref)
+  const [endRef, setEndRef] = useForwardedRef(end?.ref)
 
   useEffect(() => {
     const centerBox = innerRef.current
@@ -48,22 +47,22 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
         <>
           {start
             ? React.cloneElement(start, {
-                ref: startRef,
+                ref: setStartRef,
               })
             : null}
           {children
             ? React.cloneElement(children, {
-                ref: centerRef,
+                ref: setCenterRef,
               })
             : null}
           {end
             ? React.cloneElement(end, {
-                ref: endRef,
+                ref: setEndRef,
               })
             : null}
         </>
       )}
-      <CenterBox ref={innerRef} {...props} />
+      <CenterBox ref={setInnerRef} {...props} />
     </>
   )
 })

@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import Overlay from "../../src/components/Overlay.js"
 import { Label, Button } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"

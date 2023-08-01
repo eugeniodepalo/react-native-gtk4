@@ -1,14 +1,11 @@
-import { Reconciler } from "../../reconciler.js"
-import { Container } from "../../container.js"
-import { createApplication } from "./application.js"
+import { Reconciler } from "../reconciler.js"
+import { Container } from "../container.js"
 import {
   PRIVATE_CONTAINER_KEY,
   withApplicationContext,
-} from "../../components/ApplicationProvider.js"
-import "../../overrides.js"
-
-jest.useFakeTimers()
-jest.spyOn(Reconciler, "createContainer")
+} from "../components/ApplicationProvider.js"
+import "../overrides.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 const textPredicate = (predicate, child) => {
   return (
@@ -39,16 +36,17 @@ const predicateFn = (predicate, child) => {
   )
 }
 
-export class Renderer {
+export default class Renderer {
   setup() {
-    const application = createApplication()
+    jest.useFakeTimers()
+    jest.spyOn(Reconciler, "createContainer")
 
-    this.application = application
-    this.container = new Container(application)
-    this.instance = Reconciler.createContainer.mock.results[0].value
+    this.application = new Gtk.Application()
+    this.container = new Container(this.application)
+    this.reconciler = Reconciler.createContainer.mock.results[0].value
 
     this.applicationContext = {
-      application,
+      application: this.application,
       quit: jest.fn(),
       [PRIVATE_CONTAINER_KEY]: this.container,
     }
@@ -59,7 +57,7 @@ export class Renderer {
 
     Reconciler.updateContainer(
       withApplicationContext(element, this.applicationContext),
-      this.instance,
+      this.reconciler,
       null,
       () => {}
     )

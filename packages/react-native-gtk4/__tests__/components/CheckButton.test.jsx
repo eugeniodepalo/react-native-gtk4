@@ -1,53 +1,64 @@
-import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import React, { createRef } from "react"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import CheckButton from "../../src/components/CheckButton.js"
-import { mockProperty } from "../../src/test-support/utils.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("CheckButton", () => {
-  beforeEach(() => {
-    setup()
-    mockProperty(Gtk.CheckButton, "active")
-    mockProperty(Gtk.CheckButton, "group")
-  })
+  beforeEach(setup)
 
-  test("should render correctly", () => {
+  test("should render", () => {
     render(<CheckButton />)
+
     const button = findBy({ type: "CheckButton" })
-    expect(button).not.toBeNull()
+
+    expect(button.node).toBeInstanceOf(Gtk.CheckButton)
   })
 
-  test("should set active status correctly when provided", () => {
-    render(<CheckButton active={true} />)
-    const button = findBy({ type: "CheckButton" })
-    expect(button.node.active).toBe(true)
-  })
+  test("should forward refs", () => {
+    const ref = createRef()
 
-  test("should set group correctly when radio prop is true", () => {
-    render(<CheckButton radio={true} />)
-    const button = findBy({ type: "CheckButton" })
-    expect(button.node.group).not.toBeNull()
-  })
+    render(<CheckButton ref={ref} />)
 
-  test("should not set group when radio prop is false", () => {
-    render(<CheckButton radio={false} />)
     const button = findBy({ type: "CheckButton" })
-    expect(button.node.group).toBeUndefined()
+
+    expect(ref.current).toBe(button.node)
   })
 
   test("should handle unmount gracefully", () => {
-    jest.spyOn(React, "useRef")
-
-    render(<CheckButton active={true} />)
-
-    Gtk.CheckButton.prototype.setActive.mockClear()
-
-    for (const ref of React.useRef.mock.results.map((r) => r.value)) {
-      ref.current = null
-    }
+    render(<CheckButton />)
 
     render(null)
 
-    expect(Gtk.CheckButton.prototype.setActive).toHaveBeenCalledWith(false)
+    const button = findBy({ type: "CheckButton" })
+
+    expect(button).toBeNull()
+  })
+
+  test("should set group if radio", () => {
+    render(<CheckButton radio id="root" />)
+
+    const button = findBy({ props: { id: "root" } })
+
+    expect(button.node.setGroup).toHaveBeenCalledWith(
+      expect.any(Gtk.CheckButton)
+    )
+  })
+
+  test("should set active", () => {
+    render(<CheckButton active />)
+
+    const button = findBy({ type: "CheckButton" })
+
+    expect(button.node.setActive).toHaveBeenCalledWith(true)
+  })
+
+  test("should unset active when unmounted", () => {
+    render(<CheckButton active />)
+
+    const button = findBy({ type: "CheckButton" })
+
+    render(null)
+
+    expect(button.node.setActive).toHaveBeenCalledWith(false)
   })
 })

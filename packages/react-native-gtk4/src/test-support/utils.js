@@ -1,21 +1,14 @@
-import AbstractNode from "../abstract/node.js"
 import AbstractWidget from "../abstract/widget.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 export function createMockWidget() {
   return new (class extends AbstractWidget {
-    node = this.createNode()
-    set = jest.fn()
-    commitMount = jest.fn()
-
+    set() {}
+    commitMount() {}
     createNode() {
       return new Gtk.Widget()
     }
   })()
-}
-
-export function createMockNode() {
-  return new (class extends AbstractNode {})()
 }
 
 export function mockProperty(klass, name) {

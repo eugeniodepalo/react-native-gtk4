@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/render.js"
+import { render, setup, findBy } from "../../src/test-support/index.js"
 import LevelBar, { DEFAULT_OFFSETS } from "../../src/components/LevelBar.js"
 import Gtk from "@girs/node-gtk-4.0"
 

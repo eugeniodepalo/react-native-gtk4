@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class LevelBar<
   T extends Gtk.LevelBar = Gtk.LevelBar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.LevelBar({}) as T
+  static createNode() {
+    return new Gtk.LevelBar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

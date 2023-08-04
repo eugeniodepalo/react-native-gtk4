@@ -5,7 +5,7 @@ describe("CellView", () => {
   let widget
 
   beforeEach(() => {
-    widget = new CellView({})
+    widget = new CellView({}, CellView.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -14,7 +14,7 @@ describe("CellView", () => {
       cellAreaContext: new Gtk.CellAreaContext(),
     }
 
-    new CellView(props)
+    new CellView(props, CellView.createNode(props))
 
     expect(Gtk.CellView).toHaveBeenCalledWith(props)
   })

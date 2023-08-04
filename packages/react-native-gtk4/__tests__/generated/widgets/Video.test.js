@@ -6,7 +6,7 @@ describe("Video", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Video({})
+    widget = new Video({}, Video.createNode({}))
   })
 
   test("should set autoplay", () => {

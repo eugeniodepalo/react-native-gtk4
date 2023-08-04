@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Notebook<
   T extends Gtk.Notebook = Gtk.Notebook,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Notebook({}) as T
+  static createNode() {
+    return new Gtk.Notebook({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

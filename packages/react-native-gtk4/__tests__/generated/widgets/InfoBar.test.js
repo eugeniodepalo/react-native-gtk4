@@ -5,7 +5,7 @@ describe("InfoBar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new InfoBar({})
+    widget = new InfoBar({}, InfoBar.createNode({}))
   })
 
   test("should set messageType", () => {

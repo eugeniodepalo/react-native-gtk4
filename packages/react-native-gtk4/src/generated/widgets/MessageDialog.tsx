@@ -4,10 +4,10 @@ import Dialog from "./Dialog.js"
 export default class MessageDialog<
   T extends Gtk.MessageDialog = Gtk.MessageDialog,
 > extends Dialog<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.MessageDialog({
-      buttons: this.props.buttons,
-    }) as T
+      buttons: props.buttons,
+    })
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

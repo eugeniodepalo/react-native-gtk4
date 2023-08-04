@@ -6,7 +6,7 @@ describe("ColorDialogButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ColorDialogButton({})
+    widget = new ColorDialogButton({}, ColorDialogButton.createNode({}))
   })
 
   test("should set dialog", () => {

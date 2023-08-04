@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Calendar<
   T extends Gtk.Calendar = Gtk.Calendar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Calendar({}) as T
+  static createNode() {
+    return new Gtk.Calendar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

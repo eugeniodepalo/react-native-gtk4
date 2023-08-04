@@ -4,8 +4,8 @@ import Dialog from "./Dialog.js"
 export default class FontChooserDialog<
   T extends Gtk.FontChooserDialog = Gtk.FontChooserDialog,
 > extends Dialog<T> {
-  createNode() {
-    return new Gtk.FontChooserDialog({}) as T
+  static createNode() {
+    return new Gtk.FontChooserDialog({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

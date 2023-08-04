@@ -6,7 +6,7 @@ describe("ShortcutsShortcut", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ShortcutsShortcut({})
+    widget = new ShortcutsShortcut({}, ShortcutsShortcut.createNode({}))
   })
 
   test("should set accelSizeGroup", () => {

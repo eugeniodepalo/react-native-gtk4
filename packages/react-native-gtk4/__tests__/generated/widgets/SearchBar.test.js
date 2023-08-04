@@ -5,7 +5,7 @@ describe("SearchBar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new SearchBar({})
+    widget = new SearchBar({}, SearchBar.createNode({}))
   })
 
   test("should set keyCaptureWidget", () => {

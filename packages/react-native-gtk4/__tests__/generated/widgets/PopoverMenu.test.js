@@ -6,7 +6,7 @@ describe("PopoverMenu", () => {
   let widget
 
   beforeEach(() => {
-    widget = new PopoverMenu({})
+    widget = new PopoverMenu({}, PopoverMenu.createNode({}))
   })
 
   test("should set menuModel", () => {

@@ -4,11 +4,11 @@ import Widget from "./Widget.js"
 export default class CellView<
   T extends Gtk.CellView = Gtk.CellView,
 > extends Widget<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.CellView({
-      cellArea: this.props.cellArea,
-      cellAreaContext: this.props.cellAreaContext,
-    }) as T
+      cellArea: props.cellArea,
+      cellAreaContext: props.cellAreaContext,
+    })
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

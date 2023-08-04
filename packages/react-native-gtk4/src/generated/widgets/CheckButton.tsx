@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class CheckButton<
   T extends Gtk.CheckButton = Gtk.CheckButton,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.CheckButton({}) as T
+  static createNode() {
+    return new Gtk.CheckButton({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Statusbar<
   T extends Gtk.Statusbar = Gtk.Statusbar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Statusbar({}) as T
+  static createNode() {
+    return new Gtk.Statusbar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

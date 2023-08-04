@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class Revealer<
   T extends Gtk.Revealer = Gtk.Revealer,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Revealer({}) as T
+  static createNode() {
+    return new Gtk.Revealer({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

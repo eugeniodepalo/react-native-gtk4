@@ -4,8 +4,8 @@ import Window from "./Window.js"
 export default class ShortcutsWindow<
   T extends Gtk.ShortcutsWindow = Gtk.ShortcutsWindow,
 > extends Window<T> {
-  createNode() {
-    return new Gtk.ShortcutsWindow({}) as T
+  static createNode() {
+    return new Gtk.ShortcutsWindow({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -6,7 +6,7 @@ describe("MenuButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new MenuButton({})
+    widget = new MenuButton({}, MenuButton.createNode({}))
   })
 
   test("should set active", () => {

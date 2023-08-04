@@ -5,7 +5,7 @@ describe("CenterBox", () => {
   let widget
 
   beforeEach(() => {
-    widget = new CenterBox({})
+    widget = new CenterBox({}, CenterBox.createNode({}))
   })
 
   test("should set baselinePosition", () => {

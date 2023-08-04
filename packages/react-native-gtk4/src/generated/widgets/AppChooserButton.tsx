@@ -4,10 +4,10 @@ import Widget from "./Widget.js"
 export default class AppChooserButton<
   T extends Gtk.AppChooserButton = Gtk.AppChooserButton,
 > extends Widget<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.AppChooserButton({
-      contentType: this.props.contentType,
-    }) as T
+      contentType: props.contentType,
+    })
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

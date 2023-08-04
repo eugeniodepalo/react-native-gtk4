@@ -1,201 +1,182 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
-import { Label } from "../../src/generated/intrinsics.js"
+import { Box } from "../../src/generated/intrinsics.js"
 import DropDown from "../../src/components/DropDown.js"
-import { mockProperty } from "../../src/test-support/utils.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("DropDown", () => {
-  beforeEach(() => {
-    setup()
-    mockProperty(Gtk.DropDown, "model")
-
-    Gtk.StringList.mockImplementation(function () {
-      this.items = []
-      this.getString = (index) => this.items[index]
-      this.getNItems = () => this.items.length
-      this.append = (item) => this.items.push(item)
-      this.remove = (index) => this.items.splice(index, 1)
-    })
-  })
+  beforeEach(setup)
 
   describe("Container", () => {
-    test("should render correctly", () => {
+    test("should render", () => {
+      render(
+        <DropDown.Container>
+          <Box />
+        </DropDown.Container>
+      )
+
+      const dropDown = findBy({ type: "DropDown" })
+      const child = findBy({ type: "Box" })
+
+      expect(dropDown.node).toBeInstanceOf(Gtk.DropDown)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+
+      render(<DropDown.Container ref={ref} />)
+
+      const dropDown = findBy({ type: "DropDown" })
+
+      expect(ref.current).toBe(dropDown.node)
+    })
+
+    test("should handle unmount gracefully", () => {
       render(<DropDown.Container />)
-      const dropDown = findBy({ type: "DropDown" })
-      expect(dropDown).toBeTruthy()
-    })
 
-    test("should render children correctly", () => {
-      const listItem = new Gtk.ListItem()
-      const id = "itemId"
-      const value = "itemValue"
-
-      const renderItem = jest.fn((ref, value) => (
-        <Label label={`${value}-item`} ref={ref} />
-      ))
-
-      const renderPopoverItem = jest.fn((ref, value) => (
-        <Label label={`${value}-popoverItem`} ref={ref} />
-      ))
-
-      listItem.item = {
-        getProperty: jest.fn(() => id),
-      }
-
-      render(
-        <DropDown.Container
-          renderItem={renderItem}
-          renderPopoverItem={renderPopoverItem}
-        >
-          <DropDown.Item value={value} id={id} />
-        </DropDown.Container>
-      )
-
-      expect(Gtk.SignalListItemFactory).toHaveBeenCalledTimes(2)
-
-      const bindCallbacks = Gtk.SignalListItemFactory.prototype.on.mock.calls
-        .filter(([event]) => event === "bind")
-        .map(([, callback]) => callback)
-
-      for (const callback of bindCallbacks) {
-        callback(listItem)
-      }
-
-      jest.runAllTimers()
-
-      expect(renderItem).toHaveBeenCalled()
-      expect(renderPopoverItem).toHaveBeenCalled()
-      expect(renderItem).toHaveBeenCalledWith(expect.any(Function), value)
-
-      expect(renderPopoverItem).toHaveBeenCalledWith(
-        expect.any(Function),
-        value
-      )
-
-      const itemLabel = findBy({ text: `${value}-item` })
-      const popoverItemLabel = findBy({ text: `${value}-popoverItem` })
-
-      expect(listItem.setChild).toHaveBeenCalled()
-      expect(listItem.setChild).toHaveBeenCalledWith(itemLabel.node)
-      expect(listItem.setChild).toHaveBeenCalledWith(popoverItemLabel.node)
-      expect(listItem.item.getProperty).toHaveBeenCalled()
-      expect(listItem.item.getProperty).toHaveBeenCalledWith("string")
-    })
-
-    test("should update list when items change", () => {
-      const renderItem = jest.fn(() => <></>)
-      const id1 = "itemId1"
-      const value1 = "itemValue1"
-      const id2 = "itemId2"
-      const value2 = "itemValue2"
-
-      render(
-        <DropDown.Container renderItem={renderItem}>
-          <DropDown.Item value={value1} id={id1} />
-        </DropDown.Container>
-      )
+      render(null)
 
       const dropDown = findBy({ type: "DropDown" })
 
-      expect(dropDown.node.model.items).toContain(id1)
-      expect(dropDown.node.model.items).not.toContain(id2)
-
-      render(
-        <DropDown.Container renderItem={renderItem}>
-          <DropDown.Item value={value2} id={id2} />
-        </DropDown.Container>
-      )
-
-      expect(dropDown.node.model.items).not.toContain(id1)
-      expect(dropDown.node.model.items).toContain(id2)
+      expect(dropDown).toBeNull()
     })
 
-    test("should unbind item correctly when it is no longer needed", () => {
-      const listItem = new Gtk.ListItem()
-      const id = "itemId"
-      const value = "itemValue"
+    test("should setup factories", () => {
+      render(<DropDown.Container renderItem={() => null} />)
 
-      const renderItem = jest.fn((ref, value) => (
-        <Label label={`${value}-item`} ref={ref} />
-      ))
+      const dropDown = findBy({ type: "DropDown" })
 
-      listItem.item = {
-        getProperty: jest.fn(() => id),
-      }
-
-      render(
-        <DropDown.Container renderItem={renderItem}>
-          <DropDown.Item value={value} id={id} />
-        </DropDown.Container>
+      expect(dropDown.node.setFactory).toHaveBeenCalledWith(
+        expect.any(Gtk.SignalListItemFactory)
       )
 
-      const bindCallback =
-        Gtk.SignalListItemFactory.prototype.on.mock.calls.find(
-          ([event]) => event === "bind"
-        )[1]
+      expect(dropDown.node.setListFactory).toHaveBeenCalledWith(
+        expect.any(Gtk.SignalListItemFactory)
+      )
 
-      bindCallback(listItem)
-      jest.runAllTimers()
+      const [factory] = dropDown.node.setFactory.mock.calls[0]
+      const [listFactory] = dropDown.node.setListFactory.mock.calls[0]
 
-      expect(renderItem).toHaveBeenCalled()
+      expect(factory.on).toHaveBeenCalledWith("bind", expect.any(Function))
+      expect(factory.on).toHaveBeenCalledWith("unbind", expect.any(Function))
+      expect(listFactory.on).toHaveBeenCalledWith("bind", expect.any(Function))
 
-      const unbindCallback =
-        Gtk.SignalListItemFactory.prototype.on.mock.calls.find(
-          ([event]) => event === "unbind"
-        )[1]
+      expect(listFactory.on).toHaveBeenCalledWith(
+        "unbind",
+        expect.any(Function)
+      )
+    })
 
-      unbindCallback(listItem)
-      jest.runAllTimers()
+    test("should unset factories", () => {
+      render(<DropDown.Container renderItem={() => null} />)
 
-      const label = findBy({ text: `${value}-item` })
+      const dropDown = findBy({ type: "DropDown" })
 
-      expect(label).toBeNull()
+      render(<DropDown.Container />)
+
+      expect(dropDown.node.setFactory).toHaveBeenNthCalledWith(2, null)
+      expect(dropDown.node.setListFactory).toHaveBeenNthCalledWith(2, null)
+    })
+
+    test("should teardown factories on unmount", () => {
+      render(<DropDown.Container renderItem={() => null} />)
+
+      const dropDown = findBy({ type: "DropDown" })
+
+      const [factory] = dropDown.node.setFactory.mock.calls[0]
+      const [listFactory] = dropDown.node.setListFactory.mock.calls[0]
+      const [, onFactoryBind] = factory.on.mock.calls[0]
+      const [, onFactoryUnbind] = factory.on.mock.calls[1]
+      const [, onListFactoryBind] = listFactory.on.mock.calls[0]
+      const [, onListFactoryUnbind] = listFactory.on.mock.calls[1]
+
+      render(null)
+
+      expect(factory.off).toHaveBeenCalledWith("bind", onFactoryBind)
+      expect(factory.off).toHaveBeenCalledWith("unbind", onFactoryUnbind)
+      expect(listFactory.off).toHaveBeenCalledWith("bind", onListFactoryBind)
+
+      expect(listFactory.off).toHaveBeenCalledWith(
+        "unbind",
+        onListFactoryUnbind
+      )
+    })
+
+    test("should set model", () => {
+      render(<DropDown.Container />)
+
+      const dropDown = findBy({ type: "DropDown" })
+
+      expect(dropDown.node.setModel).toHaveBeenCalledWith(
+        expect.any(Gtk.StringList)
+      )
     })
   })
 
   describe("Item", () => {
-    test("should add item to the list", () => {
-      const value = "itemValue"
-      const id = "itemId"
-
+    test("should handle unmount gracefully", () => {
       render(
         <DropDown.Container>
-          <DropDown.Item value={value} id={id} />
+          <DropDown.Item />
         </DropDown.Container>
       )
 
-      const dropDown = findBy({ type: "DropDown" })
-
-      expect(dropDown.node.model.items).toContain(id)
-    })
-
-    test("should remove item from the list on unmount", () => {
-      const value = "itemValue"
-      const id = "itemId"
-
-      render(
-        <DropDown.Container>
-          <DropDown.Item value={value} id={id} />
-        </DropDown.Container>
-      )
+      render(null)
 
       const dropDown = findBy({ type: "DropDown" })
 
-      expect(dropDown.node.model.items).toContain(id)
-
-      render(<DropDown.Container />)
-
-      expect(dropDown.node.model.items).not.toContain(id)
+      expect(dropDown).toBeNull()
     })
 
-    test("should not add item to the list if Container is not present", () => {
-      const value = "itemValue"
-      const id = "itemId"
-
-      expect(() => render(<DropDown.Item value={value} id={id} />)).toThrow(
+    test("should throw when not in a container", () => {
+      expect(() => render(<DropDown.Item />)).toThrow(
         "DropDown.Item must be used inside a DropDown.Container"
       )
+    })
+
+    test("should append item to model", () => {
+      const value = "foo"
+      const id = "bar"
+
+      render(
+        <DropDown.Container>
+          <DropDown.Item id={id} value={value} />
+        </DropDown.Container>
+      )
+
+      const dropDown = findBy({ type: "DropDown" })
+      const [model] = dropDown.node.setModel.mock.calls[0]
+
+      expect(model.append).toHaveBeenCalledWith(id)
+    })
+
+    test("should remove item from model when unmounting", async () => {
+      const value = "foo"
+      const id = "bar"
+      const MockedStringList = Gtk.StringList
+
+      Gtk.StringList = jest.fn(() => {
+        const list = new MockedStringList()
+
+        list.getString = () => id
+        list.getNItems = () => 0
+
+        return list
+      })
+
+      render(
+        <DropDown.Container>
+          <DropDown.Item id={id} value={value} />
+        </DropDown.Container>
+      )
+
+      const dropDown = findBy({ type: "DropDown" })
+      const [model] = dropDown.node.setModel.mock.calls[0]
+
+      render(null)
+
+      expect(model.remove).toHaveBeenCalledWith(0)
     })
   })
 })

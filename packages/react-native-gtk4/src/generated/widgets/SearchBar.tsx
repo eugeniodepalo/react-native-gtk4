@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class SearchBar<
   T extends Gtk.SearchBar = Gtk.SearchBar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.SearchBar({}) as T
+  static createNode() {
+    return new Gtk.SearchBar({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

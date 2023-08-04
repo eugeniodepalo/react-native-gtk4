@@ -5,7 +5,7 @@ describe("ShortcutLabel", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ShortcutLabel({})
+    widget = new ShortcutLabel({}, ShortcutLabel.createNode({}))
   })
 
   test("should set accelerator", () => {

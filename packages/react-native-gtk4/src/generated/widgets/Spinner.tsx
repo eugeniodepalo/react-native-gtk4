@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Spinner<
   T extends Gtk.Spinner = Gtk.Spinner,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Spinner({}) as T
+  static createNode() {
+    return new Gtk.Spinner({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

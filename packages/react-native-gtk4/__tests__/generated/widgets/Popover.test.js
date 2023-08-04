@@ -6,7 +6,7 @@ describe("Popover", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Popover({})
+    widget = new Popover({}, Popover.createNode({}))
   })
 
   test("should set autohide", () => {

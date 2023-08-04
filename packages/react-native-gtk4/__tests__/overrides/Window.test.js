@@ -3,7 +3,7 @@ import "../../src/overrides/Window.js"
 
 describe("Window overrides", () => {
   test("should set close-request handler", () => {
-    const window = new Window()
+    const window = new Window({}, Window.createNode())
 
     window.commitMount()
 

@@ -5,7 +5,7 @@ describe("AspectFrame", () => {
   let widget
 
   beforeEach(() => {
-    widget = new AspectFrame({})
+    widget = new AspectFrame({}, AspectFrame.createNode({}))
   })
 
   test("should set obeyChild", () => {

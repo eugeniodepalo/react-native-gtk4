@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Separator<
   T extends Gtk.Separator = Gtk.Separator,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Separator({}) as T
+  static createNode() {
+    return new Gtk.Separator({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

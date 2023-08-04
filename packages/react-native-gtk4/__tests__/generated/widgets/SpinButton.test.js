@@ -5,7 +5,7 @@ describe("SpinButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new SpinButton({})
+    widget = new SpinButton({}, SpinButton.createNode({}))
   })
 
   test("should set adjustment", () => {

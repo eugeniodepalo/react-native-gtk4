@@ -5,7 +5,7 @@ describe("EditableLabel", () => {
   let widget
 
   beforeEach(() => {
-    widget = new EditableLabel({})
+    widget = new EditableLabel({}, EditableLabel.createNode({}))
   })
 
   test("should set editing", () => {

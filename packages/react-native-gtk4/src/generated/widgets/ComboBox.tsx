@@ -5,10 +5,10 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class ComboBox<
   T extends Gtk.ComboBox = Gtk.ComboBox,
 > extends Widget<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.ComboBox({
-      hasEntry: this.props.hasEntry,
-    }) as T
+      hasEntry: props.hasEntry,
+    })
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

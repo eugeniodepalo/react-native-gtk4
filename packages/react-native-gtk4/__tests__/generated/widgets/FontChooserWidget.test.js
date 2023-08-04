@@ -6,7 +6,7 @@ describe("FontChooserWidget", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FontChooserWidget({})
+    widget = new FontChooserWidget({}, FontChooserWidget.createNode({}))
   })
 
   test("should set accessibleRole", () => {

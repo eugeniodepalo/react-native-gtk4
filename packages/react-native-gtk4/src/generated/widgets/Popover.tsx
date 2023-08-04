@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class Popover<
   T extends Gtk.Popover = Gtk.Popover,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Popover({}) as T
+  static createNode() {
+    return new Gtk.Popover({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

@@ -5,10 +5,7 @@ export function createMockWidget() {
   return new (class extends AbstractWidget {
     set() {}
     commitMount() {}
-    createNode() {
-      return new Gtk.Widget()
-    }
-  })()
+  })(new Gtk.Widget())
 }
 
 export function mockProperty(klass, name) {

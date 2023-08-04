@@ -5,7 +5,7 @@ describe("Stack", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Stack({})
+    widget = new Stack({}, Stack.createNode({}))
   })
 
   test("should set hhomogeneous", () => {

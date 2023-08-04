@@ -5,7 +5,7 @@ describe("WindowControls", () => {
   let widget
 
   beforeEach(() => {
-    widget = new WindowControls({})
+    widget = new WindowControls({}, WindowControls.createNode({}))
   })
 
   test("should set decorationLayout", () => {

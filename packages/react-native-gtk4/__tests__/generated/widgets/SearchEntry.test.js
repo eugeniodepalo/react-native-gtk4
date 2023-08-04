@@ -5,7 +5,7 @@ describe("SearchEntry", () => {
   let widget
 
   beforeEach(() => {
-    widget = new SearchEntry({})
+    widget = new SearchEntry({}, SearchEntry.createNode({}))
   })
 
   test("should set activatesDefault", () => {

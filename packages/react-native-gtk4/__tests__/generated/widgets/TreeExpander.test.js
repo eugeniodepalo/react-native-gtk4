@@ -5,7 +5,7 @@ describe("TreeExpander", () => {
   let widget
 
   beforeEach(() => {
-    widget = new TreeExpander({})
+    widget = new TreeExpander({}, TreeExpander.createNode({}))
   })
 
   test("should set hideExpander", () => {

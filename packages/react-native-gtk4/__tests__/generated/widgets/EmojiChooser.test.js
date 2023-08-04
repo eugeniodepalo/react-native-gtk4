@@ -5,7 +5,7 @@ describe("EmojiChooser", () => {
   let widget
 
   beforeEach(() => {
-    widget = new EmojiChooser({})
+    widget = new EmojiChooser({}, EmojiChooser.createNode({}))
   })
 
   test("should set accessibleRole", () => {

@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class ColorChooserWidget<
   T extends Gtk.ColorChooserWidget = Gtk.ColorChooserWidget,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.ColorChooserWidget({}) as T
+  static createNode() {
+    return new Gtk.ColorChooserWidget({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

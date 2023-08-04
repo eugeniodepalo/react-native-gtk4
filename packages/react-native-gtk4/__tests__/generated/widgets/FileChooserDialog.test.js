@@ -5,7 +5,7 @@ describe("FileChooserDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FileChooserDialog({})
+    widget = new FileChooserDialog({}, FileChooserDialog.createNode({}))
   })
 
   test("should set accessibleRole", () => {

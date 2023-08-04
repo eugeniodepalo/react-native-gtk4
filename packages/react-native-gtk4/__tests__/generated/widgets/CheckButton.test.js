@@ -6,7 +6,7 @@ describe("CheckButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new CheckButton({})
+    widget = new CheckButton({}, CheckButton.createNode({}))
   })
 
   test("should set active", () => {

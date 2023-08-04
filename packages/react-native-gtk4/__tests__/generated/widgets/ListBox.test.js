@@ -5,7 +5,7 @@ describe("ListBox", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ListBox({})
+    widget = new ListBox({}, ListBox.createNode({}))
   })
 
   test("should set acceptUnpairedRelease", () => {

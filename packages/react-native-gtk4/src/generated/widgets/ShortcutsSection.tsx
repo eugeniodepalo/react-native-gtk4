@@ -4,8 +4,8 @@ import Box from "./Box.js"
 export default class ShortcutsSection<
   T extends Gtk.ShortcutsSection = Gtk.ShortcutsSection,
 > extends Box<T> {
-  createNode() {
-    return new Gtk.ShortcutsSection({}) as T
+  static createNode() {
+    return new Gtk.ShortcutsSection({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class Window<
   T extends Gtk.Window = Gtk.Window,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Window({}) as T
+  static createNode() {
+    return new Gtk.Window({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

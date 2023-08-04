@@ -5,7 +5,7 @@ describe("Expander", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Expander({})
+    widget = new Expander({}, Expander.createNode({}))
   })
 
   test("should set expanded", () => {

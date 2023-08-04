@@ -1,28 +1,22 @@
 import Gtk from "@girs/node-gtk-4.0"
 import AbstractNode from "./node.js"
-import { ApplicationContext } from "../components/ApplicationProvider.js"
 
 export default abstract class AbstractWidget<
   T extends Gtk.Widget = Gtk.Widget,
-> extends AbstractNode<AbstractWidget> {
-  node: T
+> extends AbstractNode<T, Gtk.Widget> {
   handlers: Record<string, any> = {}
   props: Record<string, any> = {}
-  context: ApplicationContext
 
-  constructor(props: Record<string, any> = {}, context: ApplicationContext) {
-    super()
+  constructor(props: Record<string, any> = {}, node: T) {
+    super(node)
 
     this.props = props
-    this.node = this.createNode()
-    this.context = context
 
     for (const propName in props) {
       this.set(propName, props[propName])
     }
   }
 
-  abstract createNode(): T
   abstract set(propName: string, newValue: any): void
   abstract commitMount(): void
 
@@ -42,5 +36,19 @@ export default abstract class AbstractWidget<
       this.node.on(handlerName, newHandler)
       this.handlers[handlerName] = newHandler
     }
+  }
+
+  getClosestParentOfType<T>(type: new () => T): T | null {
+    let parent = this.parent
+
+    while (parent) {
+      if (parent.node instanceof type) {
+        return parent.node
+      }
+
+      parent = parent.parent
+    }
+
+    return null
   }
 }

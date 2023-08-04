@@ -5,7 +5,7 @@ describe("StackSwitcher", () => {
   let widget
 
   beforeEach(() => {
-    widget = new StackSwitcher({})
+    widget = new StackSwitcher({}, StackSwitcher.createNode({}))
   })
 
   test("should set stack", () => {

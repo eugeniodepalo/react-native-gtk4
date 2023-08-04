@@ -6,7 +6,7 @@ describe("ProgressBar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ProgressBar({})
+    widget = new ProgressBar({}, ProgressBar.createNode({}))
   })
 
   test("should set ellipsize", () => {

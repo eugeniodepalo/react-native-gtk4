@@ -7,7 +7,7 @@ describe("TextView", () => {
   let widget
 
   beforeEach(() => {
-    widget = new TextView({})
+    widget = new TextView({}, TextView.createNode({}))
   })
 
   test("should set acceptsTab", () => {

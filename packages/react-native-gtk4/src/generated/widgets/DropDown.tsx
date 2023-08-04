@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class DropDown<
   T extends Gtk.DropDown = Gtk.DropDown,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.DropDown({}) as T
+  static createNode() {
+    return new Gtk.DropDown({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

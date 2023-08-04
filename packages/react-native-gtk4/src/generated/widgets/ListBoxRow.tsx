@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class ListBoxRow<
   T extends Gtk.ListBoxRow = Gtk.ListBoxRow,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.ListBoxRow({}) as T
+  static createNode() {
+    return new Gtk.ListBoxRow({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

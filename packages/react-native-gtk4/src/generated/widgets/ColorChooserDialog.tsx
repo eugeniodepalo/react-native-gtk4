@@ -4,8 +4,8 @@ import Dialog from "./Dialog.js"
 export default class ColorChooserDialog<
   T extends Gtk.ColorChooserDialog = Gtk.ColorChooserDialog,
 > extends Dialog<T> {
-  createNode() {
-    return new Gtk.ColorChooserDialog({}) as T
+  static createNode() {
+    return new Gtk.ColorChooserDialog({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -5,7 +5,7 @@ describe("HeaderBar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new HeaderBar({})
+    widget = new HeaderBar({}, HeaderBar.createNode({}))
   })
 
   test("should set decorationLayout", () => {

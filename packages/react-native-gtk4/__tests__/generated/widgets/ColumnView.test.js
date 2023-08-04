@@ -5,7 +5,7 @@ describe("ColumnView", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ColumnView({})
+    widget = new ColumnView({}, ColumnView.createNode({}))
   })
 
   test("should set enableRubberband", () => {

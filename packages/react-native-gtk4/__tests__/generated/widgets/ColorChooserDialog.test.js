@@ -6,7 +6,7 @@ describe("ColorChooserDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ColorChooserDialog({})
+    widget = new ColorChooserDialog({}, ColorChooserDialog.createNode({}))
   })
 
   test("should set showEditor", () => {

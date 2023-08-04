@@ -4,8 +4,8 @@ import Window from "./Window.js"
 export default class AboutDialog<
   T extends Gtk.AboutDialog = Gtk.AboutDialog,
 > extends Window<T> {
-  createNode() {
-    return new Gtk.AboutDialog({}) as T
+  static createNode() {
+    return new Gtk.AboutDialog({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

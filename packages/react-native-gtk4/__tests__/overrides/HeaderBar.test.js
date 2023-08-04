@@ -6,7 +6,7 @@ describe("HeaderBar overrides", () => {
   let headerBar
 
   beforeEach(() => {
-    headerBar = new HeaderBar()
+    headerBar = new HeaderBar({}, HeaderBar.createNode())
   })
 
   test("should append node on appendChild", () => {

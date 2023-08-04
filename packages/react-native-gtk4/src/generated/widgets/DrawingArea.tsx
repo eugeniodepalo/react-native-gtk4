@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class DrawingArea<
   T extends Gtk.DrawingArea = Gtk.DrawingArea,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.DrawingArea({}) as T
+  static createNode() {
+    return new Gtk.DrawingArea({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

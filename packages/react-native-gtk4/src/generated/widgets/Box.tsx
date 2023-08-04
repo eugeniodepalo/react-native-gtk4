@@ -2,8 +2,8 @@ import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Box<T extends Gtk.Box = Gtk.Box> extends Widget<T> {
-  createNode() {
-    return new Gtk.Box({}) as T
+  static createNode() {
+    return new Gtk.Box({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

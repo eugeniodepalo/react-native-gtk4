@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class AspectFrame<
   T extends Gtk.AspectFrame = Gtk.AspectFrame,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.AspectFrame({}) as T
+  static createNode() {
+    return new Gtk.AspectFrame({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

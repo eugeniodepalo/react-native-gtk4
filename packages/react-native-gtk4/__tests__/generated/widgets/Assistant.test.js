@@ -5,7 +5,7 @@ describe("Assistant", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Assistant({})
+    widget = new Assistant({}, Assistant.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -13,7 +13,7 @@ describe("Assistant", () => {
       useHeaderBar: 1,
     }
 
-    new Assistant(props)
+    new Assistant(props, Assistant.createNode(props))
 
     expect(Gtk.Assistant).toHaveBeenCalledWith(props)
   })

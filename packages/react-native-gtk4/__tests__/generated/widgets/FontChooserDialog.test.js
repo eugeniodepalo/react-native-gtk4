@@ -6,7 +6,7 @@ describe("FontChooserDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FontChooserDialog({})
+    widget = new FontChooserDialog({}, FontChooserDialog.createNode({}))
   })
 
   test("should set accessibleRole", () => {

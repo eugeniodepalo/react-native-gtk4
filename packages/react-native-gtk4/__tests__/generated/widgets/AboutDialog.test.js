@@ -6,7 +6,7 @@ describe("AboutDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new AboutDialog({})
+    widget = new AboutDialog({}, AboutDialog.createNode({}))
   })
 
   test("should set artists", () => {

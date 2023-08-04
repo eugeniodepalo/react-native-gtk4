@@ -73,7 +73,7 @@ export default function (widgetClass, gir) {
   ts += "  let widget\n"
   ts += "\n"
   ts += "  beforeEach(() => {\n"
-  ts += `    widget = new ${widgetClass.name}({})\n`
+  ts += `    widget = new ${widgetClass.name}({}, ${widgetClass.name}.createNode({}))\n`
   ts += "  })\n"
   ts += "\n"
 
@@ -87,7 +87,14 @@ export default function (widgetClass, gir) {
 
     ts += "  }\n"
     ts += "\n"
-    ts += "  new " + widgetClass.name + "(props)\n"
+
+    ts +=
+      "  new " +
+      widgetClass.name +
+      "(props, " +
+      widgetClass.name +
+      ".createNode(props))\n"
+
     ts += "\n"
     ts += `  expect(${widgetClass.type.name}).toHaveBeenCalledWith(props)\n`
     ts += "})\n"

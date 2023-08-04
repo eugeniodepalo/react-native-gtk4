@@ -5,7 +5,7 @@ describe("Separator", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Separator({})
+    widget = new Separator({}, Separator.createNode({}))
   })
 
   test("should set accessibleRole", () => {

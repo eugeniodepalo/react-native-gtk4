@@ -6,14 +6,11 @@ describe("PageSetupUnixDialog overrides", () => {
   test("should present node on commitMount", () => {
     const activeWindow = new Gtk.Window()
 
-    const dialog = new PageSetupUnixDialog(
-      {},
-      {
-        application: Object.assign(Object.create(Gtk.Application.prototype), {
-          getActiveWindow: jest.fn(() => activeWindow),
-        }),
-      }
-    )
+    const dialog = new PageSetupUnixDialog({}, PageSetupUnixDialog.createNode())
+    const application = new Gtk.Application()
+
+    application.getActiveWindow = jest.fn(() => activeWindow)
+    dialog.parent = { node: application }
 
     dialog.commitMount()
 

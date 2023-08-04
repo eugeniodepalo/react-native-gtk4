@@ -5,7 +5,7 @@ describe("ScrolledWindow", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ScrolledWindow({})
+    widget = new ScrolledWindow({}, ScrolledWindow.createNode({}))
   })
 
   test("should set hadjustment", () => {

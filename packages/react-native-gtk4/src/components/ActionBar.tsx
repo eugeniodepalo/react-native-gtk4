@@ -3,7 +3,6 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { ActionBar } from "../generated/intrinsics.js"
 import { useForwardedRef } from "../utils.js"
-import { createPortal } from "../portal.js"
 
 type Position = "start" | "center" | "end"
 
@@ -17,11 +16,9 @@ const Container = forwardRef<Gtk.ActionBar, JSX.IntrinsicElements["ActionBar"]>(
 
     return (
       <ActionBar ref={setInnerRef} {...props}>
-        {createPortal(
-          actionBar ? (
-            <Context.Provider value={actionBar}>{children}</Context.Provider>
-          ) : null
-        )}
+        {actionBar ? (
+          <Context.Provider value={actionBar}>{children}</Context.Provider>
+        ) : null}
       </ActionBar>
     )
   }

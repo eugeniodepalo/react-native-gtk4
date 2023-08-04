@@ -5,7 +5,7 @@ describe("Paned", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Paned({})
+    widget = new Paned({}, Paned.createNode({}))
   })
 
   test("should set endChild", () => {

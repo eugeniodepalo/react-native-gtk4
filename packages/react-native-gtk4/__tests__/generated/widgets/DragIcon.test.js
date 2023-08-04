@@ -5,7 +5,7 @@ describe("DragIcon", () => {
   let widget
 
   beforeEach(() => {
-    widget = new DragIcon({})
+    widget = new DragIcon({}, DragIcon.createNode({}))
   })
 
   test("should set accessibleRole", () => {

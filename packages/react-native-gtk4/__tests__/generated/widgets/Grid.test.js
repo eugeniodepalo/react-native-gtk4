@@ -5,7 +5,7 @@ describe("Grid", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Grid({})
+    widget = new Grid({}, Grid.createNode({}))
   })
 
   test("should set baselineRow", () => {

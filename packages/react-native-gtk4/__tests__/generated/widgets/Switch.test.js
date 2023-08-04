@@ -6,7 +6,7 @@ describe("Switch", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Switch({})
+    widget = new Switch({}, Switch.createNode({}))
   })
 
   test("should set active", () => {

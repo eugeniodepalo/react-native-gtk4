@@ -6,7 +6,7 @@ describe("Box overrides", () => {
   let box
 
   beforeEach(() => {
-    box = new Box()
+    box = new Box({}, Box.createNode())
   })
 
   test("should append node on appendChild", () => {

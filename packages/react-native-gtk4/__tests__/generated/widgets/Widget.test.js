@@ -6,7 +6,7 @@ describe("Widget", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Widget({})
+    widget = new Widget({}, Widget.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -14,7 +14,7 @@ describe("Widget", () => {
       cssName: "Some String",
     }
 
-    new Widget(props)
+    new Widget(props, Widget.createNode(props))
 
     expect(Gtk.Widget).toHaveBeenCalledWith(props)
   })

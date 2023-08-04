@@ -2,8 +2,8 @@ import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
-  createNode() {
-    return new Gtk.Image({}) as T
+  static createNode() {
+    return new Gtk.Image({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

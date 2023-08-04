@@ -52,13 +52,27 @@ describe("ColorDialogButton", () => {
   })
 
   test("should set dialog", () => {
-    render(<ColorDialogButton title="foo" modal />)
+    render(<ColorDialogButton title="foo" />)
 
     const button = findBy({ type: "ColorDialogButton" })
 
     expect(Gtk.ColorDialog).toHaveBeenCalledWith({
       title: "foo",
       modal: true,
+    })
+
+    expect(button.node.setDialog).toHaveBeenCalledWith(
+      Gtk.ColorDialog.mock.instances[0]
+    )
+  })
+
+  test("should set modal", () => {
+    render(<ColorDialogButton modal={false} />)
+
+    const button = findBy({ type: "ColorDialogButton" })
+
+    expect(Gtk.ColorDialog).toHaveBeenCalledWith({
+      modal: false,
     })
 
     expect(button.node.setDialog).toHaveBeenCalledWith(

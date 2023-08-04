@@ -1,5 +1,5 @@
 import { DefaultEventPriority } from "react-reconciler/constants.js"
-import { Container } from "../src/container.js"
+import { createContainerForRootNode } from "../src/container.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("Reconciler", () => {
@@ -20,9 +20,10 @@ describe("Reconciler", () => {
       Label = (await import("../src/generated/widgets/Label.js")).default
       Widget = (await import("../src/generated/widgets.js")).Widget
       hostConfig = (await import("react-reconciler")).mock.calls[0][0]
-      container = new Container(new Gtk.Application())
-      container.context = {}
+      container = createContainerForRootNode(new Gtk.Application())
       container.children = []
+      Widget.createNode = jest.fn(() => new Gtk.Widget())
+      Label.createNode = jest.fn(() => new Gtk.Label())
     })
 
     test("should have the correct defaults", () => {
@@ -71,9 +72,9 @@ describe("Reconciler", () => {
       test("should create a widget", () => {
         const props = { some: "Prop" }
 
-        hostConfig.createInstance("Widget", props, container)
+        hostConfig.createInstance("Widget", props)
 
-        expect(Widget).toHaveBeenCalledWith(props, container.context)
+        expect(Widget).toHaveBeenCalledWith(props, expect.any(Gtk.Widget))
       })
 
       test("should remove undefined props", () => {
@@ -81,7 +82,10 @@ describe("Reconciler", () => {
 
         hostConfig.createInstance("Widget", props, container)
 
-        expect(Widget).toHaveBeenCalledWith({ some: "Prop" }, container.context)
+        expect(Widget).toHaveBeenCalledWith(
+          { some: "Prop" },
+          expect.any(Gtk.Widget)
+        )
       })
     })
 
@@ -91,7 +95,10 @@ describe("Reconciler", () => {
 
         hostConfig.createTextInstance(text, container)
 
-        expect(Label).toHaveBeenCalledWith({ label: text }, container.context)
+        expect(Label).toHaveBeenCalledWith(
+          { label: text },
+          expect.any(Gtk.Label)
+        )
       })
     })
 

@@ -5,7 +5,7 @@ describe("ActionBar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ActionBar({})
+    widget = new ActionBar({}, ActionBar.createNode({}))
   })
 
   test("should set revealed", () => {

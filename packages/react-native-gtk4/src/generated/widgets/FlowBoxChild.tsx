@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class FlowBoxChild<
   T extends Gtk.FlowBoxChild = Gtk.FlowBoxChild,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.FlowBoxChild({}) as T
+  static createNode() {
+    return new Gtk.FlowBoxChild({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

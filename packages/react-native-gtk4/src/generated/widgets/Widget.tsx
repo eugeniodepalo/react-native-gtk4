@@ -4,10 +4,10 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class Widget<
   T extends Gtk.Widget = Gtk.Widget,
 > extends AbstractWidget<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.Widget({
-      cssName: this.props.cssName,
-    }) as T
+      cssName: props.cssName,
+    })
   }
   commitMount() {}
   set(propName: string, newValue: any) {

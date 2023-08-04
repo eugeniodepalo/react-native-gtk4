@@ -1,15 +1,14 @@
 import GLib from "@girs/node-glib-2.0"
 import Gtk from "@girs/node-gtk-4.0"
 import gi from "@girs/node-gtk"
-import { Container, MAX_TIMEOUT } from "../src/container.js"
+import { MAX_TIMEOUT } from "../src/containers/application.js"
 import { Reconciler } from "../src/reconciler.js"
-import {
-  PRIVATE_CONTAINER_KEY,
-  withApplicationContext,
-} from "../src/components/ApplicationProvider.js"
-import { ApplicationWindow, Window } from "../src/generated/widgets.js"
+import { withApplicationContext } from "../src/components/ApplicationProvider.js"
+import { ApplicationWindow, Widget, Window } from "../src/generated/widgets.js"
+import ApplicationContainer from "../src/containers/application.js"
 
 jest.mock("react")
+jest.mock("../src/generated/widgets/Widget.js")
 jest.mock("../src/generated/widgets/Window.js")
 jest.mock("../src/generated/widgets/ApplicationWindow.js")
 jest.mock("../src/components/ApplicationProvider.js")
@@ -17,8 +16,8 @@ jest.mock("../src/reconciler.js")
 
 describe("Container", () => {
   let application
+  let applicationContainer
   let container
-  let reconciler
   let loop
 
   beforeEach(() => {
@@ -31,24 +30,17 @@ describe("Container", () => {
     }))
 
     application = new Gtk.Application()
-    container = new Container(application)
-    reconciler = Reconciler.createContainer.mock.results[0].value
+    applicationContainer = new ApplicationContainer(application)
+    container = Reconciler.createContainer.mock.results[0].value
     loop = GLib.MainLoop.new.mock.results[0].value
   })
 
   describe("constructor", () => {
     test("should initialize instance", () => {
-      expect(container.context).toMatchObject({
-        application,
-        quit: expect.any(Function),
-        [PRIVATE_CONTAINER_KEY]: container,
-      })
-
-      expect(container.reconciler).toBe(reconciler)
-      expect(container.loop).toBe(loop)
+      expect(applicationContainer.container).toBe(container)
 
       expect(Reconciler.createContainer).toHaveBeenCalledWith(
-        container,
+        applicationContainer,
         0,
         null,
         false,
@@ -69,7 +61,7 @@ describe("Container", () => {
 
       const element = {}
 
-      container.render(element)
+      applicationContainer.render(element)
 
       expect(application.run).toHaveBeenCalledWith([])
 
@@ -84,7 +76,7 @@ describe("Container", () => {
 
       expect(Reconciler.updateContainer).toHaveBeenCalledWith(
         withApplicationContext.mock.results[0].value,
-        reconciler,
+        container,
         null,
         expect.any(Function)
       )
@@ -109,7 +101,7 @@ describe("Container", () => {
 
       child.node = new Gtk.ApplicationWindow()
 
-      container.appendChild(child)
+      applicationContainer.appendChild(child)
 
       expect(child.node.setApplication).toHaveBeenCalledWith(application)
     })
@@ -117,23 +109,25 @@ describe("Container", () => {
 
   describe("removeChild", () => {
     test("should unparent widgets", () => {
-      const child = { node: { unparent: jest.fn() } }
+      const child = new Widget()
 
-      container.appendChild(child)
+      child.node = new Gtk.Widget()
 
-      container.removeChild(child)
+      applicationContainer.appendChild(child)
+
+      applicationContainer.removeChild(child)
 
       expect(child.node.unparent).toHaveBeenCalled()
     })
 
     test("should destroy window", () => {
-      const child = new Window()
+      const child = new Window({})
 
       child.node = new Gtk.Window()
 
-      container.appendChild(child)
+      applicationContainer.appendChild(child)
 
-      container.removeChild(child)
+      applicationContainer.removeChild(child)
 
       expect(child.node.destroy).toHaveBeenCalled()
     })
@@ -147,10 +141,10 @@ describe("Container", () => {
 
       child3.node = new Gtk.ApplicationWindow()
 
-      container.appendChild(child1)
-      container.appendChild(child2)
+      applicationContainer.appendChild(child1)
+      applicationContainer.appendChild(child2)
 
-      container.insertBefore(child3, child2)
+      applicationContainer.insertBefore(child3, child2)
 
       expect(child3.node.setApplication).toHaveBeenCalledWith(application)
     })

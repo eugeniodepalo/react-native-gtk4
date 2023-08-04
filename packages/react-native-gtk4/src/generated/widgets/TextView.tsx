@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class TextView<
   T extends Gtk.TextView = Gtk.TextView,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.TextView({}) as T
+  static createNode() {
+    return new Gtk.TextView({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

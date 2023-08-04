@@ -6,7 +6,7 @@ describe("ListBoxRow", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ListBoxRow({})
+    widget = new ListBoxRow({}, ListBoxRow.createNode({}))
   })
 
   test("should set activatable", () => {

@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class Button<
   T extends Gtk.Button = Gtk.Button,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Button({}) as T
+  static createNode() {
+    return new Gtk.Button({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

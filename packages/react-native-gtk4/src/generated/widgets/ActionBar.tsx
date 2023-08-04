@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class ActionBar<
   T extends Gtk.ActionBar = Gtk.ActionBar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.ActionBar({}) as T
+  static createNode() {
+    return new Gtk.ActionBar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Switch<
   T extends Gtk.Switch = Gtk.Switch,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Switch({}) as T
+  static createNode() {
+    return new Gtk.Switch({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -5,7 +5,7 @@ describe("ShortcutsWindow", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ShortcutsWindow({})
+    widget = new ShortcutsWindow({}, ShortcutsWindow.createNode({}))
   })
 
   test("should set sectionName", () => {

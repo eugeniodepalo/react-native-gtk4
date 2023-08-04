@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class ShortcutLabel<
   T extends Gtk.ShortcutLabel = Gtk.ShortcutLabel,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.ShortcutLabel({}) as T
+  static createNode() {
+    return new Gtk.ShortcutLabel({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

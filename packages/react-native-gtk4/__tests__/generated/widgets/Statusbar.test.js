@@ -5,7 +5,7 @@ describe("Statusbar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Statusbar({})
+    widget = new Statusbar({}, Statusbar.createNode({}))
   })
 
   test("should set accessibleRole", () => {

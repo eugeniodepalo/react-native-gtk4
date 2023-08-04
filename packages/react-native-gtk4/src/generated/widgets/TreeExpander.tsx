@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class TreeExpander<
   T extends Gtk.TreeExpander = Gtk.TreeExpander,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.TreeExpander({}) as T
+  static createNode() {
+    return new Gtk.TreeExpander({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

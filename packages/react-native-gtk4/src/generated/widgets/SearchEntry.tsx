@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class SearchEntry<
   T extends Gtk.SearchEntry = Gtk.SearchEntry,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.SearchEntry({}) as T
+  static createNode() {
+    return new Gtk.SearchEntry({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

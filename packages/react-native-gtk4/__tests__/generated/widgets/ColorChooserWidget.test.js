@@ -6,7 +6,7 @@ describe("ColorChooserWidget", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ColorChooserWidget({})
+    widget = new ColorChooserWidget({}, ColorChooserWidget.createNode({}))
   })
 
   test("should set showEditor", () => {

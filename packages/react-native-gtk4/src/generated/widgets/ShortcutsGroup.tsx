@@ -4,8 +4,8 @@ import Box from "./Box.js"
 export default class ShortcutsGroup<
   T extends Gtk.ShortcutsGroup = Gtk.ShortcutsGroup,
 > extends Box<T> {
-  createNode() {
-    return new Gtk.ShortcutsGroup({}) as T
+  static createNode() {
+    return new Gtk.ShortcutsGroup({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -5,7 +5,7 @@ describe("ApplicationWindow", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ApplicationWindow({})
+    widget = new ApplicationWindow({}, ApplicationWindow.createNode({}))
   })
 
   test("should set showMenubar", () => {

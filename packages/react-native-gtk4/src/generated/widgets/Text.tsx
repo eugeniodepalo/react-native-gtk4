@@ -2,8 +2,8 @@ import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
-  createNode() {
-    return new Gtk.Text({}) as T
+  static createNode() {
+    return new Gtk.Text({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

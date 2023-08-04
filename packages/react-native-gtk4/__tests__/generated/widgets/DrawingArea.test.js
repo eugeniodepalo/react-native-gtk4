@@ -5,7 +5,7 @@ describe("DrawingArea", () => {
   let widget
 
   beforeEach(() => {
-    widget = new DrawingArea({})
+    widget = new DrawingArea({}, DrawingArea.createNode({}))
   })
 
   test("should set contentHeight", () => {

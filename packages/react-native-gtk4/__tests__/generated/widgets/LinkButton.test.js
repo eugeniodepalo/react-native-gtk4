@@ -6,7 +6,7 @@ describe("LinkButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new LinkButton({})
+    widget = new LinkButton({}, LinkButton.createNode({}))
   })
 
   test("should set uri", () => {

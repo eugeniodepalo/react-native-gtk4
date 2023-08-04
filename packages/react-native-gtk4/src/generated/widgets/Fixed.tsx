@@ -2,8 +2,8 @@ import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Fixed<T extends Gtk.Fixed = Gtk.Fixed> extends Widget<T> {
-  createNode() {
-    return new Gtk.Fixed({}) as T
+  static createNode() {
+    return new Gtk.Fixed({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

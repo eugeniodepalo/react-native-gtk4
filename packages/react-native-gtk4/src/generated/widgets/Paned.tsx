@@ -2,8 +2,8 @@ import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Paned<T extends Gtk.Paned = Gtk.Paned> extends Widget<T> {
-  createNode() {
-    return new Gtk.Paned({}) as T
+  static createNode() {
+    return new Gtk.Paned({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

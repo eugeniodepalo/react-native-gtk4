@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class CenterBox<
   T extends Gtk.CenterBox = Gtk.CenterBox,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.CenterBox({}) as T
+  static createNode() {
+    return new Gtk.CenterBox({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

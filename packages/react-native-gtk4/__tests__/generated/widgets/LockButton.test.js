@@ -7,7 +7,7 @@ describe("LockButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new LockButton({})
+    widget = new LockButton({}, LockButton.createNode({}))
   })
 
   test("should set permission", () => {

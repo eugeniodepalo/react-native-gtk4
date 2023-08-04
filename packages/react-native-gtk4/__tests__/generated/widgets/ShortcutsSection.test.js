@@ -5,7 +5,7 @@ describe("ShortcutsSection", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ShortcutsSection({})
+    widget = new ShortcutsSection({}, ShortcutsSection.createNode({}))
   })
 
   test("should set maxHeight", () => {

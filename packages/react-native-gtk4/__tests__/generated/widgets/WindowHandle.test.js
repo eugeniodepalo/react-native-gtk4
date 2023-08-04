@@ -5,7 +5,7 @@ describe("WindowHandle", () => {
   let widget
 
   beforeEach(() => {
-    widget = new WindowHandle({})
+    widget = new WindowHandle({}, WindowHandle.createNode({}))
   })
 
   test("should set accessibleRole", () => {

@@ -7,7 +7,7 @@ describe("Text", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Text({})
+    widget = new Text({}, Text.createNode({}))
   })
 
   test("should set activatesDefault", () => {

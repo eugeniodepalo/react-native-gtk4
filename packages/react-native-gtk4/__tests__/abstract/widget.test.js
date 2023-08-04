@@ -3,12 +3,9 @@ import AbstractWidget from "../../src/abstract/widget.js"
 describe("AbstractWidget", () => {
   let widget
   let node
-  let context
   let props
 
   beforeEach(() => {
-    context = {}
-
     node = {
       on: jest.fn(),
       off: jest.fn(),
@@ -22,21 +19,20 @@ describe("AbstractWidget", () => {
     const Widget = class extends AbstractWidget {
       set() {}
       commitMount() {}
-      createNode() {
+      static createNode() {
         return node
       }
     }
 
     jest.spyOn(Widget.prototype, "set")
 
-    widget = new Widget(props, context)
+    widget = new Widget(props, Widget.createNode(props))
   })
 
   describe("constructor", () => {
     test("should initialize instance", () => {
       expect(widget.props).toEqual(props)
       expect(widget.node).toBe(node)
-      expect(widget.context).toBe(context)
 
       for (const key in props) {
         expect(widget.set).toHaveBeenCalledWith(key, props[key])

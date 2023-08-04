@@ -5,7 +5,7 @@ describe("Calendar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Calendar({})
+    widget = new Calendar({}, Calendar.createNode({}))
   })
 
   test("should set day", () => {

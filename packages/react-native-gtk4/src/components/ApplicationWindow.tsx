@@ -7,7 +7,7 @@ import { createPortal } from "../portal.js"
 
 type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "titlebar"> & {
   children: React.ReactNode
-  titlebar?: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  titlebar?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
 }
 
 export default forwardRef<Gtk.ApplicationWindow, Props>(
@@ -30,7 +30,7 @@ export default forwardRef<Gtk.ApplicationWindow, Props>(
         <ApplicationWindow
           ref={ref}
           key={titlebarWidget ? "with-titlebar" : "without-titlebar"}
-          titlebar={titlebarWidget ?? undefined}
+          titlebar={titlebarWidget}
           {...props}
         />
       </>

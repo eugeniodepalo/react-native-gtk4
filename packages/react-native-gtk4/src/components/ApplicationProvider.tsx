@@ -1,13 +1,9 @@
 import Gtk from "@girs/node-gtk-4.0"
 import React, { createContext } from "react"
-import { Container } from "../container.js"
-
-export const PRIVATE_CONTAINER_KEY = Symbol("container")
 
 export interface ApplicationContext {
-  application: Gtk.Application
   quit(): boolean
-  [PRIVATE_CONTAINER_KEY]: Container
+  application: Gtk.Application
 }
 
 export const ApplicationContext = createContext<ApplicationContext | null>(null)

@@ -3,8 +3,8 @@ import Widget from "./Widget.js"
 import AbstractWidget from "../../abstract/widget.js"
 
 export default class Frame<T extends Gtk.Frame = Gtk.Frame> extends Widget<T> {
-  createNode() {
-    return new Gtk.Frame({}) as T
+  static createNode() {
+    return new Gtk.Frame({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

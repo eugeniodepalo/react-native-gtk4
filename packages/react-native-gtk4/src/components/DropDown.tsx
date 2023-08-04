@@ -1,30 +1,36 @@
 import React, {
   ForwardedRef,
   createContext,
+  createRef,
   useCallback,
   useContext,
   useEffect,
-  useImperativeHandle,
   useMemo,
-  useRef,
   useState,
 } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { DropDown } from "../generated/intrinsics.js"
-import { createPortal } from "../portal.js"
 import GObject from "@girs/node-gobject-2.0"
-import _ from "lodash"
+import { useForwardedRef } from "../utils.js"
+import {
+  destroyContainerForRootNode,
+  createContainerForRootNode,
+} from "../container.js"
+import { createReconciler } from "../reconciler.js"
 
 type FactoryType = "item" | "popoverItem"
 
 type Props<T> = Omit<
   JSX.IntrinsicElements["DropDown"],
-  "children" | "itemFactory" | "popoverItemFactory"
+  "itemFactory" | "popoverItemFactory"
 > & {
-  children?: React.ReactNode
-  renderPopoverItem?: (ref: ForwardedRef<any>, value?: T) => React.ReactNode
-  renderItem?: (ref: ForwardedRef<any>, value?: T) => React.ReactNode
+  renderPopoverItem?: (
+    value?: T
+  ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
+  renderItem?: (
+    value?: T
+  ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 }
 
 type ItemRecord<T> = Record<
@@ -40,15 +46,10 @@ interface Context {
   model: Gtk.StringList
 }
 
-interface BoundItem {
-  listItem: Gtk.ListItem
-  type: FactoryType
-}
-
 const Context = createContext<Context | null>(null)
 
-const Container = React.memo(
-  forwardRef<Gtk.DropDown, Props<any>>(function DropDownComponent<T>(
+const Container = forwardRef<Gtk.DropDown, Props<any>>(
+  function DropDownComponent<T>(
     {
       children,
       renderItem,
@@ -57,10 +58,10 @@ const Container = React.memo(
     }: Props<T>,
     ref: ForwardedRef<Gtk.DropDown>
   ) {
-    const innerRef = useRef<Gtk.DropDown | null>(null)
+    const [, setDropDown] = useState<Gtk.DropDown | null>(null)
+    const [, setInnerRef] = useForwardedRef(ref, setDropDown)
     const items = useMemo<ItemRecord<T>>(() => ({}), [])
     const model = useMemo<Gtk.StringList>(() => new Gtk.StringList(), [])
-    const [boundItems, setBoundItems] = useState<BoundItem[]>([])
 
     const value = useMemo<Context>(
       () => ({
@@ -80,58 +81,63 @@ const Container = React.memo(
       []
     )
 
-    const PopoverItemComponent = useMemo(
-      () =>
-        renderPopoverItem
-          ? forwardRef<any, { value: T }>(function PopoverItemComponent(
-              { value },
-              ref
-            ) {
-              return renderPopoverItem(ref, value)
-            })
-          : null,
-      [renderPopoverItem]
-    )
-
-    const ItemComponent = useMemo(
-      () =>
-        renderItem
-          ? forwardRef<any, { value: T }>(function ItemComponent(
-              { value },
-              ref
-            ) {
-              return renderItem(ref, value)
-            })
-          : null,
-      [renderItem]
-    )
-
     const setupFactory = useCallback(
       (factory: Gtk.SignalListItemFactory, type: FactoryType) => {
+        const renderFn = type === "item" ? renderItem : renderPopoverItem
+
+        if (!renderFn) {
+          return
+        }
+
+        const reconciler = createReconciler()
+
+        const onFactorySetup = (object: GObject.Object) => {
+          const listItem = object as Gtk.ListItem
+          const ref = createRef<Gtk.Widget>()
+          const element = renderFn()
+          const container = createContainerForRootNode(listItem, reconciler)
+
+          container.render(
+            React.cloneElement(element, {
+              ref,
+            })
+          )
+
+          container.commit()
+          listItem.setChild(ref.current)
+        }
+
+        const onFactoryTeardown = (object: GObject.Object) => {
+          const listItem = object as Gtk.ListItem
+          listItem.setChild(null)
+          destroyContainerForRootNode(listItem)
+        }
+
         const onFactoryBind = (object: GObject.Object) => {
           const listItem = object as Gtk.ListItem
+          const container = createContainerForRootNode(listItem)
+          const id = listItem.item.getProperty("string") as string
+          const item = items[id]
 
-          setBoundItems((boundItems) => [
-            ...boundItems,
-            {
-              listItem,
-              type,
-            },
-          ])
+          container.render(renderFn(item.value))
         }
 
         const onFactoryUnbind = (object: GObject.Object) => {
-          setBoundItems((boundItems) =>
-            boundItems.filter((item) => item.listItem !== object)
-          )
+          const listItem = object as Gtk.ListItem
+          const container = createContainerForRootNode(listItem)
+          container.render(renderFn())
         }
 
         factory.on("bind", onFactoryBind)
         factory.on("unbind", onFactoryUnbind)
+        factory.on("setup", onFactorySetup)
+        factory.on("teardown", onFactoryTeardown)
 
         return () => {
           factory.off("bind", onFactoryBind)
           factory.off("unbind", onFactoryUnbind)
+          factory.off("setup", onFactorySetup)
+          factory.off("teardown", onFactoryTeardown)
         }
       },
       []
@@ -149,47 +155,18 @@ const Container = React.memo(
       }
     }, [renderPopoverItem])
 
-    useImperativeHandle(ref, () => innerRef.current!)
-
     return (
-      <>
-        {createPortal(
-          boundItems.map(({ type, listItem }) => {
-            const Component =
-              type === "item" ? ItemComponent : PopoverItemComponent
-
-            if (!Component) {
-              return null
-            }
-
-            const item = listItem.item
-            const id = item.getProperty("string") as string
-
-            return (
-              <Component
-                key={`${type}-${id}`}
-                ref={(node) => {
-                  if (node) {
-                    listItem.setChild(node)
-                  }
-                }}
-                value={items[id].value}
-              />
-            )
-          })
-        )}
-        <DropDown
-          model={model}
-          ref={innerRef}
-          factory={renderItem ? itemFactory : undefined}
-          listFactory={renderPopoverItem ? popoverItemFactory : undefined}
-          {...props}
-        />
+      <DropDown
+        model={model}
+        ref={setInnerRef}
+        factory={renderItem ? itemFactory : null}
+        listFactory={renderPopoverItem ? popoverItemFactory : null}
+        {...props}
+      >
         <Context.Provider value={value}>{children}</Context.Provider>
-      </>
+      </DropDown>
     )
-  }),
-  _.isEqual
+  }
 )
 
 interface ItemProps {

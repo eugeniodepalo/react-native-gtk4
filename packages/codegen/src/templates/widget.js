@@ -15,14 +15,20 @@ export default function (widgetClass) {
   ts += `  T extends ${widgetClass.type.name} = ${widgetClass.type.name}`
   ts += `> `
   ts += `extends ${widgetClass.parentImport.name}<T> {\n`
-  ts += `  createNode() {\n`
+
+  ts += `  static createNode(${
+    widgetClass.constructOnlyProps.length > 0
+      ? "props: Record<string, any> = {}"
+      : ""
+  }) {\n`
+
   ts += `    return new ${widgetClass.type.name}({\n`
 
   for (const prop of widgetClass.constructOnlyProps) {
-    ts += `${prop.name}: this.props.${prop.name},\n`
+    ts += `${prop.name}: props.${prop.name},\n`
   }
 
-  ts += `  }) as T\n`
+  ts += `  })\n`
   ts += `}\n`
 
   if (widgetClass.name === "Widget") {

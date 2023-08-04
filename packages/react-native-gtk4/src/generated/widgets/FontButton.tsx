@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class FontButton<
   T extends Gtk.FontButton = Gtk.FontButton,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.FontButton({}) as T
+  static createNode() {
+    return new Gtk.FontButton({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

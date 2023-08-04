@@ -5,7 +5,7 @@ describe("Scale", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Scale({})
+    widget = new Scale({}, Scale.createNode({}))
   })
 
   test("should set digits", () => {

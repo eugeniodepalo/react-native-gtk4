@@ -1,3 +1,4 @@
+import Gtk from "@girs/node-gtk-4.0"
 import PrintUnixDialog from "../generated/widgets/PrintUnixDialog.js"
 
 const parent = {
@@ -7,7 +8,8 @@ const parent = {
 PrintUnixDialog.prototype.commitMount = function (this: PrintUnixDialog) {
   parent.commitMount.call(this)
 
-  const activeWindow = this.context.application.getActiveWindow()
+  const application = this.getClosestParentOfType(Gtk.Application)
+  const activeWindow = application?.getActiveWindow()
 
   if (activeWindow) {
     this.node.setDestroyWithParent(true)

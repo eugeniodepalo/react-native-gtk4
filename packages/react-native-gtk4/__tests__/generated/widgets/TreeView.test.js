@@ -5,7 +5,7 @@ describe("TreeView", () => {
   let widget
 
   beforeEach(() => {
-    widget = new TreeView({})
+    widget = new TreeView({}, TreeView.createNode({}))
   })
 
   test("should set activateOnSingleClick", () => {

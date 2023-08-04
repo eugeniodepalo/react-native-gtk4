@@ -5,7 +5,7 @@ describe("Spinner", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Spinner({})
+    widget = new Spinner({}, Spinner.createNode({}))
   })
 
   test("should set spinning", () => {

@@ -6,7 +6,7 @@ describe("Overlay overrides", () => {
   let overlay
 
   beforeEach(() => {
-    overlay = new Overlay()
+    overlay = new Overlay({}, Overlay.createNode())
   })
 
   test("should append node on appendChild", () => {

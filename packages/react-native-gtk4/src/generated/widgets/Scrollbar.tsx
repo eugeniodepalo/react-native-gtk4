@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Scrollbar<
   T extends Gtk.Scrollbar = Gtk.Scrollbar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Scrollbar({}) as T
+  static createNode() {
+    return new Gtk.Scrollbar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

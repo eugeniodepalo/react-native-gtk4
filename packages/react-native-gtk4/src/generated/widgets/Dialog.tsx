@@ -4,10 +4,10 @@ import Window from "./Window.js"
 export default class Dialog<
   T extends Gtk.Dialog = Gtk.Dialog,
 > extends Window<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.Dialog({
-      useHeaderBar: this.props.useHeaderBar,
-    }) as T
+      useHeaderBar: props.useHeaderBar,
+    })
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

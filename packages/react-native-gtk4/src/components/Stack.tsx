@@ -14,7 +14,7 @@ import { createPortal } from "../portal.js"
 
 interface Context {
   stack: Gtk.Stack | null
-  visibleChildName?: string
+  visibleChildName?: string | null
 }
 
 const Context = React.createContext<Context | null>(null)

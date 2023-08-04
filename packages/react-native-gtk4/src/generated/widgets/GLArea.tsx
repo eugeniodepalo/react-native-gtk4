@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class GLArea<
   T extends Gtk.GLArea = Gtk.GLArea,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.GLArea({}) as T
+  static createNode() {
+    return new Gtk.GLArea({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

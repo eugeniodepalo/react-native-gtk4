@@ -2,8 +2,8 @@ import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
 
 export default class Stack<T extends Gtk.Stack = Gtk.Stack> extends Widget<T> {
-  createNode() {
-    return new Gtk.Stack({}) as T
+  static createNode() {
+    return new Gtk.Stack({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

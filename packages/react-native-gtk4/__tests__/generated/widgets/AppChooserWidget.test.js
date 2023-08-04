@@ -5,7 +5,7 @@ describe("AppChooserWidget", () => {
   let widget
 
   beforeEach(() => {
-    widget = new AppChooserWidget({})
+    widget = new AppChooserWidget({}, AppChooserWidget.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -13,7 +13,7 @@ describe("AppChooserWidget", () => {
       contentType: "Some String",
     }
 
-    new AppChooserWidget(props)
+    new AppChooserWidget(props, AppChooserWidget.createNode(props))
 
     expect(Gtk.AppChooserWidget).toHaveBeenCalledWith(props)
   })

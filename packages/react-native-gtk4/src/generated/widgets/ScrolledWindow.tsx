@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class ScrolledWindow<
   T extends Gtk.ScrolledWindow = Gtk.ScrolledWindow,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.ScrolledWindow({}) as T
+  static createNode() {
+    return new Gtk.ScrolledWindow({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

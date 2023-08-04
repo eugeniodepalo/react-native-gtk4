@@ -4,10 +4,10 @@ import Window from "./Window.js"
 export default class Assistant<
   T extends Gtk.Assistant = Gtk.Assistant,
 > extends Window<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.Assistant({
-      useHeaderBar: this.props.useHeaderBar,
-    }) as T
+      useHeaderBar: props.useHeaderBar,
+    })
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

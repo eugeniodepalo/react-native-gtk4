@@ -5,7 +5,7 @@ describe("ListBase", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ListBase({})
+    widget = new ListBase({}, ListBase.createNode({}))
   })
 
   test("should set orientation", () => {

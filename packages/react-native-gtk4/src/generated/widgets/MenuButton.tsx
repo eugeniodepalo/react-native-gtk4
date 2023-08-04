@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class MenuButton<
   T extends Gtk.MenuButton = Gtk.MenuButton,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.MenuButton({}) as T
+  static createNode() {
+    return new Gtk.MenuButton({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

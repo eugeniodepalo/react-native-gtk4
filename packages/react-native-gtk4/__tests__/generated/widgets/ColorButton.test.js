@@ -6,7 +6,7 @@ describe("ColorButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ColorButton({})
+    widget = new ColorButton({}, ColorButton.createNode({}))
   })
 
   test("should set modal", () => {

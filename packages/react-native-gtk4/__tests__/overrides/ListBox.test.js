@@ -6,7 +6,7 @@ describe("ListBox overrides", () => {
   let listBox
 
   beforeEach(() => {
-    listBox = new ListBox()
+    listBox = new ListBox({}, ListBox.createNode())
   })
 
   test("should append node on appendChild", () => {

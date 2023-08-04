@@ -5,7 +5,7 @@ describe("MessageDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new MessageDialog({})
+    widget = new MessageDialog({}, MessageDialog.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -13,7 +13,7 @@ describe("MessageDialog", () => {
       buttons: Gtk.ButtonsType.NONE,
     }
 
-    new MessageDialog(props)
+    new MessageDialog(props, MessageDialog.createNode(props))
 
     expect(Gtk.MessageDialog).toHaveBeenCalledWith(props)
   })

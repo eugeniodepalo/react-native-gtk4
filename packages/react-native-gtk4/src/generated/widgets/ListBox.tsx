@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class ListBox<
   T extends Gtk.ListBox = Gtk.ListBox,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.ListBox({}) as T
+  static createNode() {
+    return new Gtk.ListBox({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

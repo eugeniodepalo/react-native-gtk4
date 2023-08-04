@@ -4,8 +4,8 @@ import Dialog from "./Dialog.js"
 export default class FileChooserDialog<
   T extends Gtk.FileChooserDialog = Gtk.FileChooserDialog,
 > extends Dialog<T> {
-  createNode() {
-    return new Gtk.FileChooserDialog({}) as T
+  static createNode() {
+    return new Gtk.FileChooserDialog({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

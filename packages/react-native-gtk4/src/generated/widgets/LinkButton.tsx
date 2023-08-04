@@ -4,8 +4,8 @@ import Button from "./Button.js"
 export default class LinkButton<
   T extends Gtk.LinkButton = Gtk.LinkButton,
 > extends Button<T> {
-  createNode() {
-    return new Gtk.LinkButton({}) as T
+  static createNode() {
+    return new Gtk.LinkButton({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class Picture<
   T extends Gtk.Picture = Gtk.Picture,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Picture({}) as T
+  static createNode() {
+    return new Gtk.Picture({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -6,7 +6,7 @@ describe("FontDialogButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FontDialogButton({})
+    widget = new FontDialogButton({}, FontDialogButton.createNode({}))
   })
 
   test("should set dialog", () => {

@@ -5,7 +5,7 @@ describe("ListView", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ListView({})
+    widget = new ListView({}, ListView.createNode({}))
   })
 
   test("should set enableRubberband", () => {

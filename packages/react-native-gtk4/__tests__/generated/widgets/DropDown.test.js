@@ -6,7 +6,7 @@ describe("DropDown", () => {
   let widget
 
   beforeEach(() => {
-    widget = new DropDown({})
+    widget = new DropDown({}, DropDown.createNode({}))
   })
 
   test("should set enableSearch", () => {

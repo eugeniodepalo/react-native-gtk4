@@ -6,7 +6,7 @@ describe("Window", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Window({})
+    widget = new Window({}, Window.createNode({}))
   })
 
   test("should set application", () => {

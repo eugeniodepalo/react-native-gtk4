@@ -5,7 +5,7 @@ describe("Notebook", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Notebook({})
+    widget = new Notebook({}, Notebook.createNode({}))
   })
 
   test("should set enablePopup", () => {

@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class Viewport<
   T extends Gtk.Viewport = Gtk.Viewport,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Viewport({}) as T
+  static createNode() {
+    return new Gtk.Viewport({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

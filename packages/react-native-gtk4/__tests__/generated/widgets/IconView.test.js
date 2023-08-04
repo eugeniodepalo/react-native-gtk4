@@ -5,7 +5,7 @@ describe("IconView", () => {
   let widget
 
   beforeEach(() => {
-    widget = new IconView({})
+    widget = new IconView({}, IconView.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -13,7 +13,7 @@ describe("IconView", () => {
       cellArea: new Gtk.CellArea(),
     }
 
-    new IconView(props)
+    new IconView(props, IconView.createNode(props))
 
     expect(Gtk.IconView).toHaveBeenCalledWith(props)
   })

@@ -1,11 +1,18 @@
-export default abstract class AbstractNode<T> {
-  children: T[] = []
+export default abstract class AbstractNode<T = any, U = any> {
+  children: AbstractNode<U>[] = []
+  parent: AbstractNode<U> | null = null
+  node: T
 
-  appendChild(child: T): void {
-    this.children.push(child)
+  constructor(node: T) {
+    this.node = node
   }
 
-  removeChild(child: T): void {
+  appendChild(child: AbstractNode<U>): void {
+    this.children.push(child)
+    child.parent = this
+  }
+
+  removeChild(child: AbstractNode<U>): void {
     const index = this.children.indexOf(child)
 
     if (index === -1) {
@@ -13,9 +20,10 @@ export default abstract class AbstractNode<T> {
     }
 
     this.children.splice(index, 1)
+    child.parent = null
   }
 
-  insertBefore(child: T, beforeChild: T): void {
+  insertBefore(child: AbstractNode<U>, beforeChild: AbstractNode<U>): void {
     const beforeIndex = this.children.indexOf(beforeChild)
     const index = beforeIndex - 1
 
@@ -29,5 +37,6 @@ export default abstract class AbstractNode<T> {
     }
 
     this.children.splice(index, 0, child)
+    child.parent = this
   }
 }

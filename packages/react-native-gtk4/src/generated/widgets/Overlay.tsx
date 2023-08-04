@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class Overlay<
   T extends Gtk.Overlay = Gtk.Overlay,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.Overlay({}) as T
+  static createNode() {
+    return new Gtk.Overlay({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

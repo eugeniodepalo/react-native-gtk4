@@ -5,7 +5,7 @@ describe("VolumeButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new VolumeButton({})
+    widget = new VolumeButton({}, VolumeButton.createNode({}))
   })
 
   test("should set useSymbolic", () => {

@@ -30,7 +30,7 @@ export default function (gir) {
     for (const prop of widgetClass.writableProps) {
       ts += `${prop.name}${prop.isOptional ? "?" : ""}: ${prop.type.name}${
         prop.isArray ? "[]" : ""
-      }\n`
+      }${prop.isOptional ? " | null" : ""}\n`
     }
 
     for (const signal of widgetClass.signals) {

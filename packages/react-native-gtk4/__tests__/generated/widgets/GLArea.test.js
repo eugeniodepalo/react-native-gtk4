@@ -5,7 +5,7 @@ describe("GLArea", () => {
   let widget
 
   beforeEach(() => {
-    widget = new GLArea({})
+    widget = new GLArea({}, GLArea.createNode({}))
   })
 
   test("should set autoRender", () => {

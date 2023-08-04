@@ -5,7 +5,7 @@ describe("ComboBox", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ComboBox({})
+    widget = new ComboBox({}, ComboBox.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -13,7 +13,7 @@ describe("ComboBox", () => {
       hasEntry: true,
     }
 
-    new ComboBox(props)
+    new ComboBox(props, ComboBox.createNode(props))
 
     expect(Gtk.ComboBox).toHaveBeenCalledWith(props)
   })

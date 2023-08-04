@@ -4,8 +4,8 @@ import ScaleButton from "./ScaleButton.js"
 export default class VolumeButton<
   T extends Gtk.VolumeButton = Gtk.VolumeButton,
 > extends ScaleButton<T> {
-  createNode() {
-    return new Gtk.VolumeButton({}) as T
+  static createNode() {
+    return new Gtk.VolumeButton({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

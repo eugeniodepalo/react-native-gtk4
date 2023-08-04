@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class ColumnView<
   T extends Gtk.ColumnView = Gtk.ColumnView,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.ColumnView({}) as T
+  static createNode() {
+    return new Gtk.ColumnView({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

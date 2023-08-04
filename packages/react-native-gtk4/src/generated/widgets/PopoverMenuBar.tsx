@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class PopoverMenuBar<
   T extends Gtk.PopoverMenuBar = Gtk.PopoverMenuBar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.PopoverMenuBar({}) as T
+  static createNode() {
+    return new Gtk.PopoverMenuBar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

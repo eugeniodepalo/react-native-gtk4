@@ -27,7 +27,7 @@ export default forwardRef<Gtk.CheckButton, Props>(function CheckButtonComponent(
       return
     }
 
-    checkButton.setActive(active)
+    checkButton.setActive(active ?? false)
 
     return () => {
       checkButton.setActive(false)

@@ -1,3 +1,4 @@
+import Gtk from "@girs/node-gtk-4.0"
 import PageSetupUnixDialog from "../generated/widgets/PageSetupUnixDialog.js"
 
 const parent = {
@@ -9,7 +10,8 @@ PageSetupUnixDialog.prototype.commitMount = function (
 ) {
   parent.commitMount.call(this)
 
-  const activeWindow = this.context.application.getActiveWindow()
+  const application = this.getClosestParentOfType(Gtk.Application)
+  const activeWindow = application?.getActiveWindow()
 
   if (activeWindow) {
     this.node.setDestroyWithParent(true)

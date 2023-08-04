@@ -7,7 +7,7 @@ describe("Label", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Label({})
+    widget = new Label({}, Label.createNode({}))
   })
 
   test("should set attributes", () => {

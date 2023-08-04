@@ -5,7 +5,7 @@ describe("Box", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Box({})
+    widget = new Box({}, Box.createNode({}))
   })
 
   test("should set baselinePosition", () => {

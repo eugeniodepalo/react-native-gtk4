@@ -5,7 +5,7 @@ describe("LevelBar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new LevelBar({})
+    widget = new LevelBar({}, LevelBar.createNode({}))
   })
 
   test("should set inverted", () => {

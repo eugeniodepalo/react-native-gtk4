@@ -5,7 +5,7 @@ describe("Range", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Range({})
+    widget = new Range({}, Range.createNode({}))
   })
 
   test("should set adjustment", () => {

@@ -5,7 +5,7 @@ describe("Scrollbar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Scrollbar({})
+    widget = new Scrollbar({}, Scrollbar.createNode({}))
   })
 
   test("should set adjustment", () => {

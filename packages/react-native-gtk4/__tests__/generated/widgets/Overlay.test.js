@@ -5,7 +5,7 @@ describe("Overlay", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Overlay({})
+    widget = new Overlay({}, Overlay.createNode({}))
   })
 
   test("should set accessibleRole", () => {

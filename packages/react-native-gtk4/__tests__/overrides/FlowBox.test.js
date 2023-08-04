@@ -6,7 +6,7 @@ describe("FlowBox overrides", () => {
   let flowBox
 
   beforeEach(() => {
-    flowBox = new FlowBox()
+    flowBox = new FlowBox({}, FlowBox.createNode())
   })
 
   test("should append node on appendChild", () => {

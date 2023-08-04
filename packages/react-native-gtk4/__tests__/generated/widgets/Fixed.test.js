@@ -5,7 +5,7 @@ describe("Fixed", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Fixed({})
+    widget = new Fixed({}, Fixed.createNode({}))
   })
 
   test("should set accessibleRole", () => {

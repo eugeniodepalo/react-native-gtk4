@@ -4,8 +4,8 @@ import Dialog from "./Dialog.js"
 export default class PrintUnixDialog<
   T extends Gtk.PrintUnixDialog = Gtk.PrintUnixDialog,
 > extends Dialog<T> {
-  createNode() {
-    return new Gtk.PrintUnixDialog({}) as T
+  static createNode() {
+    return new Gtk.PrintUnixDialog({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

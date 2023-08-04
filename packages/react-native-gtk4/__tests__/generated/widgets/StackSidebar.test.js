@@ -5,7 +5,7 @@ describe("StackSidebar", () => {
   let widget
 
   beforeEach(() => {
-    widget = new StackSidebar({})
+    widget = new StackSidebar({}, StackSidebar.createNode({}))
   })
 
   test("should set stack", () => {

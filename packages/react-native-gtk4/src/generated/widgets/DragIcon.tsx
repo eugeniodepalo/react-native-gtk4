@@ -5,8 +5,8 @@ import AbstractWidget from "../../abstract/widget.js"
 export default class DragIcon<
   T extends Gtk.DragIcon = Gtk.DragIcon,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.DragIcon({}) as T
+  static createNode() {
+    return new Gtk.DragIcon({})
   }
   appendChild(child: AbstractWidget) {
     super.appendChild(child)

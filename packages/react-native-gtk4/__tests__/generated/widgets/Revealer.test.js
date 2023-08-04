@@ -5,7 +5,7 @@ describe("Revealer", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Revealer({})
+    widget = new Revealer({}, Revealer.createNode({}))
   })
 
   test("should set revealChild", () => {

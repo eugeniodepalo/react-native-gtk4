@@ -5,7 +5,7 @@ describe("PageSetupUnixDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new PageSetupUnixDialog({})
+    widget = new PageSetupUnixDialog({}, PageSetupUnixDialog.createNode({}))
   })
 
   test("should set accessibleRole", () => {

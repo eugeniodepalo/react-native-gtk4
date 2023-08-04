@@ -5,7 +5,7 @@ describe("Dialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Dialog({})
+    widget = new Dialog({}, Dialog.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -13,7 +13,7 @@ describe("Dialog", () => {
       useHeaderBar: 1,
     }
 
-    new Dialog(props)
+    new Dialog(props, Dialog.createNode(props))
 
     expect(Gtk.Dialog).toHaveBeenCalledWith(props)
   })

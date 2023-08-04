@@ -5,7 +5,7 @@ describe("FileChooserWidget", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FileChooserWidget({})
+    widget = new FileChooserWidget({}, FileChooserWidget.createNode({}))
   })
 
   test("should set searchMode", () => {

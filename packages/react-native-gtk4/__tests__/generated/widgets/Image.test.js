@@ -7,7 +7,7 @@ describe("Image", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Image({})
+    widget = new Image({}, Image.createNode({}))
   })
 
   test("should set file", () => {

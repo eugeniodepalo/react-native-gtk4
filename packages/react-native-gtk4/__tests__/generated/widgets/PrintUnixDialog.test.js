@@ -5,7 +5,7 @@ describe("PrintUnixDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new PrintUnixDialog({})
+    widget = new PrintUnixDialog({}, PrintUnixDialog.createNode({}))
   })
 
   test("should set currentPage", () => {

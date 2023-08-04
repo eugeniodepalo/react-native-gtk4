@@ -6,7 +6,7 @@ describe("FontButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FontButton({})
+    widget = new FontButton({}, FontButton.createNode({}))
   })
 
   test("should set modal", () => {

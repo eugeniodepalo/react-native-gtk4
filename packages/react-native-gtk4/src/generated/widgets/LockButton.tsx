@@ -4,8 +4,8 @@ import Button from "./Button.js"
 export default class LockButton<
   T extends Gtk.LockButton = Gtk.LockButton,
 > extends Button<T> {
-  createNode() {
-    return new Gtk.LockButton({}) as T
+  static createNode() {
+    return new Gtk.LockButton({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -8,7 +8,7 @@ describe("Entry", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Entry({})
+    widget = new Entry({}, Entry.createNode({}))
   })
 
   test("should set activatesDefault", () => {

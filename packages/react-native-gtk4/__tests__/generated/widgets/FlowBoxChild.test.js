@@ -5,7 +5,7 @@ describe("FlowBoxChild", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FlowBoxChild({})
+    widget = new FlowBoxChild({}, FlowBoxChild.createNode({}))
   })
 
   test("should set accessibleRole", () => {

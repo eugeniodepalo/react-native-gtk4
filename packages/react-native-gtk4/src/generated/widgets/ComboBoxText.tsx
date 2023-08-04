@@ -4,8 +4,8 @@ import ComboBox from "./ComboBox.js"
 export default class ComboBoxText<
   T extends Gtk.ComboBoxText = Gtk.ComboBoxText,
 > extends ComboBox<T> {
-  createNode() {
-    return new Gtk.ComboBoxText({}) as T
+  static createNode() {
+    return new Gtk.ComboBoxText({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

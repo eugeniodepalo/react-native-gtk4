@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class TreeView<
   T extends Gtk.TreeView = Gtk.TreeView,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.TreeView({}) as T
+  static createNode() {
+    return new Gtk.TreeView({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

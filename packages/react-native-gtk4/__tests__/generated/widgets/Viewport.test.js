@@ -5,7 +5,7 @@ describe("Viewport", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Viewport({})
+    widget = new Viewport({}, Viewport.createNode({}))
   })
 
   test("should set scrollToFocus", () => {

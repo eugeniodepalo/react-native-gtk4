@@ -5,7 +5,7 @@ describe("ScaleButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ScaleButton({})
+    widget = new ScaleButton({}, ScaleButton.createNode({}))
   })
 
   test("should set adjustment", () => {

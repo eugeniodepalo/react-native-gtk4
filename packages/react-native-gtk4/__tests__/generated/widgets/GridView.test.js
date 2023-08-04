@@ -5,7 +5,7 @@ describe("GridView", () => {
   let widget
 
   beforeEach(() => {
-    widget = new GridView({})
+    widget = new GridView({}, GridView.createNode({}))
   })
 
   test("should set enableRubberband", () => {

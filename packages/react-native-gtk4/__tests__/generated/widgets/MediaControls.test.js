@@ -5,7 +5,7 @@ describe("MediaControls", () => {
   let widget
 
   beforeEach(() => {
-    widget = new MediaControls({})
+    widget = new MediaControls({}, MediaControls.createNode({}))
   })
 
   test("should set mediaStream", () => {

@@ -5,7 +5,7 @@ describe("Frame", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Frame({})
+    widget = new Frame({}, Frame.createNode({}))
   })
 
   test("should set label", () => {

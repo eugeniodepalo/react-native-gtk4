@@ -5,7 +5,7 @@ describe("FlowBox", () => {
   let widget
 
   beforeEach(() => {
-    widget = new FlowBox({})
+    widget = new FlowBox({}, FlowBox.createNode({}))
   })
 
   test("should set acceptUnpairedRelease", () => {

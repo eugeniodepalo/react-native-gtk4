@@ -6,7 +6,7 @@ describe("ToggleButton", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ToggleButton({})
+    widget = new ToggleButton({}, ToggleButton.createNode({}))
   })
 
   test("should set active", () => {

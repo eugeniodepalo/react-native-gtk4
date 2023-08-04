@@ -7,7 +7,7 @@ describe("Picture", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Picture({})
+    widget = new Picture({}, Picture.createNode({}))
   })
 
   test("should set alternativeText", () => {

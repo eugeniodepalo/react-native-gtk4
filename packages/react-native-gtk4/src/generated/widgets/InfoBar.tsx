@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class InfoBar<
   T extends Gtk.InfoBar = Gtk.InfoBar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.InfoBar({}) as T
+  static createNode() {
+    return new Gtk.InfoBar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -6,7 +6,7 @@ describe("Button", () => {
   let widget
 
   beforeEach(() => {
-    widget = new Button({})
+    widget = new Button({}, Button.createNode({}))
   })
 
   test("should set hasFrame", () => {

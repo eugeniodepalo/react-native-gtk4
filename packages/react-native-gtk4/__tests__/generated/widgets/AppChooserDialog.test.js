@@ -6,7 +6,7 @@ describe("AppChooserDialog", () => {
   let widget
 
   beforeEach(() => {
-    widget = new AppChooserDialog({})
+    widget = new AppChooserDialog({}, AppChooserDialog.createNode({}))
   })
 
   test("should set construct only props", () => {
@@ -15,7 +15,7 @@ describe("AppChooserDialog", () => {
       contentType: "Some String",
     }
 
-    new AppChooserDialog(props)
+    new AppChooserDialog(props, AppChooserDialog.createNode(props))
 
     expect(Gtk.AppChooserDialog).toHaveBeenCalledWith(props)
   })

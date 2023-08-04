@@ -47,6 +47,16 @@ describe("ApplicationWindow", () => {
     expect(window.node.setTitlebar).toHaveBeenCalledWith(titlebar.node)
   })
 
+  test("should unset titlebar", () => {
+    render(<ApplicationWindow titlebar={<Box />} />)
+
+    const window = findBy({ type: "ApplicationWindow" })
+
+    render(<ApplicationWindow />)
+
+    expect(window.node.setTitlebar).toHaveBeenCalledWith(null)
+  })
+
   test("should render with a different key when titlebar changes", () => {
     render(<ApplicationWindow titlebar={<Box />} />)
 

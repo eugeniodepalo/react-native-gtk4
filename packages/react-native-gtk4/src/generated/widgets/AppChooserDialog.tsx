@@ -4,11 +4,11 @@ import Dialog from "./Dialog.js"
 export default class AppChooserDialog<
   T extends Gtk.AppChooserDialog = Gtk.AppChooserDialog,
 > extends Dialog<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.AppChooserDialog({
-      gfile: this.props.gfile,
-      contentType: this.props.contentType,
-    }) as T
+      gfile: props.gfile,
+      contentType: props.contentType,
+    })
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

@@ -4,8 +4,8 @@ import Widget from "./Widget.js"
 export default class HeaderBar<
   T extends Gtk.HeaderBar = Gtk.HeaderBar,
 > extends Widget<T> {
-  createNode() {
-    return new Gtk.HeaderBar({}) as T
+  static createNode() {
+    return new Gtk.HeaderBar({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

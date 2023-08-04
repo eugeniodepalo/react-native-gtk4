@@ -4,8 +4,8 @@ import Dialog from "./Dialog.js"
 export default class PageSetupUnixDialog<
   T extends Gtk.PageSetupUnixDialog = Gtk.PageSetupUnixDialog,
 > extends Dialog<T> {
-  createNode() {
-    return new Gtk.PageSetupUnixDialog({}) as T
+  static createNode() {
+    return new Gtk.PageSetupUnixDialog({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

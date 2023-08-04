@@ -5,7 +5,7 @@ describe("ComboBoxText", () => {
   let widget
 
   beforeEach(() => {
-    widget = new ComboBoxText({})
+    widget = new ComboBoxText({}, ComboBoxText.createNode({}))
   })
 
   test("should set accessibleRole", () => {

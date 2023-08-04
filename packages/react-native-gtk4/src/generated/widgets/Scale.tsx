@@ -2,8 +2,8 @@ import Gtk from "@girs/node-gtk-4.0"
 import Range from "./Range.js"
 
 export default class Scale<T extends Gtk.Scale = Gtk.Scale> extends Range<T> {
-  createNode() {
-    return new Gtk.Scale({}) as T
+  static createNode() {
+    return new Gtk.Scale({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

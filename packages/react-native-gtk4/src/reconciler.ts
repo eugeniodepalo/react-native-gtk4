@@ -4,17 +4,16 @@ import { DefaultEventPriority } from "react-reconciler/constants"
 import AbstractWidget from "./abstract/widget.js"
 import Label from "./generated/widgets/Label.js"
 import Gtk from "@girs/node-gtk-4.0"
-import { ApplicationContext } from "./components/ApplicationProvider.js"
-import { Container } from "./container.js"
 import _ from "lodash"
+import BaseContainer from "./containers/base.js"
+import Widget from "./generated/widgets/Widget.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
 
-type WidgetConstructor = new (
-  props: Record<string, any>,
-  context: ApplicationContext
-) => AbstractWidget
+type WidgetConstructor = typeof Widget & {
+  createNode(props: Record<string, any>): Gtk.Widget
+}
 
 function definedProps(obj: Record<string, any>) {
   return _.omitBy(
@@ -26,7 +25,7 @@ function definedProps(obj: Record<string, any>) {
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  Container,
+  BaseContainer<any>,
   AbstractWidget,
   AbstractWidget,
   AbstractWidget,
@@ -44,12 +43,15 @@ const hostConfig: HostConfig<
   supportsHydration: false,
   isPrimaryRenderer: true,
   noTimeout: -1,
-  createInstance(type, props, container) {
+  createInstance(type, instanceProps) {
     const Widget = widgets[type] as WidgetConstructor
-    return new Widget(definedProps(props), container.context)
+    const props = definedProps(instanceProps)
+    const node = Widget.createNode(props)
+    return new Widget(props, node)
   },
-  createTextInstance(text, container) {
-    return new Label({ label: text }, container.context)
+  createTextInstance(text) {
+    const node = Label.createNode()
+    return new Label({ label: text }, node)
   },
   appendInitialChild(parentInstance, child) {
     parentInstance.appendChild(child)
@@ -142,5 +144,9 @@ const hostConfig: HostConfig<
   },
 }
 
+export function createReconciler(): Reconciler {
+  return ReactReconciler(hostConfig)
+}
+
 export type Reconciler = ReturnType<typeof ReactReconciler>
-export const Reconciler = ReactReconciler(hostConfig)
+export const Reconciler = createReconciler()

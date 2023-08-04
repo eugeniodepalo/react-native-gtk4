@@ -4,10 +4,10 @@ import Widget from "./Widget.js"
 export default class IconView<
   T extends Gtk.IconView = Gtk.IconView,
 > extends Widget<T> {
-  createNode() {
+  static createNode(props: Record<string, any> = {}) {
     return new Gtk.IconView({
-      cellArea: this.props.cellArea,
-    }) as T
+      cellArea: props.cellArea,
+    })
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

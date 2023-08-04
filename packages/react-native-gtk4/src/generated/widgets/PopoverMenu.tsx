@@ -4,8 +4,8 @@ import Popover from "./Popover.js"
 export default class PopoverMenu<
   T extends Gtk.PopoverMenu = Gtk.PopoverMenu,
 > extends Popover<T> {
-  createNode() {
-    return new Gtk.PopoverMenu({}) as T
+  static createNode() {
+    return new Gtk.PopoverMenu({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

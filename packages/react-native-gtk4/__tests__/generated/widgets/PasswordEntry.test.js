@@ -6,7 +6,7 @@ describe("PasswordEntry", () => {
   let widget
 
   beforeEach(() => {
-    widget = new PasswordEntry({})
+    widget = new PasswordEntry({}, PasswordEntry.createNode({}))
   })
 
   test("should set activatesDefault", () => {

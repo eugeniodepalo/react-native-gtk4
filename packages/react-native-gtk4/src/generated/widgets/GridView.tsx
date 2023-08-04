@@ -4,8 +4,8 @@ import ListBase from "./ListBase.js"
 export default class GridView<
   T extends Gtk.GridView = Gtk.GridView,
 > extends ListBase<T> {
-  createNode() {
-    return new Gtk.GridView({}) as T
+  static createNode() {
+    return new Gtk.GridView({})
   }
   set(propName: string, newValue: any) {
     super.set(propName, newValue)

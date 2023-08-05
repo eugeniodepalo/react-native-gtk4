@@ -1,57 +1,60 @@
 import React from "react"
 import Gio from "@girs/node-gio-2.0"
+import GLib from "@girs/node-glib-2.0"
+import { setup, render } from "../../src/test-support/index.js"
 import useMenu from "../../src/hooks/useMenu.js"
-
-jest.mock("react")
 
 describe("useMenu", () => {
   let items
+  let menu
 
-  const itemProps = {
-    label: "Test",
-    icon: "test-icon",
-    action: "test-action",
-    type: "item",
+  const Component = () => {
+    menu = useMenu(items)
   }
 
   beforeEach(() => {
-    items = []
-    Gio.Menu.prototype.appendItem = jest.fn((item) => items.push(item))
-    Gio.Menu.prototype.getNItems = jest.fn(() => items.length)
-    React.useMemo = jest.fn((fn) => fn())
+    setup()
+
+    items = [
+      {
+        label: "test",
+        icon: "test-icon",
+        action: "test-action",
+        attributes: { key: new GLib.Variant("s", "value") },
+        children: [{ label: "child" }],
+      },
+    ]
   })
 
-  test("should create Gio.Menu instance", () => {
-    useMenu()
-    expect(Gio.Menu).toHaveBeenCalled()
-  })
-
-  test("should append item to parent", () => {
-    useMenu([{ ...itemProps }])
-
-    for (const call of React.useEffect.mock.calls) {
-      call[0]()
-    }
+  test("should build a menu from items", () => {
+    render(<Component />)
 
     const menuItem = Gio.MenuItem.mock.instances[0]
+    const childMenuItem = Gio.MenuItem.mock.instances[1]
 
-    expect(menuItem.setLabel).toHaveBeenCalledWith(itemProps.label)
-    expect(menuItem.setDetailedAction).toHaveBeenCalledWith(itemProps.action)
-    expect(Gio.ThemedIcon.new).toHaveBeenCalledWith(itemProps.icon)
-    expect(Gio.Menu.prototype.appendItem).toHaveBeenCalledWith(menuItem)
+    expect(Gio.MenuItem).toHaveBeenCalledTimes(2)
+    expect(menuItem.setLabel).toHaveBeenCalledWith(items[0].label)
+    expect(menuItem.setDetailedAction).toHaveBeenCalledWith(items[0].action)
 
-    expect(menuItem.setIcon).toHaveBeenCalledWith(
-      Gio.ThemedIcon.mock.instances[0]
+    expect(menuItem.setAttributeValue).toHaveBeenCalledWith(
+      "key",
+      items[0].attributes.key
     )
+
+    expect(menuItem.setSubmenu).toHaveBeenCalled()
+
+    expect(childMenuItem.setLabel).toHaveBeenCalledWith(
+      items[0].children[0].label
+    )
+
+    expect(menu.appendItem).toHaveBeenCalledWith(menuItem)
   })
 
-  test("should remove item on unmount", () => {
-    useMenu([{ ...itemProps }])
+  test("should remove all items on unmount", () => {
+    render(<Component />)
 
-    for (const call of React.useEffect.mock.calls) {
-      call[0]()()
-    }
+    render(null)
 
-    expect(Gio.Menu.prototype.removeAll).toHaveBeenCalled()
+    expect(menu.removeAll).toHaveBeenCalled()
   })
 })

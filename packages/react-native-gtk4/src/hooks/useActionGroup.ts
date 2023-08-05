@@ -12,6 +12,7 @@ export default function useActionGroup(
 
     for (const name of names) {
       const action = new Gio.SimpleAction({ name })
+
       action.on("activate", actions[name])
       group.addAction(action)
     }

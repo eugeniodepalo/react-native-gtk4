@@ -1,41 +1,38 @@
 import React from "react"
 import Gio from "@girs/node-gio-2.0"
 import useActionGroup from "../../src/hooks/useActionGroup.js"
-
-jest.mock("react")
+import { setup, render } from "../../src/test-support/index.js"
 
 describe("useActionGroup", () => {
   let actions
+  let group
+
+  const Component = () => {
+    group = useActionGroup(actions)
+  }
 
   beforeEach(() => {
+    setup()
     actions = { test: jest.fn() }
-    React.useMemo = jest.fn((fn) => fn())
   })
 
   test("should add actions to the group", () => {
-    const actionGroup = useActionGroup(actions)
+    render(<Component />)
 
-    for (const call of React.useEffect.mock.calls) {
-      call[0]()
-    }
-
-    expect(actionGroup.addAction).toHaveBeenCalled()
     expect(Gio.SimpleAction).toHaveBeenCalledWith({ name: "test" })
 
-    Gio.SimpleAction.prototype.on.mock.calls[0][1]()
+    const action = Gio.SimpleAction.mock.instances[0]
 
-    expect(actions.test).toHaveBeenCalled()
+    expect(action.on).toHaveBeenCalledWith("activate", actions.test)
+    expect(group).toBeInstanceOf(Gio.SimpleActionGroup)
+    expect(group.addAction).toHaveBeenCalledWith(action)
   })
 
   test("should remove actions on unmount", () => {
-    useActionGroup(actions)
+    render(<Component />)
 
-    for (const call of React.useEffect.mock.calls) {
-      call[0]()()
-    }
+    render(null)
 
-    expect(Gio.SimpleActionGroup.mock.instances[0].remove).toHaveBeenCalledWith(
-      "test"
-    )
+    expect(group.remove).toHaveBeenCalledWith("test")
   })
 })

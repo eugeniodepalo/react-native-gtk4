@@ -59,6 +59,8 @@ export default function useMenu(
   deps: React.DependencyList | undefined
 ) {
   const menu = useMemo(() => new Gio.Menu(), [])
+
   useEffect(() => buildMenu(menu, items), deps)
+
   return menu
 }

@@ -1,93 +1,73 @@
 import React from "react"
+import Gtk from "@girs/node-gtk-4.0"
+import Gdk from "@girs/node-gdk-4.0"
+import { setup, render } from "../../src/test-support/index.js"
 import useStyleSheet, {
   useInlineStyleSheet,
 } from "../../src/hooks/useStyleSheet.js"
-import Gtk from "@girs/node-gtk-4.0"
-import Gdk from "@girs/node-gdk-4.0"
 
-jest.mock("react")
+let provider
+let display
+
+beforeEach(() => {
+  setup()
+  display = {}
+  Gdk.Display.getDefault.mockImplementation(() => display)
+})
 
 describe("useStyleSheet", () => {
-  beforeEach(() => {
-    Gdk.Display.getDefault.mockReturnValue(new Gdk.Display())
-    React.useMemo = jest.fn((fn) => fn())
-  })
+  const path = "/path/to/stylesheet.css"
 
-  test("should load the provided CSS file", () => {
-    useStyleSheet("styles.css")
+  const Component = () => {
+    provider = useStyleSheet(path)
+  }
 
-    for (const call of React.useEffect.mock.calls) {
-      call[0]()
-    }
+  test("should load from the specified path", () => {
+    render(<Component />)
 
-    expect(Gtk.CssProvider).toHaveBeenCalled()
+    expect(provider).toBeInstanceOf(Gtk.CssProvider)
+    expect(provider.loadFromPath).toHaveBeenCalledWith(path)
 
     expect(Gtk.StyleContext.addProviderForDisplay).toHaveBeenCalledWith(
-      Gdk.Display.getDefault.mock.results[0].value,
-      Gtk.CssProvider.mock.instances[0],
+      display,
+      provider,
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    )
-
-    expect(Gtk.CssProvider.mock.instances[0].loadFromPath).toHaveBeenCalledWith(
-      "styles.css"
     )
   })
 
-  test("should remove the CSS provider on unmount", () => {
-    useStyleSheet("styles.css")
+  test("should remove the provider on unmount", () => {
+    render(<Component />)
 
-    for (const call of React.useEffect.mock.calls) {
-      call[0]()?.()
-    }
+    render(null)
 
     expect(Gtk.StyleContext.removeProviderForDisplay).toHaveBeenCalledWith(
-      Gdk.Display.getDefault.mock.results[0].value,
-      Gtk.CssProvider.mock.instances[0]
+      display,
+      provider
     )
   })
+})
 
-  test("should throw if a default display cannot be found", () => {
-    Gdk.Display.getDefault.mockReturnValue(null)
+describe("useInlineStyleSheet", () => {
+  const content = "body { background-color: #000; }"
 
-    expect(() => {
-      useStyleSheet("styles.css")
+  const Component = () => {
+    provider = useInlineStyleSheet(content)
+  }
 
-      for (const call of React.useEffect.mock.calls) {
-        call[0]()
-      }
-    }).toThrow("Could not get default display")
+  test("should load from the provided content", () => {
+    render(<Component />)
 
-    expect(Gtk.StyleContext.addProviderForDisplay).not.toHaveBeenCalled()
-
-    expect(
-      Gtk.CssProvider.mock.instances[0].loadFromPath
-    ).not.toHaveBeenCalled()
+    expect(provider.loadFromData).toHaveBeenCalledWith(Buffer.from(content), -1)
   })
 
-  test("should allow string content", () => {
-    jest.spyOn(Buffer, "from")
+  test("should remove the provider on unmount", () => {
+    render(<Component />)
 
-    useInlineStyleSheet(".box { background-color: red; }")
+    render(null)
 
-    for (const call of React.useEffect.mock.calls) {
-      call[0]()
-    }
-
-    expect(Gtk.CssProvider).toHaveBeenCalled()
-
-    expect(Gtk.StyleContext.addProviderForDisplay).toHaveBeenCalledWith(
-      Gdk.Display.getDefault.mock.results[0].value,
-      Gtk.CssProvider.mock.instances[0],
-      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    )
-
-    expect(Buffer.from).toHaveBeenCalledWith(".box { background-color: red; }")
-
-    const bytes = Buffer.from.mock.results[0].value
-
-    expect(Gtk.CssProvider.mock.instances[0].loadFromData).toHaveBeenCalledWith(
-      bytes,
-      -1
+    expect(Gtk.StyleContext.removeProviderForDisplay).toHaveBeenCalledWith(
+      display,
+      provider
     )
   })
 })

@@ -1,29 +1,38 @@
-import { useContext } from "react"
+import React from "react"
 import useApplication from "../../src/hooks/useApplication.js"
-import { ApplicationContext } from "../../src/components/ApplicationProvider.js"
-
-jest.mock("react")
-jest.mock("../../src/components/ApplicationProvider.js")
+import { setup, render } from "../../src/test-support/index.js"
+import ApplicationProvider from "../../src/components/ApplicationProvider.js"
 
 describe("useApplication", () => {
-  test("should return the application when available", () => {
-    const application = {}
+  let application
+  let context
 
-    useContext.mockReturnValue(application)
+  const Component = () => {
+    application = useApplication()
+  }
 
-    const result = useApplication()
-
-    expect(useContext).toHaveBeenCalledWith(ApplicationContext)
-    expect(result).toBe(application)
+  beforeEach(() => {
+    setup()
+    context = {}
   })
 
-  test("should throw an error when application is not available", () => {
-    useContext.mockReturnValue(null)
-
-    expect(useApplication).toThrow(
-      "useApplication must be used within an ApplicationProvider"
+  test("should return the application context", () => {
+    render(
+      <ApplicationProvider value={context}>
+        <Component />
+      </ApplicationProvider>
     )
 
-    expect(useContext).toHaveBeenCalledWith(ApplicationContext)
+    expect(application).toBe(context)
+  })
+
+  test("should throw when no application context is available", () => {
+    expect(() =>
+      render(
+        <ApplicationProvider value={null}>
+          <Component />
+        </ApplicationProvider>
+      )
+    ).toThrow("useApplication must be used within an ApplicationProvider")
   })
 })

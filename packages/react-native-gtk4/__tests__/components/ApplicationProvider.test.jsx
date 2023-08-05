@@ -1,41 +1,39 @@
 import React from "react"
-import { render, setup } from "../../src/test-support/index.js"
+import { render, setup, findBy } from "../../src/test-support/index.js"
+import { Box } from "../../src/generated/intrinsics.js"
 import ApplicationProvider, {
-  ApplicationContext,
   withApplicationContext,
 } from "../../src/components/ApplicationProvider.js"
+import Gtk from "@girs/node-gtk-4.0"
+import useApplication from "../../src/hooks/useApplication.js"
 
-function Component() {
-  React.useContext(ApplicationContext)
-  return null
-}
+beforeEach(setup)
 
 describe("ApplicationProvider", () => {
-  let context
-
-  beforeEach(() => {
-    setup()
-    context = {}
-    jest.spyOn(React, "useContext")
-  })
-
-  test("should provide the correct context", () => {
+  test("should render", () => {
     render(
-      <ApplicationProvider value={context}>
-        <Component />
+      <ApplicationProvider value={null}>
+        <Box />
       </ApplicationProvider>
     )
 
-    expect(React.useContext).toHaveBeenCalledWith(ApplicationContext)
-    expect(React.useContext).toHaveReturnedWith(context)
+    const box = findBy({ type: "Box" })
+
+    expect(box.node).toBeInstanceOf(Gtk.Box)
   })
+})
 
-  describe("withApplicationContext", () => {
-    test("should provide the correct context", () => {
-      render(withApplicationContext(<Component />, context))
+describe("withApplicationContext", () => {
+  test("should render", () => {
+    const context = {}
+    let application
 
-      expect(React.useContext).toHaveBeenCalledWith(ApplicationContext)
-      expect(React.useContext).toHaveReturnedWith(context)
-    })
+    const Component = () => {
+      application = useApplication()
+    }
+
+    render(withApplicationContext(<Component />, context))
+
+    expect(application).toBe(context)
   })
 })

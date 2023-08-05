@@ -1,153 +1,94 @@
-import GLib from "@girs/node-glib-2.0"
-import Gtk from "@girs/node-gtk-4.0"
-import gi from "@girs/node-gtk"
-import ApplicationContainer, {
-  MAX_TIMEOUT,
-} from "../src/container/application.js"
-import { Reconciler } from "../src/reconciler.js"
-import { withApplicationContext } from "../src/components/ApplicationProvider.js"
-import { ApplicationWindow, Widget, Window } from "../src/generated/widgets.js"
+// import Gtk from "@girs/node-gtk-4.0"
+// import { Reconciler } from "./reconciler.js"
+// import NodeContainer from "./container/node.js"
+// import ApplicationContainer from "./container/application.js"
 
-jest.mock("react")
-jest.mock("../src/generated/widgets/Widget.js")
-jest.mock("../src/generated/widgets/Window.js")
-jest.mock("../src/generated/widgets/ApplicationWindow.js")
-jest.mock("../src/components/ApplicationProvider.js")
+// const PRIVATE_CONTAINER_KEY = Symbol("container")
+
+// type RootNode<T> = T & {
+//   [PRIVATE_CONTAINER_KEY]?: NodeContainer<T>
+// }
+
+// export function createContainer<
+//   T,
+//   U = T extends Gtk.Application ? ApplicationContainer : NodeContainer<T>,
+// >(node: RootNode<T>, reconciler?: Reconciler): U {
+//   let container = node[PRIVATE_CONTAINER_KEY]
+
+//   if (!container) {
+//     if (node instanceof Gtk.Application) {
+//       container = new ApplicationContainer(node, reconciler)
+//     } else {
+//       container = new NodeContainer(node, reconciler)
+//     }
+
+//     node[PRIVATE_CONTAINER_KEY] = container
+//   }
+
+//   return container as U
+// }
+
+// export function destroyContainer<T>(node: RootNode<T>): void {
+//   const container = node[PRIVATE_CONTAINER_KEY]
+
+//   if (container) {
+//     container.destroy()
+//     delete node[PRIVATE_CONTAINER_KEY]
+//   }
+// }
+
+import {
+  createContainer,
+  destroyContainer,
+  PRIVATE_CONTAINER_KEY,
+} from "../src/container.js"
+import NodeContainer from "../src/container/node.js"
+import ApplicationContainer from "../src/container/application.js"
+import Gtk from "@girs/node-gtk-4.0"
+
 jest.mock("../src/reconciler.js")
+jest.mock("../src/container/node.js")
+jest.mock("../src/container/application.js")
 
 describe("Container", () => {
-  let application
-  let applicationContainer
-  let container
-  let loop
+  describe("createContainer", () => {
+    test("should create a node container", () => {
+      const node = {}
+      const reconciler = {}
 
-  beforeEach(() => {
-    Reconciler.createContainer.mockImplementation(() => ({}))
-    withApplicationContext.mockImplementation(() => ({}))
+      const container = createContainer(node, reconciler)
 
-    GLib.MainLoop.new.mockImplementation(() => ({
-      run: jest.fn(),
-      quit: jest.fn(),
-    }))
+      expect(NodeContainer).toHaveBeenCalledWith(node, reconciler)
+      expect(container).toEqual(NodeContainer.mock.instances[0])
+      expect(node[PRIVATE_CONTAINER_KEY]).toBe(container)
+    })
 
-    application = new Gtk.Application()
-    applicationContainer = new ApplicationContainer(application)
-    container = Reconciler.createContainer.mock.results[0].value
-    loop = GLib.MainLoop.new.mock.results[0].value
-  })
+    test("should create an application container", () => {
+      const node = new Gtk.Application()
+      const reconciler = {}
 
-  describe("constructor", () => {
-    test("should initialize instance", () => {
-      expect(applicationContainer.container).toBe(container)
+      const container = createContainer(node, reconciler)
 
-      expect(Reconciler.createContainer).toHaveBeenCalledWith(
-        applicationContainer,
-        0,
-        null,
-        false,
-        null,
-        "0",
-        expect.any(Function),
-        null
-      )
-
-      expect(GLib.MainLoop.new).toHaveBeenCalledWith(null, false)
+      expect(ApplicationContainer).toHaveBeenCalledWith(node, reconciler)
+      expect(container).toEqual(ApplicationContainer.mock.instances[0])
+      expect(node[PRIVATE_CONTAINER_KEY]).toBe(container)
     })
   })
 
-  describe("render", () => {
-    test("should start application and loop", () => {
-      jest.useFakeTimers()
-      jest.spyOn(global, "setTimeout")
+  describe("destroyContainer", () => {
+    test("should destroy container", () => {
+      const destroy = jest.fn()
 
-      const element = {}
+      const node = {
+        [PRIVATE_CONTAINER_KEY]: {
+          destroy,
+        },
+      }
 
-      applicationContainer.render(element)
+      destroyContainer(node)
 
-      expect(application.run).toHaveBeenCalledWith([])
-
-      expect(application.on).toHaveBeenCalledWith(
-        "activate",
-        expect.any(Function)
-      )
-
-      const [, onActivate] = application.on.mock.calls[0]
-
-      onActivate()
-
-      expect(Reconciler.updateContainer).toHaveBeenCalledWith(
-        withApplicationContext.mock.results[0].value,
-        container,
-        null,
-        expect.any(Function)
-      )
-
-      expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), MAX_TIMEOUT)
-      expect(gi.startLoop).toHaveBeenCalled()
-      expect(loop.run).toHaveBeenCalled()
-
-      jest.runOnlyPendingTimers()
-
-      expect(setTimeout).toHaveBeenNthCalledWith(
-        2,
-        expect.any(Function),
-        MAX_TIMEOUT
-      )
-    })
-  })
-
-  describe("appendChild", () => {
-    test("should set application on application windows", () => {
-      const child = new ApplicationWindow()
-
-      child.node = new Gtk.ApplicationWindow()
-
-      applicationContainer.appendChild(child)
-
-      expect(child.node.setApplication).toHaveBeenCalledWith(application)
-    })
-  })
-
-  describe("removeChild", () => {
-    test("should unparent widgets", () => {
-      const child = new Widget()
-
-      child.node = new Gtk.Widget()
-
-      applicationContainer.appendChild(child)
-
-      applicationContainer.removeChild(child)
-
-      expect(child.node.unparent).toHaveBeenCalled()
-    })
-
-    test("should destroy window", () => {
-      const child = new Window({})
-
-      child.node = new Gtk.Window()
-
-      applicationContainer.appendChild(child)
-
-      applicationContainer.removeChild(child)
-
-      expect(child.node.destroy).toHaveBeenCalled()
-    })
-  })
-
-  describe("insertBefore", () => {
-    test("should set application on application windows", () => {
-      const child1 = {}
-      const child2 = {}
-      const child3 = new ApplicationWindow()
-
-      child3.node = new Gtk.ApplicationWindow()
-
-      applicationContainer.appendChild(child1)
-      applicationContainer.appendChild(child2)
-
-      applicationContainer.insertBefore(child3, child2)
-
-      expect(child3.node.setApplication).toHaveBeenCalledWith(application)
+      expect(destroy).toHaveBeenCalled()
+      expect(node[PRIVATE_CONTAINER_KEY]).toBeUndefined()
     })
   })
 })

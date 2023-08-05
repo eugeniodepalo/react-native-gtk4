@@ -20,6 +20,7 @@ describe("AbstractNode", () => {
       node.appendChild(child)
 
       expect(node.children).toContain(child)
+      expect(child.parent).toBe(node)
     })
   })
 
@@ -32,6 +33,7 @@ describe("AbstractNode", () => {
       node.removeChild(child)
 
       expect(node.children).not.toContain(child)
+      expect(child.parent).toBe(null)
     })
 
     test("should throw an error when not found", () => {
@@ -53,6 +55,7 @@ describe("AbstractNode", () => {
       node.insertBefore(child3, child2)
 
       expect(node.children).toEqual([child1, child3, child2])
+      expect(child3.parent).toBe(node)
     })
 
     test("should throw an error when not found", () => {

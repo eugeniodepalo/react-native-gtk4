@@ -20,12 +20,9 @@ function createPortalImpl(
   } as unknown as ReactPortal
 }
 
-export function createPortal(
+export function createPortal<T = Gtk.Application>(
   children: React.ReactNode,
-  rootNode:
-    | Gtk.Application
-    | Gtk.Widget
-    | null = Gio.Application.getDefault() as Gtk.Application | null,
+  rootNode: T | null = Gio.Application.getDefault() as T | null,
   key = null
 ): ReactPortal {
   if (rootNode == null) {

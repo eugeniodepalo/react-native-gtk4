@@ -3,27 +3,89 @@ import { createContainer } from "../src/container.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("Reconciler", () => {
+  let container
+  let Label
+  let Widget
+  let module
+  let ReactReconciler
+
+  beforeEach(async () => {
+    jest.doMock("react-reconciler")
+    jest.doMock("../src/generated/widgets/Label.js")
+    jest.doMock("../src/generated/widgets.js")
+    jest.doMock("../src/container.js")
+
+    module = await import("../src/reconciler.js")
+    Label = (await import("../src/generated/widgets/Label.js")).default
+    Widget = (await import("../src/generated/widgets.js")).Widget
+    ReactReconciler = await import("react-reconciler")
+
+    container = createContainer(new Gtk.Application())
+    container.children = []
+
+    Widget.createNode = jest.fn(() => new Gtk.Widget())
+    Label.createNode = jest.fn(() => new Gtk.Label())
+  })
+
+  describe("createReconciler", () => {
+    test("should create a reconciler", () => {
+      jest.clearAllMocks()
+
+      const reconciler = module.createReconciler(container)
+
+      expect(ReactReconciler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          supportsMutation: true,
+          supportsPersistence: false,
+          supportsMicrotasks: true,
+          supportsHydration: false,
+          isPrimaryRenderer: true,
+          noTimeout: -1,
+          createTextInstance: expect.any(Function),
+          appendInitialChild: expect.any(Function),
+          finalizeInitialChildren: expect.any(Function),
+          appendChild: expect.any(Function),
+          removeChild: expect.any(Function),
+          insertBefore: expect.any(Function),
+          removeChildFromContainer: expect.any(Function),
+          prepareUpdate: expect.any(Function),
+          commitMount: expect.any(Function),
+          commitUpdate: expect.any(Function),
+          commitTextUpdate: expect.any(Function),
+          shouldSetTextContent: expect.any(Function),
+          getRootHostContext: expect.any(Function),
+          getChildHostContext: expect.any(Function),
+          getPublicInstance: expect.any(Function),
+          prepareForCommit: expect.any(Function),
+          resetAfterCommit: expect.any(Function),
+          preparePortalMount: expect.any(Function),
+          scheduleTimeout: expect.any(Function),
+          cancelTimeout: expect.any(Function),
+          getCurrentEventPriority: expect.any(Function),
+          getInstanceFromNode: expect.any(Function),
+          beforeActiveInstanceBlur: expect.any(Function),
+          afterActiveInstanceBlur: expect.any(Function),
+          prepareScopeUpdate: expect.any(Function),
+          getInstanceFromScope: expect.any(Function),
+          detachDeletedInstance: expect.any(Function),
+          clearContainer: expect.any(Function),
+          appendChildToContainer: expect.any(Function),
+          insertInContainerBefore: expect.any(Function),
+          scheduleMicrotask: expect.any(Function),
+        })
+      )
+
+      const reactReconciler = ReactReconciler.mock.results[0].value
+
+      expect(reconciler).toBe(reactReconciler)
+    })
+  })
+
   describe("host config", () => {
-    let container
     let hostConfig
-    let Label
-    let Widget
 
-    beforeEach(async () => {
-      jest.doMock("react-reconciler")
-      jest.doMock("../src/generated/widgets/Label.js")
-      jest.doMock("../src/generated/widgets.js")
-      jest.doMock("../src/container.js")
-
-      await import("../src/reconciler.js")
-
-      Label = (await import("../src/generated/widgets/Label.js")).default
-      Widget = (await import("../src/generated/widgets.js")).Widget
-      hostConfig = (await import("react-reconciler")).mock.calls[0][0]
-      container = createContainer(new Gtk.Application())
-      container.children = []
-      Widget.createNode = jest.fn(() => new Gtk.Widget())
-      Label.createNode = jest.fn(() => new Gtk.Label())
+    beforeEach(() => {
+      hostConfig = ReactReconciler.mock.calls[0][0]
     })
 
     test("should have the correct defaults", () => {
@@ -74,13 +136,19 @@ describe("Reconciler", () => {
 
         hostConfig.createInstance("Widget", props)
 
-        expect(Widget).toHaveBeenCalledWith(props, expect.any(Gtk.Widget))
+        expect(Widget.createNode).toHaveBeenCalledWith(props)
+
+        const node = Widget.createNode.mock.results[0].value
+
+        expect(Widget).toHaveBeenCalledWith(props, node)
       })
 
       test("should remove undefined props", () => {
         const props = { some: "Prop", undefined: undefined }
 
         hostConfig.createInstance("Widget", props, container)
+
+        expect(Widget.createNode).toHaveBeenCalledWith({ some: "Prop" })
 
         expect(Widget).toHaveBeenCalledWith(
           { some: "Prop" },
@@ -95,10 +163,11 @@ describe("Reconciler", () => {
 
         hostConfig.createTextInstance(text, container)
 
-        expect(Label).toHaveBeenCalledWith(
-          { label: text },
-          expect.any(Gtk.Label)
-        )
+        expect(Label.createNode).toHaveBeenCalled()
+
+        const node = Label.createNode.mock.results[0].value
+
+        expect(Label).toHaveBeenCalledWith({ label: text }, node)
       })
     })
 

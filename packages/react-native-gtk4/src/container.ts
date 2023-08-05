@@ -3,7 +3,7 @@ import { Reconciler } from "./reconciler.js"
 import NodeContainer from "./container/node.js"
 import ApplicationContainer from "./container/application.js"
 
-const PRIVATE_CONTAINER_KEY = Symbol("container")
+export const PRIVATE_CONTAINER_KEY = Symbol("container")
 
 type RootNode<T> = T & {
   [PRIVATE_CONTAINER_KEY]?: NodeContainer<T>

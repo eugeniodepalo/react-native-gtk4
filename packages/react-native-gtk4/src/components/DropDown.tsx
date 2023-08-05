@@ -23,10 +23,10 @@ type Props<T> = Omit<
   "itemFactory" | "popoverItemFactory"
 > & {
   renderPopoverItem?: (
-    value?: T
+    value: T | null
   ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
   renderItem?: (
-    value?: T
+    value: T | null
   ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 }
 
@@ -91,7 +91,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
         const onFactorySetup = (object: GObject.Object) => {
           const listItem = object as Gtk.ListItem
           const ref = createRef<Gtk.Widget>()
-          const element = renderFn()
+          const element = renderFn(null)
           const container = createContainer(listItem, reconciler)
 
           container.render(
@@ -122,7 +122,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
         const onFactoryUnbind = (object: GObject.Object) => {
           const listItem = object as Gtk.ListItem
           const container = createContainer(listItem)
-          container.render(renderFn())
+          container.render(renderFn(null))
         }
 
         factory.on("bind", onFactoryBind)

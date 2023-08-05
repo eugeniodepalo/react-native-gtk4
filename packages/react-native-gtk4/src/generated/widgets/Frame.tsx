@@ -1,6 +1,6 @@
 import Gtk from "@girs/node-gtk-4.0"
 import Widget from "./Widget.js"
-import AbstractWidget from "../../abstract/widget.js"
+import AbstractWidget from "../../widget.js"
 
 export default class Frame<T extends Gtk.Frame = Gtk.Frame> extends Widget<T> {
   static createNode() {

@@ -1,4 +1,4 @@
-import AbstractWidget from "../../src/abstract/widget.js"
+import AbstractWidget from "../src/widget.js"
 
 describe("AbstractWidget", () => {
   let widget

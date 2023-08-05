@@ -1,11 +1,11 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants"
-import AbstractWidget from "./abstract/widget.js"
+import AbstractWidget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Gtk from "@girs/node-gtk-4.0"
 import _ from "lodash"
-import BaseContainer from "./containers/base.js"
+import NodeContainer from "./container/node.js"
 import Widget from "./generated/widgets/Widget.js"
 
 type ElementType = keyof typeof widgets
@@ -25,7 +25,7 @@ function definedProps(obj: Record<string, any>) {
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  BaseContainer<any>,
+  NodeContainer<any>,
   AbstractWidget,
   AbstractWidget,
   AbstractWidget,

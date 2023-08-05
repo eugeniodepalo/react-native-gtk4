@@ -1,5 +1,5 @@
 import Gtk from "@girs/node-gtk-4.0"
-import AbstractWidget from "../../abstract/widget.js"
+import AbstractWidget from "../../widget.js"
 
 export default class Widget<
   T extends Gtk.Widget = Gtk.Widget,

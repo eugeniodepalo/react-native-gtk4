@@ -1,5 +1,5 @@
 import { DefaultEventPriority } from "react-reconciler/constants.js"
-import { createContainerForRootNode } from "../src/container.js"
+import { createContainer } from "../src/container.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("Reconciler", () => {
@@ -20,7 +20,7 @@ describe("Reconciler", () => {
       Label = (await import("../src/generated/widgets/Label.js")).default
       Widget = (await import("../src/generated/widgets.js")).Widget
       hostConfig = (await import("react-reconciler")).mock.calls[0][0]
-      container = createContainerForRootNode(new Gtk.Application())
+      container = createContainer(new Gtk.Application())
       container.children = []
       Widget.createNode = jest.fn(() => new Gtk.Widget())
       Label.createNode = jest.fn(() => new Gtk.Label())

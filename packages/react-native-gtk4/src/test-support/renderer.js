@@ -3,7 +3,7 @@ import { withApplicationContext } from "../components/ApplicationProvider.js"
 import "../overrides.js"
 import Gtk from "@girs/node-gtk-4.0"
 import Gio from "@girs/node-gio-2.0"
-import { createContainerForRootNode } from "../container.js"
+import { createContainer } from "../container.js"
 
 const textPredicate = (predicate, child) => {
   return (
@@ -41,7 +41,7 @@ export default class Renderer {
     Gio.Application.getDefault = jest.fn(() => this.application)
 
     this.application = new Gtk.Application()
-    this.applicationContainer = createContainerForRootNode(this.application)
+    this.applicationContainer = createContainer(this.application)
     this.container = Reconciler.createContainer.mock.results[0].value
 
     this.applicationContext = {

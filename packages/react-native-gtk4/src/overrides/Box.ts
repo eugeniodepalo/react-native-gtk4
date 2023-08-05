@@ -1,5 +1,5 @@
 import Box from "../generated/widgets/Box.js"
-import AbstractWidget from "../abstract/widget.js"
+import AbstractWidget from "../widget.js"
 
 const parent = {
   appendChild: Box.prototype.appendChild,

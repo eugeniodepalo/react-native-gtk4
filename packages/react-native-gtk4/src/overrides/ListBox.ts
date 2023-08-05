@@ -1,5 +1,5 @@
 import ListBox from "../generated/widgets/ListBox.js"
-import AbstractWidget from "../abstract/widget.js"
+import AbstractWidget from "../widget.js"
 
 const parent = {
   appendChild: ListBox.prototype.appendChild,

@@ -1,11 +1,11 @@
-import AbstractNode from "../abstract/node.js"
-import { Reconciler } from "../reconciler.js"
+import AbstractNode from "../node.js"
 import Window from "../generated/widgets/Window.js"
 import Widget from "../generated/widgets/Widget.js"
+import { Reconciler } from "../reconciler.js"
 
 let currentTag = 0
 
-export default class BaseContainer<T = any, U = any> extends AbstractNode<
+export default class NodeContainer<T = any, U = any> extends AbstractNode<
   T,
   U
 > {

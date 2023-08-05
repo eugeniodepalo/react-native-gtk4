@@ -1,4 +1,4 @@
-import AbstractNode from "../../src/abstract/node.js"
+import AbstractNode from "../src/node.js"
 
 describe("AbstractNode", () => {
   let node

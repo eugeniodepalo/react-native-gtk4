@@ -13,10 +13,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import { DropDown } from "../generated/intrinsics.js"
 import GObject from "@girs/node-gobject-2.0"
 import { useForwardedRef } from "../utils.js"
-import {
-  destroyContainerForRootNode,
-  createContainerForRootNode,
-} from "../container.js"
+import { destroyContainer, createContainer } from "../container.js"
 import { createReconciler } from "../reconciler.js"
 
 type FactoryType = "item" | "popoverItem"
@@ -95,7 +92,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
           const listItem = object as Gtk.ListItem
           const ref = createRef<Gtk.Widget>()
           const element = renderFn()
-          const container = createContainerForRootNode(listItem, reconciler)
+          const container = createContainer(listItem, reconciler)
 
           container.render(
             React.cloneElement(element, {
@@ -110,12 +107,12 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
         const onFactoryTeardown = (object: GObject.Object) => {
           const listItem = object as Gtk.ListItem
           listItem.setChild(null)
-          destroyContainerForRootNode(listItem)
+          destroyContainer(listItem)
         }
 
         const onFactoryBind = (object: GObject.Object) => {
           const listItem = object as Gtk.ListItem
-          const container = createContainerForRootNode(listItem)
+          const container = createContainer(listItem)
           const id = listItem.item.getProperty("string") as string
           const item = items[id]
 
@@ -124,7 +121,7 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
 
         const onFactoryUnbind = (object: GObject.Object) => {
           const listItem = object as Gtk.ListItem
-          const container = createContainerForRootNode(listItem)
+          const container = createContainer(listItem)
           container.render(renderFn())
         }
 

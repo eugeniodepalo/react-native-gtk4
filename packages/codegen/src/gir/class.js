@@ -32,7 +32,7 @@ export class GirClass {
     if (!this.parent) {
       return {
         name: "AbstractWidget",
-        moduleName: "../../abstract/widget.js",
+        moduleName: "../../widget.js",
       }
     }
 

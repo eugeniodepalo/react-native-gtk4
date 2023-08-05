@@ -1,6 +1,6 @@
 import { ReactPortal } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-import { createContainerForRootNode } from "./container.js"
+import { createContainer } from "./container.js"
 import Gio from "@girs/node-gio-2.0"
 
 export const REACT_PORTAL_TYPE = Symbol.for("react.portal")
@@ -32,10 +32,5 @@ export function createPortal(
     throw new Error("Cannot create a portal without a root node")
   }
 
-  return createPortalImpl(
-    children,
-    createContainerForRootNode(rootNode),
-    null,
-    key
-  )
+  return createPortalImpl(children, createContainer(rootNode), null, key)
 }

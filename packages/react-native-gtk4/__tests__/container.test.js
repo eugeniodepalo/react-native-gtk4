@@ -1,11 +1,12 @@
 import GLib from "@girs/node-glib-2.0"
 import Gtk from "@girs/node-gtk-4.0"
 import gi from "@girs/node-gtk"
-import { MAX_TIMEOUT } from "../src/containers/application.js"
+import ApplicationContainer, {
+  MAX_TIMEOUT,
+} from "../src/container/application.js"
 import { Reconciler } from "../src/reconciler.js"
 import { withApplicationContext } from "../src/components/ApplicationProvider.js"
 import { ApplicationWindow, Widget, Window } from "../src/generated/widgets.js"
-import ApplicationContainer from "../src/containers/application.js"
 
 jest.mock("react")
 jest.mock("../src/generated/widgets/Widget.js")

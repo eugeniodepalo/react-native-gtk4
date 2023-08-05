@@ -6,15 +6,15 @@ import {
   withApplicationContext,
 } from "../components/ApplicationProvider.js"
 import ApplicationWindow from "../generated/widgets/ApplicationWindow.js"
-import Container from "./base.js"
+import NodeContainer from "./node.js"
 import { Reconciler } from "../reconciler.js"
-import AbstractNode from "src/abstract/node.js"
+import AbstractNode from "../node.js"
 
 export const MAX_TIMEOUT = 2147483647
 
 export default class ApplicationContainer<
   T extends Gtk.Application = Gtk.Application,
-> extends Container<T, Gtk.Widget> {
+> extends NodeContainer<T, Gtk.Widget> {
   private context: ApplicationContext
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout

@@ -1,4 +1,4 @@
-import { createContainerForRootNode } from "../src/container.js"
+import { createContainer } from "../src/container.js"
 import { createPortal, REACT_PORTAL_TYPE } from "../src/portal.js"
 import Gtk from "@girs/node-gtk-4.0"
 
@@ -17,7 +17,7 @@ describe("createPortal", () => {
       $$typeof: REACT_PORTAL_TYPE,
       key,
       children: null,
-      containerInfo: createContainerForRootNode(container),
+      containerInfo: createContainer(container),
       implementation: null,
     })
   })

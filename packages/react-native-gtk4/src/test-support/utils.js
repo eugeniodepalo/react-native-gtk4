@@ -1,4 +1,4 @@
-import AbstractWidget from "../abstract/widget.js"
+import AbstractWidget from "../widget.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 export function createMockWidget() {

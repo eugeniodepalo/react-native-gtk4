@@ -7,7 +7,7 @@ export default function (widgetClass) {
   ts += `import ${widgetClass.parentImport.name} from "${widgetClass.parentImport.moduleName}"\n`
 
   if (widgetClass.isContainer) {
-    ts += `import AbstractWidget from "../../abstract/widget.js"\n`
+    ts += `import AbstractWidget from "../../widget.js"\n`
   }
 
   ts += `\n`

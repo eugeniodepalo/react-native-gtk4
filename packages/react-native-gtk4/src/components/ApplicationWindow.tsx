@@ -19,13 +19,13 @@ export default forwardRef<Gtk.ApplicationWindow, Props>(
 
     return (
       <>
-        {createPortal(
-          titlebar
-            ? React.cloneElement(titlebar, {
+        {titlebar
+          ? createPortal(
+              React.cloneElement(titlebar, {
                 ref: setTitlebarRef,
               })
-            : null
-        )}
+            )
+          : null}
         <ApplicationWindow
           ref={ref}
           key={titlebarWidget ? "with-titlebar" : "without-titlebar"}

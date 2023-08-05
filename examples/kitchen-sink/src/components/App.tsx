@@ -40,6 +40,7 @@ import {
   useMenu,
   useInlineStyleSheet,
   PopoverMenuBar,
+  Frame,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -371,18 +372,20 @@ export default function App() {
               spacing={10}
             >
               <ProgressBar fraction={0.5} showText />
-              <LevelBar
-                value={levelBarValue}
-                offsets={{
-                  veryLow: 0.1,
-                  low: 0.25,
-                  medium: 0.5,
-                  high: 0.75,
-                  veryHigh: 0.9,
-                }}
-                minValue={0}
-                maxValue={1}
-              />
+              <Frame label="Level Bar" hexpand vexpand>
+                <LevelBar
+                  value={levelBarValue}
+                  offsets={{
+                    veryLow: 0.1,
+                    low: 0.25,
+                    medium: 0.5,
+                    high: 0.75,
+                    veryHigh: 0.9,
+                  }}
+                  minValue={0}
+                  maxValue={1}
+                />
+              </Frame>
             </Box>
             <Scale
               drawValue
@@ -547,7 +550,14 @@ export default function App() {
               onHide={() => {
                 setPopoverOpen(false)
               }}
-            />
+            >
+              <Button
+                label="Popover"
+                onClicked={() => {
+                  setPopoverOpen(!popoverOpen)
+                }}
+              />
+            </Popover>
             <Button
               label={
                 showAboutDialog ? "Hide About Dialog" : "Show About Dialog"

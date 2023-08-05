@@ -1,18 +1,13 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import Paned from "../../src/components/Paned.js"
 import { Label, Button } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
-import { mockProperty } from "../../src/test-support/utils.js"
 
 describe("Paned", () => {
-  beforeEach(() => {
-    setup()
-    mockProperty(Gtk.Paned, "startChild")
-    mockProperty(Gtk.Paned, "endChild")
-  })
+  beforeEach(setup)
 
-  test("should render correctly with children", () => {
+  test("should render", () => {
     render(
       <Paned>
         <Label label="Start Content" />
@@ -24,16 +19,20 @@ describe("Paned", () => {
     const label = findBy({ type: "Label" })
     const button = findBy({ type: "Button" })
 
-    expect(paned).toBeTruthy()
-    expect(paned.node.startChild).toBe(label.node)
-    expect(paned.node.endChild).toBe(button.node)
+    expect(paned.node).toBeInstanceOf(Gtk.Paned)
+    expect(paned.node.setStartChild).toHaveBeenCalledWith(label.node)
+    expect(paned.node.setEndChild).toHaveBeenCalledWith(button.node)
   })
 
-  test("should set startChild and endChild correctly", () => {
+  test("should forward refs", () => {
+    const ref = createRef()
+    const startRef = createRef()
+    const endRef = createRef()
+
     render(
-      <Paned>
-        <Label label="Start Content" />
-        <Button label="End Content" />
+      <Paned ref={ref}>
+        <Label ref={startRef} label="Start Content" />
+        <Button ref={endRef} label="End Content" />
       </Paned>
     )
 
@@ -41,7 +40,23 @@ describe("Paned", () => {
     const label = findBy({ type: "Label" })
     const button = findBy({ type: "Button" })
 
-    expect(paned.node.startChild).toBe(label.node)
-    expect(paned.node.endChild).toBe(button.node)
+    expect(ref.current).toBe(paned.node)
+    expect(startRef.current).toBe(label.node)
+    expect(endRef.current).toBe(button.node)
+  })
+
+  test("should handle unmount gracefully", () => {
+    render(
+      <Paned>
+        <Label label="Start Content" />
+        <Button label="End Content" />
+      </Paned>
+    )
+
+    render(null)
+
+    const paned = findBy({ type: "Paned" })
+
+    expect(paned).toBeNull()
   })
 })

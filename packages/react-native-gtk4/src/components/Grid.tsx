@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
-import { forwardRef } from "react"
+import { forwardRef, createContext } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Grid } from "../generated/intrinsics.js"
 import { useForwardedRef } from "../utils.js"
 
-const GridContext = React.createContext<Gtk.Grid | null>(null)
+const Context = createContext<Gtk.Grid | null>(null)
 
-const GridContainer = forwardRef<Gtk.Grid, JSX.IntrinsicElements["Grid"]>(
+const Container = forwardRef<Gtk.Grid, JSX.IntrinsicElements["Grid"]>(
   function GridContainer({ children, ...props }, ref) {
     const [grid, setGrid] = useState<Gtk.Grid | null>(null)
     const [, setInnerRef] = useForwardedRef(ref, setGrid)
@@ -14,7 +14,7 @@ const GridContainer = forwardRef<Gtk.Grid, JSX.IntrinsicElements["Grid"]>(
     return (
       <Grid ref={setInnerRef} {...props}>
         {grid ? (
-          <GridContext.Provider value={grid}>{children}</GridContext.Provider>
+          <Context.Provider value={grid}>{children}</Context.Provider>
         ) : null}
       </Grid>
     )
@@ -29,14 +29,14 @@ interface ItemProps {
   height?: number
 }
 
-const GridItem = function GridItem({
+const Item = function GridItem({
   children,
   col = 0,
   row = 0,
   width = 1,
   height = 1,
 }: ItemProps) {
-  const grid = useContext(GridContext)
+  const grid = useContext(Context)
   const [childRef, setChildRef] = useForwardedRef(children.ref)
 
   if (!grid) {
@@ -63,6 +63,6 @@ const GridItem = function GridItem({
 }
 
 export default {
-  Container: GridContainer,
-  Item: GridItem,
+  Container,
+  Item,
 }

@@ -33,8 +33,7 @@ export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(
         : null}
       <Expander
         ref={ref}
-        label={typeof label === "string" ? label : null}
-        labelWidget={labelWidget}
+        {...(typeof label === "string" ? { label } : { labelWidget })}
         {...props}
       />
     </>

@@ -3,20 +3,21 @@ import PrintUnixDialog from "../../src/generated/widgets/PrintUnixDialog.js"
 import "../../src/overrides/PrintUnixDialog.js"
 
 describe("PrintUnixDialog overrides", () => {
-  test("should present node on commitMount", () => {
-    const activeWindow = new Gtk.Window()
+  describe("commitMount", () => {
+    test("should present node", () => {
+      const activeWindow = new Gtk.Window()
+      const application = new Gtk.Application()
+      const dialog = new PrintUnixDialog({}, PrintUnixDialog.createNode())
 
-    const dialog = new PrintUnixDialog({}, PrintUnixDialog.createNode())
-    const application = new Gtk.Application()
+      application.getActiveWindow = jest.fn(() => activeWindow)
+      dialog.parent = { node: application }
 
-    application.getActiveWindow = jest.fn(() => activeWindow)
-    dialog.parent = { node: application }
+      dialog.commitMount()
 
-    dialog.commitMount()
-
-    expect(dialog.node.setDestroyWithParent).toHaveBeenCalledWith(true)
-    expect(dialog.node.setModal).toHaveBeenCalledWith(true)
-    expect(dialog.node.present).toHaveBeenCalled()
-    expect(dialog.node.setTransientFor).toHaveBeenCalledWith(activeWindow)
+      expect(dialog.node.setDestroyWithParent).toHaveBeenCalledWith(true)
+      expect(dialog.node.setModal).toHaveBeenCalledWith(true)
+      expect(dialog.node.present).toHaveBeenCalled()
+      expect(dialog.node.setTransientFor).toHaveBeenCalledWith(activeWindow)
+    })
   })
 })

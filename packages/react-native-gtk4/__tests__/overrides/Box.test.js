@@ -1,5 +1,4 @@
 import Box from "../../src/generated/widgets/Box.js"
-import { createMockWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/Box.js"
 
 describe("Box overrides", () => {
@@ -9,43 +8,54 @@ describe("Box overrides", () => {
     box = new Box({}, Box.createNode())
   })
 
-  test("should append node on appendChild", () => {
-    const child = createMockWidget()
-    box.appendChild(child)
-    expect(box.node.append).toHaveBeenCalledWith(child.node)
+  describe("appendChild", () => {
+    test("should append node", () => {
+      const child = { node: {} }
+
+      box.appendChild(child)
+
+      expect(box.node.append).toHaveBeenCalledWith(child.node)
+    })
   })
 
-  test("should remove node on removeChild", () => {
-    const child = createMockWidget()
+  describe("removeChild", () => {
+    test("should remove node", () => {
+      const child = { node: {} }
 
-    box.appendChild(child)
-    box.removeChild(child)
+      box.appendChild(child)
 
-    expect(box.node.remove).toHaveBeenCalledWith(child.node)
+      box.removeChild(child)
+
+      expect(box.node.remove).toHaveBeenCalledWith(child.node)
+    })
   })
 
-  test("should insert node on insertBefore", () => {
-    const child1 = createMockWidget()
-    const child2 = createMockWidget()
-    const beforeChild = createMockWidget()
+  describe("insertBefore", () => {
+    test("should insert node", () => {
+      const child1 = { node: {} }
+      const child2 = { node: {} }
+      const beforeChild = { node: {} }
 
-    box.appendChild(child1)
-    box.appendChild(beforeChild)
-    box.insertBefore(child2, beforeChild)
+      box.appendChild(child1)
+      box.appendChild(beforeChild)
 
-    expect(box.node.insertChildAfter).toHaveBeenCalledWith(
-      child1.node,
-      child2.node
-    )
-  })
+      box.insertBefore(child2, beforeChild)
 
-  test("should prepend in case beforeChild is the first child", () => {
-    const child1 = createMockWidget()
-    const child2 = createMockWidget()
+      expect(box.node.insertChildAfter).toHaveBeenCalledWith(
+        child1.node,
+        child2.node
+      )
+    })
 
-    box.appendChild(child1)
-    box.insertBefore(child2, child1)
+    test("should prepend when it's the first child", () => {
+      const child1 = { node: {} }
+      const child2 = { node: {} }
 
-    expect(box.node.prepend).toHaveBeenCalledWith(child2.node)
+      box.appendChild(child1)
+
+      box.insertBefore(child2, child1)
+
+      expect(box.node.prepend).toHaveBeenCalledWith(child2.node)
+    })
   })
 })

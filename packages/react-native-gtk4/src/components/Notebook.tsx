@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useState, createContext } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Notebook, Label } from "../generated/intrinsics.js"
 import { useForwardedRef } from "../utils.js"
+import { createPortal } from "../portal.js"
 
-const Context = React.createContext<Gtk.Notebook | null>(null)
+const Context = createContext<Gtk.Notebook | null>(null)
 
 type Props = JSX.IntrinsicElements["Notebook"] & {
   children: React.ReactNode
@@ -27,8 +28,8 @@ const Container = forwardRef<Gtk.Notebook, Props>(function NotebookContainer(
 })
 
 interface TabProps {
-  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
-  label?: string | React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  label: string | (React.ReactElement & React.RefAttributes<Gtk.Widget>)
 }
 
 const Tab = function NotebookTab({ children, label }: TabProps) {
@@ -38,8 +39,12 @@ const Tab = function NotebookTab({ children, label }: TabProps) {
     throw new Error("Notebook.Tab must be a child of Notebook.Container")
   }
 
-  const childRef = useRef<Gtk.Widget | null>(null)
-  const labelRef = useRef<Gtk.Label | null>(null)
+  const labelElement = (
+    typeof label === "string" ? <Label label={label} /> : label
+  ) as React.ReactElement & React.RefAttributes<Gtk.Widget>
+
+  const [childRef, setChildRef] = useForwardedRef(children.ref)
+  const [labelRef, setLabelRef] = useForwardedRef(labelElement?.ref)
 
   useEffect(() => {
     const child = childRef.current
@@ -59,18 +64,15 @@ const Tab = function NotebookTab({ children, label }: TabProps) {
   return (
     <>
       {React.cloneElement(children, {
-        ref: childRef,
+        ref: setChildRef,
       })}
-      {React.cloneElement(
-        label && typeof label !== "string" ? (
-          label
-        ) : (
-          <Label ref={labelRef} label={label} />
-        ),
-        {
-          ref: labelRef,
-        }
-      )}
+      {labelElement
+        ? createPortal(
+            React.cloneElement(labelElement, {
+              ref: setLabelRef,
+            })
+          )
+        : null}
     </>
   )
 }

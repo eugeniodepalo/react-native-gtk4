@@ -1,42 +1,61 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import Frame from "../../src/components/Frame.js"
-import { Label } from "../../src/generated/intrinsics.js"
+import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
-import { mockProperty } from "../../src/test-support/utils.js"
 
 describe("Frame", () => {
-  beforeEach(() => {
-    setup()
-    mockProperty(Gtk.Frame, "labelWidget")
-    mockProperty(Gtk.Frame, "label")
-  })
+  beforeEach(setup)
 
-  test("should render correctly without label", () => {
+  test("should render", () => {
     render(<Frame />)
+
     const frame = findBy({ type: "Frame" })
 
-    expect(frame).toBeTruthy()
-    expect(frame.node.label).toBeNull()
-    expect(frame.node.labelWidget).toBeNull()
+    expect(frame.node).toBeInstanceOf(Gtk.Frame)
   })
 
-  test("should render correctly with string label", () => {
-    const label = "test"
+  test("should forward refs", () => {
+    const ref = createRef()
+    const labelRef = createRef()
+
+    render(<Frame ref={ref} label={<Box ref={labelRef} />} />)
+
+    const frame = findBy({ type: "Frame" })
+    const label = findBy({ type: "Box" })
+
+    expect(ref.current).toBe(frame.node)
+    expect(labelRef.current).toBe(label.node)
+  })
+
+  test("should handle unmount gracefully", () => {
+    render(<Frame />)
+
+    render(null)
+
+    const frame = findBy({ type: "Frame" })
+
+    expect(frame).toBeNull()
+  })
+
+  test("should set label when prop is a string", () => {
+    const label = "foo"
+
     render(<Frame label={label} />)
+
     const frame = findBy({ type: "Frame" })
 
-    expect(frame).toBeTruthy()
-    expect(frame.node.label).toBe(label)
+    expect(frame.node.setLabel).toHaveBeenCalledWith(label)
+    expect(frame.node.setLabelWidget).not.toHaveBeenCalled()
   })
 
-  test("should render correctly with ReactElement label", () => {
-    render(<Frame label={<Label label="text" />} />)
-    const frame = findBy({ type: "Frame" })
-    const label = findBy({ type: "Label" })
+  test("should set labelWidget when prop is an element", () => {
+    render(<Frame label={<Box />} />)
 
-    expect(frame).toBeTruthy()
-    expect(frame.node.label).toBeNull()
-    expect(frame.node.labelWidget).toBe(label.node)
+    const frame = findBy({ type: "Frame" })
+    const label = findBy({ type: "Box" })
+
+    expect(frame.node.setLabelWidget).toHaveBeenCalledWith(label.node)
+    expect(frame.node.setLabel).not.toHaveBeenCalled()
   })
 })

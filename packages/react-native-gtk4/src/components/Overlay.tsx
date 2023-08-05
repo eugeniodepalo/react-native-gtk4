@@ -10,7 +10,7 @@ type Props = JSX.IntrinsicElements["Overlay"] & {
 }
 
 export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
-  { children, content, ...props },
+  { content, ...props },
   ref
 ) {
   const [innerRef, setInnerRef] = useForwardedRef(ref)
@@ -34,9 +34,7 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
   return (
     <>
       {createPortal(React.cloneElement(content, { ref: setContentRef }))}
-      <Overlay ref={setInnerRef} {...props}>
-        {children}
-      </Overlay>
+      <Overlay ref={setInnerRef} {...props} />
     </>
   )
 })

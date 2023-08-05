@@ -1,79 +1,166 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import Grid from "../../src/components/Grid.js"
-import { Button } from "../../src/generated/intrinsics.js"
+import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("Grid", () => {
   beforeEach(setup)
 
   describe("Container", () => {
-    test("should render correctly", () => {
-      render(<Grid.Container />)
+    test("should render", () => {
+      render(
+        <Grid.Container>
+          <Box />
+        </Grid.Container>
+      )
+
       const grid = findBy({ type: "Grid" })
-      expect(grid).toBeTruthy()
+      const child = findBy({ type: "Box" })
+
+      expect(grid.node).toBeInstanceOf(Gtk.Grid)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+      const childRef = createRef()
+
+      render(
+        <Grid.Container ref={ref}>
+          <Box ref={childRef} />
+        </Grid.Container>
+      )
+
+      const grid = findBy({ type: "Grid" })
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(grid.node)
+      expect(childRef.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <Grid.Container>
+          <Box />
+        </Grid.Container>
+      )
+
+      render(null)
+
+      const grid = findBy({ type: "Grid" })
+      const child = findBy({ type: "Box" })
+
+      expect(grid).toBeNull()
+      expect(child).toBeNull()
     })
   })
 
   describe("Item", () => {
-    test("should attach to default row and column", () => {
+    test("should render", () => {
       render(
         <Grid.Container>
           <Grid.Item>
-            <Button />
+            <Box />
           </Grid.Item>
         </Grid.Container>
       )
 
-      expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
-        expect.anything(),
-        0,
-        0,
-        1,
-        1
-      )
+      const grid = findBy({ type: "Grid" })
+      const child = findBy({ type: "Box" })
+
+      expect(grid.node).toBeInstanceOf(Gtk.Grid)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
     })
 
-    test("should attach its child to the grid correctly", () => {
+    test("should forward refs", () => {
+      const ref = createRef()
+
+      render(
+        <Grid.Container>
+          <Grid.Item>
+            <Box ref={ref} />
+          </Grid.Item>
+        </Grid.Container>
+      )
+
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <Grid.Container>
+          <Grid.Item>
+            <Box />
+          </Grid.Item>
+        </Grid.Container>
+      )
+
+      render(null)
+
+      const grid = findBy({ type: "Grid" })
+      const child = findBy({ type: "Box" })
+
+      expect(grid).toBeNull()
+      expect(child).toBeNull()
+    })
+
+    test("should remove itself when unmounted", () => {
+      render(
+        <Grid.Container>
+          <Grid.Item>
+            <Box />
+          </Grid.Item>
+        </Grid.Container>
+      )
+
+      const grid = findBy({ type: "Grid" })
+
+      render(null)
+
+      expect(grid.node.remove).toHaveBeenCalled()
+    })
+
+    test("should throw when not inside Grid.Container", () => {
+      expect(() => {
+        render(
+          <Grid.Item>
+            <Box />
+          </Grid.Item>
+        )
+      }).toThrow("Grid.Item must be a child of Grid.Container")
+    })
+
+    test("should attach to default position", () => {
+      render(
+        <Grid.Container>
+          <Grid.Item>
+            <Box />
+          </Grid.Item>
+        </Grid.Container>
+      )
+
+      const grid = findBy({ type: "Grid" })
+      const child = findBy({ type: "Box" })
+
+      expect(grid.node.attach).toHaveBeenCalledWith(child.node, 0, 0, 1, 1)
+    })
+
+    test("should attach to specified position", () => {
       render(
         <Grid.Container>
           <Grid.Item col={1} row={2} width={3} height={4}>
-            <Button />
+            <Box />
           </Grid.Item>
         </Grid.Container>
       )
 
-      const button = findBy({ type: "Button" })
+      const grid = findBy({ type: "Grid" })
+      const child = findBy({ type: "Box" })
 
-      expect(Gtk.Grid.prototype.attach).toHaveBeenCalledWith(
-        button.node,
-        1,
-        2,
-        3,
-        4
-      )
-    })
-
-    test("should remove its previous child before attaching a new child", () => {
-      render(
-        <Grid.Container>
-          <Grid.Item col={1} row={2} width={3} height={4}>
-            <Button />
-          </Grid.Item>
-        </Grid.Container>
-      )
-
-      const prevButton = findBy({ type: "Button" })
-
-      render(
-        <Grid.Container>
-          <Grid.Item col={1} row={2} width={3} height={4} key="new">
-            <Button label="New" />
-          </Grid.Item>
-        </Grid.Container>
-      )
-
-      expect(Gtk.Grid.prototype.remove).toHaveBeenCalledWith(prevButton.node)
+      expect(grid.node.attach).toHaveBeenCalledWith(child.node, 1, 2, 3, 4)
     })
   })
 })

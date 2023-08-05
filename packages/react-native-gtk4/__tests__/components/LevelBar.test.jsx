@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import LevelBar, { DEFAULT_OFFSETS } from "../../src/components/LevelBar.js"
 import Gtk from "@girs/node-gtk-4.0"
@@ -6,18 +6,40 @@ import Gtk from "@girs/node-gtk-4.0"
 describe("LevelBar", () => {
   beforeEach(() => {
     setup()
-    Gtk.LEVEL_BAR_OFFSET_LOW = "low"
-    Gtk.LEVEL_BAR_OFFSET_HIGH = "high"
-    Gtk.LEVEL_BAR_OFFSET_FULL = "full"
+    jest.replaceProperty(Gtk, "LEVEL_BAR_OFFSET_LOW", "low")
+    jest.replaceProperty(Gtk, "LEVEL_BAR_OFFSET_HIGH", "high")
+    jest.replaceProperty(Gtk, "LEVEL_BAR_OFFSET_FULL", "full")
   })
 
-  test("should render correctly with default offsets", () => {
+  test("should render", () => {
     render(<LevelBar />)
+
     const levelBar = findBy({ type: "LevelBar" })
-    expect(levelBar).toBeTruthy()
+
+    expect(levelBar.node).toBeInstanceOf(Gtk.LevelBar)
   })
 
-  test("should add custom offsets correctly", () => {
+  test("should forward refs", () => {
+    const ref = createRef()
+
+    render(<LevelBar ref={ref} />)
+
+    const levelBar = findBy({ type: "LevelBar" })
+
+    expect(ref.current).toBe(levelBar.node)
+  })
+
+  test("should handle unmount gracefully", () => {
+    render(<LevelBar />)
+
+    render(null)
+
+    const levelBar = findBy({ type: "LevelBar" })
+
+    expect(levelBar).toBeNull()
+  })
+
+  test("should add custom offsets", () => {
     const customOffsets = {
       low: 0.2,
       high: 0.5,

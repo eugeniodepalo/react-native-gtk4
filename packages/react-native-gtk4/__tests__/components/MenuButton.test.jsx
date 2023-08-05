@@ -1,7 +1,8 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import MenuButton from "../../src/components/MenuButton.js"
 import Gio from "@girs/node-gio-2.0"
+import Gtk from "@girs/node-gtk-4.0"
 
 describe("MenuButton", () => {
   let menu
@@ -13,28 +14,55 @@ describe("MenuButton", () => {
     actionGroup = new Gio.SimpleActionGroup()
   })
 
-  describe("Container", () => {
-    test("should render correctly", () => {
-      render(
-        <MenuButton menu={menu} actionGroup={actionGroup} actionPrefix="test" />
-      )
+  test("should render", () => {
+    render(
+      <MenuButton menu={menu} actionGroup={actionGroup} actionPrefix="test" />
+    )
 
-      const menuButton = findBy({ type: "MenuButton" })
+    const menuButton = findBy({ type: "MenuButton" })
 
-      expect(menuButton).toBeTruthy()
-    })
+    expect(menuButton.node).toBeInstanceOf(Gtk.MenuButton)
+  })
 
-    test("should call insertActionGroup with correct parameters", () => {
-      render(
-        <MenuButton menu={menu} actionGroup={actionGroup} actionPrefix="test" />
-      )
+  test("should forward refs", () => {
+    const ref = createRef()
 
-      const menuButton = findBy({ type: "MenuButton" })
+    render(
+      <MenuButton
+        ref={ref}
+        menu={menu}
+        actionGroup={actionGroup}
+        actionPrefix="test"
+      />
+    )
 
-      expect(menuButton.node.insertActionGroup).toHaveBeenCalledWith(
-        "test",
-        actionGroup
-      )
-    })
+    const menuButton = findBy({ type: "MenuButton" })
+
+    expect(ref.current).toBe(menuButton.node)
+  })
+
+  test("should handle unmount gracefully", () => {
+    render(
+      <MenuButton menu={menu} actionGroup={actionGroup} actionPrefix="test" />
+    )
+
+    render(null)
+
+    const menuButton = findBy({ type: "MenuButton" })
+
+    expect(menuButton).toBeNull()
+  })
+
+  test("should insert action groups", () => {
+    render(
+      <MenuButton menu={menu} actionGroup={actionGroup} actionPrefix="test" />
+    )
+
+    const menuButton = findBy({ type: "MenuButton" })
+
+    expect(menuButton.node.insertActionGroup).toHaveBeenCalledWith(
+      "test",
+      actionGroup
+    )
   })
 })

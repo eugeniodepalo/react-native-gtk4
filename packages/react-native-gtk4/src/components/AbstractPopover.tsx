@@ -11,8 +11,8 @@ export type AbstractPopoverProps<T extends ElementType> = Omit<
   "children"
 > & {
   elementType: T
-  children?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
-  content?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
+  children?: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  content?: React.ReactElement & React.RefAttributes<Gtk.Widget>
   open?: boolean
 }
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import Scale from "../../src/components/Scale.js"
 import Gtk from "@girs/node-gtk-4.0"
@@ -6,23 +6,35 @@ import Gtk from "@girs/node-gtk-4.0"
 describe("Scale", () => {
   const range = [0, 10]
 
-  beforeEach(() => {
-    setup()
+  beforeEach(setup)
+
+  test("should render", () => {
+    render(<Scale range={range} />)
+
+    const scale = findBy({ type: "Scale" })
+
+    expect(scale.node).toBeInstanceOf(Gtk.Scale)
   })
 
-  test("should render correctly", () => {
-    render(<Scale range={range} />)
+  test("should forward refs", () => {
+    const ref = createRef()
+
+    render(<Scale range={range} ref={ref} />)
+
     const scale = findBy({ type: "Scale" })
-    expect(scale).toBeTruthy()
+
+    expect(ref.current).toBe(scale.node)
   })
 
-  test("should set range correctly", () => {
+  test("should set range", () => {
     render(<Scale range={range} />)
+
     const scale = findBy({ type: "Scale" })
+
     expect(scale.node.setRange).toHaveBeenCalledWith(range[0], range[1])
   })
 
-  test("should reset range correctly on unmount", () => {
+  test("should unset range on unmount", () => {
     render(<Scale range={range} />)
 
     const scale = findBy({ type: "Scale" })
@@ -42,7 +54,7 @@ describe("Scale", () => {
     expect(scale.node.setValue).toHaveBeenCalledWith(value)
   })
 
-  test("should reset value correctly on unmount", () => {
+  test("should unset value correctly on unmount", () => {
     const value = 5
 
     render(<Scale value={value} range={range} />)
@@ -54,7 +66,7 @@ describe("Scale", () => {
     expect(scale.node.setValue).toHaveBeenCalledWith(0)
   })
 
-  test("should add marks correctly", () => {
+  test("should add marks", () => {
     const marks = [
       {
         label: "Start",
@@ -83,7 +95,7 @@ describe("Scale", () => {
     }
   })
 
-  test("should remove marks correctly on unmount", () => {
+  test("should unset marks on unmount", () => {
     const marks = [
       {
         label: "Start",

@@ -1,5 +1,4 @@
 import ListBox from "../../src/generated/widgets/ListBox.js"
-import { createMockWidget } from "../../src/test-support/utils.js"
 import "../../src/overrides/ListBox.js"
 
 describe("ListBox overrides", () => {
@@ -9,40 +8,48 @@ describe("ListBox overrides", () => {
     listBox = new ListBox({}, ListBox.createNode())
   })
 
-  test("should append node on appendChild", () => {
-    const child = createMockWidget()
-    listBox.appendChild(child)
-    expect(listBox.node.append).toHaveBeenCalledWith(child.node)
+  describe("appendChild", () => {
+    test("should append node", () => {
+      const child = { node: {} }
+
+      listBox.appendChild(child)
+
+      expect(listBox.node.append).toHaveBeenCalledWith(child.node)
+    })
   })
 
-  test("should remove node on removeChild", () => {
-    const child = createMockWidget()
+  describe("removeChild", () => {
+    test("should remove node", () => {
+      const child = { node: {} }
 
-    listBox.appendChild(child)
-    listBox.removeChild(child)
+      listBox.appendChild(child)
+      listBox.removeChild(child)
 
-    expect(listBox.node.remove).toHaveBeenCalledWith(child.node)
+      expect(listBox.node.remove).toHaveBeenCalledWith(child.node)
+    })
   })
 
-  test("should insert node on insertBefore", () => {
-    const child1 = createMockWidget()
-    const child2 = createMockWidget()
-    const beforeChild = createMockWidget()
+  describe("insertBefore", () => {
+    test("should insert node", () => {
+      const child1 = { node: {} }
+      const child2 = { node: {} }
+      const beforeChild = { node: {} }
 
-    listBox.appendChild(child1)
-    listBox.appendChild(beforeChild)
-    listBox.insertBefore(child2, beforeChild)
+      listBox.appendChild(child1)
+      listBox.appendChild(beforeChild)
+      listBox.insertBefore(child2, beforeChild)
 
-    expect(listBox.node.insert).toHaveBeenCalledWith(child1.node, 0)
-  })
+      expect(listBox.node.insert).toHaveBeenCalledWith(child1.node, 0)
+    })
 
-  test("should prepend in case beforeChild is the first child", () => {
-    const child1 = createMockWidget()
-    const child2 = createMockWidget()
+    test("should prepend in case it's the first child", () => {
+      const child1 = { node: {} }
+      const child2 = { node: {} }
 
-    listBox.appendChild(child1)
-    listBox.insertBefore(child2, child1)
+      listBox.appendChild(child1)
+      listBox.insertBefore(child2, child1)
 
-    expect(listBox.node.prepend).toHaveBeenCalledWith(child2.node)
+      expect(listBox.node.prepend).toHaveBeenCalledWith(child2.node)
+    })
   })
 })

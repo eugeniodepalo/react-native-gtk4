@@ -3,6 +3,7 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Frame } from "../generated/intrinsics.js"
 import { useForwardedRef } from "../utils.js"
+import { createPortal } from "../portal.js"
 
 type Props = Omit<JSX.IntrinsicElements["Frame"], "labelWidget" | "label"> & {
   label?:
@@ -19,17 +20,19 @@ export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
   const [, setLabelRef] = useForwardedRef(labelElement?.ref, setLabelWidget)
 
   return (
-    <Frame
-      ref={ref}
-      label={typeof label === "string" ? label : null}
-      labelWidget={labelWidget}
-      {...props}
-    >
+    <>
       {labelElement
-        ? React.cloneElement(labelElement, {
-            ref: setLabelRef,
-          })
+        ? createPortal(
+            React.cloneElement(labelElement, {
+              ref: setLabelRef,
+            })
+          )
         : null}
-    </Frame>
+      <Frame
+        ref={ref}
+        {...(typeof label === "string" ? { label } : { labelWidget })}
+        {...props}
+      />
+    </>
   )
 })

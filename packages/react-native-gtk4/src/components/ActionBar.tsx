@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState, createContext } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { ActionBar } from "../generated/intrinsics.js"
@@ -6,8 +6,8 @@ import { useForwardedRef } from "../utils.js"
 
 type Position = "start" | "center" | "end"
 
-const Context = React.createContext<Gtk.ActionBar | null>(null)
-const PositionContext = React.createContext<Position | null>(null)
+const Context = createContext<Gtk.ActionBar | null>(null)
+const PositionContext = createContext<Position | null>(null)
 
 const Container = forwardRef<
   Gtk.ActionBar,

@@ -17,11 +17,14 @@ const Container = forwardRef<Gtk.PopoverMenuBar, Props>(
     const [, setInnerRef] = useForwardedRef(ref, setPopover)
 
     return (
-      <PopoverMenuBar ref={setInnerRef} {...props}>
-        {popover ? (
-          <Context.Provider value={popover}>{children}</Context.Provider>
-        ) : null}
-      </PopoverMenuBar>
+      <>
+        {popover
+          ? createPortal(
+              <Context.Provider value={popover}>{children}</Context.Provider>
+            )
+          : null}
+        <PopoverMenuBar ref={setInnerRef} {...props} />
+      </>
     )
   }
 )
@@ -53,12 +56,10 @@ const Item = function PopoverMenuBarItemComponent({
     }
   }, [popover, id])
 
-  return createPortal(
-    React.cloneElement(children, {
-      ref: setInnerRef,
-      ...props,
-    })
-  )
+  return React.cloneElement(children, {
+    ref: setInnerRef,
+    ...props,
+  })
 }
 
 export default {

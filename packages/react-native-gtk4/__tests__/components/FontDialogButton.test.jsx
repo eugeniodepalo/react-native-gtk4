@@ -1,65 +1,87 @@
 import React from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import FontDialogButton from "../../src/components/FontDialogButton.js"
-import { mockProperty } from "../../src/test-support/utils.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("FontDialogButton", () => {
-  beforeEach(() => {
-    setup()
-    mockProperty(Gtk.FontDialogButton, "dialog")
+  beforeEach(setup)
 
-    Gtk.FontDialog.mockImplementation(function ({
-      modal,
-      title,
-      filter,
-      fontMap,
-      language,
-    }) {
-      this.modal = modal
-      this.title = title
-      this.filter = filter
-      this.fontMap = fontMap
-      this.language = language
-    })
-  })
+  test("should not render when Gtk.FontDialog is not supported", async () => {
+    jest.doMock("@girs/node-gtk-4.0", () => ({
+      ...jest.requireActual("@girs/node-gtk-4.0"),
+      FontDialog: undefined,
+    }))
 
-  test("should render null when Gtk.FontDialog is undefined", () => {
-    const FontDialog = Gtk.FontDialog
-
-    Gtk.FontDialog = undefined
+    const { default: FontDialogButton } = await import(
+      "../../src/components/FontDialogButton.js"
+    )
 
     render(<FontDialogButton />)
+
     const button = findBy({ type: "FontDialogButton" })
 
     expect(button).toBeNull()
-
-    Gtk.FontDialog = FontDialog
   })
 
-  test("should render correctly", () => {
-    render(<FontDialogButton title="test" modal={true} />)
+  test("should render", () => {
+    render(<FontDialogButton />)
+
     const button = findBy({ type: "FontDialogButton" })
 
-    expect(button).not.toBeNull()
-    expect(button.node.dialog.title).toEqual("test")
-    expect(button.node.dialog.modal).toEqual(true)
+    expect(button.node).toBeInstanceOf(Gtk.FontDialogButton)
   })
 
-  test("should default modal prop to true", () => {
-    render(<FontDialogButton title="test" />)
+  test("should forward refs", () => {
+    const ref = React.createRef()
+
+    render(<FontDialogButton ref={ref} />)
+
     const button = findBy({ type: "FontDialogButton" })
 
-    expect(button.node.dialog.modal).toEqual(true)
+    expect(ref.current).toBe(button.node)
   })
 
-  test("should recreate dialog when title or modal changes", () => {
-    render(<FontDialogButton title="test" modal={true} />)
-    const dialog = Gtk.FontDialog.mock.instances[0]
-    expect(dialog).toMatchObject({ title: "test", modal: true })
+  test("should handle unmount gracefully", () => {
+    render(<FontDialogButton />)
 
-    render(<FontDialogButton title="test2" modal={false} />)
-    const newDialog = Gtk.FontDialog.mock.instances[1]
-    expect(newDialog).toMatchObject({ title: "test2", modal: false })
+    render(null)
+
+    const button = findBy({ type: "FontDialogButton" })
+
+    expect(button).toBeNull()
+  })
+
+  test("should set dialog", () => {
+    const props = {
+      title: "foo",
+      modal: false,
+      filter: "bar",
+      fontMap: "baz",
+      language: "qux",
+    }
+
+    render(<FontDialogButton {...props} />)
+
+    const button = findBy({ type: "FontDialogButton" })
+
+    expect(Gtk.FontDialog).toHaveBeenCalledWith(props)
+
+    expect(button.node.setDialog).toHaveBeenCalledWith(
+      Gtk.FontDialog.mock.instances[0]
+    )
+  })
+
+  test("should set modal", () => {
+    render(<FontDialogButton />)
+
+    const button = findBy({ type: "FontDialogButton" })
+
+    expect(Gtk.FontDialog).toHaveBeenCalledWith({
+      modal: true,
+    })
+
+    expect(button.node.setDialog).toHaveBeenCalledWith(
+      Gtk.FontDialog.mock.instances[0]
+    )
   })
 })

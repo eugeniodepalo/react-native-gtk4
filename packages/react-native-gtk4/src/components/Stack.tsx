@@ -1,42 +1,39 @@
-import React, { useContext, useEffect, useMemo, useState } from "react"
-import { forwardRef } from "react"
+import React, { useContext, useEffect, useState } from "react"
+import { forwardRef, createContext } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Stack, StackSidebar } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import { useForwardedRef } from "../utils.js"
 
 interface Context {
-  stack: Gtk.Stack | null
-  visibleChildName?: string | null
+  stack: Gtk.Stack
+  visibleChildName?: string
 }
 
-const Context = React.createContext<Context | null>(null)
+const Context = createContext<Context | null>(null)
 
-type Props = JSX.IntrinsicElements["Stack"] & {
-  children: React.ReactNode
-}
+const Container = forwardRef<Gtk.Stack, JSX.IntrinsicElements["Stack"]>(
+  function StackContainer({ children, visibleChildName, ...props }, ref) {
+    const [stack, setStack] = useState<Gtk.Stack | null>(null)
+    const [, setInnerRef] = useForwardedRef(ref, setStack)
 
-const Container = forwardRef<Gtk.Stack, Props>(function StackContainer(
-  { children, visibleChildName, ...props },
-  ref
-) {
-  const [stack, setStack] = useState<Gtk.Stack | null>(null)
-  const [, setInnerRef] = useForwardedRef(ref, setStack)
-
-  const value = useMemo(
-    () => ({ stack, visibleChildName }),
-    [stack, visibleChildName]
-  )
-
-  return (
-    <>
-      {stack ? (
-        <Context.Provider value={value}>{children}</Context.Provider>
-      ) : null}
-      <Stack ref={setInnerRef} {...props} />
-    </>
-  )
-})
+    return (
+      <>
+        {stack ? (
+          <Context.Provider
+            value={{
+              stack,
+              visibleChildName: visibleChildName ?? undefined,
+            }}
+          >
+            {children}
+          </Context.Provider>
+        ) : null}
+        <Stack ref={setInnerRef} {...props} />
+      </>
+    )
+  }
+)
 
 interface ItemProps {
   children: React.ReactElement & React.RefAttributes<Gtk.Widget>
@@ -56,9 +53,8 @@ const Item = function StackItem({ children, name, title }: ItemProps) {
 
   useEffect(() => {
     const node = innerRef.current
-    const stack = context.stack
 
-    if (!node || !stack) {
+    if (!node) {
       return
     }
 
@@ -69,13 +65,17 @@ const Item = function StackItem({ children, name, title }: ItemProps) {
         stack.remove(node)
       }
     }
-  }, [context, name, title])
+  }, [stack, name, title])
 
   useEffect(() => {
-    if (visibleChildName === name) {
-      stack?.setVisibleChildName(name)
+    if (!stack) {
+      return
     }
-  }, [context, name])
+
+    if (visibleChildName === name) {
+      stack.setVisibleChildName(name)
+    }
+  }, [visibleChildName, name])
 
   return createPortal(
     React.cloneElement(children, {

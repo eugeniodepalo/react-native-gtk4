@@ -1,130 +1,262 @@
-import React from "react"
+import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import Stack from "../../src/components/Stack.js"
-import { Button, Label } from "../../src/generated/intrinsics.js"
+import { Box } from "../../src/generated/intrinsics.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 describe("Stack", () => {
   beforeEach(setup)
 
-  test("should render StackContainer and StackItem correctly", () => {
-    render(
-      <Stack.Container visibleChildName="item1">
-        <Stack.Item name="item1" title="Item 1">
-          <Button>
-            <Label text="Item 1" />
-          </Button>
-        </Stack.Item>
-        <Stack.Item name="item2" title="Item 2">
-          <Button>
-            <Label text="Item 2" />
-          </Button>
-        </Stack.Item>
-      </Stack.Container>
-    )
-
-    const stack = findBy({ type: "Stack" })
-
-    expect(stack.node.addTitled).toHaveBeenNthCalledWith(
-      1,
-      expect.anything(),
-      "item1",
-      "Item 1"
-    )
-
-    expect(stack.node.addTitled).toHaveBeenNthCalledWith(
-      2,
-      expect.anything(),
-      "item2",
-      "Item 2"
-    )
-
-    expect(stack.node.setVisibleChildName).toHaveBeenCalledWith("item1")
-  })
-
-  test("should update visible child when the visibleChildName prop changes", () => {
-    render(
-      <Stack.Container visibleChildName="item1">
-        <Stack.Item name="item1" title="Item 1">
-          <Button>
-            <Label text="Item 1" />
-          </Button>
-        </Stack.Item>
-        <Stack.Item name="item2" title="Item 2">
-          <Button>
-            <Label text="Item 2" />
-          </Button>
-        </Stack.Item>
-      </Stack.Container>
-    )
-
-    const stack = findBy({ type: "Stack" })
-
-    render(
-      <Stack.Container visibleChildName="item2">
-        <Stack.Item name="item1" title="Item 1">
-          <Button>
-            <Label text="Item 1" />
-          </Button>
-        </Stack.Item>
-        <Stack.Item name="item2" title="Item 2">
-          <Button>
-            <Label text="Item 2" />
-          </Button>
-        </Stack.Item>
-      </Stack.Container>
-    )
-
-    expect(stack.node.setVisibleChildName).toHaveBeenCalledWith("item2")
-  })
-
-  test("should remove previous item when unmounting", () => {
-    render(
-      <Stack.Container visibleChildName="item1">
-        <Stack.Item name="item1" title="Item 1">
-          <Button>
-            <Label text="Item 1" />
-          </Button>
-        </Stack.Item>
-      </Stack.Container>
-    )
-
-    const stack = findBy({ type: "Stack" })
-    const button = findBy({ type: "Button" })
-
-    button.node.getParent = jest.fn(() => stack.node)
-
-    render(null)
-
-    expect(stack.node.remove).toHaveBeenCalledWith(button.node)
-  })
-
-  test("should render Sidebar correctly", () => {
-    render(
-      <Stack.Container>
-        <Stack.Sidebar />
-      </Stack.Container>
-    )
-
-    const sidebar = findBy({ type: "StackSidebar" })
-
-    expect(sidebar.node).toBeTruthy()
-  })
-
-  test("should throw an error when Sidebar is not inside a Container", () => {
-    expect(() => render(<Stack.Sidebar />)).toThrow(
-      "Stack.Sidebar must be a child of Stack.Container"
-    )
-  })
-
-  test("should throw an error when Item is not inside a Container", () => {
-    expect(() =>
+  describe("Container", () => {
+    test("should render", () => {
       render(
-        <Stack.Item name="item1" title="Item 1">
-          <Button>
-            <Label text="Item 1" />
-          </Button>
-        </Stack.Item>
+        <Stack.Container>
+          <Box />
+        </Stack.Container>
       )
-    ).toThrow("Stack.Item must be a child of Stack.Container")
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+
+      expect(stack.node).toBeInstanceOf(Gtk.Stack)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+      const childRef = createRef()
+
+      render(
+        <Stack.Container ref={ref}>
+          <Box ref={childRef} />
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(stack.node)
+      expect(childRef.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <Stack.Container>
+          <Box />
+        </Stack.Container>
+      )
+
+      render(null)
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+
+      expect(stack).toBeNull()
+      expect(child).toBeNull()
+    })
+  })
+
+  describe("Item", () => {
+    test("should render", () => {
+      render(
+        <Stack.Container>
+          <Stack.Item>
+            <Box />
+          </Stack.Item>
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+
+      expect(stack.node).toBeInstanceOf(Gtk.Stack)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+
+      render(
+        <Stack.Container>
+          <Stack.Item>
+            <Box ref={ref} />
+          </Stack.Item>
+        </Stack.Container>
+      )
+
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <Stack.Container>
+          <Stack.Item>
+            <Box />
+          </Stack.Item>
+        </Stack.Container>
+      )
+
+      render(null)
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+
+      expect(stack).toBeNull()
+      expect(child).toBeNull()
+    })
+
+    test("should add titled child", () => {
+      const name = "foo"
+      const title = "bar"
+
+      render(
+        <Stack.Container>
+          <Stack.Item name={name} title={title}>
+            <Box />
+          </Stack.Item>
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+
+      expect(stack.node.addTitled).toHaveBeenCalledWith(child.node, name, title)
+    })
+
+    test("should remove itself when unmounted", () => {
+      render(
+        <Stack.Container>
+          <Stack.Item>
+            <Box />
+          </Stack.Item>
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+      const box = findBy({ type: "Box" })
+
+      box.node.getParent = jest.fn(() => stack.node)
+
+      render(null)
+
+      expect(stack.node.remove).toHaveBeenCalledWith(box.node)
+    })
+
+    test("should not remove itself when unmounted if parent has been destroyed", () => {
+      render(
+        <Stack.Container>
+          <Stack.Item>
+            <Box />
+          </Stack.Item>
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+      const box = findBy({ type: "Box" })
+
+      box.node.getParent = jest.fn(() => null)
+
+      render(null)
+
+      expect(stack.node.remove).not.toHaveBeenCalled()
+    })
+
+    test("should set visible child", () => {
+      const name = "foo"
+
+      render(
+        <Stack.Container visibleChildName={name}>
+          <Stack.Item name={name}>
+            <Box />
+          </Stack.Item>
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+
+      expect(stack.node.setVisibleChildName).toHaveBeenCalledWith(name)
+    })
+
+    test("should throw when not inside Stack.Container", () => {
+      expect(() => {
+        render(
+          <Stack.Item>
+            <Box />
+          </Stack.Item>
+        )
+      }).toThrow("Stack.Item must be a child of Stack.Container")
+    })
+  })
+
+  describe("Sidebar", () => {
+    test("should render", () => {
+      render(
+        <Stack.Container>
+          <Stack.Sidebar>
+            <Box />
+          </Stack.Sidebar>
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+      const sidebar = findBy({ type: "StackSidebar" })
+
+      expect(stack.node).toBeInstanceOf(Gtk.Stack)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+      expect(sidebar.node).toBeInstanceOf(Gtk.StackSidebar)
+      expect(sidebar.node.setStack).toHaveBeenCalledWith(stack.node)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+      const childRef = createRef()
+
+      render(
+        <Stack.Container>
+          <Stack.Sidebar ref={ref}>
+            <Box ref={childRef} />
+          </Stack.Sidebar>
+        </Stack.Container>
+      )
+
+      const child = findBy({ type: "Box" })
+      const sidebar = findBy({ type: "StackSidebar" })
+
+      expect(ref.current).toBe(sidebar.node)
+      expect(childRef.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <Stack.Container>
+          <Stack.Sidebar>
+            <Box />
+          </Stack.Sidebar>
+        </Stack.Container>
+      )
+
+      render(null)
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+      const sidebar = findBy({ type: "StackSidebar" })
+
+      expect(stack).toBeNull()
+      expect(child).toBeNull()
+      expect(sidebar).toBeNull()
+    })
+
+    test("should throw when not inside Stack.Container", () => {
+      expect(() => {
+        render(
+          <Stack.Sidebar>
+            <Box />
+          </Stack.Sidebar>
+        )
+      }).toThrow("Stack.Sidebar must be a child of Stack.Container")
+    })
   })
 })

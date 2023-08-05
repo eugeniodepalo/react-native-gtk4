@@ -67,7 +67,7 @@ export default function App() {
   const { quit, application } = useApplication()
 
   const renderDropDownItem = useCallback(
-    (item: string) => <Label label={item} />,
+    (item: string | null) => <Label label={item ?? ""} />,
     []
   )
 

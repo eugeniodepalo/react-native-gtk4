@@ -16,7 +16,7 @@ describe("HeaderBar", () => {
     const headerBar = findBy({ type: "HeaderBar" })
 
     expect(headerBar).toBeTruthy()
-    expect(headerBar.node.titleWidget).toBeUndefined()
+    expect(headerBar.node.titleWidget).toBeNull()
   })
 
   test("should set title widget correctly", () => {

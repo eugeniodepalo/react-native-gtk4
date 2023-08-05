@@ -1,19 +1,12 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { createPortal } from "../portal.js"
 import { PopoverMenuBar } from "../generated/intrinsics.js"
+import { useForwardedRef } from "../utils.js"
 
 type Props = Omit<JSX.IntrinsicElements["PopoverMenuBar"], "children"> & {
-  children?: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children?: React.ReactElement & React.RefAttributes<Gtk.Widget>
 }
 
 const Context = createContext<Gtk.PopoverMenuBar | null>(null)
@@ -21,58 +14,52 @@ const Context = createContext<Gtk.PopoverMenuBar | null>(null)
 const Container = forwardRef<Gtk.PopoverMenuBar, Props>(
   function PopoverMenuBarComponent({ children, ...props }, ref) {
     const [popover, setPopover] = useState<Gtk.PopoverMenuBar | null>(null)
-
-    const innerRef = useCallback((node: Gtk.PopoverMenuBar | null) => {
-      setPopover(node)
-    }, [])
-
-    useImperativeHandle(ref, () => popover!)
+    const [, setInnerRef] = useForwardedRef(ref, setPopover)
 
     return (
-      <>
-        <PopoverMenuBar ref={innerRef} {...props} />
+      <PopoverMenuBar ref={setInnerRef} {...props}>
         {popover ? (
           <Context.Provider value={popover}>{children}</Context.Provider>
         ) : null}
-      </>
+      </PopoverMenuBar>
     )
   }
 )
 
 interface ItemProps {
   id: string
-  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
 }
 
-const Item = forwardRef<Gtk.Widget, ItemProps>(
-  function PopoverMenuBarItemComponent({ children, id, ...props }, ref) {
-    const popover = useContext(Context)
-    const innerRef = useRef<Gtk.Widget | null>(null)
+const Item = function PopoverMenuBarItemComponent({
+  children,
+  id,
+  ...props
+}: ItemProps) {
+  const popover = useContext(Context)
+  const [innerRef, setInnerRef] = useForwardedRef(children.ref)
 
-    useImperativeHandle(ref, () => innerRef.current!)
+  useEffect(() => {
+    const child = innerRef.current
 
-    useEffect(() => {
-      const child = innerRef.current
+    if (!popover || !child) {
+      return
+    }
 
-      if (!popover || !child) {
-        return
-      }
+    popover.addChild(child, id)
 
-      popover.addChild(child, id)
+    return () => {
+      popover.removeChild(child)
+    }
+  }, [popover, id])
 
-      return () => {
-        popover.removeChild(child)
-      }
-    }, [popover, id])
-
-    return createPortal(
-      React.cloneElement(children, {
-        ref: innerRef,
-        ...props,
-      })
-    )
-  }
-)
+  return createPortal(
+    React.cloneElement(children, {
+      ref: setInnerRef,
+      ...props,
+    })
+  )
+}
 
 export default {
   Container,

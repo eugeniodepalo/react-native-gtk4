@@ -1,16 +1,9 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import React, { useContext, useEffect, useMemo, useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Stack, StackSidebar } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
+import { useForwardedRef } from "../utils.js"
 
 interface Context {
   stack: Gtk.Stack | null
@@ -28,38 +21,30 @@ const Container = forwardRef<Gtk.Stack, Props>(function StackContainer(
   ref
 ) {
   const [stack, setStack] = useState<Gtk.Stack | null>(null)
+  const [, setInnerRef] = useForwardedRef(ref, setStack)
 
   const value = useMemo(
     () => ({ stack, visibleChildName }),
     [stack, visibleChildName]
   )
 
-  const stackRef = useCallback((node: Gtk.Stack | null) => {
-    setStack(node)
-  }, [])
-
-  useImperativeHandle(ref, () => stack!)
-
   return (
     <>
-      <Stack ref={stackRef} {...props} />
       {stack ? (
         <Context.Provider value={value}>{children}</Context.Provider>
       ) : null}
+      <Stack ref={setInnerRef} {...props} />
     </>
   )
 })
 
 interface ItemProps {
-  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
   name: string
   title?: string
 }
 
-const Item = forwardRef<Gtk.Widget, ItemProps>(function StackItem(
-  { children, name, title }: ItemProps,
-  ref
-) {
+const Item = function StackItem({ children, name, title }: ItemProps) {
   const context = useContext(Context)
 
   if (!context) {
@@ -67,9 +52,7 @@ const Item = forwardRef<Gtk.Widget, ItemProps>(function StackItem(
   }
 
   const { stack, visibleChildName } = context
-  const innerRef = useRef<Gtk.Widget | null>(null)
-
-  useImperativeHandle(ref, () => innerRef.current!)
+  const [innerRef, setInnerRef] = useForwardedRef(children.ref)
 
   useEffect(() => {
     const node = innerRef.current
@@ -96,10 +79,10 @@ const Item = forwardRef<Gtk.Widget, ItemProps>(function StackItem(
 
   return createPortal(
     React.cloneElement(children, {
-      ref: innerRef,
+      ref: setInnerRef,
     })
   )
-})
+}
 
 type SidebarProps = Omit<JSX.IntrinsicElements["StackSidebar"], "stack">
 

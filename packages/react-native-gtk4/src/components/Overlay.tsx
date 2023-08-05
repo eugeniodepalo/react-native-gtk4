@@ -1,22 +1,20 @@
-import React, { useEffect, useImperativeHandle, useRef } from "react"
+import React, { useEffect } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Overlay } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
+import { useForwardedRef } from "../utils.js"
 
 type Props = JSX.IntrinsicElements["Overlay"] & {
-  children: React.ReactNode
-  content: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  content: React.ReactElement & React.RefAttributes<Gtk.Widget>
 }
 
 export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
   { children, content, ...props },
   ref
 ) {
-  const innerRef = useRef<Gtk.Overlay | null>(null)
-  const contentRef = useRef<Gtk.Widget | null>(null)
-
-  useImperativeHandle(ref, () => innerRef.current!)
+  const [innerRef, setInnerRef] = useForwardedRef(ref)
+  const [contentRef, setContentRef] = useForwardedRef(content.ref)
 
   useEffect(() => {
     const overlay = innerRef.current
@@ -35,8 +33,8 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
 
   return (
     <>
-      {createPortal(React.cloneElement(content, { ref: contentRef }))}
-      <Overlay ref={innerRef} {...props}>
+      {createPortal(React.cloneElement(content, { ref: setContentRef }))}
+      <Overlay ref={setInnerRef} {...props}>
         {children}
       </Overlay>
     </>

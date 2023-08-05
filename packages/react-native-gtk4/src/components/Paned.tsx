@@ -1,17 +1,13 @@
-import React, {
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Paned } from "../generated/intrinsics.js"
+import { useForwardedRef } from "../utils.js"
 
 type Props = Omit<JSX.IntrinsicElements["Paned"], "children"> & {
   children: [
-    React.ReactElement<JSX.IntrinsicElements["Widget"]>,
-    React.ReactElement<JSX.IntrinsicElements["Widget"]>,
+    React.ReactElement & React.RefAttributes<Gtk.Widget>,
+    React.ReactElement & React.RefAttributes<Gtk.Widget>,
   ]
 }
 
@@ -19,32 +15,23 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
   { children, ...props },
   ref
 ) {
-  const innerRef = useRef<Gtk.Paned | null>(null)
   const [startChild, setStartChild] = useState<Gtk.Widget | null>(null)
   const [endChild, setEndChild] = useState<Gtk.Widget | null>(null)
-
-  useImperativeHandle(ref, () => innerRef.current!)
-
-  const startChildRef = useCallback((node: Gtk.Widget | null) => {
-    setStartChild(node)
-  }, [])
-
-  const endChildRef = useCallback((node: Gtk.Widget | null) => {
-    setEndChild(node)
-  }, [])
+  const [, setStartChildRef] = useForwardedRef(children[0].ref, setStartChild)
+  const [, setEndChildRef] = useForwardedRef(children[1].ref, setEndChild)
 
   return (
     <Paned
-      ref={innerRef}
+      ref={ref}
       startChild={startChild ?? undefined}
       endChild={endChild ?? undefined}
       {...props}
     >
       {React.cloneElement(children[0], {
-        ref: startChildRef,
+        ref: setStartChildRef,
       })}
       {React.cloneElement(children[1], {
-        ref: endChildRef,
+        ref: setEndChildRef,
       })}
     </Paned>
   )

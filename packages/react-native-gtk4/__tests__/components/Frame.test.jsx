@@ -17,8 +17,8 @@ describe("Frame", () => {
     const frame = findBy({ type: "Frame" })
 
     expect(frame).toBeTruthy()
-    expect(frame.node.label).toBeUndefined()
-    expect(frame.node.labelWidget).toBeUndefined()
+    expect(frame.node.label).toBeNull()
+    expect(frame.node.labelWidget).toBeNull()
   })
 
   test("should render correctly with string label", () => {
@@ -36,7 +36,7 @@ describe("Frame", () => {
     const label = findBy({ type: "Label" })
 
     expect(frame).toBeTruthy()
-    expect(frame.node.label).toBeUndefined()
+    expect(frame.node.label).toBeNull()
     expect(frame.node.labelWidget).toBe(label.node)
   })
 })

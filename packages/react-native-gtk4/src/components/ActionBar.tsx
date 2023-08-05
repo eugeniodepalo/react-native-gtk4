@@ -9,20 +9,21 @@ type Position = "start" | "center" | "end"
 const Context = React.createContext<Gtk.ActionBar | null>(null)
 const PositionContext = React.createContext<Position | null>(null)
 
-const Container = forwardRef<Gtk.ActionBar, JSX.IntrinsicElements["ActionBar"]>(
-  function ActionBarContainer({ children, ...props }, ref) {
-    const [actionBar, setActionBar] = useState<Gtk.ActionBar | null>(null)
-    const [, setInnerRef] = useForwardedRef(ref, setActionBar)
+const Container = forwardRef<
+  Gtk.ActionBar,
+  Omit<JSX.IntrinsicElements["ActionBar"], "centerWidget">
+>(function ActionBarContainer({ children, ...props }, ref) {
+  const [actionBar, setActionBar] = useState<Gtk.ActionBar | null>(null)
+  const [, setInnerRef] = useForwardedRef(ref, setActionBar)
 
-    return (
-      <ActionBar ref={setInnerRef} {...props}>
-        {actionBar ? (
-          <Context.Provider value={actionBar}>{children}</Context.Provider>
-        ) : null}
-      </ActionBar>
-    )
-  }
-)
+  return (
+    <ActionBar ref={setInnerRef} {...props}>
+      {actionBar ? (
+        <Context.Provider value={actionBar}>{children}</Context.Provider>
+      ) : null}
+    </ActionBar>
+  )
+})
 
 interface ItemProps {
   children: React.ReactElement & React.RefAttributes<Gtk.Widget>
@@ -67,7 +68,7 @@ const Item = function ActionBarItem({ children }: ItemProps) {
 }
 
 interface SectionProps {
-  children: React.ReactElement<JSX.IntrinsicElements["Widget"]>
+  children: React.ReactElement
   position?: Position
 }
 

@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useImperativeHandle } from "react"
+import React, { useEffect } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Scale } from "../generated/intrinsics.js"
 import _ from "lodash"
+import { useForwardedRef } from "../utils.js"
 
 interface ScaleMark {
   label: string
@@ -21,9 +22,7 @@ export default React.memo(
     { marks, range, value, ...props },
     ref
   ) {
-    const innerRef = useRef<Gtk.Scale | null>(null)
-
-    useImperativeHandle(ref, () => innerRef.current!)
+    const [innerRef, setInnerRef] = useForwardedRef(ref)
 
     useEffect(() => {
       const scale = innerRef.current
@@ -73,7 +72,7 @@ export default React.memo(
       }
     }, [value])
 
-    return <Scale ref={innerRef} {...props}></Scale>
+    return <Scale ref={setInnerRef} {...props}></Scale>
   }),
   _.isEqual
 )

@@ -1,33 +1,24 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useEffect, useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { MenuButton } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import Gio from "@girs/node-gio-2.0"
+import { useForwardedRef } from "../utils.js"
 
-type Props = Omit<
-  JSX.IntrinsicElements["MenuButton"],
-  "popover" | "children"
-> & {
+type Props = Omit<JSX.IntrinsicElements["MenuButton"], "popover"> & {
   actionGroup?: Gio.ActionGroup
   actionPrefix?: string
-  popover?: React.ReactElement<JSX.IntrinsicElements["Popover"]>
+  popover?: React.ReactElement & React.RefAttributes<Gtk.Popover>
 }
 
 export default forwardRef<Gtk.MenuButton, Props>(function MenuButtonComponent(
   { popover, actionGroup, actionPrefix, ...props },
   ref
 ) {
-  const innerRef = useRef<Gtk.MenuButton | null>(null)
-  const [popoverNode, setPopoverNode] = useState<Gtk.Popover | null>(null)
-
-  useImperativeHandle(ref, () => innerRef.current!)
+  const [popoverWidget, setPopoverWidget] = useState<Gtk.Popover | null>(null)
+  const [, setPopoverRef] = useForwardedRef(popover?.ref, setPopoverWidget)
+  const [innerRef, setInnerRef] = useForwardedRef(ref)
 
   useEffect(() => {
     const menuButton = innerRef.current
@@ -43,24 +34,16 @@ export default forwardRef<Gtk.MenuButton, Props>(function MenuButtonComponent(
     }
   }, [actionGroup, actionPrefix])
 
-  const popoverRef = useCallback((node: Gtk.Popover | null) => {
-    setPopoverNode(node)
-  }, [])
-
   return (
     <>
       {popover
         ? createPortal(
             React.cloneElement(popover, {
-              ref: popoverRef,
+              ref: setPopoverRef,
             })
           )
         : null}
-      <MenuButton
-        ref={innerRef}
-        popover={popoverNode ?? undefined}
-        {...props}
-      />
+      <MenuButton ref={setInnerRef} popover={popoverWidget} {...props} />
     </>
   )
 })

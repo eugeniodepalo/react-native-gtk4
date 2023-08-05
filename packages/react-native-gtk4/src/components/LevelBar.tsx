@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useImperativeHandle } from "react"
+import React, { useEffect } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { LevelBar } from "../generated/intrinsics.js"
 import _ from "lodash"
+import { useForwardedRef } from "../utils.js"
 
-type Props = Omit<JSX.IntrinsicElements["LevelBar"], "children"> & {
+type Props = JSX.IntrinsicElements["LevelBar"] & {
   offsets?: Record<string, number>
 }
 
@@ -19,9 +20,7 @@ export default React.memo(
     { offsets, ...props },
     ref
   ) {
-    const innerRef = useRef<Gtk.LevelBar | null>(null)
-
-    useImperativeHandle(ref, () => innerRef.current!)
+    const [innerRef, setInnerRef] = useForwardedRef(ref)
 
     useEffect(() => {
       const levelBar = innerRef.current
@@ -51,7 +50,7 @@ export default React.memo(
       }
     }, [offsets])
 
-    return <LevelBar ref={innerRef} {...props}></LevelBar>
+    return <LevelBar ref={setInnerRef} {...props}></LevelBar>
   }),
   _.isEqual
 )

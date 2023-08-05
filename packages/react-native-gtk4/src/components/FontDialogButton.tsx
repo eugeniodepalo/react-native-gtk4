@@ -4,10 +4,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import { FontDialogButton } from "../generated/intrinsics.js"
 import _ from "lodash"
 
-type Props = Omit<
-  JSX.IntrinsicElements["FontDialogButton"],
-  "children" | "dialog"
-> &
+type Props = Omit<JSX.IntrinsicElements["FontDialogButton"], "dialog"> &
   Partial<Gtk.FontDialog>
 
 export default forwardRef<Gtk.FontDialogButton, Props>(

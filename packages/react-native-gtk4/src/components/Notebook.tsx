@@ -1,14 +1,8 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Notebook, Label } from "../generated/intrinsics.js"
+import { useForwardedRef } from "../utils.js"
 
 const Context = React.createContext<Gtk.Notebook | null>(null)
 
@@ -21,15 +15,10 @@ const Container = forwardRef<Gtk.Notebook, Props>(function NotebookContainer(
   ref
 ) {
   const [notebook, setNotebook] = useState<Gtk.Notebook | null>(null)
-
-  useImperativeHandle(ref, () => notebook!)
-
-  const notebookRef = useCallback((node: Gtk.Notebook | null) => {
-    setNotebook(node)
-  }, [])
+  const [, setInnerRef] = useForwardedRef(ref, setNotebook)
 
   return (
-    <Notebook ref={notebookRef} {...props}>
+    <Notebook ref={setInnerRef} {...props}>
       {notebook ? (
         <Context.Provider value={notebook}>{children}</Context.Provider>
       ) : null}

@@ -6,7 +6,6 @@ import { useForwardedRef } from "../utils.js"
 import { createPortal } from "../portal.js"
 
 type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "titlebar"> & {
-  children: React.ReactNode
   titlebar?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
 }
 

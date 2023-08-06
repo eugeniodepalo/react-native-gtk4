@@ -39,7 +39,7 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
       centerBox.setCenterWidget(null)
       centerBox.setEndWidget(null)
     }
-  }, [start, end, children])
+  }, [startRef.current, centerRef.current, endRef.current])
 
   return (
     <>

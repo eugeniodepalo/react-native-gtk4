@@ -59,7 +59,7 @@ const Tab = function NotebookTab({ children, label }: TabProps) {
     return () => {
       notebook.removePage(notebook.pageNum(label))
     }
-  }, [notebook, label])
+  }, [notebook, labelRef.current, childRef.current])
 
   return (
     <>

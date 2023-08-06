@@ -60,7 +60,7 @@ const Item = function ActionBarItem({ children }: ItemProps) {
     return () => {
       actionBar.remove(child)
     }
-  }, [])
+  }, [childRef.current, position])
 
   return React.cloneElement(children, {
     ref: setChildRef,

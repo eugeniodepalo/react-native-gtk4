@@ -29,7 +29,7 @@ export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(
     return () => {
       overlay.setChild(null)
     }
-  }, [])
+  }, [contentRef.current])
 
   return (
     <>

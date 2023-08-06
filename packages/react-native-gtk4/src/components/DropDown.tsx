@@ -16,18 +16,16 @@ import { useForwardedRef } from "../utils.js"
 import { destroyContainer, createContainer } from "../container.js"
 import { createReconciler } from "../reconciler.js"
 
-type FactoryType = "item" | "popoverItem"
+type FactoryRenderFunction<T> = (
+  value: T | null
+) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 
 type Props<T> = Omit<
   JSX.IntrinsicElements["DropDown"],
-  "itemFactory" | "popoverItemFactory"
+  "itemFactory" | "popoverItemFactory" | "model"
 > & {
-  renderPopoverItem?: (
-    value: T | null
-  ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
-  renderItem?: (
-    value: T | null
-  ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
+  renderPopoverItem?: FactoryRenderFunction<T>
+  renderItem?: FactoryRenderFunction<T>
 }
 
 type ItemRecord<T> = Record<
@@ -79,13 +77,10 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
     )
 
     const setupFactory = useCallback(
-      (factory: Gtk.SignalListItemFactory, type: FactoryType) => {
-        const renderFn = type === "item" ? renderItem : renderPopoverItem
-
-        if (!renderFn) {
-          return
-        }
-
+      (
+        factory: Gtk.SignalListItemFactory,
+        renderFn: FactoryRenderFunction<T>
+      ) => {
         const reconciler = createReconciler()
 
         const onFactorySetup = (object: GObject.Object) => {
@@ -142,13 +137,13 @@ const Container = forwardRef<Gtk.DropDown, Props<any>>(
 
     useEffect(() => {
       if (renderItem) {
-        return setupFactory(itemFactory, "item")
+        return setupFactory(itemFactory, renderItem)
       }
     }, [renderItem])
 
     useEffect(() => {
       if (renderPopoverItem) {
-        return setupFactory(popoverItemFactory, "popoverItem")
+        return setupFactory(popoverItemFactory, renderPopoverItem)
       }
     }, [renderPopoverItem])
 

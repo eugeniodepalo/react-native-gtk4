@@ -41,6 +41,7 @@ import {
   useInlineStyleSheet,
   PopoverMenuBar,
   Frame,
+  ListView,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -65,6 +66,7 @@ export default function App() {
   const [showPrintDialog, setShowPrintDialog] = useState(false)
   const [levelBarValue, setLevelBarValue] = useState(0.0)
   const [scaleValue, setScaleValue] = useState(0.0)
+  const [listViewSelection, setListViewSelection] = useState<string[]>([])
   const { quit, application } = useApplication()
 
   const renderDropDownItem = useCallback(
@@ -471,6 +473,21 @@ export default function App() {
                 <DropDown.Item key={i} id={i.toString()} value={`Item ${i}`} />
               ))}
             </DropDown.Container>
+            <ListView.Container
+              hexpand
+              vexpand
+              selectionMode={Gtk.SelectionMode.MULTIPLE}
+              renderItem={renderDropDownItem}
+              selection={listViewSelection}
+              onSelectionChanged={(ids, items) => {
+                console.log(items)
+                setListViewSelection(ids)
+              }}
+            >
+              {Array.from(Array(5).keys()).map((i) => (
+                <ListView.Item key={i} id={i.toString()} value={`Item ${i}`} />
+              ))}
+            </ListView.Container>
           </Box>
         </Grid.Item>
         <Grid.Item col={0} row={1} width={1} height={1}>

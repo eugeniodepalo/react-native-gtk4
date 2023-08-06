@@ -81,6 +81,36 @@ describe("ApplicationContainer", () => {
         MAX_TIMEOUT
       )
     })
+
+    test("exposes an application context", () => {
+      jest.useFakeTimers()
+      jest.spyOn(global, "setTimeout")
+      jest.spyOn(global, "clearTimeout")
+
+      const element = {}
+
+      applicationContainer.render(element)
+
+      const [, onActivate] = application.on.mock.calls[0]
+
+      onActivate()
+
+      expect(withApplicationContext).toHaveBeenCalledWith(
+        element,
+        expect.objectContaining({
+          application,
+        })
+      )
+
+      const [, { quit }] = withApplicationContext.mock.calls[0]
+      const timeout = setTimeout.mock.results[0].value
+      const result = quit()
+
+      expect(result).toBe(false)
+      expect(application.quit).toHaveBeenCalled()
+      expect(loop.quit).toHaveBeenCalled()
+      expect(clearTimeout).toHaveBeenCalledWith(timeout)
+    })
   })
 
   describe("appendChild", () => {

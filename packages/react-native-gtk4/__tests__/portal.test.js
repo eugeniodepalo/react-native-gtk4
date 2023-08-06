@@ -41,6 +41,20 @@ describe("Portal", () => {
       )
     })
 
+    test("should use default key", () => {
+      portal = createPortal(children, rootNode)
+
+      expect(portal).toMatchObject({
+        $$typeof: REACT_PORTAL_TYPE,
+        key: null,
+        children,
+        containerInfo: container,
+        implementation: null,
+      })
+
+      expect(createContainer).toHaveBeenCalledWith(rootNode)
+    })
+
     test("should use default application", () => {
       Gio.Application.getDefault.mockImplementation(() => ({}))
       jest.clearAllMocks()

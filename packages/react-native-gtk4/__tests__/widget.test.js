@@ -83,4 +83,22 @@ describe("AbstractWidget", () => {
       expect(node.on).toHaveBeenNthCalledWith(2, "event", handler2)
     })
   })
+
+  describe("getClosestParentOfType", () => {
+    test("should return null if no parent of specified type", () => {
+      expect(widget.getClosestParentOfType(AbstractWidget)).toBe(null)
+    })
+
+    test("should return first parent of specified type", () => {
+      const SomeWidget = class {}
+      const OtherWidget = class {}
+      const parent1 = { node: new SomeWidget() }
+      const parent2 = { node: new OtherWidget() }
+
+      widget.parent = parent1
+      widget.parent.parent = parent2
+
+      expect(widget.getClosestParentOfType(OtherWidget)).toBe(parent2.node)
+    })
+  })
 })

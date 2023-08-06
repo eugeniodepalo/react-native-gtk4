@@ -52,6 +52,19 @@ describe("NodeContainer", () => {
     })
   })
 
+  describe("destroy", () => {
+    test("should destroy container", () => {
+      nodeContainer.destroy()
+
+      expect(Reconciler.updateContainer).toHaveBeenCalledWith(
+        null,
+        container,
+        null,
+        expect.any(Function)
+      )
+    })
+  })
+
   describe("removeChild", () => {
     test("should unparent widgets", () => {
       const child = new Widget()

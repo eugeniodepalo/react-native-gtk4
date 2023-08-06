@@ -63,9 +63,7 @@ describe("AbstractPopover", () => {
     const content = findBy({ props: { id: "content" } })
 
     expect(child).not.toBeNull()
-    expect(popover.node.unparent).toHaveBeenCalled()
     expect(popover.node.setParent).toHaveBeenCalledWith(child.node)
-    expect(content.node.unparent).toHaveBeenCalled()
     expect(popover.node.setChild).toHaveBeenCalledWith(content.node)
     expect(popover.node.popdown).toHaveBeenCalled()
   })

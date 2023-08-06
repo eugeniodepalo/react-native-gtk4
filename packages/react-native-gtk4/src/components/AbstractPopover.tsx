@@ -30,18 +30,18 @@ export default forwardRef<Gtk.Popover, AbstractPopoverProps<ElementType>>(
       const popover = innerRef.current
       const child = childRef.current
 
-      if (!popover || !child) {
+      if (!popover) {
         return
       }
 
-      popover.unparent()
-      popover.setParent(child)
+      if (child && popover.getParent() !== child) {
+        popover.setParent(child)
+      }
 
       if (content) {
-        content.unparent()
         popover.setChild(content)
       }
-    }, [])
+    }, [contentRef.current, childRef.current])
 
     useEffect(() => {
       const popover = innerRef.current

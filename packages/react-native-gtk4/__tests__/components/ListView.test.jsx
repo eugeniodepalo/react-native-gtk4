@@ -1,17 +1,12 @@
-import * as useListItemFactoryModule from "../../src/hooks/useListItemFactory.js"
 import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import ListView from "../../src/components/ListView.js"
 import Gtk from "@girs/node-gtk-4.0"
+import ListProvider from "../../src/components/ListProvider.js"
 
 describe("ListView", () => {
-  let useListItemFactory
-
-  beforeEach(() => {
-    setup()
-    useListItemFactory = jest.spyOn(useListItemFactoryModule, "default")
-  })
+  beforeEach(setup)
 
   test("should render", () => {
     render(
@@ -54,13 +49,8 @@ describe("ListView", () => {
 
     const listView = findBy({ type: "ListView" })
 
-    expect(useListItemFactory).toHaveBeenCalledWith({
-      render: renderFn,
-      items: {},
-    })
-
     expect(listView.node.setFactory).toHaveBeenCalledWith(
-      useListItemFactory.mock.results[0].value
+      expect.any(Gtk.SignalListItemFactory)
     )
   })
 
@@ -110,5 +100,37 @@ describe("ListView", () => {
     })
 
     expect(updatedModel).toBeInstanceOf(Gtk.SingleSelection)
+  })
+
+  test("should update selected items from props", () => {
+    const selection = ["foo", "bar"]
+    const ids = []
+
+    Gtk.StringList.mockImplementation(() => ({
+      append: jest.fn((id) => {
+        ids.push(id)
+      }),
+      remove: jest.fn((index) => {
+        ids.splice(index, 1)
+      }),
+      getNItems: () => ids.length,
+      getString: (index) => ids[index],
+    }))
+
+    render(
+      <ListView selection={selection}>
+        <ListProvider.Item id="foo" value="foo" />
+        <ListProvider.Item id="bar" value="bar" />
+        <ListProvider.Item id="baz" value="baz" />
+      </ListView>
+    )
+
+    const listView = findBy({ type: "ListView" })
+    const [model] = listView.node.setModel.mock.calls[0]
+
+    expect(model.unselectAll).toHaveBeenCalled()
+    expect(model.selectItem).toHaveBeenCalledWith(0, false)
+    expect(model.selectItem).toHaveBeenCalledWith(1, false)
+    expect(model.selectItem).not.toHaveBeenCalledWith(2, expect.anything())
   })
 })

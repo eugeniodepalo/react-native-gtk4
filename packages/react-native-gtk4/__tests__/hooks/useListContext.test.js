@@ -1,15 +1,15 @@
 import React from "react"
 import { render, setup } from "../../src/test-support/index.js"
-import useList from "../../src/hooks/useList.js"
+import useListContext from "../../src/hooks/useListContext.js"
 import Gtk from "@girs/node-gtk-4.0"
 
-describe("useList", () => {
+describe("useListContext", () => {
   let list
 
   beforeEach(setup)
 
   const Component = function () {
-    list = useList()
+    list = useListContext()
     return null
   }
 
@@ -17,7 +17,8 @@ describe("useList", () => {
     render(<Component />)
 
     expect(list).toMatchObject({
-      items: {},
+      itemsRef: { current: {} },
+      setItems: expect.any(Function),
       model: expect.any(Gtk.StringList),
     })
   })

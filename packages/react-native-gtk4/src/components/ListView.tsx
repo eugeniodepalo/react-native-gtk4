@@ -10,7 +10,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import { ListView } from "../generated/intrinsics.js"
 import { useForwardedRef } from "../utils.js"
 import ListProvider from "./ListProvider.js"
-import useList from "../hooks/useList.js"
+import useListContext from "../hooks/useListContext.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
 } from "../hooks/useListItemFactory.js"
@@ -40,9 +40,13 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
 ) {
   const [, setListView] = useState<Gtk.ListView | null>(null)
   const [, setInnerRef] = useForwardedRef(ref, setListView)
-  const list = useList<T>()
-  const { items, model } = list
-  const itemFactory = useListItemFactory<T>({ render: renderItem, items })
+  const list = useListContext<T>()
+  const { itemsRef, model } = list
+
+  const itemFactory = useListItemFactory<T>({
+    render: renderItem,
+    itemsRef,
+  })
 
   const selectionModel = useMemo<Gtk.SelectionModel>(() => {
     switch (selectionMode) {
@@ -56,7 +60,9 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
   }, [selectionMode])
 
   const handleSelectionChanged = useCallback(() => {
-    if (!onSelectionChanged) {
+    const items = itemsRef.current
+
+    if (!onSelectionChanged || !items) {
       return
     }
 
@@ -83,7 +89,9 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
   }, [selectionModel])
 
   useEffect(() => {
-    if (!selectionModel) {
+    const items = itemsRef.current
+
+    if (!selectionModel || !items) {
       return
     }
 

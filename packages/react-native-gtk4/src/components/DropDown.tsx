@@ -6,7 +6,7 @@ import { useForwardedRef } from "../utils.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
 } from "../hooks/useListItemFactory.js"
-import useList from "../hooks/useList.js"
+import useListContext from "../hooks/useListContext.js"
 import ListProvider from "./ListProvider.js"
 
 type Props<T> = Omit<
@@ -25,13 +25,13 @@ export default forwardRef<Gtk.DropDown, Props<any>>(function DropDownComponent<
 ) {
   const [, setDropDown] = useState<Gtk.DropDown | null>(null)
   const [, setInnerRef] = useForwardedRef(ref, setDropDown)
-  const list = useList<T>()
-  const { items, model } = list
-  const itemFactory = useListItemFactory<T>({ render: renderItem, items })
+  const list = useListContext<T>()
+  const { itemsRef, model } = list
+  const itemFactory = useListItemFactory<T>({ render: renderItem, itemsRef })
 
   const popoverItemFactory = useListItemFactory<T>({
     render: renderPopoverItem,
-    items,
+    itemsRef,
   })
 
   return (

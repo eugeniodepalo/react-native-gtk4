@@ -11,12 +11,12 @@ export type ListItemFactoryRenderFunction<T> = (
 
 interface Props<T> {
   render?: ListItemFactoryRenderFunction<T>
-  items: ListProviderItemRecord<T>
+  itemsRef: React.RefObject<ListProviderItemRecord<T>>
 }
 
 export default function useListItemFactory<T>({
   render,
-  items,
+  itemsRef,
 }: Props<T>): Gtk.SignalListItemFactory | null {
   const factory = useMemo<Gtk.SignalListItemFactory>(
     () => new Gtk.SignalListItemFactory(),
@@ -24,7 +24,9 @@ export default function useListItemFactory<T>({
   )
 
   useEffect(() => {
-    if (!render) {
+    const items = itemsRef.current
+
+    if (!render || !items) {
       return
     }
 

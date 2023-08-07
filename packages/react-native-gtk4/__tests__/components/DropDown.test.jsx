@@ -1,5 +1,5 @@
 import * as useListItemFactoryModule from "../../src/hooks/useListItemFactory.js"
-import * as useListModule from "../../src/hooks/useList.js"
+import * as useListContextModule from "../../src/hooks/useListContext.js"
 import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
@@ -8,12 +8,12 @@ import Gtk from "@girs/node-gtk-4.0"
 
 describe("DropDown", () => {
   let useListItemFactory
-  let useList
+  let useListContext
 
   beforeEach(() => {
     setup()
     useListItemFactory = jest.spyOn(useListItemFactoryModule, "default")
-    useList = jest.spyOn(useListModule, "default")
+    useListContext = jest.spyOn(useListContextModule, "default")
   })
 
   test("should render", () => {
@@ -59,7 +59,7 @@ describe("DropDown", () => {
 
     expect(useListItemFactory).toHaveBeenCalledWith({
       render: renderFn,
-      items: {},
+      itemsRef: { current: {} },
     })
 
     expect(dropDown.node.setFactory).toHaveBeenCalledWith(
@@ -88,7 +88,7 @@ describe("DropDown", () => {
     const dropDown = findBy({ type: "DropDown" })
 
     expect(dropDown.node.setModel).toHaveBeenCalledWith(
-      useList.mock.results[0].value.model
+      useListContext.mock.results[0].value.model
     )
   })
 })

@@ -67,7 +67,10 @@ export default function App() {
   const [showPrintDialog, setShowPrintDialog] = useState(false)
   const [levelBarValue, setLevelBarValue] = useState(0.0)
   const [scaleValue, setScaleValue] = useState(0.0)
-  const [listViewSelection, setListViewSelection] = useState<string[]>([])
+  const [listViewSelection, setListViewSelection] = useState<string[]>([
+    "1",
+    "3",
+  ])
   const { quit, application } = useApplication()
 
   const renderDropDownItem = useCallback(

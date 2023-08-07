@@ -6,7 +6,7 @@ import { Box } from "../../src/generated/intrinsics.js"
 import useListItemFactory from "../../src/hooks/useListItemFactory.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"
-import useList from "../../src/hooks/useList.js"
+import useListContext from "../../src/hooks/useListContext.js"
 
 describe("useListItemFactory", () => {
   let factory
@@ -14,13 +14,11 @@ describe("useListItemFactory", () => {
   let list
 
   const Component = ({ children } = {}) => {
-    list = useList()
-    factory = useListItemFactory({ render: renderFn, items: list.items })
+    list = useListContext()
+    factory = useListItemFactory({ render: renderFn, itemsRef: list.itemsRef })
 
     return (
-      <ListProvider.Container value={{ items: list.items, model: list.model }}>
-        {children}
-      </ListProvider.Container>
+      <ListProvider.Container value={list}>{children}</ListProvider.Container>
     )
   }
 

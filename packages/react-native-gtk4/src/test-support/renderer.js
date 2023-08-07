@@ -67,7 +67,7 @@ export default class Renderer {
     console.error.mockRestore()
   }
 
-  findAllBy(predicate = {}, root = this.container) {
+  findAllBy(predicate = {}, root = this.applicationContainer) {
     const results = []
 
     for (const child of root.children) {
@@ -85,8 +85,8 @@ export default class Renderer {
     return this.findAllBy(predicate, root)[0] ?? null
   }
 
-  fireEvent(event, ...args) {
-    const handler = this.root.handlers[event]
+  fireEvent(node, event, ...args) {
+    const handler = node.handlers[event]
 
     if (!handler) {
       return

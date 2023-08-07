@@ -67,11 +67,15 @@ export default function App() {
   const [showPrintDialog, setShowPrintDialog] = useState(false)
   const [levelBarValue, setLevelBarValue] = useState(0.0)
   const [scaleValue, setScaleValue] = useState(0.0)
+  const [dropDownSelectedItem, setDropDownSelectedItem] = useState<
+    string | null
+  >(null)
+  const { quit, application } = useApplication()
+
   const [listViewSelection, setListViewSelection] = useState<string[]>([
     "1",
     "3",
   ])
-  const { quit, application } = useApplication()
 
   const renderDropDownItem = useCallback(
     (item: string | null) => <Label label={item ?? ""} />,
@@ -472,7 +476,16 @@ export default function App() {
             >
               <Label label="Center Box Center" />
             </CenterBox>
-            <DropDown hexpand vexpand renderItem={renderDropDownItem}>
+            <DropDown
+              hexpand
+              vexpand
+              renderItem={renderDropDownItem}
+              onSelectedItemChanged={(id, item) => {
+                console.log(item)
+                setDropDownSelectedItem(id)
+              }}
+              selectedItem={dropDownSelectedItem}
+            >
               {Array.from(Array(50).keys()).map((i) => (
                 <ListProvider.Item
                   key={i}

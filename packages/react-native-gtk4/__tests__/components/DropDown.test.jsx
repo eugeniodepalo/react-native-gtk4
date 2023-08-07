@@ -1,10 +1,16 @@
 import * as useListItemFactoryModule from "../../src/hooks/useListItemFactory.js"
 import * as useListContextModule from "../../src/hooks/useListContext.js"
 import React, { createRef } from "react"
-import { render, setup, findBy } from "../../src/test-support/index.js"
+import {
+  render,
+  setup,
+  findBy,
+  fireEvent,
+} from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import DropDown from "../../src/components/DropDown.js"
 import Gtk from "@girs/node-gtk-4.0"
+import ListProvider from "../../src/components/ListProvider.js"
 
 describe("DropDown", () => {
   let useListItemFactory
@@ -12,8 +18,22 @@ describe("DropDown", () => {
 
   beforeEach(() => {
     setup()
+
     useListItemFactory = jest.spyOn(useListItemFactoryModule, "default")
     useListContext = jest.spyOn(useListContextModule, "default")
+
+    const ids = []
+
+    Gtk.StringList.mockImplementation(() => ({
+      append: jest.fn((id) => {
+        ids.push(id)
+      }),
+      remove: jest.fn((index) => {
+        ids.splice(index, 1)
+      }),
+      getNItems: () => ids.length,
+      getString: (index) => ids[index],
+    }))
   })
 
   test("should render", () => {
@@ -90,5 +110,35 @@ describe("DropDown", () => {
     expect(dropDown.node.setModel).toHaveBeenCalledWith(
       useListContext.mock.results[0].value.model
     )
+  })
+
+  test("should set selectedItem", () => {
+    render(
+      <DropDown selectedItem="test">
+        <ListProvider.Item id="test" value="test" />
+      </DropDown>
+    )
+
+    const dropDown = findBy({ type: "DropDown" })
+
+    expect(dropDown.node.setSelected).toHaveBeenCalledWith(0)
+  })
+
+  test("should call onSelectedItemChanged when selected item changes", () => {
+    const onSelectedItemChanged = jest.fn()
+
+    render(
+      <DropDown onSelectedItemChanged={onSelectedItemChanged}>
+        <ListProvider.Item id="foo" value="bar" />
+      </DropDown>
+    )
+
+    const dropDown = findBy({ type: "DropDown" })
+
+    dropDown.node.selected = 0
+
+    fireEvent(dropDown, "notify::selected")
+
+    expect(onSelectedItemChanged).toHaveBeenCalledWith("foo", "bar")
   })
 })

@@ -31,6 +31,7 @@ export {
   HeaderBar,
   LevelBar,
   ListView,
+  ListProvider,
   MenuButton,
   Notebook,
   Overlay,

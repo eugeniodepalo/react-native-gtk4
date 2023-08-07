@@ -42,6 +42,7 @@ import {
   PopoverMenuBar,
   Frame,
   ListView,
+  ListProvider,
 } from "react-native-gtk4"
 
 export default function App() {
@@ -468,12 +469,16 @@ export default function App() {
             >
               <Label label="Center Box Center" />
             </CenterBox>
-            <DropDown.Container hexpand vexpand renderItem={renderDropDownItem}>
+            <DropDown hexpand vexpand renderItem={renderDropDownItem}>
               {Array.from(Array(50).keys()).map((i) => (
-                <DropDown.Item key={i} id={i.toString()} value={`Item ${i}`} />
+                <ListProvider.Item
+                  key={i}
+                  id={i.toString()}
+                  value={`Item ${i}`}
+                />
               ))}
-            </DropDown.Container>
-            <ListView.Container
+            </DropDown>
+            <ListView
               hexpand
               vexpand
               selectionMode={Gtk.SelectionMode.MULTIPLE}
@@ -485,9 +490,13 @@ export default function App() {
               }}
             >
               {Array.from(Array(5).keys()).map((i) => (
-                <ListView.Item key={i} id={i.toString()} value={`Item ${i}`} />
+                <ListProvider.Item
+                  key={i}
+                  id={i.toString()}
+                  value={`Item ${i}`}
+                />
               ))}
-            </ListView.Container>
+            </ListView>
           </Box>
         </Grid.Item>
         <Grid.Item col={0} row={1} width={1} height={1}>

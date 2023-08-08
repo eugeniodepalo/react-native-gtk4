@@ -19,14 +19,16 @@
       "version": "detect"
     }
   },
+  "rules": {
+    "react/prop-types": "off"
+  },
   "overrides": [
     {
       "files": ["**/*.ts", "**/*.tsx"],
       "parser": "@typescript-eslint/parser",
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-namespace": "off",
-        "react/prop-types": "off"
+        "@typescript-eslint/no-namespace": "off"
       },
       "extends": ["plugin:@typescript-eslint/recommended"],
       "plugins": ["@typescript-eslint"]

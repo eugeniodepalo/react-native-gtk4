@@ -13,7 +13,7 @@ interface Props<T> {
 export default function useSelection<T>({
   selectionMode,
   model,
-  selection,
+  selection = [],
   itemsRef,
   onSelectionChanged,
 }: Props<T>): Gtk.SelectionModel | null {

@@ -1,5 +1,5 @@
 import * as useListItemFactoryModule from "../../src/hooks/useListItemFactory.js"
-import * as useListModule from "../../src/hooks/useList.js"
+import * as useTreeModule from "../../src/hooks/useList.js"
 import React, { createRef } from "react"
 import {
   render,
@@ -20,7 +20,7 @@ describe("DropDown", () => {
     setup()
 
     useListItemFactory = jest.spyOn(useListItemFactoryModule, "default")
-    useList = jest.spyOn(useListModule, "default")
+    useList = jest.spyOn(useTreeModule, "default")
 
     const ids = []
 

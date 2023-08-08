@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"

@@ -7,3 +7,4 @@ export {
   default as useStyleSheet,
   useInlineStyleSheet,
 } from "./hooks/useStyleSheet.js"
+export { default as useSelection } from "./hooks/useSelection.js"

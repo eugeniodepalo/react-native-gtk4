@@ -3,6 +3,7 @@ import {
   ApplicationWindow,
   Box,
   Button,
+  ColumnView,
   Grid,
   Gtk,
   Label,
@@ -77,8 +78,27 @@ export default function App() {
     "3",
   ])
 
+  const [columnViewSelection, setColumnViewSelection] = useState<string[]>([
+    "2",
+  ])
+
   const renderDropDownItem = useCallback(
     (item: string | null) => <Label label={item ?? ""} />,
+    []
+  )
+
+  const renderCell = useCallback(
+    (
+      item: { name: string; surname: string } | null,
+      column: "name" | "surname"
+    ) => {
+      switch (column) {
+        case "name":
+          return <Label label={item?.name ?? ""} />
+        case "surname":
+          return <Label label={item?.surname ?? ""} />
+      }
+    },
     []
   )
 
@@ -362,6 +382,38 @@ export default function App() {
                 setShowTitlebar(!showTitlebar)
               }}
             />
+            <ColumnView
+              hexpand
+              vexpand
+              selectionMode={Gtk.SelectionMode.MULTIPLE}
+              columns={{
+                name: {
+                  title: "Name",
+                  expand: true,
+                },
+                surname: {
+                  title: "Surname",
+                  expand: true,
+                },
+              }}
+              renderCell={renderCell}
+              selection={columnViewSelection}
+              onSelectionChanged={(
+                ids,
+                items: { name: string; surname: string }[]
+              ) => {
+                console.log(items)
+                setColumnViewSelection(ids)
+              }}
+            >
+              {Array.from(Array(5).keys()).map((i) => (
+                <ListProvider.Item
+                  key={i}
+                  id={i.toString()}
+                  value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
+                />
+              ))}
+            </ColumnView>
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={0} width={1} height={1}>

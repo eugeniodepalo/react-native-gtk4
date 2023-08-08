@@ -22,6 +22,7 @@ export {
   CenterBox,
   CheckButton,
   ColorDialogButton,
+  ColumnView,
   DropDown,
   EmojiChooser,
   Expander,

@@ -25,7 +25,10 @@ interface ItemProps<T> {
   id: string
 }
 
-const Item = function ListProviderItem<T>({ value, id }: ItemProps<T>) {
+const Item = React.memo(function ListProviderItem<T>({
+  value,
+  id,
+}: ItemProps<T>) {
   const context = useContext(ListContext)
 
   if (!context) {
@@ -37,6 +40,7 @@ const Item = function ListProviderItem<T>({ value, id }: ItemProps<T>) {
   useEffect(() => {
     const { itemsRef, model, setItems } = context
     const items = itemsRef.current
+    const index = model.getNItems()
 
     if (!items) {
       return
@@ -46,29 +50,20 @@ const Item = function ListProviderItem<T>({ value, id }: ItemProps<T>) {
       ...items,
       [id]: {
         value,
-        index: model.getNItems(),
+        index,
       },
     })
 
     model.append(id)
 
     return () => {
-      const items = itemsRef.current
-
-      if (!items) {
-        return
-      }
-
-      if (model.getString(items[id].index) === id) {
-        model.remove(items[id].index)
-      }
-
+      model.remove(index)
       setItems(_.omit(items, [id]))
     }
   }, [value, id])
 
   return null
-}
+}, _.isEqual)
 
 export default {
   Container,

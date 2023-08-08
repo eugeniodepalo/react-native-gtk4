@@ -30,7 +30,7 @@ function useProvider() {
   return provider
 }
 
-export function useInlineStyleSheet(content: string) {
+export function useInlineStylesheet(content: string) {
   const provider = useProvider()
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function useInlineStyleSheet(content: string) {
   return provider
 }
 
-export default function useStyleSheet(path: string) {
+export default function useStylesheet(path: string) {
   const provider = useProvider()
 
   useEffect(() => {

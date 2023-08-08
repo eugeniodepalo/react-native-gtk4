@@ -4,7 +4,7 @@ import {
   Box,
   Button,
   Gtk,
-  useStyleSheet,
+  useStylesheet,
   useApplication,
 } from "react-native-gtk4"
 
@@ -12,7 +12,7 @@ export default function App() {
   const [count, setCount] = useState(0)
   const { quit } = useApplication()
 
-  useStyleSheet("data/styles.css")
+  useStylesheet("data/styles.css")
 
   return (
     <ApplicationWindow title="Hello World" onCloseRequest={quit}>

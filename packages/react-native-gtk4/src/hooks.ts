@@ -4,7 +4,7 @@ export { default as useList } from "./hooks/useList.js"
 export { default as useListItemFactory } from "./hooks/useListItemFactory.js"
 export { default as useMenu } from "./hooks/useMenu.js"
 export {
-  default as useStyleSheet,
-  useInlineStyleSheet,
-} from "./hooks/useStyleSheet.js"
+  default as useStylesheet,
+  useInlineStylesheet,
+} from "./hooks/useStylesheet.js"
 export { default as useSelection } from "./hooks/useSelection.js"

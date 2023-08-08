@@ -2,9 +2,9 @@ import React from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import Gdk from "@girs/node-gdk-4.0"
 import { setup, render } from "../../src/test-support/index.js"
-import useStyleSheet, {
-  useInlineStyleSheet,
-} from "../../src/hooks/useStyleSheet.js"
+import useStylesheet, {
+  useInlineStylesheet,
+} from "../../src/hooks/useStylesheet.js"
 
 let provider
 let display
@@ -15,11 +15,11 @@ beforeEach(() => {
   Gdk.Display.getDefault.mockImplementation(() => display)
 })
 
-describe("useStyleSheet", () => {
+describe("useStylesheet", () => {
   const path = "/path/to/stylesheet.css"
 
   const Component = () => {
-    provider = useStyleSheet(path)
+    provider = useStylesheet(path)
   }
 
   test("should load from the specified path", () => {
@@ -47,11 +47,11 @@ describe("useStyleSheet", () => {
   })
 })
 
-describe("useInlineStyleSheet", () => {
+describe("useInlineStylesheet", () => {
   const content = "body { background-color: #000; }"
 
   const Component = () => {
-    provider = useInlineStyleSheet(content)
+    provider = useInlineStylesheet(content)
   }
 
   test("should load from the provided content", () => {

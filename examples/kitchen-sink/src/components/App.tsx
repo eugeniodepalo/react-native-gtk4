@@ -38,7 +38,7 @@ import {
   DropDown,
   useActionGroup,
   useMenu,
-  useInlineStyleSheet,
+  useInlineStylesheet,
   PopoverMenuBar,
   Frame,
   ListView,
@@ -177,7 +177,7 @@ export default function App() {
     []
   )
 
-  useInlineStyleSheet(`
+  useInlineStylesheet(`
     .emoji-label {
       font-size: 40px;
     }

@@ -60,10 +60,6 @@ export default forwardRef<Gtk.DropDown, Props<any>>(function DropDownComponent<
       selectedItem && items[selectedItem] ? items[selectedItem].index : -1
 
     dropDown.setSelected(selected)
-
-    return () => {
-      dropDown.setSelected(-1)
-    }
   }, [selectedItem, dropDown, itemsRef])
 
   return (

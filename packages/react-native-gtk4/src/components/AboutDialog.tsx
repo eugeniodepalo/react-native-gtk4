@@ -3,7 +3,7 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { AboutDialog } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 
 export interface AboutDialogCreditSection {
   name: string

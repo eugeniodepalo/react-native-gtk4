@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react"
 
-export function useForwardedRef<T>(
+export default function useForwardedRef<T>(
   ref?: React.ForwardedRef<T | null>,
   callback?: (node: T | null) => void
 ): [React.MutableRefObject<T | null>, (node: T | null) => void] {

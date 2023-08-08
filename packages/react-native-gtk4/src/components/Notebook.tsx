@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, createContext } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Notebook, Label } from "../generated/intrinsics.js"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 import { createPortal } from "../portal.js"
 
 const Context = createContext<Gtk.Notebook | null>(null)

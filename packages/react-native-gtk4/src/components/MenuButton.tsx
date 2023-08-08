@@ -4,7 +4,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import { MenuButton } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import Gio from "@girs/node-gio-2.0"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = Omit<JSX.IntrinsicElements["MenuButton"], "popover"> & {
   actionGroup?: Gio.ActionGroup

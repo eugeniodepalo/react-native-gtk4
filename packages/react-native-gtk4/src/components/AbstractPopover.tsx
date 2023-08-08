@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { createPortal } from "../portal.js"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type ElementType = "Popover" | "PopoverMenu" | "EmojiChooser"
 

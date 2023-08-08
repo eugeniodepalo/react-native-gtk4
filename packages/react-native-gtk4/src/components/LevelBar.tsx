@@ -3,7 +3,7 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { LevelBar } from "../generated/intrinsics.js"
 import _ from "lodash"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = JSX.IntrinsicElements["LevelBar"] & {
   offsets?: Record<string, number>

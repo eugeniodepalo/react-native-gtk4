@@ -3,7 +3,7 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Overlay } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = JSX.IntrinsicElements["Overlay"] & {
   content: React.ReactElement & React.RefAttributes<Gtk.Widget>

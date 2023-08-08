@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { ApplicationWindow } from "../generated/intrinsics.js"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 import { createPortal } from "../portal.js"
 
 type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "titlebar"> & {

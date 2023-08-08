@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { forwardRef, createContext } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { Grid } from "../generated/intrinsics.js"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 
 const Context = createContext<Gtk.Grid | null>(null)
 

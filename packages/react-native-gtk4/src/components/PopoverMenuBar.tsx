@@ -3,7 +3,7 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { createPortal } from "../portal.js"
 import { PopoverMenuBar } from "../generated/intrinsics.js"
-import { useForwardedRef } from "../utils.js"
+import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = Omit<JSX.IntrinsicElements["PopoverMenuBar"], "children"> & {
   children?: React.ReactElement & React.RefAttributes<Gtk.Widget>

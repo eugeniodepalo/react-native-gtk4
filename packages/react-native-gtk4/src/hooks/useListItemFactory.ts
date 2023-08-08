@@ -3,7 +3,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import React, { createRef, useEffect, useMemo } from "react"
 import { createContainer, destroyContainer } from "../container.js"
 import { createReconciler } from "../reconciler.js"
-import { ListProviderItemRecord } from "../components/ListProvider.js"
+import { ListItemRecord } from "./useList.js"
 
 export type ListItemFactoryRenderFunction<T> = (
   value: T | null
@@ -11,17 +11,14 @@ export type ListItemFactoryRenderFunction<T> = (
 
 interface Props<T> {
   render?: ListItemFactoryRenderFunction<T>
-  itemsRef: React.RefObject<ListProviderItemRecord<T>>
+  itemsRef: React.RefObject<ListItemRecord<T>>
 }
 
 export default function useListItemFactory<T>({
   render,
   itemsRef,
 }: Props<T>): Gtk.SignalListItemFactory | null {
-  const factory = useMemo<Gtk.SignalListItemFactory>(
-    () => new Gtk.SignalListItemFactory(),
-    []
-  )
+  const factory = useMemo(() => new Gtk.SignalListItemFactory(), [])
 
   useEffect(() => {
     const items = itemsRef.current

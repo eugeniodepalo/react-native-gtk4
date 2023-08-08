@@ -1,11 +1,11 @@
 import Gtk from "@girs/node-gtk-4.0"
 import { useMemo, useCallback, useEffect } from "react"
-import { ListProviderItemRecord } from "src/components/ListProvider"
+import { ListItemRecord } from "./useList.js"
 
 interface Props<T> {
   selectionMode: Gtk.SelectionMode
   model: Gtk.StringList
-  itemsRef: React.RefObject<ListProviderItemRecord<T>>
+  itemsRef: React.RefObject<ListItemRecord<T>>
   onSelectionChanged?: (selection: string[], values: T[]) => void
   selection: string[]
 }

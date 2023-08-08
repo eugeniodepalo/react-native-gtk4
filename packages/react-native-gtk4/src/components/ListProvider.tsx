@@ -1,24 +1,11 @@
-import Gtk from "@girs/node-gtk-4.0"
 import React, { createContext, useContext, useEffect } from "react"
 import _ from "lodash"
+import { List } from "../hooks/useList.js"
 
-export type ListProviderItem<T> = {
-  value: T
-  index: number
-}
-
-export type ListProviderItemRecord<T> = Record<string, ListProviderItem<T>>
-
-export interface ListContext<T = unknown> {
-  itemsRef: React.RefObject<ListProviderItemRecord<T>>
-  setItems: (items: ListProviderItemRecord<T>) => void
-  model: Gtk.StringList
-}
-
-const ListContext = createContext<ListContext | null>(null)
+const ListContext = createContext<List | null>(null)
 
 interface ContainerProps<T> {
-  value: ListContext<T>
+  value: List<T>
   children: React.ReactNode
 }
 
@@ -27,7 +14,7 @@ const Container = function ListProviderContainer<T>({
   children,
 }: ContainerProps<T>) {
   return (
-    <ListContext.Provider value={value as ListContext<unknown>}>
+    <ListContext.Provider value={value as List<unknown>}>
       {children}
     </ListContext.Provider>
   )

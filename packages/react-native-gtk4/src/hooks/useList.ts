@@ -5,7 +5,7 @@ import {
 } from "../components/ListProvider.js"
 import Gtk from "@girs/node-gtk-4.0"
 
-export default function useListContext<T>(): ListContext<T> {
+export default function useList<T>(): ListContext<T> {
   const itemsRef = useRef<ListProviderItemRecord<T>>({})
   const [, setItems] = useState<ListProviderItemRecord<T>>({})
   const model = useMemo<Gtk.StringList>(() => new Gtk.StringList(), [])

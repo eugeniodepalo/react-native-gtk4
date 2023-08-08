@@ -1,5 +1,5 @@
 import * as useListItemFactoryModule from "../../src/hooks/useListItemFactory.js"
-import * as useListContextModule from "../../src/hooks/useListContext.js"
+import * as useListModule from "../../src/hooks/useList.js"
 import React, { createRef } from "react"
 import {
   render,
@@ -14,13 +14,13 @@ import ListProvider from "../../src/components/ListProvider.js"
 
 describe("DropDown", () => {
   let useListItemFactory
-  let useListContext
+  let useList
 
   beforeEach(() => {
     setup()
 
     useListItemFactory = jest.spyOn(useListItemFactoryModule, "default")
-    useListContext = jest.spyOn(useListContextModule, "default")
+    useList = jest.spyOn(useListModule, "default")
 
     const ids = []
 
@@ -108,7 +108,7 @@ describe("DropDown", () => {
     const dropDown = findBy({ type: "DropDown" })
 
     expect(dropDown.node.setModel).toHaveBeenCalledWith(
-      useListContext.mock.results[0].value.model
+      useList.mock.results[0].value.model
     )
   })
 

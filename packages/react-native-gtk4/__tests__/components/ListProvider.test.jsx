@@ -5,13 +5,13 @@ import { render, setup, findBy } from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"
-import useListContext from "../../src/hooks/useListContext.js"
+import useList from "../../src/hooks/useList.js"
 
 describe("ListProvider", () => {
   let context
 
   const Component = ({ children } = {}) => {
-    context = useListContext()
+    context = useList()
     return children
   }
 

@@ -1,15 +1,15 @@
 import React from "react"
 import { render, setup } from "../../src/test-support/index.js"
-import useListContext from "../../src/hooks/useListContext.js"
+import useList from "../../src/hooks/useList.js"
 import Gtk from "@girs/node-gtk-4.0"
 
-describe("useListContext", () => {
+describe("useList", () => {
   let list
 
   beforeEach(setup)
 
   const Component = function () {
-    list = useListContext()
+    list = useList()
     return null
   }
 

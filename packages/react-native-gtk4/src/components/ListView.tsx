@@ -4,7 +4,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import { ListView } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 import ListProvider from "./ListProvider.js"
-import useListContext from "../hooks/useListContext.js"
+import useList from "../hooks/useList.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
 } from "../hooks/useListItemFactory.js"
@@ -35,7 +35,7 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
 ) {
   const [, setListView] = useState<Gtk.ListView | null>(null)
   const [, setInnerRef] = useForwardedRef(ref, setListView)
-  const list = useListContext<T>()
+  const list = useList<T>()
   const { itemsRef, model } = list
 
   const itemFactory = useListItemFactory<T>({

@@ -1,33 +1,12 @@
-import { useMemo, useRef, useState } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import { useContext } from "react"
+import { ListContext } from "../components/ListProvider.js"
 
-export type ListItem<T> = {
-  value: T
-  index: number
-}
+export default function useList<T>() {
+  const list = useContext(ListContext) as ListContext<T>
 
-export type ListItemRecord<T> = Record<string, ListItem<T>>
+  if (list === null) {
+    throw new Error("useList must be used within a ListProvider.Container")
+  }
 
-export interface List<T = unknown> {
-  itemsRef: React.RefObject<ListItemRecord<T>>
-  setItems: (items: ListItemRecord<T>) => void
-  model: Gtk.StringList
-}
-
-export default function useList<T>(): List<T> {
-  const itemsRef = useRef<ListItemRecord<T>>({})
-  const [, setItems] = useState<ListItemRecord<T>>({})
-  const model = useMemo(() => new Gtk.StringList(), [])
-
-  return useMemo(
-    () => ({
-      itemsRef,
-      setItems: (value) => {
-        itemsRef.current = value
-        setItems(value)
-      },
-      model,
-    }),
-    [itemsRef, setItems, model]
-  )
+  return list
 }

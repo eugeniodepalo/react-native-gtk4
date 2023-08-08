@@ -3,27 +3,20 @@ import Gtk from "@girs/node-gtk-4.0"
 import React, { createRef, useEffect, useMemo } from "react"
 import { createContainer, destroyContainer } from "../container.js"
 import { createReconciler } from "../reconciler.js"
-import { ListItemRecord } from "./useList.js"
+import useList from "./useList.js"
 
 export type ListItemFactoryRenderFunction<T> = (
   value: T | null
 ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 
-interface Props<T> {
+export default function useListItemFactory<T>(
   render?: ListItemFactoryRenderFunction<T>
-  itemsRef: React.RefObject<ListItemRecord<T>>
-}
-
-export default function useListItemFactory<T>({
-  render,
-  itemsRef,
-}: Props<T>): Gtk.SignalListItemFactory | null {
+): Gtk.SignalListItemFactory | null {
   const factory = useMemo(() => new Gtk.SignalListItemFactory(), [])
+  const { items } = useList<T>()
 
   useEffect(() => {
-    const items = itemsRef.current
-
-    if (!render || !items) {
+    if (!render) {
       return
     }
 
@@ -54,10 +47,9 @@ export default function useListItemFactory<T>({
     const onFactoryBind = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
       const container = createContainer(listItem)
-      const id = listItem.item.getProperty("string") as string
-      const item = items[id]
+      const item = items[listItem.position]
 
-      container.render(render(item.value))
+      container.render(render(item))
     }
 
     const onFactoryUnbind = (object: GObject.Object) => {

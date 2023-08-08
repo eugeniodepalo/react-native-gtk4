@@ -46,7 +46,13 @@ import {
   ListProvider,
 } from "react-native-gtk4"
 
+enum Column {
+  Name = 0,
+  Description = 1,
+}
+
 export default function App() {
+  const { quit, application } = useApplication()
   const [count, setCount] = useState(0)
   const [revealed, setRevealed] = useState(false)
   const [popoverOpen, setPopoverOpen] = useState(false)
@@ -68,19 +74,9 @@ export default function App() {
   const [showPrintDialog, setShowPrintDialog] = useState(false)
   const [levelBarValue, setLevelBarValue] = useState(0.0)
   const [scaleValue, setScaleValue] = useState(0.0)
-  const [dropDownSelectedItem, setDropDownSelectedItem] = useState<
-    string | null
-  >(null)
-  const { quit, application } = useApplication()
-
-  const [listViewSelection, setListViewSelection] = useState<string[]>([
-    "1",
-    "3",
-  ])
-
-  const [columnViewSelection, setColumnViewSelection] = useState<string[]>([
-    "2",
-  ])
+  const [listViewSelection, setListViewSelection] = useState([1, 3])
+  const [columnViewSelection, setColumnViewSelection] = useState([2])
+  const [dropDownSelectedItem, setDropDownSelectedItem] = useState(0)
 
   const renderDropDownItem = useCallback(
     (item: string | null) => <Label label={item ?? ""} />,
@@ -88,15 +84,14 @@ export default function App() {
   )
 
   const renderCell = useCallback(
-    (
-      item: { name: string; surname: string } | null,
-      column: "name" | "surname"
-    ) => {
+    (item: { name: string; surname: string } | null, column: number) => {
       switch (column) {
-        case "name":
+        case Column.Name:
           return <Label label={item?.name ?? ""} />
-        case "surname":
+        case Column.Description:
           return <Label label={item?.surname ?? ""} />
+        default:
+          throw new Error(`Unexpected column: ${column}`)
       }
     },
     []
@@ -382,38 +377,34 @@ export default function App() {
                 setShowTitlebar(!showTitlebar)
               }}
             />
-            <ColumnView
-              hexpand
-              vexpand
-              selectionMode={Gtk.SelectionMode.MULTIPLE}
-              columns={{
-                name: {
-                  title: "Name",
-                  expand: true,
-                },
-                surname: {
-                  title: "Surname",
-                  expand: true,
-                },
-              }}
-              renderCell={renderCell}
-              selection={columnViewSelection}
-              onSelectionChanged={(
-                ids,
-                items: { name: string; surname: string }[]
-              ) => {
-                console.log(items)
-                setColumnViewSelection(ids)
-              }}
-            >
-              {Array.from(Array(5).keys()).map((i) => (
-                <ListProvider.Item
-                  key={i}
-                  id={i.toString()}
-                  value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
-                />
-              ))}
-            </ColumnView>
+            <ListProvider.Container>
+              <ColumnView
+                hexpand
+                vexpand
+                selectionMode={Gtk.SelectionMode.MULTIPLE}
+                columns={[
+                  { title: "Name", expand: true },
+                  { title: "Surname", expand: true },
+                ]}
+                renderCell={renderCell}
+                selection={columnViewSelection}
+                onSelectionChanged={(
+                  indexes,
+                  items: { name: string; surname: string }[]
+                ) => {
+                  console.log(items)
+                  setColumnViewSelection(indexes)
+                }}
+              >
+                {Array.from(Array(5).keys()).map((i) => (
+                  <ListProvider.Item
+                    key={i}
+                    index={i}
+                    value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
+                  />
+                ))}
+              </ColumnView>
+            </ListProvider.Container>
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={0} width={1} height={1}>
@@ -528,43 +519,39 @@ export default function App() {
             >
               <Label label="Center Box Center" />
             </CenterBox>
-            <DropDown
-              hexpand
-              vexpand
-              renderItem={renderDropDownItem}
-              onSelectedItemChanged={(id, item) => {
-                console.log(item)
-                setDropDownSelectedItem(id)
-              }}
-              selectedItem={dropDownSelectedItem}
-            >
-              {Array.from(Array(50).keys()).map((i) => (
-                <ListProvider.Item
-                  key={i}
-                  id={i.toString()}
-                  value={`Item ${i}`}
-                />
-              ))}
-            </DropDown>
-            <ListView
-              hexpand
-              vexpand
-              selectionMode={Gtk.SelectionMode.MULTIPLE}
-              renderItem={renderDropDownItem}
-              selection={listViewSelection}
-              onSelectionChanged={(ids, items) => {
-                console.log(items)
-                setListViewSelection(ids)
-              }}
-            >
-              {Array.from(Array(5).keys()).map((i) => (
-                <ListProvider.Item
-                  key={i}
-                  id={i.toString()}
-                  value={`Item ${i}`}
-                />
-              ))}
-            </ListView>
+            <ListProvider.Container>
+              <DropDown
+                hexpand
+                vexpand
+                renderItem={renderDropDownItem}
+                onSelectedItemChanged={(index, item) => {
+                  console.log(item)
+                  setDropDownSelectedItem(index)
+                }}
+                selectedItem={dropDownSelectedItem}
+              >
+                {Array.from(Array(50).keys()).map((i) => (
+                  <ListProvider.Item key={i} index={i} value={`Item ${i}`} />
+                ))}
+              </DropDown>
+            </ListProvider.Container>
+            <ListProvider.Container>
+              <ListView
+                hexpand
+                vexpand
+                selectionMode={Gtk.SelectionMode.MULTIPLE}
+                renderItem={renderDropDownItem}
+                selection={listViewSelection}
+                onSelectionChanged={(indexes, items) => {
+                  console.log(items)
+                  setListViewSelection(indexes)
+                }}
+              >
+                {Array.from(Array(5).keys()).map((i) => (
+                  <ListProvider.Item key={i} index={i} value={`Item ${i}`} />
+                ))}
+              </ListView>
+            </ListProvider.Container>
           </Box>
         </Grid.Item>
         <Grid.Item col={0} row={1} width={1} height={1}>

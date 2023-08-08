@@ -2,8 +2,6 @@ import React, { ForwardedRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { ListView } from "../generated/intrinsics.js"
-import ListProvider from "./ListProvider.js"
-import useList from "../hooks/useList.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
 } from "../hooks/useListItemFactory.js"
@@ -14,8 +12,8 @@ type Props<T> = Omit<
   "factory" | "headerFactory" | "model"
 > & {
   selectionMode?: Gtk.SelectionMode
-  selection?: string[]
-  onSelectionChanged?: (ids: string[], selection: T[]) => void
+  selection?: number[]
+  onSelectionChanged?: (indexes: number[], selection: T[]) => void
   renderItem?: ListItemFactoryRenderFunction<T>
 }
 
@@ -32,20 +30,12 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
   }: Props<T>,
   ref: ForwardedRef<Gtk.ListView>
 ) {
-  const list = useList<T>()
-  const { itemsRef, model } = list
-
-  const itemFactory = useListItemFactory<T>({
-    render: renderItem,
-    itemsRef,
-  })
+  const itemFactory = useListItemFactory<T>(renderItem)
 
   const selectionModel = useSelection({
     selectionMode,
     selection,
-    model,
     onSelectionChanged,
-    itemsRef,
   })
 
   return (
@@ -55,7 +45,7 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
       factory={renderItem ? itemFactory : null}
       {...props}
     >
-      <ListProvider.Container value={list}>{children}</ListProvider.Container>
+      {children}
     </ListView>
   )
 })

@@ -2,7 +2,6 @@ import React from "react"
 import { setup, render } from "../../src/test-support/index.js"
 import useSelection from "../../src/hooks/useSelection.js"
 import Gtk from "@girs/node-gtk-4.0"
-import useList from "../../src/hooks/useList.js"
 import ListProvider from "../../src/components/ListProvider.js"
 
 describe("useSelection", () => {
@@ -14,25 +13,22 @@ describe("useSelection", () => {
     selectionMode,
     selection,
     onSelectionChanged,
-    children,
   }) {
-    const list = useList()
-
     model = useSelection({
       selectionMode,
       selection,
-      itemsRef: list.itemsRef,
-      model: list.model,
       onSelectionChanged,
     })
 
-    return (
-      <ListProvider.Container value={list}>{children}</ListProvider.Container>
-    )
+    return null
   }
 
   test("should update model when selection mode changes", () => {
-    render(<Component selectionMode={Gtk.SelectionMode.MULTIPLE} />)
+    render(
+      <ListProvider.Container>
+        <Component selectionMode={Gtk.SelectionMode.MULTIPLE} />
+      </ListProvider.Container>
+    )
 
     const initialModel = model
 
@@ -42,7 +38,11 @@ describe("useSelection", () => {
 
     expect(initialModel).toBeInstanceOf(Gtk.MultiSelection)
 
-    render(<Component selectionMode={Gtk.SelectionMode.SINGLE} />)
+    render(
+      <ListProvider.Container>
+        <Component selectionMode={Gtk.SelectionMode.SINGLE} />
+      </ListProvider.Container>
+    )
 
     const updatedModel = model
 
@@ -55,26 +55,25 @@ describe("useSelection", () => {
   })
 
   test("should update selected items from props", () => {
-    const selection = ["foo", "bar"]
-    const ids = []
+    const selection = [0, 1]
+    const items = []
 
     Gtk.StringList.mockImplementation(() => ({
-      append: jest.fn((id) => {
-        ids.push(id)
+      splice: jest.fn((index, count, items) => {
+        items.splice(index, count, ...items)
       }),
       remove: jest.fn((index) => {
-        ids.splice(index, 1)
+        items.splice(index, 1)
       }),
-      getNItems: () => ids.length,
-      getString: (index) => ids[index],
     }))
 
     render(
-      <Component selection={selection}>
-        <ListProvider.Item id="foo" value="foo" />
-        <ListProvider.Item id="bar" value="bar" />
-        <ListProvider.Item id="baz" value="baz" />
-      </Component>
+      <ListProvider.Container>
+        <Component selection={selection} />
+        <ListProvider.Item index={0} value="foo" />
+        <ListProvider.Item index={1} value="bar" />
+        <ListProvider.Item index={2} value="baz" />
+      </ListProvider.Container>
     )
 
     expect(model.unselectAll).toHaveBeenCalled()

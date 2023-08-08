@@ -22,25 +22,25 @@ describe("DropDown", () => {
     useListItemFactory = jest.spyOn(useListItemFactoryModule, "default")
     useList = jest.spyOn(useTreeModule, "default")
 
-    const ids = []
+    const items = []
 
     Gtk.StringList.mockImplementation(() => ({
-      append: jest.fn((id) => {
-        ids.push(id)
+      splice: jest.fn((index, count, values) => {
+        items.splice(index, count, ...values)
       }),
       remove: jest.fn((index) => {
-        ids.splice(index, 1)
+        items.splice(index, 1)
       }),
-      getNItems: () => ids.length,
-      getString: (index) => ids[index],
     }))
   })
 
   test("should render", () => {
     render(
-      <DropDown>
-        <Box />
-      </DropDown>
+      <ListProvider.Container>
+        <DropDown>
+          <Box />
+        </DropDown>
+      </ListProvider.Container>
     )
 
     const dropDown = findBy({ type: "DropDown" })
@@ -53,7 +53,11 @@ describe("DropDown", () => {
   test("should forward refs", () => {
     const ref = createRef()
 
-    render(<DropDown ref={ref} />)
+    render(
+      <ListProvider.Container>
+        <DropDown ref={ref} />
+      </ListProvider.Container>
+    )
 
     const dropDown = findBy({ type: "DropDown" })
 
@@ -61,7 +65,11 @@ describe("DropDown", () => {
   })
 
   test("should handle unmount gracefully", () => {
-    render(<DropDown />)
+    render(
+      <ListProvider.Container>
+        <DropDown />
+      </ListProvider.Container>
+    )
 
     render(null)
 
@@ -73,14 +81,15 @@ describe("DropDown", () => {
   test("should set factories", () => {
     const renderFn = () => null
 
-    render(<DropDown renderItem={renderFn} />)
+    render(
+      <ListProvider.Container>
+        <DropDown renderItem={renderFn} />
+      </ListProvider.Container>
+    )
 
     const dropDown = findBy({ type: "DropDown" })
 
-    expect(useListItemFactory).toHaveBeenCalledWith({
-      render: renderFn,
-      itemsRef: { current: {} },
-    })
+    expect(useListItemFactory).toHaveBeenCalledWith(renderFn)
 
     expect(dropDown.node.setFactory).toHaveBeenCalledWith(
       useListItemFactory.mock.results[0].value
@@ -92,18 +101,30 @@ describe("DropDown", () => {
   })
 
   test("should unset factories", () => {
-    render(<DropDown renderItem={() => null} />)
+    render(
+      <ListProvider.Container>
+        <DropDown renderItem={() => null} />
+      </ListProvider.Container>
+    )
 
     const dropDown = findBy({ type: "DropDown" })
 
-    render(<DropDown />)
+    render(
+      <ListProvider.Container>
+        <DropDown />
+      </ListProvider.Container>
+    )
 
     expect(dropDown.node.setFactory).toHaveBeenNthCalledWith(2, null)
     expect(dropDown.node.setListFactory).toHaveBeenNthCalledWith(2, null)
   })
 
   test("should set model", () => {
-    render(<DropDown />)
+    render(
+      <ListProvider.Container>
+        <DropDown />
+      </ListProvider.Container>
+    )
 
     const dropDown = findBy({ type: "DropDown" })
 
@@ -114,9 +135,11 @@ describe("DropDown", () => {
 
   test("should set selectedItem", () => {
     render(
-      <DropDown selectedItem="test">
-        <ListProvider.Item id="test" value="test" />
-      </DropDown>
+      <ListProvider.Container>
+        <DropDown selectedItem={0}>
+          <ListProvider.Item index={0} value="test" />
+        </DropDown>
+      </ListProvider.Container>
     )
 
     const dropDown = findBy({ type: "DropDown" })
@@ -128,9 +151,11 @@ describe("DropDown", () => {
     const onSelectedItemChanged = jest.fn()
 
     render(
-      <DropDown onSelectedItemChanged={onSelectedItemChanged}>
-        <ListProvider.Item id="foo" value="bar" />
-      </DropDown>
+      <ListProvider.Container>
+        <DropDown onSelectedItemChanged={onSelectedItemChanged}>
+          <ListProvider.Item index={0} value="bar" />
+        </DropDown>
+      </ListProvider.Container>
     )
 
     const dropDown = findBy({ type: "DropDown" })
@@ -139,6 +164,6 @@ describe("DropDown", () => {
 
     fireEvent(dropDown, "notify::selected")
 
-    expect(onSelectedItemChanged).toHaveBeenCalledWith("foo", "bar")
+    expect(onSelectedItemChanged).toHaveBeenCalledWith(0, "bar")
   })
 })

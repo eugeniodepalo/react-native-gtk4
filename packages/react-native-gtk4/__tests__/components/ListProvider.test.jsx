@@ -15,30 +15,31 @@ describe("ListProvider", () => {
 
   beforeEach(() => {
     setup()
-    render(<Component />)
+    render(
+      <ListProvider.Container>
+        <Component />
+      </ListProvider.Container>
+    )
 
-    const ids = []
+    const items = []
 
-    context.model.append = jest.fn((id) => {
-      ids.push(id)
+    context.model.splice = jest.fn((index, count, values) => {
+      items.splice(index, count, ...values)
     })
 
     context.model.remove = jest.fn((index) => {
-      ids.splice(index, 1)
+      items.splice(index, 1)
     })
-
-    context.model.getNItems = () => ids.length
-    context.model.getString = (index) => ids[index]
   })
 
   describe("Container", () => {
     test("should render", () => {
       render(
-        <Component>
-          <ListProvider.Container value={context}>
+        <ListProvider.Container>
+          <Component>
             <Box />
-          </ListProvider.Container>
-        </Component>
+          </Component>
+        </ListProvider.Container>
       )
 
       const child = findBy({ type: "Box" })
@@ -48,11 +49,11 @@ describe("ListProvider", () => {
 
     test("should handle unmount gracefully", () => {
       render(
-        <Component>
-          <ListProvider.Container value={context}>
+        <ListProvider.Container>
+          <Component>
             <Box />
-          </ListProvider.Container>
-        </Component>
+          </Component>
+        </ListProvider.Container>
       )
 
       render(null)
@@ -64,17 +65,17 @@ describe("ListProvider", () => {
   })
 
   describe("Item", () => {
-    const id = "foo"
+    const index = 0
     const value = "bar"
 
     test("should render", () => {
       render(
-        <Component>
-          <ListProvider.Container value={context}>
+        <ListProvider.Container>
+          <Component>
             <Box />
-            <ListProvider.Item id={id} value={value} />
-          </ListProvider.Container>
-        </Component>
+            <ListProvider.Item index={index} value={value} />
+          </Component>
+        </ListProvider.Container>
       )
 
       const child = findBy({ type: "Box" })
@@ -84,12 +85,12 @@ describe("ListProvider", () => {
 
     test("should handle unmount gracefully", () => {
       render(
-        <Component>
-          <ListProvider.Container value={context}>
+        <ListProvider.Container>
+          <Component>
             <Box />
-            <ListProvider.Item id={id} value={value} />
-          </ListProvider.Container>
-        </Component>
+            <ListProvider.Item index={index} value={value} />
+          </Component>
+        </ListProvider.Container>
       )
 
       render(null)
@@ -100,30 +101,30 @@ describe("ListProvider", () => {
     })
 
     test("should throw when not in a container", () => {
-      expect(() => render(<ListProvider.Item id={id} value={value} />)).toThrow(
-        "ListProvider.Item must be used inside a ListProvider.Container"
-      )
+      expect(() =>
+        render(<ListProvider.Item index={index} value={value} />)
+      ).toThrow("useList must be used within a ListProvider.Container")
     })
 
-    test("should append item to model", () => {
+    test("should insert item into model", () => {
       render(
-        <Component>
-          <ListProvider.Container value={context}>
-            <ListProvider.Item id={id} value={value} />
-          </ListProvider.Container>
-        </Component>
+        <ListProvider.Container>
+          <Component>
+            <ListProvider.Item index={index} value={value} />
+          </Component>
+        </ListProvider.Container>
       )
 
-      expect(context.model.append).toHaveBeenCalledWith(id)
+      expect(context.model.splice).toHaveBeenCalledWith(index, 0, [""])
     })
 
     test("should remove item from model when unmounting", async () => {
       render(
-        <Component>
-          <ListProvider.Container value={context}>
-            <ListProvider.Item id={id} value={value} />
-          </ListProvider.Container>
-        </Component>
+        <ListProvider.Container>
+          <Component>
+            <ListProvider.Item index={index} value={value} />
+          </Component>
+        </ListProvider.Container>
       )
 
       render(null)

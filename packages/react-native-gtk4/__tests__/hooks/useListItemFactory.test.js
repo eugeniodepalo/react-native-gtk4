@@ -4,20 +4,14 @@ import { Box } from "../../src/generated/intrinsics.js"
 import useListItemFactory from "../../src/hooks/useListItemFactory.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"
-import useList from "../../src/hooks/useList.js"
 
 describe("useListItemFactory", () => {
   let factory
   let renderFn
-  let list
 
-  const Component = ({ children } = {}) => {
-    list = useList()
-    factory = useListItemFactory({ render: renderFn, itemsRef: list.itemsRef })
-
-    return (
-      <ListProvider.Container value={list}>{children}</ListProvider.Container>
-    )
+  const Component = () => {
+    factory = useListItemFactory(renderFn)
+    return null
   }
 
   beforeEach(() => {
@@ -26,7 +20,11 @@ describe("useListItemFactory", () => {
   })
 
   test("should setup factory", () => {
-    render(<Component />)
+    render(
+      <ListProvider.Container>
+        <Component />
+      </ListProvider.Container>
+    )
 
     expect(factory.on).toHaveBeenCalledWith("setup", expect.any(Function))
     expect(factory.on).toHaveBeenCalledWith("teardown", expect.any(Function))
@@ -35,7 +33,11 @@ describe("useListItemFactory", () => {
   })
 
   test("should teardown factory on unmount", () => {
-    render(<Component renderItem={() => null} />)
+    render(
+      <ListProvider.Container>
+        <Component renderItem={() => null} />
+      </ListProvider.Container>
+    )
 
     const [, onFactoryBind] = factory.on.mock.calls.find(
       ([name]) => name === "bind"
@@ -69,7 +71,11 @@ describe("useListItemFactory", () => {
       off: jest.fn(),
     }))
 
-    render(<Component />)
+    render(
+      <ListProvider.Container>
+        <Component />
+      </ListProvider.Container>
+    )
 
     const listItem = new Gtk.ListItem()
 
@@ -90,7 +96,7 @@ describe("useListItemFactory", () => {
   test("should render actual items on bind", () => {
     renderFn = jest.fn((value) => <Box name={value} />)
 
-    const id = "item"
+    const index = 0
     const value = "value"
 
     Gtk.SignalListItemFactory.mockImplementation(() => ({
@@ -99,16 +105,15 @@ describe("useListItemFactory", () => {
     }))
 
     render(
-      <Component>
-        <ListProvider.Item id={id} value={value} />
-      </Component>
+      <ListProvider.Container>
+        <Component />
+        <ListProvider.Item index={index} value={value} />
+      </ListProvider.Container>
     )
 
     const listItem = new Gtk.ListItem()
 
-    listItem.item = {
-      getProperty: jest.fn(() => id),
-    }
+    listItem.position = index
 
     const [, onFactoryBind] = factory.on.mock.calls.find(
       ([name]) => name === "bind"
@@ -131,7 +136,11 @@ describe("useListItemFactory", () => {
       off: jest.fn(),
     }))
 
-    render(<Component />)
+    render(
+      <ListProvider.Container>
+        <Component />
+      </ListProvider.Container>
+    )
 
     const listItem = new Gtk.ListItem()
 
@@ -147,7 +156,7 @@ describe("useListItemFactory", () => {
   test("should render empty items on unbind", () => {
     renderFn = jest.fn((value) => <Box name={value} />)
 
-    const id = "item"
+    const index = 0
     const value = "value"
 
     Gtk.SignalListItemFactory.mockImplementation(() => ({
@@ -156,16 +165,15 @@ describe("useListItemFactory", () => {
     }))
 
     render(
-      <Component>
-        <ListProvider.Item id={id} value={value} />
-      </Component>
+      <ListProvider.Container>
+        <Component />
+        <ListProvider.Item index={index} value={value} />
+      </ListProvider.Container>
     )
 
     const listItem = new Gtk.ListItem()
 
-    listItem.item = {
-      getProperty: jest.fn(() => id),
-    }
+    listItem.position = index
 
     const [, onFactoryUnbind] = factory.on.mock.calls.find(
       ([name]) => name === "unbind"

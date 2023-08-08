@@ -1,20 +1,37 @@
-import React, { createContext, useContext, useEffect } from "react"
+import React, { createContext, useEffect, useMemo, useState } from "react"
 import _ from "lodash"
-import { List } from "../hooks/useList.js"
+import Gtk from "@girs/node-gtk-4.0"
+import useList from "../hooks/useList.js"
 
-const ListContext = createContext<List | null>(null)
+export interface ListContext<T = unknown> {
+  items: T[]
+  setItems: React.Dispatch<React.SetStateAction<T[]>>
+  model: Gtk.StringList
+}
 
-interface ContainerProps<T> {
-  value: List<T>
+export const ListContext = createContext<ListContext | null>(null)
+
+interface ContainerProps {
   children: React.ReactNode
 }
 
 const Container = function ListProviderContainer<T>({
-  value,
   children,
-}: ContainerProps<T>) {
+}: ContainerProps) {
+  const [items, setItems] = useState<T[]>([])
+  const model = useMemo(() => new Gtk.StringList(), [])
+
+  const value = useMemo(
+    () => ({
+      items,
+      setItems,
+      model,
+    }),
+    [items, setItems]
+  )
+
   return (
-    <ListContext.Provider value={value as List<unknown>}>
+    <ListContext.Provider value={value as ListContext<unknown>}>
       {children}
     </ListContext.Provider>
   )
@@ -22,45 +39,32 @@ const Container = function ListProviderContainer<T>({
 
 interface ItemProps<T> {
   value: T
-  id: string
+  index: number
 }
 
 const Item = React.memo(function ListProviderItem<T>({
   value,
-  id,
+  index,
 }: ItemProps<T>) {
-  const context = useContext(ListContext)
-
-  if (!context) {
-    throw new Error(
-      "ListProvider.Item must be used inside a ListProvider.Container"
-    )
-  }
+  const { model, setItems } = useList()
 
   useEffect(() => {
-    const { itemsRef, model, setItems } = context
-    const items = itemsRef.current
-    const index = model.getNItems()
-
-    if (!items) {
-      return
-    }
-
-    setItems({
-      ...items,
-      [id]: {
-        value,
-        index,
-      },
+    setItems((items) => {
+      items.splice(index, 0, value)
+      return items
     })
 
-    model.append(id)
+    model.splice(index, 0, [""])
 
     return () => {
       model.remove(index)
-      setItems(_.omit(items, [id]))
+
+      setItems((items) => {
+        items.splice(index, 1)
+        return items
+      })
     }
-  }, [value, id])
+  }, [value, index])
 
   return null
 }, _.isEqual)

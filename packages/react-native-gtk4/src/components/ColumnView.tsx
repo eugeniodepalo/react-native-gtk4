@@ -3,8 +3,6 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { ColumnView } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
-import ListProvider from "./ListProvider.js"
-import useList, { ListItemRecord } from "../hooks/useList.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
 } from "../hooks/useListItemFactory.js"
@@ -13,55 +11,47 @@ import _ from "lodash"
 
 type Column = Omit<Gtk.ColumnViewColumn.ConstructorProperties, "model" | "id">
 
-type RenderCellFunction<T = unknown, U extends string = string> = (
+type RenderCellFunction<T = unknown> = (
   item: T | null,
-  column: U
+  column: number
 ) => ReturnType<ListItemFactoryRenderFunction<T>>
 
-type Props<T, U extends string> = Omit<
-  JSX.IntrinsicElements["ColumnView"],
-  "model"
-> & {
-  columns: Record<U, Column>
+type Props<T> = Omit<JSX.IntrinsicElements["ColumnView"], "model"> & {
+  columns: Column[]
   selectionMode?: Gtk.SelectionMode
-  selection?: string[]
-  onSelectionChanged?: (ids: string[], selection: T[]) => void
-  renderCell?: RenderCellFunction<T, U>
+  selection?: number[]
+  onSelectionChanged?: (indexes: number[], selection: T[]) => void
+  renderCell?: RenderCellFunction<T>
 }
 
-interface ColumnProps<T, U extends string> {
-  id: U
+interface ColumnProps<T> {
+  index: number
   column: Column
-  itemsRef: React.RefObject<ListItemRecord<T>>
   view: Gtk.ColumnView
   renderCell?: (
     item: T | null,
-    column: U
+    column: number
   ) => ReturnType<ListItemFactoryRenderFunction<T>>
 }
 
-const Column = React.memo(function ColumnComponent<T, U extends string>({
-  id,
+const Column = React.memo(function ColumnComponent<T>({
+  index,
   column,
   renderCell,
   view,
-  itemsRef,
-}: ColumnProps<T, U>) {
+}: ColumnProps<T>) {
   const render = useCallback(
     (item: T | null) => {
       if (!renderCell) {
         throw new Error("Expected renderCell to be defined")
       }
 
-      return renderCell(item, id)
+      return renderCell(item, index)
     },
-    [id, renderCell]
+    [index, renderCell]
   )
 
-  const factory = useListItemFactory<T>({
-    render,
-    itemsRef,
-  })
+  const factory = useListItemFactory<T>(render)
 
   useEffect(() => {
     const columnViewColumn = new Gtk.ColumnViewColumn({
@@ -69,7 +59,7 @@ const Column = React.memo(function ColumnComponent<T, U extends string>({
       factory,
     })
 
-    view.appendColumn(columnViewColumn)
+    view.insertColumn(index, columnViewColumn)
 
     return () => {
       view.removeColumn(columnViewColumn)
@@ -79,8 +69,8 @@ const Column = React.memo(function ColumnComponent<T, U extends string>({
   return null
 }, _.isEqual)
 
-export default forwardRef<Gtk.ColumnView, Props<any, any>>(
-  function ColumnViewComponent<T, U extends string>(
+export default forwardRef<Gtk.ColumnView, Props<any>>(
+  function ColumnViewComponent<T>(
     {
       children,
       renderCell,
@@ -89,33 +79,28 @@ export default forwardRef<Gtk.ColumnView, Props<any, any>>(
       selection = [],
       onSelectionChanged,
       ...props
-    }: Props<T, U>,
+    }: Props<T>,
     ref: ForwardedRef<Gtk.ColumnView>
   ) {
     const [columnView, setColumnView] = useState<Gtk.ColumnView | null>(null)
     const [, setInnerRef] = useForwardedRef(ref, setColumnView)
-    const list = useList<T>()
-    const { itemsRef, model } = list
 
     const selectionModel = useSelection({
       selectionMode,
       selection,
-      model,
       onSelectionChanged,
-      itemsRef,
     })
 
     return (
       <ColumnView model={selectionModel} ref={setInnerRef} {...props}>
-        <ListProvider.Container value={list}>{children}</ListProvider.Container>
+        {children}
         {columnView
-          ? Object.entries<Column>(columns).map(([id, column]) => (
+          ? columns.map((column, index) => (
               <Column
-                key={id}
-                id={id as U}
+                key={index}
+                index={index}
                 column={column}
                 renderCell={renderCell as RenderCellFunction}
-                itemsRef={itemsRef}
                 view={columnView}
               />
             ))

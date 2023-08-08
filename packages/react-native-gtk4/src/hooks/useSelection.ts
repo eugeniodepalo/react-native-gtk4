@@ -1,22 +1,20 @@
 import Gtk from "@girs/node-gtk-4.0"
 import { useMemo, useCallback, useEffect } from "react"
-import { ListItemRecord } from "./useList.js"
+import useList from "./useList.js"
 
 interface Props<T> {
   selectionMode: Gtk.SelectionMode
-  model: Gtk.StringList
-  itemsRef: React.RefObject<ListItemRecord<T>>
-  onSelectionChanged?: (selection: string[], values: T[]) => void
-  selection: string[]
+  onSelectionChanged?: (selection: number[], values: T[]) => void
+  selection: number[]
 }
 
 export default function useSelection<T>({
   selectionMode,
-  model,
   selection = [],
-  itemsRef,
   onSelectionChanged,
 }: Props<T>): Gtk.SelectionModel | null {
+  const { model, items } = useList<T>()
+
   const selectionModel = useMemo<Gtk.SelectionModel>(() => {
     switch (selectionMode) {
       case Gtk.SelectionMode.SINGLE:
@@ -29,45 +27,34 @@ export default function useSelection<T>({
   }, [selectionMode])
 
   const handleSelectionChanged = useCallback(() => {
-    const items = itemsRef.current
-
-    if (!onSelectionChanged || !items) {
+    if (!onSelectionChanged) {
       return
     }
 
     const bitset = selectionModel.getSelection()
     const [, iter] = Gtk.bitsetIterInitFirst(bitset)
-    const newSelection: string[] = []
+    const newSelection: number[] = []
 
     while (iter.isValid()) {
-      const index = iter.getValue()
-      const id = Object.keys(items).find((id) => items[id].index === index)
-
-      if (!id) {
-        continue
-      }
-
-      newSelection.push(id)
+      newSelection.push(iter.getValue())
       iter.next()
     }
 
     onSelectionChanged(
       newSelection,
-      newSelection.map((id) => items[id].value)
+      newSelection.map((index) => items[index])
     )
   }, [selectionModel])
 
   useEffect(() => {
-    const items = itemsRef.current
-
-    if (!selectionModel || !items) {
+    if (!selectionModel) {
       return
     }
 
     selectionModel.unselectAll()
 
-    for (const id of selection) {
-      selectionModel.selectItem(items[id].index, false)
+    for (const index of selection) {
+      selectionModel.selectItem(index, false)
     }
 
     selectionModel.on("selection-changed", handleSelectionChanged)

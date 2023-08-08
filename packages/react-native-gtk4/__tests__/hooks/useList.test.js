@@ -2,6 +2,7 @@ import React from "react"
 import { render, setup } from "../../src/test-support/index.js"
 import useList from "../../src/hooks/useList.js"
 import Gtk from "@girs/node-gtk-4.0"
+import ListProvider from "../../src/components/ListProvider.js"
 
 describe("useList", () => {
   let list
@@ -14,24 +15,16 @@ describe("useList", () => {
   }
 
   test("should return list context", () => {
-    render(<Component />)
+    render(
+      <ListProvider.Container>
+        <Component />
+      </ListProvider.Container>
+    )
 
     expect(list).toMatchObject({
-      itemsRef: { current: {} },
+      items: [],
       setItems: expect.any(Function),
       model: expect.any(Gtk.StringList),
     })
-  })
-
-  test("should memoize list context", () => {
-    render(<Component />)
-
-    const list1 = list
-
-    render(<Component />)
-
-    const list2 = list
-
-    expect(list1).toBe(list2)
   })
 })

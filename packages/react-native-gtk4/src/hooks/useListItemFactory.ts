@@ -3,7 +3,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import React, { createRef, useEffect, useMemo } from "react"
 import { createContainer, destroyContainer } from "../container.js"
 import { createReconciler } from "../reconciler.js"
-import useList from "./useList.js"
+import useListModel from "./useListModel.js"
 
 export type ListItemFactoryRenderFunction<T> = (
   value: T | null
@@ -13,7 +13,7 @@ export default function useListItemFactory<T>(
   render?: ListItemFactoryRenderFunction<T>
 ): Gtk.SignalListItemFactory | null {
   const factory = useMemo(() => new Gtk.SignalListItemFactory(), [])
-  const { items } = useList<T>()
+  const { items } = useListModel()
 
   useEffect(() => {
     if (!render) {
@@ -40,21 +40,31 @@ export default function useListItemFactory<T>(
 
     const onFactoryTeardown = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
+
       listItem.setChild(null)
+
       destroyContainer(listItem)
     }
 
     const onFactoryBind = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
       const container = createContainer(listItem)
-      const item = items[listItem.position]
+      let item = listItem.item
 
-      container.render(render(item))
+      if (item instanceof Gtk.TreeListRow) {
+        item = item.item
+      }
+
+      const id = item.getProperty("string") as string
+      const value = items[id] as T
+
+      container.render(render(value))
     }
 
     const onFactoryUnbind = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
       const container = createContainer(listItem)
+
       container.render(render(null))
     }
 

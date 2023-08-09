@@ -6,7 +6,8 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
 } from "../hooks/useListItemFactory.js"
-import useList from "../hooks/useList.js"
+import useListModel from "../hooks/useListModel.js"
+import ListProvider from "./ListProvider.js"
 
 type Props<T> = Omit<
   JSX.IntrinsicElements["DropDown"],
@@ -20,47 +21,61 @@ type Props<T> = Omit<
 > & {
   renderPopoverItem?: ListItemFactoryRenderFunction<T>
   renderItem?: ListItemFactoryRenderFunction<T>
-  onSelectedItemChanged?: (index: number, item: T) => void
+  onSelectedItemChanged?: (index: number, item: unknown) => void
   selectedItem?: number
 }
 
+const Inner = React.forwardRef<Gtk.DropDown, Props<any>>(
+  function DropDownComponent<T>(
+    {
+      renderItem,
+      renderPopoverItem = renderItem,
+      onSelectedItemChanged,
+      selectedItem = -1,
+      children,
+      ...props
+    }: Props<T>,
+    ref: ForwardedRef<Gtk.DropDown>
+  ) {
+    const [innerRef, setInnerRef] = useForwardedRef(ref)
+    const itemFactory = useListItemFactory(renderItem)
+    const popoverItemFactory = useListItemFactory(renderPopoverItem)
+    const { items, model } = useListModel()
+
+    useEffect(() => {
+      const dropDown = innerRef.current
+
+      if (!dropDown) {
+        return
+      }
+
+      dropDown.setSelected(selectedItem)
+    }, [selectedItem, items])
+
+    return (
+      <>
+        <DropDown
+          model={model}
+          ref={setInnerRef}
+          factory={renderItem ? itemFactory : null}
+          listFactory={renderPopoverItem ? popoverItemFactory : null}
+          onNotifySelected={(node) => {
+            onSelectedItemChanged?.(node.selected, items[node.selected])
+          }}
+          {...props}
+        />
+        {children}
+      </>
+    )
+  }
+)
+
 export default forwardRef<Gtk.DropDown, Props<any>>(function DropDownComponent<
   T,
->(
-  {
-    renderItem,
-    renderPopoverItem = renderItem,
-    onSelectedItemChanged,
-    selectedItem = -1,
-    ...props
-  }: Props<T>,
-  ref: ForwardedRef<Gtk.DropDown>
-) {
-  const [innerRef, setInnerRef] = useForwardedRef(ref)
-  const itemFactory = useListItemFactory<T>(renderItem)
-  const popoverItemFactory = useListItemFactory<T>(renderPopoverItem)
-  const { items, model } = useList<T>()
-
-  useEffect(() => {
-    const dropDown = innerRef.current
-
-    if (!dropDown) {
-      return
-    }
-
-    dropDown.setSelected(selectedItem)
-  }, [selectedItem, items])
-
+>({ ...props }: Props<T>, ref: ForwardedRef<Gtk.DropDown>) {
   return (
-    <DropDown
-      model={model}
-      ref={setInnerRef}
-      factory={renderItem ? itemFactory : null}
-      listFactory={renderPopoverItem ? popoverItemFactory : null}
-      onNotifySelected={(node) => {
-        onSelectedItemChanged?.(node.selected, items[node.selected])
-      }}
-      {...props}
-    />
+    <ListProvider.Container>
+      <Inner ref={ref} {...props} />
+    </ListProvider.Container>
   )
 })

@@ -1,73 +1,89 @@
-import React, { createContext, useEffect, useMemo, useState } from "react"
-import _ from "lodash"
 import Gtk from "@girs/node-gtk-4.0"
-import useList from "../hooks/useList.js"
+import React, { useEffect, useMemo, useRef } from "react"
+import ListModelProvider from "./ListModelProvider.js"
+import useListModel from "../hooks/useListModel.js"
+import _ from "lodash"
 
-export interface ListContext<T = unknown> {
-  items: T[]
-  setItems: React.Dispatch<React.SetStateAction<T[]>>
-  model: Gtk.StringList
-}
-
-export const ListContext = createContext<ListContext | null>(null)
-
-interface ContainerProps {
+interface Props {
   children: React.ReactNode
 }
 
-const Container = function ListProviderContainer<T>({
-  children,
-}: ContainerProps) {
-  const [items, setItems] = useState<T[]>([])
-  const model = useMemo(() => new Gtk.StringList(), [])
-
-  const value = useMemo(
-    () => ({
-      items,
-      setItems,
-      model,
-    }),
-    [items, setItems]
+const Container = function ListProviderContainer({ children }: Props) {
+  const model = useMemo(
+    () =>
+      new Gtk.SortListModel({
+        model: new Gtk.StringList(),
+        sorter: new Gtk.StringSorter(),
+      }),
+    []
   )
 
-  return (
-    <ListContext.Provider value={value as ListContext<unknown>}>
-      {children}
-    </ListContext.Provider>
-  )
+  return <ListModelProvider model={model}>{children}</ListModelProvider>
 }
 
-interface ItemProps<T> {
-  value: T
+interface ItemProps {
+  value: unknown
   index: number
 }
 
-const Item = React.memo(function ListProviderItem<T>({
-  value,
-  index,
-}: ItemProps<T>) {
-  const { model, setItems } = useList()
+const Item = function ListProviderItem({ value, index }: ItemProps) {
+  const { model: listModel, setItems } = useListModel()
+  const valueRef = useRef<unknown>(null)
+
+  if (
+    !(listModel instanceof Gtk.SortListModel) ||
+    !(listModel.getModel() instanceof Gtk.StringList)
+  ) {
+    throw new Error(
+      "ListProvider.Item must be used within a ListProvider.Container"
+    )
+  }
+
+  const model = listModel.getModel() as Gtk.StringList
 
   useEffect(() => {
+    if (_.isEqual(value, valueRef.current)) {
+      return
+    }
+
+    valueRef.current = value
+
+    const id = index.toString()
+
     setItems((items) => {
-      items.splice(index, 0, value)
+      items[id] = value
       return items
     })
 
-    model.splice(index, 0, [""])
+    model.append(id)
 
     return () => {
-      model.remove(index)
+      if (_.isEqual(value, valueRef.current)) {
+        return
+      }
+
+      for (let i = index + 1; i < model.getNItems(); i++) {
+        const item = model.getItem(i)
+
+        if (item) {
+          const itemId = item.getProperty("string") as string
+
+          if (itemId === id) {
+            model.remove(i)
+            break
+          }
+        }
+      }
 
       setItems((items) => {
-        items.splice(index, 1)
+        delete items[id]
         return items
       })
     }
   }, [value, index])
 
   return null
-}, _.isEqual)
+}
 
 export default {
   Container,

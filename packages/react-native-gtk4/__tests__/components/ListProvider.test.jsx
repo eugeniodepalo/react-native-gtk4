@@ -3,13 +3,14 @@ import { render, setup, findBy } from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"
-import useList from "../../src/hooks/useList.js"
+import useListModel from "../../src/hooks/useListModel.js"
+import ListModelProvider from "../../src/components/ListModelProvider.js"
 
 describe("ListProvider", () => {
   let context
 
   const Component = ({ children } = {}) => {
-    context = useList()
+    context = useListModel()
     return children
   }
 
@@ -100,10 +101,16 @@ describe("ListProvider", () => {
       expect(child).toBeNull()
     })
 
-    test("should throw when not in a container", () => {
+    test("should throw when not in a ListProvider.Container", () => {
       expect(() =>
-        render(<ListProvider.Item index={index} value={value} />)
-      ).toThrow("useList must be used within a ListProvider.Container")
+        render(
+          <ListModelProvider model={{}} items={{}} setItems={() => {}}>
+            <ListProvider.Item index={index} value={value} />
+          </ListModelProvider>
+        )
+      ).toThrow(
+        "ListProvider.Item must be used within a ListProvider.Container"
+      )
     })
 
     test("should insert item into model", () => {
@@ -115,7 +122,7 @@ describe("ListProvider", () => {
         </ListProvider.Container>
       )
 
-      expect(context.model.splice).toHaveBeenCalledWith(index, 0, [""])
+      expect(context.model.splice).toHaveBeenCalledWith(index, 0, ["0"])
     })
 
     test("should remove item from model when unmounting", async () => {

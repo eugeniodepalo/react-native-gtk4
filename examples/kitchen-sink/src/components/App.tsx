@@ -44,11 +44,19 @@ import {
   Frame,
   ListView,
   ListProvider,
+  TreeProvider,
+  TreeExpander,
 } from "react-native-gtk4"
 
 enum Column {
   Name = 0,
   Description = 1,
+}
+
+enum TreeColumn {
+  Expander = 0,
+  Name = 1,
+  Description = 2,
 }
 
 export default function App() {
@@ -74,12 +82,29 @@ export default function App() {
   const [showPrintDialog, setShowPrintDialog] = useState(false)
   const [levelBarValue, setLevelBarValue] = useState(0.0)
   const [scaleValue, setScaleValue] = useState(0.0)
-  const [listViewSelection, setListViewSelection] = useState([1, 3])
-  const [columnViewSelection, setColumnViewSelection] = useState([2])
+  const [listViewSelection, setListViewSelection] = useState(["1", "3"])
+  const [columnViewSelection, setColumnViewSelection] = useState(["2"])
   const [dropDownSelectedItem, setDropDownSelectedItem] = useState(0)
+  const [treeViewSelection, setTreeViewSelection] = useState(["1", "3"])
 
   const renderDropDownItem = useCallback(
     (item: string | null) => <Label label={item ?? ""} />,
+    []
+  )
+
+  const renderTreeCell = useCallback(
+    (item: { name: string; surname: string } | null, column: number) => {
+      switch (column) {
+        case TreeColumn.Expander:
+          return <TreeExpander />
+        case TreeColumn.Name:
+          return <Label label={item?.name ?? ""} />
+        case TreeColumn.Description:
+          return <Label label={item?.surname ?? ""} />
+        default:
+          throw new Error(`Unexpected column: ${column}`)
+      }
+    },
     []
   )
 
@@ -389,11 +414,11 @@ export default function App() {
                 renderCell={renderCell}
                 selection={columnViewSelection}
                 onSelectionChanged={(
-                  indexes,
+                  ids,
                   items: { name: string; surname: string }[]
                 ) => {
                   console.log(items)
-                  setColumnViewSelection(indexes)
+                  setColumnViewSelection(ids)
                 }}
               >
                 {Array.from(Array(5).keys()).map((i) => (
@@ -405,6 +430,45 @@ export default function App() {
                 ))}
               </ColumnView>
             </ListProvider.Container>
+            <TreeProvider.Container autoexpand={false}>
+              {Array.from(Array(5).keys()).map((i) => (
+                <TreeProvider.Item
+                  key={i}
+                  index={i}
+                  value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
+                >
+                  {Array.from(Array(5).keys()).map((j) => (
+                    <TreeProvider.Item
+                      key={j}
+                      index={j}
+                      value={{
+                        name: `Name ${i}.${j}`,
+                        surname: `Surname ${i}.${j}`,
+                      }}
+                    />
+                  ))}
+                </TreeProvider.Item>
+              ))}
+              <ColumnView
+                hexpand
+                vexpand
+                selectionMode={Gtk.SelectionMode.MULTIPLE}
+                columns={[
+                  { title: "Actions", expand: false },
+                  { title: "Name", expand: true },
+                  { title: "Surname", expand: true },
+                ]}
+                renderCell={renderTreeCell}
+                selection={treeViewSelection}
+                onSelectionChanged={(
+                  ids,
+                  items: { name: string; surname: string }[]
+                ) => {
+                  console.log(items)
+                  setTreeViewSelection(ids)
+                }}
+              />
+            </TreeProvider.Container>
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={0} width={1} height={1}>
@@ -524,9 +588,9 @@ export default function App() {
                 hexpand
                 vexpand
                 renderItem={renderDropDownItem}
-                onSelectedItemChanged={(index, item) => {
+                onSelectedItemChanged={(id, item) => {
                   console.log(item)
-                  setDropDownSelectedItem(index)
+                  setDropDownSelectedItem(id)
                 }}
                 selectedItem={dropDownSelectedItem}
               >
@@ -542,9 +606,9 @@ export default function App() {
                 selectionMode={Gtk.SelectionMode.MULTIPLE}
                 renderItem={renderDropDownItem}
                 selection={listViewSelection}
-                onSelectionChanged={(indexes, items) => {
+                onSelectionChanged={(ids, items) => {
                   console.log(items)
-                  setListViewSelection(indexes)
+                  setListViewSelection(ids)
                 }}
               >
                 {Array.from(Array(5).keys()).map((i) => (

@@ -1,19 +1,24 @@
 import Gtk from "@girs/node-gtk-4.0"
 import { useMemo, useCallback, useEffect } from "react"
-import useList from "./useList.js"
+import useListModel from "./useListModel.js"
 
-interface Props<T> {
+export type OnSelectionChanged = (
+  selection: string[],
+  values: unknown[]
+) => void
+
+interface Props {
   selectionMode: Gtk.SelectionMode
-  onSelectionChanged?: (selection: number[], values: T[]) => void
-  selection: number[]
+  onSelectionChanged?: OnSelectionChanged
+  selection: string[]
 }
 
-export default function useSelection<T>({
+export default function useSelection({
   selectionMode,
   selection = [],
   onSelectionChanged,
-}: Props<T>): Gtk.SelectionModel | null {
-  const { model, items } = useList<T>()
+}: Props): Gtk.SelectionModel | null {
+  const { model, items } = useListModel()
 
   const selectionModel = useMemo<Gtk.SelectionModel>(() => {
     switch (selectionMode) {
@@ -33,16 +38,27 @@ export default function useSelection<T>({
 
     const bitset = selectionModel.getSelection()
     const [, iter] = Gtk.bitsetIterInitFirst(bitset)
-    const newSelection: number[] = []
+    const newSelection: string[] = []
 
     while (iter.isValid()) {
-      newSelection.push(iter.getValue())
+      const index = iter.getValue()
+      let item = model.getItem(index)
+
+      if (!item) {
+        continue
+      }
+
+      if (item instanceof Gtk.TreeListRow) {
+        item = item.item
+      }
+
+      newSelection.push(item.getProperty("string") as string)
       iter.next()
     }
 
     onSelectionChanged(
       newSelection,
-      newSelection.map((index) => items[index])
+      newSelection.map((id) => items[id])
     )
   }, [selectionModel])
 
@@ -53,8 +69,31 @@ export default function useSelection<T>({
 
     selectionModel.unselectAll()
 
-    for (const index of selection) {
-      selectionModel.selectItem(index, false)
+    for (const id of selection) {
+      let selectedItem
+
+      for (let i = 0; i < model.getNItems(); i++) {
+        let item = model.getItem(i)
+
+        if (!item) {
+          continue
+        }
+
+        if (item instanceof Gtk.TreeListRow) {
+          item = item.item
+        }
+
+        if (item.getProperty("string") === id) {
+          selectedItem = i
+          break
+        }
+      }
+
+      if (selectedItem === undefined) {
+        continue
+      }
+
+      selectionModel.selectItem(selectedItem, false)
     }
 
     selectionModel.on("selection-changed", handleSelectionChanged)

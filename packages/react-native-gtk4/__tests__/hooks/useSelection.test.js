@@ -55,24 +55,46 @@ describe("useSelection", () => {
   })
 
   test("should update selected items from props", () => {
-    const selection = [0, 1]
+    const selection = ["0", "1"]
     const items = []
+    const MockedStringList = Gtk.StringList
 
-    Gtk.StringList.mockImplementation(() => ({
-      splice: jest.fn((index, count, items) => {
-        items.splice(index, count, ...items)
-      }),
-      remove: jest.fn((index) => {
+    Gtk.StringList = class extends MockedStringList {
+      splice(index, count, values) {
+        items.splice(index, count, ...values)
+      }
+
+      remove(index) {
         items.splice(index, 1)
-      }),
-    }))
+      }
+
+      getItem(index) {
+        return {
+          getProperty: () => index.toString(),
+        }
+      }
+    }
 
     render(
       <ListProvider.Container>
-        <Component selection={selection} />
         <ListProvider.Item index={0} value="foo" />
         <ListProvider.Item index={1} value="bar" />
         <ListProvider.Item index={2} value="baz" />
+      </ListProvider.Container>
+    )
+
+    const onItemsChanged = Gtk.StringList.mock.instances[0].on.mock.calls.find(
+      ([name]) => name === "items-changed"
+    )[1]
+
+    onItemsChanged(0, 0, 2)
+
+    render(
+      <ListProvider.Container>
+        <ListProvider.Item index={0} value="foo" />
+        <ListProvider.Item index={1} value="bar" />
+        <ListProvider.Item index={2} value="baz" />
+        <Component selection={selection} />
       </ListProvider.Container>
     )
 

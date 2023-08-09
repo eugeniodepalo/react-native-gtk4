@@ -1,9 +1,9 @@
 import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
-import ListView from "../../src/components/ListView.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"
+import ListView from "../../src/components/ListView.js"
 
 describe("ListView", () => {
   beforeEach(setup)

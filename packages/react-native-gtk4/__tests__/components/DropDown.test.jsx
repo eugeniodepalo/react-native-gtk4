@@ -1,5 +1,5 @@
 import * as useListItemFactoryModule from "../../src/hooks/useListItemFactory.js"
-import * as useTreeModule from "../../src/hooks/useList.js"
+import * as useListModelModule from "../../src/hooks/useListModel.js"
 import React, { createRef } from "react"
 import {
   render,
@@ -9,38 +9,38 @@ import {
 } from "../../src/test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import DropDown from "../../src/components/DropDown.js"
-import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 describe("DropDown", () => {
   let useListItemFactory
-  let useList
+  let useListModel
 
   beforeEach(() => {
     setup()
 
     useListItemFactory = jest.spyOn(useListItemFactoryModule, "default")
-    useList = jest.spyOn(useTreeModule, "default")
+    useListModel = jest.spyOn(useListModelModule, "default")
 
     const items = []
+    const MockedStringList = Gtk.StringList
 
-    Gtk.StringList.mockImplementation(() => ({
-      splice: jest.fn((index, count, values) => {
+    Gtk.StringList = class extends MockedStringList {
+      splice(index, count, values) {
         items.splice(index, count, ...values)
-      }),
-      remove: jest.fn((index) => {
+      }
+
+      remove(index) {
         items.splice(index, 1)
-      }),
-    }))
+      }
+    }
   })
 
   test("should render", () => {
     render(
-      <ListProvider.Container>
-        <DropDown>
-          <Box />
-        </DropDown>
-      </ListProvider.Container>
+      <DropDown>
+        <Box />
+      </DropDown>
     )
 
     const dropDown = findBy({ type: "DropDown" })
@@ -53,11 +53,7 @@ describe("DropDown", () => {
   test("should forward refs", () => {
     const ref = createRef()
 
-    render(
-      <ListProvider.Container>
-        <DropDown ref={ref} />
-      </ListProvider.Container>
-    )
+    render(<DropDown ref={ref} />)
 
     const dropDown = findBy({ type: "DropDown" })
 
@@ -65,11 +61,7 @@ describe("DropDown", () => {
   })
 
   test("should handle unmount gracefully", () => {
-    render(
-      <ListProvider.Container>
-        <DropDown />
-      </ListProvider.Container>
-    )
+    render(<DropDown />)
 
     render(null)
 
@@ -81,11 +73,7 @@ describe("DropDown", () => {
   test("should set factories", () => {
     const renderFn = () => null
 
-    render(
-      <ListProvider.Container>
-        <DropDown renderItem={renderFn} />
-      </ListProvider.Container>
-    )
+    render(<DropDown renderItem={renderFn} />)
 
     const dropDown = findBy({ type: "DropDown" })
 
@@ -101,45 +89,31 @@ describe("DropDown", () => {
   })
 
   test("should unset factories", () => {
-    render(
-      <ListProvider.Container>
-        <DropDown renderItem={() => null} />
-      </ListProvider.Container>
-    )
+    render(<DropDown renderItem={() => null} />)
 
     const dropDown = findBy({ type: "DropDown" })
 
-    render(
-      <ListProvider.Container>
-        <DropDown />
-      </ListProvider.Container>
-    )
+    render(<DropDown />)
 
     expect(dropDown.node.setFactory).toHaveBeenNthCalledWith(2, null)
     expect(dropDown.node.setListFactory).toHaveBeenNthCalledWith(2, null)
   })
 
   test("should set model", () => {
-    render(
-      <ListProvider.Container>
-        <DropDown />
-      </ListProvider.Container>
-    )
+    render(<DropDown />)
 
     const dropDown = findBy({ type: "DropDown" })
 
     expect(dropDown.node.setModel).toHaveBeenCalledWith(
-      useList.mock.results[0].value.model
+      useListModel.mock.results[0].value.model
     )
   })
 
   test("should set selectedItem", () => {
     render(
-      <ListProvider.Container>
-        <DropDown selectedItem={0}>
-          <ListProvider.Item index={0} value="test" />
-        </DropDown>
-      </ListProvider.Container>
+      <DropDown selectedItem={0}>
+        <ListProvider.Item index={0} value="test" />
+      </DropDown>
     )
 
     const dropDown = findBy({ type: "DropDown" })
@@ -151,11 +125,9 @@ describe("DropDown", () => {
     const onSelectedItemChanged = jest.fn()
 
     render(
-      <ListProvider.Container>
-        <DropDown onSelectedItemChanged={onSelectedItemChanged}>
-          <ListProvider.Item index={0} value="bar" />
-        </DropDown>
-      </ListProvider.Container>
+      <DropDown onSelectedItemChanged={onSelectedItemChanged}>
+        <ListProvider.Item index={0} value="bar" />
+      </DropDown>
     )
 
     const dropDown = findBy({ type: "DropDown" })

@@ -3,24 +3,22 @@ import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { ColumnView } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
-import useListItemFactory, {
-  ListItemFactoryRenderFunction,
-} from "../hooks/useListItemFactory.js"
-import useSelection from "../hooks/useSelection.js"
+import useListItemFactory from "../hooks/useListItemFactory.js"
+import useSelection, { OnSelectionChanged } from "../hooks/useSelection.js"
 import _ from "lodash"
 
 type Column = Omit<Gtk.ColumnViewColumn.ConstructorProperties, "model" | "id">
 
-type RenderCellFunction<T = unknown> = (
+type RenderCellFunction<T> = (
   item: T | null,
   column: number
-) => ReturnType<ListItemFactoryRenderFunction<T>>
+) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 
 type Props<T> = Omit<JSX.IntrinsicElements["ColumnView"], "model"> & {
   columns: Column[]
   selectionMode?: Gtk.SelectionMode
-  selection?: number[]
-  onSelectionChanged?: (indexes: number[], selection: T[]) => void
+  selection?: string[]
+  onSelectionChanged?: (ids: string[], selection: T[]) => void
   renderCell?: RenderCellFunction<T>
 }
 
@@ -28,10 +26,7 @@ interface ColumnProps<T> {
   index: number
   column: Column
   view: Gtk.ColumnView
-  renderCell?: (
-    item: T | null,
-    column: number
-  ) => ReturnType<ListItemFactoryRenderFunction<T>>
+  renderCell?: RenderCellFunction<T>
 }
 
 const Column = React.memo(function ColumnComponent<T>({
@@ -51,7 +46,7 @@ const Column = React.memo(function ColumnComponent<T>({
     [index, renderCell]
   )
 
-  const factory = useListItemFactory<T>(render)
+  const factory = useListItemFactory(render)
 
   useEffect(() => {
     const columnViewColumn = new Gtk.ColumnViewColumn({
@@ -88,7 +83,7 @@ export default forwardRef<Gtk.ColumnView, Props<any>>(
     const selectionModel = useSelection({
       selectionMode,
       selection,
-      onSelectionChanged,
+      onSelectionChanged: onSelectionChanged as OnSelectionChanged,
     })
 
     return (
@@ -100,7 +95,7 @@ export default forwardRef<Gtk.ColumnView, Props<any>>(
                 key={index}
                 index={index}
                 column={column}
-                renderCell={renderCell as RenderCellFunction}
+                renderCell={renderCell as RenderCellFunction<unknown>}
                 view={columnView}
               />
             ))

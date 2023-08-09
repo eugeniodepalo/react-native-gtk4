@@ -31,8 +31,9 @@ export {
   Grid,
   HeaderBar,
   LevelBar,
-  ListView,
+  ListModelProvider,
   ListProvider,
+  ListView,
   MenuButton,
   Notebook,
   Overlay,
@@ -44,6 +45,7 @@ export {
   PrintUnixDialog,
   Scale,
   Stack,
+  TreeProvider,
 } from "./components.js"
 
 export default function render(

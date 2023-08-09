@@ -113,7 +113,7 @@ describe("useListItemFactory", () => {
 
     const listItem = new Gtk.ListItem()
 
-    listItem.position = index
+    listItem.item = { getProperty: () => index.toString() }
 
     const [, onFactoryBind] = factory.on.mock.calls.find(
       ([name]) => name === "bind"
@@ -173,7 +173,7 @@ describe("useListItemFactory", () => {
 
     const listItem = new Gtk.ListItem()
 
-    listItem.position = index
+    listItem.item = { getProperty: () => index.toString() }
 
     const [, onFactoryUnbind] = factory.on.mock.calls.find(
       ([name]) => name === "unbind"

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useState } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { CenterBox } from "../generated/intrinsics.js"
@@ -18,28 +18,12 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
   { start, end, children, ...props },
   ref
 ) {
-  const [innerRef, setInnerRef] = useForwardedRef(ref)
-  const [startRef, setStartRef] = useForwardedRef(start?.ref)
-  const [centerRef, setCenterRef] = useForwardedRef(children?.ref)
-  const [endRef, setEndRef] = useForwardedRef(end?.ref)
-
-  useEffect(() => {
-    const centerBox = innerRef.current
-
-    if (!centerBox) {
-      return
-    }
-
-    centerBox.setStartWidget(startRef.current)
-    centerBox.setCenterWidget(centerRef.current)
-    centerBox.setEndWidget(endRef.current)
-
-    return () => {
-      centerBox.setStartWidget(null)
-      centerBox.setCenterWidget(null)
-      centerBox.setEndWidget(null)
-    }
-  }, [startRef.current, centerRef.current, endRef.current])
+  const [startWidget, setStartWidget] = useState<Gtk.Widget | null>(null)
+  const [endWidget, setEndWidget] = useState<Gtk.Widget | null>(null)
+  const [centerWidget, setCenterWidget] = useState<Gtk.Widget | null>(null)
+  const [, setStartRef] = useForwardedRef(start?.ref, setStartWidget)
+  const [, setCenterRef] = useForwardedRef(children?.ref, setCenterWidget)
+  const [, setEndRef] = useForwardedRef(end?.ref, setEndWidget)
 
   return (
     <>
@@ -62,7 +46,13 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
             : null}
         </>
       )}
-      <CenterBox ref={setInnerRef} {...props} />
+      <CenterBox
+        ref={ref}
+        {...props}
+        startWidget={startWidget}
+        endWidget={endWidget}
+        centerWidget={centerWidget}
+      />
     </>
   )
 })

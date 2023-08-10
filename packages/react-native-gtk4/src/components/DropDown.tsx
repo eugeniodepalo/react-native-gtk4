@@ -21,18 +21,17 @@ type Props<T> = Omit<
 > & {
   renderPopoverItem?: ListItemFactoryRenderFunction<T>
   renderItem?: ListItemFactoryRenderFunction<T>
-  onSelectedItemChanged?: (index: number, item: unknown) => void
+  onSelectedItemChanged?: (index: number, item: T) => void
   selectedItem?: number
 }
 
 const Inner = React.forwardRef<Gtk.DropDown, Props<any>>(
-  function DropDownComponent<T>(
+  function DropDownInnerComponent<T>(
     {
       renderItem,
       renderPopoverItem = renderItem,
       onSelectedItemChanged,
       selectedItem = -1,
-      children,
       ...props
     }: Props<T>,
     ref: ForwardedRef<Gtk.DropDown>
@@ -53,29 +52,27 @@ const Inner = React.forwardRef<Gtk.DropDown, Props<any>>(
     }, [selectedItem, items])
 
     return (
-      <>
-        <DropDown
-          model={model}
-          ref={setInnerRef}
-          factory={renderItem ? itemFactory : null}
-          listFactory={renderPopoverItem ? popoverItemFactory : null}
-          onNotifySelected={(node) => {
-            onSelectedItemChanged?.(node.selected, items[node.selected])
-          }}
-          {...props}
-        />
-        {children}
-      </>
+      <DropDown
+        model={model}
+        ref={setInnerRef}
+        factory={renderItem ? itemFactory : null}
+        listFactory={renderPopoverItem ? popoverItemFactory : null}
+        onNotifySelected={(node) => {
+          onSelectedItemChanged?.(node.selected, items[node.selected] as T)
+        }}
+        {...props}
+      />
     )
   }
 )
 
 export default forwardRef<Gtk.DropDown, Props<any>>(function DropDownComponent<
   T,
->({ ...props }: Props<T>, ref: ForwardedRef<Gtk.DropDown>) {
+>({ children, ...props }: Props<T>, ref: ForwardedRef<Gtk.DropDown>) {
   return (
     <ListProvider.Container>
       <Inner ref={ref} {...props} />
+      <ListProvider.List>{children}</ListProvider.List>
     </ListProvider.Container>
   )
 })

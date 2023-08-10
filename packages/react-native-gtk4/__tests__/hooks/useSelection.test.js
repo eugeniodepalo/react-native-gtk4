@@ -55,7 +55,7 @@ describe("useSelection", () => {
   })
 
   test("should update selected items from props", () => {
-    const selection = ["0", "1"]
+    const selection = [0, 1]
     const items = []
     const MockedStringList = Gtk.StringList
 
@@ -77,23 +77,11 @@ describe("useSelection", () => {
 
     render(
       <ListProvider.Container>
-        <ListProvider.Item index={0} value="foo" />
-        <ListProvider.Item index={1} value="bar" />
-        <ListProvider.Item index={2} value="baz" />
-      </ListProvider.Container>
-    )
-
-    const onItemsChanged = Gtk.StringList.mock.instances[0].on.mock.calls.find(
-      ([name]) => name === "items-changed"
-    )[1]
-
-    onItemsChanged(0, 0, 2)
-
-    render(
-      <ListProvider.Container>
-        <ListProvider.Item index={0} value="foo" />
-        <ListProvider.Item index={1} value="bar" />
-        <ListProvider.Item index={2} value="baz" />
+        <ListProvider.List>
+          <ListProvider.Item value="foo" />
+          <ListProvider.Item value="bar" />
+          <ListProvider.Item value="baz" />
+        </ListProvider.List>
         <Component selection={selection} />
       </ListProvider.Container>
     )
@@ -102,5 +90,65 @@ describe("useSelection", () => {
     expect(model.selectItem).toHaveBeenCalledWith(0, false)
     expect(model.selectItem).toHaveBeenCalledWith(1, false)
     expect(model.selectItem).not.toHaveBeenCalledWith(2, expect.anything())
+  })
+
+  test("should call onSelectionChanged with updated selection", () => {
+    const onSelectionChanged = jest.fn()
+    let currentIndex = 0
+    const selection = [0, 1]
+
+    model.getSelection = jest.fn(() => selection)
+
+    const bitsetIter = new Gtk.BitsetIter()
+
+    bitsetIter.next = jest.fn(() => {
+      currentIndex++
+      return [true, bitsetIter]
+    })
+
+    bitsetIter.getValue = jest.fn(() => selection[currentIndex])
+    bitsetIter.isValid = jest.fn(() => currentIndex < selection.length)
+
+    Gtk.bitsetIterInitFirst.mockImplementation(() => [true, bitsetIter])
+
+    render(
+      <ListProvider.Container>
+        <ListProvider.List>
+          <ListProvider.Item value="foo" />
+          <ListProvider.Item value="bar" />
+          <ListProvider.Item value="baz" />
+        </ListProvider.List>
+        <Component
+          selectionMode={Gtk.SelectionMode.MULTIPLE}
+          onSelectionChanged={onSelectionChanged}
+        />
+      </ListProvider.Container>
+    )
+
+    const selectionChanged = model.on.mock.calls.find(
+      ([name]) => name === "selection-changed"
+    )[1]
+
+    selectionChanged()
+
+    expect(onSelectionChanged).toHaveBeenCalled()
+
+    expect(onSelectionChanged).toHaveBeenCalledWith(
+      expect.any(Array),
+      expect.any(Array)
+    )
+  })
+
+  test("should return a NoSelection model when no mode is specified", () => {
+    render(
+      <ListProvider.Container>
+        <Component />
+      </ListProvider.Container>
+    )
+
+    expect(Gtk.NoSelection).toHaveBeenCalledWith({
+      model: expect.any(Gtk.StringList),
+    })
+    expect(model).toBeInstanceOf(Gtk.NoSelection)
   })
 })

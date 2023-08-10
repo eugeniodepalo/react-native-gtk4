@@ -9,44 +9,63 @@ interface Props {
 }
 
 const Container = function ListProviderContainer({ children }: Props) {
-  const model = useMemo(
-    () =>
-      new Gtk.SortListModel({
-        model: new Gtk.StringList(),
-        sorter: new Gtk.StringSorter(),
-      }),
-    []
-  )
-
+  const model = useMemo(() => new Gtk.StringList(), [])
   return <ListModelProvider model={model}>{children}</ListModelProvider>
 }
 
-interface ItemProps {
+interface ListProps {
+  children: React.ReactNode
+}
+
+const List = function ListProviderList({ children }: ListProps) {
+  const { model } = useListModel()
+
+  if (!(model instanceof Gtk.StringList)) {
+    throw new Error(
+      "ListProvider.List must be used within a ListProvider.Container"
+    )
+  }
+
+  return React.Children.map(children, (child, index) => {
+    if (React.isValidElement<ItemProps>(child)) {
+      return <OrderedItem key={index} value={child.props.value} index={index} />
+    }
+
+    return child
+  })
+}
+
+interface OrderedItemProps {
   value: unknown
   index: number
 }
 
-const Item = function ListProviderItem({ value, index }: ItemProps) {
-  const { model: listModel, setItems } = useListModel()
-  const valueRef = useRef<unknown>(null)
+const OrderedItem = function ListProviderItem({
+  value,
+  index,
+}: OrderedItemProps) {
+  const { model, setItems } = useListModel()
+  const depsRef = useRef<{ value: unknown; index: number } | null>(null)
+  const unmountedRef = useRef(false)
 
-  if (
-    !(listModel instanceof Gtk.SortListModel) ||
-    !(listModel.getModel() instanceof Gtk.StringList)
-  ) {
+  if (!(model instanceof Gtk.StringList)) {
     throw new Error(
       "ListProvider.Item must be used within a ListProvider.Container"
     )
   }
 
-  const model = listModel.getModel() as Gtk.StringList
+  useEffect(() => {
+    return () => {
+      unmountedRef.current = true
+    }
+  }, [])
 
   useEffect(() => {
-    if (_.isEqual(value, valueRef.current)) {
+    if (_.isEqual(depsRef.current, { value, index })) {
       return
     }
 
-    valueRef.current = value
+    depsRef.current = { value, index }
 
     const id = index.toString()
 
@@ -55,25 +74,17 @@ const Item = function ListProviderItem({ value, index }: ItemProps) {
       return items
     })
 
-    model.append(id)
+    model.splice(index, 0, [id])
 
     return () => {
-      if (_.isEqual(value, valueRef.current)) {
+      if (
+        _.isEqual(depsRef.current, { value, index }) &&
+        !unmountedRef.current
+      ) {
         return
       }
 
-      for (let i = index + 1; i < model.getNItems(); i++) {
-        const item = model.getItem(i)
-
-        if (item) {
-          const itemId = item.getProperty("string") as string
-
-          if (itemId === id) {
-            model.remove(i)
-            break
-          }
-        }
-      }
+      model.remove(index)
 
       setItems((items) => {
         delete items[id]
@@ -85,7 +96,16 @@ const Item = function ListProviderItem({ value, index }: ItemProps) {
   return null
 }
 
+interface ItemProps {
+  value: unknown
+}
+
+const Item = function ListProviderItem(_props: ItemProps) {
+  return null
+}
+
 export default {
   Container,
   Item,
+  List,
 }

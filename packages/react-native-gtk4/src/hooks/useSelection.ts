@@ -3,14 +3,14 @@ import { useMemo, useCallback, useEffect } from "react"
 import useListModel from "./useListModel.js"
 
 export type OnSelectionChanged = (
-  selection: string[],
+  selection: number[],
   values: unknown[]
 ) => void
 
 interface Props {
   selectionMode: Gtk.SelectionMode
   onSelectionChanged?: OnSelectionChanged
-  selection: string[]
+  selection: number[]
 }
 
 export default function useSelection({
@@ -38,27 +38,28 @@ export default function useSelection({
 
     const bitset = selectionModel.getSelection()
     const [, iter] = Gtk.bitsetIterInitFirst(bitset)
-    const newSelection: string[] = []
+    const newSelection: number[] = []
 
     while (iter.isValid()) {
-      const index = iter.getValue()
-      let item = model.getItem(index)
-
-      if (!item) {
-        continue
-      }
-
-      if (item instanceof Gtk.TreeListRow) {
-        item = item.item
-      }
-
-      newSelection.push(item.getProperty("string") as string)
+      newSelection.push(iter.getValue())
       iter.next()
     }
 
     onSelectionChanged(
       newSelection,
-      newSelection.map((id) => items[id])
+      newSelection.map((index) => {
+        let item = model.getItem(index)
+
+        if (!item) {
+          return null
+        }
+
+        if (item instanceof Gtk.TreeListRow) {
+          item = item.item
+        }
+
+        return items[item.getProperty("string") as string]
+      })
     )
   }, [selectionModel])
 
@@ -69,31 +70,8 @@ export default function useSelection({
 
     selectionModel.unselectAll()
 
-    for (const id of selection) {
-      let selectedItem
-
-      for (let i = 0; i < model.getNItems(); i++) {
-        let item = model.getItem(i)
-
-        if (!item) {
-          continue
-        }
-
-        if (item instanceof Gtk.TreeListRow) {
-          item = item.item
-        }
-
-        if (item.getProperty("string") === id) {
-          selectedItem = i
-          break
-        }
-      }
-
-      if (selectedItem === undefined) {
-        continue
-      }
-
-      selectionModel.selectItem(selectedItem, false)
+    for (const index of selection) {
+      selectionModel.selectItem(index, false)
     }
 
     selectionModel.on("selection-changed", handleSelectionChanged)
@@ -101,7 +79,7 @@ export default function useSelection({
     return () => {
       selectionModel.off("selection-changed", handleSelectionChanged)
     }
-  }, [selection, selectionModel])
+  }, [selection, selectionModel, items])
 
   return selectionModel
 }

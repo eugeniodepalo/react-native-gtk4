@@ -12,8 +12,8 @@ type Props<T> = Omit<
   "factory" | "headerFactory" | "model"
 > & {
   selectionMode?: Gtk.SelectionMode
-  selection?: string[]
-  onSelectionChanged?: (ids: string[], selection: unknown[]) => void
+  selection?: number[]
+  onSelectionChanged?: (indexes: number[], selection: unknown[]) => void
   renderItem?: ListItemFactoryRenderFunction<T>
 }
 
@@ -21,7 +21,6 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
   T,
 >(
   {
-    children,
     renderItem,
     selectionMode = Gtk.SelectionMode.NONE,
     selection = [],
@@ -44,8 +43,6 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
       ref={ref}
       factory={renderItem ? itemFactory : null}
       {...props}
-    >
-      {children}
-    </ListView>
+    />
   )
 })

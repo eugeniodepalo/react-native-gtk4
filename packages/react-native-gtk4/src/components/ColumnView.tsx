@@ -11,14 +11,15 @@ type Column = Omit<Gtk.ColumnViewColumn.ConstructorProperties, "model" | "id">
 
 type RenderCellFunction<T> = (
   item: T | null,
-  column: number
+  column: number,
+  listItem: Gtk.ListItem
 ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 
 type Props<T> = Omit<JSX.IntrinsicElements["ColumnView"], "model"> & {
   columns: Column[]
   selectionMode?: Gtk.SelectionMode
-  selection?: string[]
-  onSelectionChanged?: (ids: string[], selection: T[]) => void
+  selection?: number[]
+  onSelectionChanged?: (indexes: number[], selection: T[]) => void
   renderCell?: RenderCellFunction<T>
 }
 
@@ -36,12 +37,12 @@ const Column = React.memo(function ColumnComponent<T>({
   view,
 }: ColumnProps<T>) {
   const render = useCallback(
-    (item: T | null) => {
+    (item: T | null, listItem: Gtk.ListItem) => {
       if (!renderCell) {
         throw new Error("Expected renderCell to be defined")
       }
 
-      return renderCell(item, index)
+      return renderCell(item, index, listItem)
     },
     [index, renderCell]
   )
@@ -67,7 +68,6 @@ const Column = React.memo(function ColumnComponent<T>({
 export default forwardRef<Gtk.ColumnView, Props<any>>(
   function ColumnViewComponent<T>(
     {
-      children,
       renderCell,
       columns,
       selectionMode = Gtk.SelectionMode.NONE,
@@ -88,7 +88,6 @@ export default forwardRef<Gtk.ColumnView, Props<any>>(
 
     return (
       <ColumnView model={selectionModel} ref={setInnerRef} {...props}>
-        {children}
         {columnView
           ? columns.map((column, index) => (
               <Column

@@ -5,21 +5,22 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react"
 import ListModelProvider from "./ListModelProvider.js"
 import useListModel from "../hooks/useListModel.js"
 import _ from "lodash"
 
 interface Node {
-  id: string
   value: unknown
-  parent: Node | null
-  children: Record<string, Node>
+  path: string
+  children: Node[]
 }
 
 interface TreeContext {
-  rootList: Gtk.StringList
-  parent: Node
+  rootModel: Gtk.StringList
+  rootList: Node[]
+  parent: Node | null
 }
 
 const TreeContext = createContext<TreeContext | null>(null)
@@ -29,36 +30,21 @@ interface Props {
   autoexpand?: boolean
 }
 
-function getPath(node: Node): string {
-  const path = []
+function getNode(rootList: Node[], path: string): Node | null {
+  const parts = path.split(".")
 
-  let current: Node | null = node
+  let node = rootList[Number(parts[0])]
 
-  while (current && current.parent) {
-    path.push(current.id)
-    current = current.parent
-  }
-
-  return path.reverse().join(".")
-}
-
-function getNode(root: Node | null, path: string): Node | null {
-  if (!root) {
+  if (!node) {
     return null
   }
 
-  const parts = path.split(".")
+  for (const part of parts.slice(1)) {
+    node = node.children[Number(part)]
 
-  let node: Node = root
-
-  for (const id of parts) {
-    const child = node.children[id]
-
-    if (!child) {
+    if (!node) {
       return null
     }
-
-    node = child
   }
 
   return node
@@ -68,134 +54,161 @@ const Container = function TreeProvider({
   children,
   autoexpand = true,
 }: Props) {
-  const rootList = useMemo(() => new Gtk.StringList(), [])
-
-  const rootNode = useMemo<Node>(
-    () => ({ value: null, parent: null, id: "", children: {} }),
-    []
-  )
+  const rootModel = useMemo(() => new Gtk.StringList(), [])
+  const rootList = useMemo(() => [], [])
 
   const model = useMemo(
     () =>
-      Gtk.TreeListModel.new(
-        new Gtk.SortListModel({
-          model: rootList,
-          sorter: new Gtk.StringSorter(),
-        }),
-        false,
-        autoexpand,
-        (item) => {
-          const path = item.getProperty("string") as string
-          const node = getNode(rootNode, path)
+      Gtk.TreeListModel.new(rootModel, false, autoexpand, (item) => {
+        const path = item.getProperty("string") as string
+        const node = getNode(rootList, path)
 
-          if (!node) {
-            return null
-          }
-
-          const childPaths = Object.values(node.children).map(getPath)
-          const children = new Gtk.StringList()
-
-          for (const path of childPaths) {
-            children.append(path)
-          }
-
-          return new Gtk.SortListModel({
-            model: children,
-            sorter: new Gtk.StringSorter(),
-          })
+        if (!node || node.children.length === 0) {
+          return null
         }
-      ),
+
+        const childPaths = node.children.map((_, index) => `${path}.${index}`)
+        const children = new Gtk.StringList()
+
+        for (const path of childPaths) {
+          children.append(path)
+        }
+
+        return children
+      }),
     []
   )
 
   return (
-    <TreeContext.Provider value={{ rootList, parent: rootNode }}>
+    <TreeContext.Provider value={{ rootModel, rootList, parent: null }}>
       <ListModelProvider model={model}>{children}</ListModelProvider>
     </TreeContext.Provider>
   )
 }
 
-const Item = function TreeItem({
+interface ListProps {
+  children: React.ReactNode
+}
+
+const List = function TreeList({ children }: ListProps) {
+  return React.Children.map(children, (child, index) => {
+    if (React.isValidElement<OrderedItemProps>(child)) {
+      return (
+        <OrderedItem key={index} value={child.props.value} index={index}>
+          <List>{child.props.children}</List>
+        </OrderedItem>
+      )
+    }
+
+    return child
+  })
+}
+
+interface OrderedItemProps {
+  value: unknown
+  index: number
+  children?: React.ReactNode
+}
+
+const OrderedItem = function TreeOrderedItem({
   children,
   index,
   value,
-}: {
-  children?: React.ReactNode
-  index: number
-  value: unknown
-}) {
+}: OrderedItemProps) {
   const { model, setItems } = useListModel()
   const context = useContext(TreeContext)
-  const valueRef = useRef<unknown>(null)
+
+  const depsRef = useRef<{
+    value: unknown
+    index: number
+    parent: Node | null
+  } | null>(null)
 
   if (!context || !(model instanceof Gtk.TreeListModel)) {
-    throw new Error("TreeItem must be used inside a TreeProvider")
+    throw new Error(
+      "TreeProvider.Item must be used inside a TreeProvider.Container"
+    )
   }
 
-  const { rootList, parent } = context
-
-  const node = useMemo<Node>(
-    () => ({ value, parent, id: index.toString(), children: {} }),
-    [value, parent, index]
-  )
+  const [node, setNode] = useState<Node | null>(null)
+  const unmountedRef = useRef(false)
+  const { rootModel, rootList, parent } = context
 
   useEffect(() => {
-    if (_.isEqual(value, valueRef.current)) {
+    return () => {
+      unmountedRef.current = true
+    }
+  }, [])
+
+  useEffect(() => {
+    if (_.isEqual(depsRef.current, { value, index, parent })) {
       return
     }
 
-    valueRef.current = value
+    depsRef.current = { value, index, parent }
 
-    const id = getPath(node)
+    const path = parent ? `${parent.path}.${index}` : index.toString()
+    const newNode = node || { value: null, path: "", children: [] }
 
-    parent.children[index.toString()] = node
+    newNode.value = value
+    newNode.path = path
 
-    if (!parent.parent) {
-      rootList.append(id)
+    setNode(newNode)
+
+    if (!parent) {
+      rootList.splice(index, 0, newNode)
+      rootModel.splice(index, 0, [newNode.path])
+    } else {
+      parent.children.splice(index, 0, newNode)
+      rootModel.itemsChanged(Number(path.split(".")[0]), 1, 1)
     }
 
     setItems((items) => {
-      items[id] = value
+      items[newNode.path] = value
       return items
     })
 
     return () => {
-      if (_.isEqual(value, valueRef.current)) {
+      if (
+        _.isEqual(depsRef.current, { value, index, parent }) &&
+        !unmountedRef.current
+      ) {
         return
       }
 
-      delete parent.children[index.toString()]
+      if (!parent) {
+        rootList.splice(index, 1)
+        rootModel.splice(index, 1, [])
+      } else {
+        parent.children.splice(index, 1)
+        rootModel.itemsChanged(Number(path.split(".")[0]), 1, 1)
+      }
 
       setItems((items) => {
-        delete items[id]
+        delete items[newNode.path]
         return items
       })
-
-      if (!parent.parent) {
-        for (let i = index + 1; i < rootList.getNItems(); i++) {
-          const item = rootList.getItem(i)
-
-          if (item) {
-            const itemId = item.getProperty("string") as string
-
-            if (itemId === id) {
-              rootList.remove(i)
-              break
-            }
-          }
-        }
-      }
     }
-  }, [value, index])
+  }, [value, index, parent])
 
-  return (
-    <TreeContext.Provider value={{ rootList, parent: node }}>
+  return node ? (
+    <TreeContext.Provider value={{ rootList, rootModel, parent: node }}>
       {children}
     </TreeContext.Provider>
-  )
+  ) : null
+}
+
+interface ItemProps {
+  children?: React.ReactNode
+  value: unknown
+}
+
+const Item = function TreeItem(_props: ItemProps) {
+  return null
 }
 
 export default {
   Container,
   Item,
+  List,
 }

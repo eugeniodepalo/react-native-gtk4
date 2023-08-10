@@ -85,7 +85,7 @@ describe("useListItemFactory", () => {
 
     onFactorySetup(listItem)
 
-    expect(renderFn).toHaveBeenCalledWith(null)
+    expect(renderFn).toHaveBeenCalledWith(null, listItem)
 
     const item = Gtk.Box.mock.instances[0]
 
@@ -107,7 +107,9 @@ describe("useListItemFactory", () => {
     render(
       <ListProvider.Container>
         <Component />
-        <ListProvider.Item index={index} value={value} />
+        <ListProvider.List>
+          <ListProvider.Item value={value} />
+        </ListProvider.List>
       </ListProvider.Container>
     )
 
@@ -121,7 +123,7 @@ describe("useListItemFactory", () => {
 
     onFactoryBind(listItem)
 
-    expect(renderFn).toHaveBeenCalledWith(value)
+    expect(renderFn).toHaveBeenCalledWith(value, listItem)
 
     const item = Gtk.Box.mock.instances[0]
 
@@ -167,7 +169,9 @@ describe("useListItemFactory", () => {
     render(
       <ListProvider.Container>
         <Component />
-        <ListProvider.Item index={index} value={value} />
+        <ListProvider.List>
+          <ListProvider.Item value={value} />
+        </ListProvider.List>
       </ListProvider.Container>
     )
 
@@ -181,7 +185,7 @@ describe("useListItemFactory", () => {
 
     onFactoryUnbind(listItem)
 
-    expect(renderFn).toHaveBeenCalledWith(null)
+    expect(renderFn).toHaveBeenCalledWith(null, listItem)
 
     const item = Gtk.Box.mock.instances[0]
 

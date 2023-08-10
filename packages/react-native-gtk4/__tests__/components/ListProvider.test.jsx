@@ -66,7 +66,6 @@ describe("ListProvider", () => {
   })
 
   describe("Item", () => {
-    const index = 0
     const value = "bar"
 
     test("should render", () => {
@@ -74,7 +73,9 @@ describe("ListProvider", () => {
         <ListProvider.Container>
           <Component>
             <Box />
-            <ListProvider.Item index={index} value={value} />
+            <ListProvider.List>
+              <ListProvider.Item value={value} />
+            </ListProvider.List>
           </Component>
         </ListProvider.Container>
       )
@@ -89,7 +90,9 @@ describe("ListProvider", () => {
         <ListProvider.Container>
           <Component>
             <Box />
-            <ListProvider.Item index={index} value={value} />
+            <ListProvider.List>
+              <ListProvider.Item value={value} />
+            </ListProvider.List>
           </Component>
         </ListProvider.Container>
       )
@@ -105,11 +108,13 @@ describe("ListProvider", () => {
       expect(() =>
         render(
           <ListModelProvider model={{}} items={{}} setItems={() => {}}>
-            <ListProvider.Item index={index} value={value} />
+            <ListProvider.List>
+              <ListProvider.Item value={value} />
+            </ListProvider.List>
           </ListModelProvider>
         )
       ).toThrow(
-        "ListProvider.Item must be used within a ListProvider.Container"
+        "ListProvider.List must be used within a ListProvider.Container"
       )
     })
 
@@ -117,19 +122,23 @@ describe("ListProvider", () => {
       render(
         <ListProvider.Container>
           <Component>
-            <ListProvider.Item index={index} value={value} />
+            <ListProvider.List>
+              <ListProvider.Item value={value} />
+            </ListProvider.List>
           </Component>
         </ListProvider.Container>
       )
 
-      expect(context.model.splice).toHaveBeenCalledWith(index, 0, ["0"])
+      expect(context.model.splice).toHaveBeenCalledWith(0, 0, ["0"])
     })
 
     test("should remove item from model when unmounting", async () => {
       render(
         <ListProvider.Container>
           <Component>
-            <ListProvider.Item index={index} value={value} />
+            <ListProvider.List>
+              <ListProvider.Item value={value} />
+            </ListProvider.List>
           </Component>
         </ListProvider.Container>
       )

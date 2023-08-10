@@ -7,7 +7,6 @@ import {
   findBy,
   fireEvent,
 } from "../../src/test-support/index.js"
-import { Box } from "../../src/generated/intrinsics.js"
 import DropDown from "../../src/components/DropDown.js"
 import ListProvider from "../../src/components/ListProvider.js"
 import Gtk from "@girs/node-gtk-4.0"
@@ -37,17 +36,11 @@ describe("DropDown", () => {
   })
 
   test("should render", () => {
-    render(
-      <DropDown>
-        <Box />
-      </DropDown>
-    )
+    render(<DropDown />)
 
     const dropDown = findBy({ type: "DropDown" })
-    const child = findBy({ type: "Box" })
 
     expect(dropDown.node).toBeInstanceOf(Gtk.DropDown)
-    expect(child.node).toBeInstanceOf(Gtk.Box)
   })
 
   test("should forward refs", () => {
@@ -112,7 +105,7 @@ describe("DropDown", () => {
   test("should set selectedItem", () => {
     render(
       <DropDown selectedItem={0}>
-        <ListProvider.Item index={0} value="test" />
+        <ListProvider.Item value="test" />
       </DropDown>
     )
 
@@ -126,7 +119,7 @@ describe("DropDown", () => {
 
     render(
       <DropDown onSelectedItemChanged={onSelectedItemChanged}>
-        <ListProvider.Item index={0} value="bar" />
+        <ListProvider.Item value="bar" />
       </DropDown>
     )
 

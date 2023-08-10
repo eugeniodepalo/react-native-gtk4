@@ -53,12 +53,6 @@ enum Column {
   Description = 1,
 }
 
-enum TreeColumn {
-  Expander = 0,
-  Name = 1,
-  Description = 2,
-}
-
 export default function App() {
   const { quit, application } = useApplication()
   const [count, setCount] = useState(0)
@@ -82,25 +76,23 @@ export default function App() {
   const [showPrintDialog, setShowPrintDialog] = useState(false)
   const [levelBarValue, setLevelBarValue] = useState(0.0)
   const [scaleValue, setScaleValue] = useState(0.0)
-  const [listViewSelection, setListViewSelection] = useState(["1", "3"])
-  const [columnViewSelection, setColumnViewSelection] = useState(["2"])
+  const [listViewSelection, setListViewSelection] = useState([1, 3])
+  const [columnViewSelection, setColumnViewSelection] = useState([2])
   const [dropDownSelectedItem, setDropDownSelectedItem] = useState(0)
-  const [treeViewSelection, setTreeViewSelection] = useState(["1", "3"])
+  const [treeViewSelection, setTreeViewSelection] = useState([1, 3])
 
   const renderDropDownItem = useCallback(
     (item: string | null) => <Label label={item ?? ""} />,
     []
   )
 
-  const renderTreeCell = useCallback(
-    (item: { name: string; surname: string } | null, column: number) => {
+  const renderCell = useCallback(
+    (value: { name: string; surname: string } | null, column: number) => {
       switch (column) {
-        case TreeColumn.Expander:
-          return <TreeExpander />
-        case TreeColumn.Name:
-          return <Label label={item?.name ?? ""} />
-        case TreeColumn.Description:
-          return <Label label={item?.surname ?? ""} />
+        case Column.Name:
+          return <Label label={value?.name ?? ""} />
+        case Column.Description:
+          return <Label label={value?.surname ?? ""} />
         default:
           throw new Error(`Unexpected column: ${column}`)
       }
@@ -108,16 +100,14 @@ export default function App() {
     []
   )
 
-  const renderCell = useCallback(
-    (item: { name: string; surname: string } | null, column: number) => {
-      switch (column) {
-        case Column.Name:
-          return <Label label={item?.name ?? ""} />
-        case Column.Description:
-          return <Label label={item?.surname ?? ""} />
-        default:
-          throw new Error(`Unexpected column: ${column}`)
-      }
+  const renderTreeItem = useCallback(
+    (value: string | null, item: Gtk.ListItem) => {
+      return (
+        <Box>
+          <TreeExpander listRow={item.item as Gtk.TreeListRow} />
+          <Label label={value ?? ""} />
+        </Box>
+      )
     },
     []
   )
@@ -403,6 +393,14 @@ export default function App() {
               }}
             />
             <ListProvider.Container>
+              <ListProvider.List>
+                {Array.from(Array(5).keys()).map((i) => (
+                  <ListProvider.Item
+                    key={i}
+                    value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
+                  />
+                ))}
+              </ListProvider.List>
               <ColumnView
                 hexpand
                 vexpand
@@ -420,50 +418,29 @@ export default function App() {
                   console.log(items)
                   setColumnViewSelection(ids)
                 }}
-              >
-                {Array.from(Array(5).keys()).map((i) => (
-                  <ListProvider.Item
-                    key={i}
-                    index={i}
-                    value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
-                  />
-                ))}
-              </ColumnView>
+              />
             </ListProvider.Container>
             <TreeProvider.Container autoexpand={false}>
-              {Array.from(Array(5).keys()).map((i) => (
-                <TreeProvider.Item
-                  key={i}
-                  index={i}
-                  value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
-                >
-                  {Array.from(Array(5).keys()).map((j) => (
-                    <TreeProvider.Item
-                      key={j}
-                      index={j}
-                      value={{
-                        name: `Name ${i}.${j}`,
-                        surname: `Surname ${i}.${j}`,
-                      }}
-                    />
-                  ))}
-                </TreeProvider.Item>
-              ))}
-              <ColumnView
+              <TreeProvider.List>
+                {Array.from(Array(5).keys()).map((i) => (
+                  <TreeProvider.Item key={i} value={i}>
+                    {Array.from(Array(5).keys()).map((j) => (
+                      <TreeProvider.Item key={j} value={`${i}.${j}`}>
+                        {Array.from(Array(5).keys()).map((k) => (
+                          <TreeProvider.Item key={k} value={`${i}.${j}.${k}`} />
+                        ))}
+                      </TreeProvider.Item>
+                    ))}
+                  </TreeProvider.Item>
+                ))}
+              </TreeProvider.List>
+              <ListView
                 hexpand
                 vexpand
                 selectionMode={Gtk.SelectionMode.MULTIPLE}
-                columns={[
-                  { title: "Actions", expand: false },
-                  { title: "Name", expand: true },
-                  { title: "Surname", expand: true },
-                ]}
-                renderCell={renderTreeCell}
+                renderItem={renderTreeItem}
                 selection={treeViewSelection}
-                onSelectionChanged={(
-                  ids,
-                  items: { name: string; surname: string }[]
-                ) => {
+                onSelectionChanged={(ids, items) => {
                   console.log(items)
                   setTreeViewSelection(ids)
                 }}
@@ -583,22 +560,20 @@ export default function App() {
             >
               <Label label="Center Box Center" />
             </CenterBox>
-            <ListProvider.Container>
-              <DropDown
-                hexpand
-                vexpand
-                renderItem={renderDropDownItem}
-                onSelectedItemChanged={(id, item) => {
-                  console.log(item)
-                  setDropDownSelectedItem(id)
-                }}
-                selectedItem={dropDownSelectedItem}
-              >
-                {Array.from(Array(50).keys()).map((i) => (
-                  <ListProvider.Item key={i} index={i} value={`Item ${i}`} />
-                ))}
-              </DropDown>
-            </ListProvider.Container>
+            <DropDown
+              hexpand
+              vexpand
+              renderItem={renderDropDownItem}
+              onSelectedItemChanged={(id, item) => {
+                console.log(item)
+                setDropDownSelectedItem(id)
+              }}
+              selectedItem={dropDownSelectedItem}
+            >
+              {Array.from(Array(50).keys()).map((i) => (
+                <ListProvider.Item key={i} value={`Item ${i}`} />
+              ))}
+            </DropDown>
             <ListProvider.Container>
               <ListView
                 hexpand
@@ -611,9 +586,11 @@ export default function App() {
                   setListViewSelection(ids)
                 }}
               >
-                {Array.from(Array(5).keys()).map((i) => (
-                  <ListProvider.Item key={i} index={i} value={`Item ${i}`} />
-                ))}
+                <ListProvider.List>
+                  {Array.from(Array(5).keys()).map((i) => (
+                    <ListProvider.Item key={i} value={`Item ${i}`} />
+                  ))}
+                </ListProvider.List>
               </ListView>
             </ListProvider.Container>
           </Box>

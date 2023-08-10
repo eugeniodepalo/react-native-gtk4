@@ -6,7 +6,8 @@ import { createReconciler } from "../reconciler.js"
 import useListModel from "./useListModel.js"
 
 export type ListItemFactoryRenderFunction<T> = (
-  value: T | null
+  value: T | null,
+  listItem: Gtk.ListItem
 ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 
 export default function useListItemFactory<T>(
@@ -25,7 +26,7 @@ export default function useListItemFactory<T>(
     const onFactorySetup = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
       const ref = createRef<Gtk.Widget>()
-      const element = render(null)
+      const element = render(null, listItem)
       const container = createContainer(listItem, reconciler)
 
       container.render(
@@ -49,23 +50,23 @@ export default function useListItemFactory<T>(
     const onFactoryBind = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
       const container = createContainer(listItem)
-      let item = listItem.item
 
-      if (item instanceof Gtk.TreeListRow) {
-        item = item.item
-      }
+      const item =
+        listItem.item instanceof Gtk.TreeListRow
+          ? listItem.item.item
+          : listItem.item
 
       const id = item.getProperty("string") as string
       const value = items[id] as T
 
-      container.render(render(value))
+      container.render(render(value, listItem))
     }
 
     const onFactoryUnbind = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
       const container = createContainer(listItem)
 
-      container.render(render(null))
+      container.render(render(null, listItem))
     }
 
     factory.on("bind", onFactoryBind)

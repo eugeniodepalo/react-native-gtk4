@@ -29,4 +29,10 @@ describe("useListModel", () => {
       model,
     })
   })
+
+  test("should throw when no model context is available", () => {
+    expect(() => render(<Component />)).toThrow(
+      "useListModel must be used within a ListModelProvider"
+    )
+  })
 })

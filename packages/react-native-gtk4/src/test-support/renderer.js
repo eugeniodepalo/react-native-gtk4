@@ -60,10 +60,13 @@ export default class Renderer {
       () => {}
     )
 
-    Reconciler.flushSync(() => {})
-    Reconciler.flushControlled(() => {})
-    Reconciler.flushPassiveEffects()
-    jest.runAllTimers()
+    while (jest.getTimerCount() > 0) {
+      jest.runAllTimers()
+      Reconciler.flushSync(() => {})
+      Reconciler.flushControlled(() => {})
+      Reconciler.flushPassiveEffects()
+    }
+
     console.error.mockRestore()
   }
 

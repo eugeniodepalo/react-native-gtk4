@@ -23,6 +23,10 @@ describe("TreeProvider", () => {
         this.items = []
       }
 
+      append(value) {
+        this.items.push(value)
+      }
+
       splice(index, count, values) {
         this.items.splice(index, count, ...values)
       }
@@ -58,6 +62,51 @@ describe("TreeProvider", () => {
       const child = findBy({ type: "Box" })
 
       expect(child).toBeNull()
+    })
+  })
+
+  describe("List", () => {
+    test("should handle multiple items correctly", () => {
+      const value1 = "value1"
+      const value2 = "value2"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value1} />
+            <TreeProvider.Item value={value2} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      expect(model.splice).toHaveBeenCalledWith(0, 0, ["0"])
+      expect(model.splice).toHaveBeenCalledWith(1, 0, ["1"])
+    })
+
+    test("should handle nested lists", () => {
+      const value1 = "value1"
+      const value2 = "value2"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value1}>
+              <TreeProvider.Item value={value2} />
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      const onCreateFunc = Gtk.TreeListModel.new.mock.calls[0][3]
+
+      onCreateFunc({ getProperty: () => "0" })
+
+      expect(Gtk.StringList).toHaveBeenCalledTimes(2)
+
+      const nestedModel = Gtk.StringList.mock.instances[1]
+
+      expect(model.splice).toHaveBeenCalledWith(0, 0, ["0"])
+      expect(nestedModel.append).toHaveBeenCalledWith("0.0")
     })
   })
 
@@ -102,6 +151,69 @@ describe("TreeProvider", () => {
       render(null)
 
       expect(model.splice).toHaveBeenCalledWith(0, 1, [])
+    })
+
+    test("should retrieve a direct child from rootList", () => {
+      const value = "value"
+      const childValue = "child"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value}>
+              <TreeProvider.Item value={childValue} />
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      const item = { getProperty: jest.fn(() => "0") }
+
+      const nestedModel = Gtk.TreeListModel.new.mock.calls[0][3](item)
+
+      expect(nestedModel.items).toEqual(["0.0"])
+    })
+
+    test("should return null for item without children", () => {
+      const value = "value"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      const item = { getProperty: jest.fn(() => "0") }
+
+      const nestedModel = Gtk.TreeListModel.new.mock.calls[0][3](item)
+
+      expect(nestedModel).toBeNull()
+    })
+
+    test("should handle nested children retrieval", () => {
+      const valueA = "A"
+      const valueB = "B"
+      const valueC = "C"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={valueA}>
+              <TreeProvider.Item value={valueB}>
+                <TreeProvider.Item value={valueC} />
+              </TreeProvider.Item>
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      const item = { getProperty: jest.fn(() => "0.0") }
+
+      const nestedModel = Gtk.TreeListModel.new.mock.calls[0][3](item)
+
+      expect(nestedModel.items).toEqual(["0.0.0"])
     })
   })
 })

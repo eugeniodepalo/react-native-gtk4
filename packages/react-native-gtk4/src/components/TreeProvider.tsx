@@ -17,13 +17,13 @@ interface Node {
   children: Node[]
 }
 
-interface TreeContext {
+interface Context {
   rootModel: Gtk.StringList
   rootList: Node[]
   parent: Node | null
 }
 
-const TreeContext = createContext<TreeContext | null>(null)
+const Context = createContext<Context | null>(null)
 
 interface Props {
   children: React.ReactNode
@@ -80,9 +80,9 @@ const Container = function TreeProvider({
   )
 
   return (
-    <TreeContext.Provider value={{ rootModel, rootList, parent: null }}>
+    <Context.Provider value={{ rootModel, rootList, parent: null }}>
       <ListModelProvider model={model}>{children}</ListModelProvider>
-    </TreeContext.Provider>
+    </Context.Provider>
   )
 }
 
@@ -116,7 +116,7 @@ const OrderedItem = function TreeOrderedItem({
   value,
 }: OrderedItemProps) {
   const { model, setItems } = useListModel()
-  const context = useContext(TreeContext)
+  const context = useContext(Context)
 
   const depsRef = useRef<{
     value: unknown
@@ -148,23 +148,23 @@ const OrderedItem = function TreeOrderedItem({
     depsRef.current = { value, index, parent }
 
     const path = parent ? `${parent.path}.${index}` : index.toString()
-    const newNode = node || { value: null, path: "", children: [] }
+    const updatedNode = node || { value: null, path: "", children: [] }
 
-    newNode.value = value
-    newNode.path = path
-
-    setNode(newNode)
+    updatedNode.value = value
+    updatedNode.path = path
 
     if (!parent) {
-      rootList.splice(index, 0, newNode)
-      rootModel.splice(index, 0, [newNode.path])
+      rootList.splice(index, 0, updatedNode)
+      rootModel.splice(index, 0, [path])
     } else {
-      parent.children.splice(index, 0, newNode)
+      parent.children.splice(index, 0, updatedNode)
       rootModel.itemsChanged(Number(path.split(".")[0]), 1, 1)
     }
 
+    setNode(updatedNode)
+
     setItems((items) => {
-      items[newNode.path] = value
+      items[path] = value
       return items
     })
 
@@ -185,16 +185,16 @@ const OrderedItem = function TreeOrderedItem({
       }
 
       setItems((items) => {
-        delete items[newNode.path]
+        delete items[path]
         return items
       })
     }
   }, [value, index, parent])
 
   return node ? (
-    <TreeContext.Provider value={{ rootList, rootModel, parent: node }}>
+    <Context.Provider value={{ rootList, rootModel, parent: node }}>
       {children}
-    </TreeContext.Provider>
+    </Context.Provider>
   ) : null
 }
 

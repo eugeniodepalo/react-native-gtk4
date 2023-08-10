@@ -4,6 +4,7 @@ import { Box } from "../../src/generated/intrinsics.js"
 import ColumnView from "../../src/components/ColumnView.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"
+import * as useListItemFactoryModule from "../../src/hooks/useListItemFactory.js"
 
 describe("ColumnView", () => {
   beforeEach(setup)
@@ -74,5 +75,39 @@ describe("ColumnView", () => {
 
     const columnView = findBy({ type: "ColumnView" })
     expect(columnView).toBeNull()
+  })
+
+  test("should throw error if renderCell is not defined", () => {
+    jest.spyOn(useListItemFactoryModule, "default")
+
+    render(
+      <ListProvider.Container>
+        <ColumnView columns={[{ title: "Column 1" }]} />
+      </ListProvider.Container>
+    )
+
+    const renderFn = useListItemFactoryModule.default.mock.calls[0][0]
+
+    expect(() => renderFn()).toThrow("Expected renderCell to be defined")
+  })
+
+  test("should call renderCell with correct arguments", () => {
+    jest.spyOn(useListItemFactoryModule, "default")
+
+    const item = {}
+    const listItem = new Gtk.ListItem()
+    const renderCell = jest.fn()
+
+    render(
+      <ListProvider.Container>
+        <ColumnView columns={[{ title: "Column 1" }]} renderCell={renderCell} />
+      </ListProvider.Container>
+    )
+
+    const renderFn = useListItemFactoryModule.default.mock.calls[0][0]
+
+    renderFn(item, listItem)
+
+    expect(renderCell).toHaveBeenCalledWith(item, 0, listItem)
   })
 })

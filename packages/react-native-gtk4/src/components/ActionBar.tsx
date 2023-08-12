@@ -7,7 +7,7 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 type Position = "start" | "center" | "end"
 
 const Context = createContext<Gtk.ActionBar | null>(null)
-const PositionContext = createContext<Position | null>(null)
+const PositionContext = createContext<Position>("start")
 
 const Container = forwardRef<
   Gtk.ActionBar,
@@ -31,7 +31,7 @@ interface ItemProps {
 
 const Item = function ActionBarItem({ children }: ItemProps) {
   const actionBar = useContext(Context)
-  const position = useContext(PositionContext) ?? "start"
+  const position = useContext(PositionContext)
   const [childRef, setChildRef] = useForwardedRef(children.ref)
 
   if (!actionBar) {
@@ -69,7 +69,7 @@ const Item = function ActionBarItem({ children }: ItemProps) {
 
 interface SectionProps {
   children: React.ReactElement
-  position?: Position
+  position: Position
 }
 
 const Section = function ActionBarSection({
@@ -77,7 +77,7 @@ const Section = function ActionBarSection({
   position,
 }: SectionProps) {
   return (
-    <PositionContext.Provider value={position ?? null}>
+    <PositionContext.Provider value={position}>
       {children}
     </PositionContext.Provider>
   )

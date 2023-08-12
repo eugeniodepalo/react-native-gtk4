@@ -260,10 +260,11 @@ export default function App() {
       onCloseRequest={quit}
       titlebar={
         showTitlebar ? (
-          <HeaderBar title={<Label label="Kitchen Sink" />}>
-            <Label label="Header Bar 1" />
-            <Button label="Header Bar 2" />
-          </HeaderBar>
+          <HeaderBar.Container title={<Label label="Kitchen Sink" />}>
+            <HeaderBar.Section position="end">
+              <Label label="Header Bar 1" />
+            </HeaderBar.Section>
+          </HeaderBar.Container>
         ) : null
       }
     >

@@ -1,50 +1,219 @@
 import React, { createRef } from "react"
 import { render, setup, findBy } from "../../src/test-support/index.js"
 import HeaderBar from "../../src/components/HeaderBar.js"
-import { Label } from "../../src/generated/intrinsics.js"
+import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("HeaderBar", () => {
   beforeEach(setup)
 
-  test("should render", () => {
-    render(<HeaderBar />)
+  describe("Container", () => {
+    test("should render", () => {
+      render(
+        <HeaderBar.Container>
+          <Box />
+        </HeaderBar.Container>
+      )
 
-    const headerBar = findBy({ type: "HeaderBar" })
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
 
-    expect(headerBar.node).toBeInstanceOf(Gtk.HeaderBar)
-    expect(headerBar.node.setTitleWidget).toHaveBeenCalledWith(null)
+      expect(headerBar.node).toBeInstanceOf(Gtk.HeaderBar)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+      const childRef = createRef()
+
+      render(
+        <HeaderBar.Container ref={ref}>
+          <Box ref={childRef} />
+        </HeaderBar.Container>
+      )
+
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(headerBar.node)
+      expect(childRef.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <HeaderBar.Container>
+          <Box />
+        </HeaderBar.Container>
+      )
+
+      render(null)
+
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(headerBar).toBeNull()
+      expect(child).toBeNull()
+    })
   })
 
-  test("should forward refs", () => {
-    const ref = createRef()
-    const titleRef = createRef()
+  describe("Item", () => {
+    test("should render", () => {
+      render(
+        <HeaderBar.Container>
+          <HeaderBar.Item>
+            <Box />
+          </HeaderBar.Item>
+        </HeaderBar.Container>
+      )
 
-    render(<HeaderBar ref={ref} title={<Label ref={titleRef} />} />)
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
 
-    const headerBar = findBy({ type: "HeaderBar" })
-    const title = findBy({ type: "Label" })
+      expect(headerBar.node).toBeInstanceOf(Gtk.HeaderBar)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
 
-    expect(ref.current).toBe(headerBar.node)
-    expect(titleRef.current).toBe(title.node)
+    test("should forward refs", () => {
+      const ref = createRef()
+
+      render(
+        <HeaderBar.Container>
+          <HeaderBar.Item>
+            <Box ref={ref} />
+          </HeaderBar.Item>
+        </HeaderBar.Container>
+      )
+
+      const child = findBy({ type: "Box" })
+
+      expect(ref.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <HeaderBar.Container>
+          <HeaderBar.Item>
+            <Box />
+          </HeaderBar.Item>
+        </HeaderBar.Container>
+      )
+
+      render(null)
+
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(headerBar).toBeNull()
+      expect(child).toBeNull()
+    })
+
+    test("should remove itself when unmounted", () => {
+      render(
+        <HeaderBar.Container>
+          <HeaderBar.Item>
+            <Box />
+          </HeaderBar.Item>
+        </HeaderBar.Container>
+      )
+
+      const headerBar = findBy({ type: "HeaderBar" })
+
+      render(null)
+
+      expect(headerBar.node.remove).toHaveBeenCalled()
+    })
+
+    test("should throw when not inside HeaderBar.Container", () => {
+      expect(() => {
+        render(
+          <HeaderBar.Item>
+            <Box />
+          </HeaderBar.Item>
+        )
+      }).toThrow("HeaderBar.Item must be a child of HeaderBar.Container")
+    })
+
+    test("should pack child to end by default", () => {
+      render(
+        <HeaderBar.Container>
+          <HeaderBar.Item>
+            <Box />
+          </HeaderBar.Item>
+        </HeaderBar.Container>
+      )
+
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(headerBar.node.packEnd).toHaveBeenCalledWith(child.node)
+    })
   })
 
-  test("should handle unmount gracefully", () => {
-    render(<HeaderBar />)
+  describe("Section", () => {
+    test("should render", () => {
+      render(
+        <HeaderBar.Section>
+          <Box />
+        </HeaderBar.Section>
+      )
 
-    render(null)
+      const child = findBy({ type: "Box" })
 
-    const headerBar = findBy({ type: "HeaderBar" })
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+    })
 
-    expect(headerBar).toBeNull()
-  })
+    test("should forward refs", () => {
+      const ref = createRef()
 
-  test("should set title widget", () => {
-    render(<HeaderBar title={<Label label="text" />} />)
+      render(
+        <HeaderBar.Section>
+          <Box ref={ref} />
+        </HeaderBar.Section>
+      )
 
-    const headerBar = findBy({ type: "HeaderBar" })
-    const label = findBy({ type: "Label" })
+      const child = findBy({ type: "Box" })
 
-    expect(headerBar.node.setTitleWidget).toHaveBeenCalledWith(label.node)
+      expect(ref.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <HeaderBar.Section>
+          <Box />
+        </HeaderBar.Section>
+      )
+
+      render(null)
+
+      const child = findBy({ type: "Box" })
+
+      expect(child).toBeNull()
+    })
+
+    test("should pack child to end", () => {
+      render(
+        <HeaderBar.Container>
+          <HeaderBar.Section position="end">
+            <HeaderBar.Item>
+              <Box />
+            </HeaderBar.Item>
+          </HeaderBar.Section>
+        </HeaderBar.Container>
+      )
+
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(headerBar.node.packEnd).toHaveBeenCalledWith(child.node)
+    })
+
+    test("should set title widget", () => {
+      render(<HeaderBar.Container title={<Box />} />)
+
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(headerBar.node.setTitleWidget).toHaveBeenCalledWith(child.node)
+    })
   })
 })

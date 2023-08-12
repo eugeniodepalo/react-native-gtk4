@@ -1,8 +1,7 @@
-import React, { ForwardedRef, useEffect } from "react"
+import React, { ForwardedRef } from "react"
 import { forwardRef } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import { DropDown } from "../generated/intrinsics.js"
-import useForwardedRef from "../hooks/useForwardedRef.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
 } from "../hooks/useListItemFactory.js"
@@ -36,29 +35,21 @@ const Inner = React.forwardRef<Gtk.DropDown, Props<any>>(
     }: Props<T>,
     ref: ForwardedRef<Gtk.DropDown>
   ) {
-    const [innerRef, setInnerRef] = useForwardedRef(ref)
     const itemFactory = useListItemFactory(renderItem)
     const popoverItemFactory = useListItemFactory(renderPopoverItem)
     const { items, model } = useListModel()
 
-    useEffect(() => {
-      const dropDown = innerRef.current
-
-      if (!dropDown) {
-        return
-      }
-
-      dropDown.setSelected(selectedItem)
-    }, [selectedItem, items])
-
     return (
       <DropDown
         model={model}
-        ref={setInnerRef}
+        ref={ref}
         factory={renderItem ? itemFactory : null}
+        selected={selectedItem}
         listFactory={renderPopoverItem ? popoverItemFactory : null}
         onNotifySelected={(node) => {
-          onSelectedItemChanged?.(node.selected, items[node.selected] as T)
+          if (node.selected !== selectedItem) {
+            onSelectedItemChanged?.(node.selected, items[node.selected] as T)
+          }
         }}
         {...props}
       />

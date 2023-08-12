@@ -66,7 +66,7 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         break
       case "placeholderText":
         if (this.node.placeholderText !== newValue) {
-          this.node.setPlaceholderText(newValue)
+          this.node.placeholderText = newValue
         }
         break
       case "propagateTextWidth":

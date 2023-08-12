@@ -2,6 +2,9 @@ import { camelize } from "../helpers.js"
 import { GirImport } from "./import.js"
 import { GirType } from "./type.js"
 
+const ignoredGetters = ["active", "placeholderText"]
+const ignoredSetters = ["actionTarget", "placeholderText"]
+
 export class GirProperty {
   constructor(prop, gir) {
     this.prop = prop
@@ -21,15 +24,18 @@ export class GirProperty {
   }
 
   get isReadonly() {
-    return this.prop.$.writable !== "1" && !this.setter
+    return (
+      this.prop.$.writable !== "1" &&
+      !this.setter &&
+      !ignoredSetters.includes(this.name)
+    )
   }
 
   get isWriteonly() {
     return (
       this.prop.$.readable !== "1" &&
       !this.getter &&
-      this.name !== "active" &&
-      this.name !== "placeholderText"
+      !ignoredGetters.includes(this.name)
     )
   }
 
@@ -46,15 +52,13 @@ export class GirProperty {
   }
 
   get getter() {
-    return this.prop.$.getter &&
-      this.name !== "placeholderText" &&
-      this.name !== "active"
+    return this.prop.$.getter && !ignoredGetters.includes(this.name)
       ? camelize(this.prop.$.getter)
       : null
   }
 
   get setter() {
-    return this.prop.$.setter && this.name !== "actionTarget"
+    return this.prop.$.setter && !ignoredSetters.includes(this.name)
       ? camelize(this.prop.$.setter)
       : null
   }

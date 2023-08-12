@@ -85,7 +85,7 @@ describe("Text", () => {
   test("should set placeholderText", () => {
     const newValue = "Some String"
     widget.set("placeholderText", newValue)
-    expect(widget.node.setPlaceholderText).toHaveBeenCalledWith(newValue)
+    expect(widget.node.placeholderText).toBe(newValue)
   })
 
   test("should set propagateTextWidth", () => {

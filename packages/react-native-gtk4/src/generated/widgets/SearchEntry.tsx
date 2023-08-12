@@ -15,7 +15,7 @@ export default class SearchEntry<
         break
       case "placeholderText":
         if (this.node.placeholderText !== newValue) {
-          this.node.setPlaceholderText(newValue)
+          this.node.placeholderText = newValue
         }
         break
       case "searchDelay":

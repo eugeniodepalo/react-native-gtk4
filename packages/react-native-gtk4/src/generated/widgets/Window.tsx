@@ -34,7 +34,9 @@ export default class Window<
         }
         break
       case "defaultHeight":
-        this.node.defaultHeight = newValue
+        if (this.node.defaultHeight !== newValue) {
+          this.node.defaultHeight = newValue
+        }
         break
       case "defaultWidget":
         if (this.node.getDefaultWidget() !== newValue) {
@@ -42,7 +44,9 @@ export default class Window<
         }
         break
       case "defaultWidth":
-        this.node.defaultWidth = newValue
+        if (this.node.defaultWidth !== newValue) {
+          this.node.defaultWidth = newValue
+        }
         break
       case "deletable":
         if (this.node.getDeletable() !== newValue) {
@@ -55,7 +59,9 @@ export default class Window<
         }
         break
       case "display":
-        this.node.setDisplay(newValue)
+        if (this.node.display !== newValue) {
+          this.node.setDisplay(newValue)
+        }
         break
       case "focusVisible":
         if (this.node.getFocusVisible() !== newValue) {
@@ -63,10 +69,14 @@ export default class Window<
         }
         break
       case "focusWidget":
-        this.node.focusWidget = newValue
+        if (this.node.focusWidget !== newValue) {
+          this.node.focusWidget = newValue
+        }
         break
       case "fullscreened":
-        this.node.fullscreened = newValue
+        if (this.node.fullscreened !== newValue) {
+          this.node.fullscreened = newValue
+        }
         break
       case "handleMenubarAccel":
         if (this.node.getHandleMenubarAccel() !== newValue) {
@@ -84,7 +94,9 @@ export default class Window<
         }
         break
       case "maximized":
-        this.node.maximized = newValue
+        if (this.node.maximized !== newValue) {
+          this.node.maximized = newValue
+        }
         break
       case "mnemonicsVisible":
         if (this.node.getMnemonicsVisible() !== newValue) {

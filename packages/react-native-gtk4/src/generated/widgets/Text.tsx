@@ -34,7 +34,9 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         }
         break
       case "imModule":
-        this.node.imModule = newValue
+        if (this.node.imModule !== newValue) {
+          this.node.imModule = newValue
+        }
         break
       case "inputHints":
         if (this.node.getInputHints() !== newValue) {
@@ -52,7 +54,9 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         }
         break
       case "invisibleCharSet":
-        this.node.invisibleCharSet = newValue
+        if (this.node.invisibleCharSet !== newValue) {
+          this.node.invisibleCharSet = newValue
+        }
         break
       case "maxLength":
         if (this.node.getMaxLength() !== newValue) {
@@ -120,7 +124,9 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         }
         break
       case "xalign":
-        this.node.xalign = newValue
+        if (this.node.xalign !== newValue) {
+          this.node.xalign = newValue
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

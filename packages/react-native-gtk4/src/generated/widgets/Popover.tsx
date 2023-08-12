@@ -34,7 +34,9 @@ export default class Popover<
         }
         break
       case "defaultWidget":
-        this.node.setDefaultWidget(newValue)
+        if (this.node.defaultWidget !== newValue) {
+          this.node.setDefaultWidget(newValue)
+        }
         break
       case "hasArrow":
         if (this.node.getHasArrow() !== newValue) {

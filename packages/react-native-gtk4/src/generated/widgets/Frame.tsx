@@ -32,7 +32,9 @@ export default class Frame<T extends Gtk.Frame = Gtk.Frame> extends Widget<T> {
         }
         break
       case "labelXalign":
-        this.node.labelXalign = newValue
+        if (this.node.labelXalign !== newValue) {
+          this.node.labelXalign = newValue
+        }
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

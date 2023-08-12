@@ -16,7 +16,9 @@ export default class PopoverMenu<
         }
         break
       case "visibleSubmenu":
-        this.node.visibleSubmenu = newValue
+        if (this.node.visibleSubmenu !== newValue) {
+          this.node.visibleSubmenu = newValue
+        }
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

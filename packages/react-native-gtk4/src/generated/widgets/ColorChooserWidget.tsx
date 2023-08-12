@@ -11,7 +11,9 @@ export default class ColorChooserWidget<
     super.set(propName, newValue)
     switch (propName) {
       case "showEditor":
-        this.node.showEditor = newValue
+        if (this.node.showEditor !== newValue) {
+          this.node.showEditor = newValue
+        }
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

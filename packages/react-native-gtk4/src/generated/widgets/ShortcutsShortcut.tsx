@@ -14,31 +14,49 @@ export default class ShortcutsShortcut<
         this.node.accelSizeGroup = newValue
         break
       case "accelerator":
-        this.node.accelerator = newValue
+        if (this.node.accelerator !== newValue) {
+          this.node.accelerator = newValue
+        }
         break
       case "actionName":
-        this.node.actionName = newValue
+        if (this.node.actionName !== newValue) {
+          this.node.actionName = newValue
+        }
         break
       case "direction":
-        this.node.direction = newValue
+        if (this.node.direction !== newValue) {
+          this.node.direction = newValue
+        }
         break
       case "icon":
-        this.node.icon = newValue
+        if (this.node.icon !== newValue) {
+          this.node.icon = newValue
+        }
         break
       case "iconSet":
-        this.node.iconSet = newValue
+        if (this.node.iconSet !== newValue) {
+          this.node.iconSet = newValue
+        }
         break
       case "shortcutType":
-        this.node.shortcutType = newValue
+        if (this.node.shortcutType !== newValue) {
+          this.node.shortcutType = newValue
+        }
         break
       case "subtitle":
-        this.node.subtitle = newValue
+        if (this.node.subtitle !== newValue) {
+          this.node.subtitle = newValue
+        }
         break
       case "subtitleSet":
-        this.node.subtitleSet = newValue
+        if (this.node.subtitleSet !== newValue) {
+          this.node.subtitleSet = newValue
+        }
         break
       case "title":
-        this.node.title = newValue
+        if (this.node.title !== newValue) {
+          this.node.title = newValue
+        }
         break
       case "titleSizeGroup":
         this.node.titleSizeGroup = newValue

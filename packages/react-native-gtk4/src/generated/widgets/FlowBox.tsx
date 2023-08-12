@@ -11,7 +11,9 @@ export default class FlowBox<
     super.set(propName, newValue)
     switch (propName) {
       case "acceptUnpairedRelease":
-        this.node.acceptUnpairedRelease = newValue
+        if (this.node.acceptUnpairedRelease !== newValue) {
+          this.node.acceptUnpairedRelease = newValue
+        }
         break
       case "activateOnSingleClick":
         if (this.node.getActivateOnSingleClick() !== newValue) {

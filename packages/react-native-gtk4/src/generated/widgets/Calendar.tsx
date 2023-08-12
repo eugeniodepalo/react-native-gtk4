@@ -11,10 +11,14 @@ export default class Calendar<
     super.set(propName, newValue)
     switch (propName) {
       case "day":
-        this.node.day = newValue
+        if (this.node.day !== newValue) {
+          this.node.day = newValue
+        }
         break
       case "month":
-        this.node.month = newValue
+        if (this.node.month !== newValue) {
+          this.node.month = newValue
+        }
         break
       case "showDayNames":
         if (this.node.getShowDayNames() !== newValue) {
@@ -32,7 +36,9 @@ export default class Calendar<
         }
         break
       case "year":
-        this.node.year = newValue
+        if (this.node.year !== newValue) {
+          this.node.year = newValue
+        }
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

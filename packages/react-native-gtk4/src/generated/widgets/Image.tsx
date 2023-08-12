@@ -9,7 +9,9 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "file":
-        this.node.file = newValue
+        if (this.node.file !== newValue) {
+          this.node.file = newValue
+        }
         break
       case "gicon":
         if (this.node.getGicon() !== newValue) {
@@ -37,10 +39,14 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
         }
         break
       case "resource":
-        this.node.resource = newValue
+        if (this.node.resource !== newValue) {
+          this.node.resource = newValue
+        }
         break
       case "useFallback":
-        this.node.useFallback = newValue
+        if (this.node.useFallback !== newValue) {
+          this.node.useFallback = newValue
+        }
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

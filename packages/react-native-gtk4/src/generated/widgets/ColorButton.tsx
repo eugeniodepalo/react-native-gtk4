@@ -16,7 +16,9 @@ export default class ColorButton<
         }
         break
       case "showEditor":
-        this.node.showEditor = newValue
+        if (this.node.showEditor !== newValue) {
+          this.node.showEditor = newValue
+        }
         break
       case "title":
         if (this.node.getTitle() !== newValue) {

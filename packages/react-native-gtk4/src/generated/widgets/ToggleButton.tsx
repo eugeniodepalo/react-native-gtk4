@@ -29,7 +29,9 @@ export default class ToggleButton<
         }
         break
       case "actionTarget":
-        this.node.actionTarget = newValue
+        if (this.node.actionTarget !== newValue) {
+          this.node.actionTarget = newValue
+        }
         break
       case "onToggled":
         this.setHandler("toggled", newValue)

@@ -11,7 +11,9 @@ export default class ListBase<
     super.set(propName, newValue)
     switch (propName) {
       case "orientation":
-        this.node.orientation = newValue
+        if (this.node.orientation !== newValue) {
+          this.node.orientation = newValue
+        }
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

@@ -31,7 +31,9 @@ export default class LinkButton<
         }
         break
       case "actionTarget":
-        this.node.actionTarget = newValue
+        if (this.node.actionTarget !== newValue) {
+          this.node.actionTarget = newValue
+        }
         break
       case "onActivateLink":
         this.setHandler("activate-link", newValue)

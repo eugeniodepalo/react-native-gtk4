@@ -57,7 +57,9 @@ export default class CheckButton<
         }
         break
       case "actionTarget":
-        this.node.actionTarget = newValue
+        if (this.node.actionTarget !== newValue) {
+          this.node.actionTarget = newValue
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

@@ -24,19 +24,11 @@ export class GirProperty {
   }
 
   get isReadonly() {
-    return (
-      this.prop.$.writable !== "1" &&
-      !this.setter &&
-      !ignoredSetters.includes(this.name)
-    )
+    return this.prop.$.writable !== "1" && !this.setter
   }
 
   get isWriteonly() {
-    return (
-      this.prop.$.readable !== "1" &&
-      !this.getter &&
-      !ignoredGetters.includes(this.name)
-    )
+    return this.prop.$.readable === "0" && !this.getter
   }
 
   get rawName() {

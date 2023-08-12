@@ -11,7 +11,9 @@ export default class PasswordEntry<
     super.set(propName, newValue)
     switch (propName) {
       case "activatesDefault":
-        this.node.activatesDefault = newValue
+        if (this.node.activatesDefault !== newValue) {
+          this.node.activatesDefault = newValue
+        }
         break
       case "extraMenu":
         if (this.node.getExtraMenu() !== newValue) {
@@ -59,7 +61,9 @@ export default class PasswordEntry<
         }
         break
       case "xalign":
-        this.node.xalign = newValue
+        if (this.node.xalign !== newValue) {
+          this.node.xalign = newValue
+        }
         break
       case "onActivate":
         this.setHandler("activate", newValue)

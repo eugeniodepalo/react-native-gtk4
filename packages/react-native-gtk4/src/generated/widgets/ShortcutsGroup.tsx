@@ -14,13 +14,17 @@ export default class ShortcutsGroup<
         this.node.accelSizeGroup = newValue
         break
       case "title":
-        this.node.title = newValue
+        if (this.node.title !== newValue) {
+          this.node.title = newValue
+        }
         break
       case "titleSizeGroup":
         this.node.titleSizeGroup = newValue
         break
       case "view":
-        this.node.view = newValue
+        if (this.node.view !== newValue) {
+          this.node.view = newValue
+        }
         break
       case "accessibleRole":
         if (this.node.getAccessibleRole() !== newValue) {

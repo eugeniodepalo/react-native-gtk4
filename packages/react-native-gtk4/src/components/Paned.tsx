@@ -4,7 +4,10 @@ import Gtk from "@girs/node-gtk-4.0"
 import { Paned } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
-type Props = Omit<JSX.IntrinsicElements["Paned"], "children"> & {
+type Props = Omit<
+  JSX.IntrinsicElements["Paned"],
+  "children" | "startChild" | "endChild"
+> & {
   children: [
     React.ReactElement & React.RefAttributes<Gtk.Widget>,
     React.ReactElement & React.RefAttributes<Gtk.Widget>,

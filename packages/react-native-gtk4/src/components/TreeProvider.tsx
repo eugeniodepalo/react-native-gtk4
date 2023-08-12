@@ -19,7 +19,7 @@ interface Node {
 
 interface Context {
   rootModel: Gtk.StringList
-  rootList: Node[]
+  root: Node[]
   parent: Node | null
 }
 
@@ -30,10 +30,10 @@ interface Props {
   autoexpand?: boolean
 }
 
-function getNode(rootList: Node[], path: string): Node | null {
+function getNode(root: Node[], path: string): Node | null {
   const parts = path.split(".")
 
-  let node = rootList[Number(parts[0])]
+  let node = root[Number(parts[0])]
 
   if (!node) {
     return null
@@ -55,32 +55,32 @@ const Container = function TreeProvider({
   autoexpand = true,
 }: Props) {
   const rootModel = useMemo(() => new Gtk.StringList(), [])
-  const rootList = useMemo(() => [], [])
+  const root = useMemo<Node[]>(() => [], [])
 
   const model = useMemo(
     () =>
       Gtk.TreeListModel.new(rootModel, false, autoexpand, (item) => {
         const path = item.getProperty("string") as string
-        const node = getNode(rootList, path)
+        const node = getNode(root, path)
 
         if (!node || node.children.length === 0) {
           return null
         }
 
-        const childPaths = node.children.map((_, index) => `${path}.${index}`)
-        const children = new Gtk.StringList()
+        const paths = node.children.map((child) => child.path)
+        const model = new Gtk.StringList()
 
-        for (const path of childPaths) {
-          children.append(path)
+        for (const path of paths) {
+          model.append(path)
         }
 
-        return children
+        return model
       }),
     []
   )
 
   return (
-    <Context.Provider value={{ rootModel, rootList, parent: null }}>
+    <Context.Provider value={{ rootModel, root, parent: null }}>
       <ListModelProvider model={model}>{children}</ListModelProvider>
     </Context.Provider>
   )
@@ -92,10 +92,15 @@ interface ListProps {
 
 const List = function TreeList({ children }: ListProps) {
   return React.Children.map(children, (child, index) => {
-    if (React.isValidElement<OrderedItemProps>(child)) {
+    if (React.isValidElement<ItemProps>(child)) {
+      const {
+        key,
+        props: { value, children },
+      } = child
+
       return (
-        <OrderedItem key={index} value={child.props.value} index={index}>
-          <List>{child.props.children}</List>
+        <OrderedItem key={key ?? index} value={value} index={index}>
+          {children}
         </OrderedItem>
       )
     }
@@ -122,6 +127,7 @@ const OrderedItem = function TreeOrderedItem({
     value: unknown
     index: number
     parent: Node | null
+    hasChildren: boolean
   } | null>(null)
 
   if (!context || !(model instanceof Gtk.TreeListModel)) {
@@ -132,7 +138,8 @@ const OrderedItem = function TreeOrderedItem({
 
   const [node, setNode] = useState<Node | null>(null)
   const unmountedRef = useRef(false)
-  const { rootModel, rootList, parent } = context
+  const { rootModel, root, parent } = context
+  const hasChildren = React.Children.count(children) > 0
 
   useEffect(() => {
     return () => {
@@ -141,20 +148,20 @@ const OrderedItem = function TreeOrderedItem({
   }, [])
 
   useEffect(() => {
-    if (_.isEqual(depsRef.current, { value, index, parent })) {
+    if (_.isEqual(depsRef.current, { value, index, parent, hasChildren })) {
       return
     }
 
-    depsRef.current = { value, index, parent }
+    depsRef.current = { value, index, parent, hasChildren }
 
     const path = parent ? `${parent.path}.${index}` : index.toString()
-    const updatedNode = node || { value: null, path: "", children: [] }
+    const updatedNode = node ?? { value: null, path: "", children: [] }
 
     updatedNode.value = value
     updatedNode.path = path
 
     if (!parent) {
-      rootList.splice(index, 0, updatedNode)
+      root.splice(index, 0, updatedNode)
       rootModel.splice(index, 0, [path])
     } else {
       parent.children.splice(index, 0, updatedNode)
@@ -177,7 +184,7 @@ const OrderedItem = function TreeOrderedItem({
       }
 
       if (!parent) {
-        rootList.splice(index, 1)
+        root.splice(index, 1)
         rootModel.splice(index, 1, [])
       } else {
         parent.children.splice(index, 1)
@@ -189,11 +196,11 @@ const OrderedItem = function TreeOrderedItem({
         return items
       })
     }
-  }, [value, index, parent])
+  }, [value, index, parent, hasChildren])
 
   return node ? (
-    <Context.Provider value={{ rootList, rootModel, parent: node }}>
-      {children}
+    <Context.Provider value={{ root, rootModel, parent: node }}>
+      {children ? <List>{children}</List> : null}
     </Context.Provider>
   ) : null
 }

@@ -28,7 +28,13 @@ const List = function ListProviderList({ children }: ListProps) {
 
   return React.Children.map(children, (child, index) => {
     if (React.isValidElement<ItemProps>(child)) {
-      return <OrderedItem key={index} value={child.props.value} index={index} />
+      return (
+        <OrderedItem
+          key={child.key ?? index}
+          value={child.props.value}
+          index={index}
+        />
+      )
     }
 
     return child

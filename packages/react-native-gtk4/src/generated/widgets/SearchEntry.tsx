@@ -14,7 +14,7 @@ export default class SearchEntry<
         this.node.activatesDefault = newValue
         break
       case "placeholderText":
-        if (this.node.getPlaceholderText() !== newValue) {
+        if (this.node.placeholderText !== newValue) {
           this.node.setPlaceholderText(newValue)
         }
         break

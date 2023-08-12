@@ -25,7 +25,12 @@ export class GirProperty {
   }
 
   get isWriteonly() {
-    return this.prop.$.readable !== "1" && !this.getter
+    return (
+      this.prop.$.readable !== "1" &&
+      !this.getter &&
+      this.name !== "active" &&
+      this.name !== "placeholderText"
+    )
   }
 
   get rawName() {
@@ -41,7 +46,11 @@ export class GirProperty {
   }
 
   get getter() {
-    return this.prop.$.getter ? camelize(this.prop.$.getter) : null
+    return this.prop.$.getter &&
+      this.name !== "placeholderText" &&
+      this.name !== "active"
+      ? camelize(this.prop.$.getter)
+      : null
   }
 
   get setter() {

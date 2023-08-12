@@ -73,7 +73,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         }
         break
       case "placeholderText":
-        if (this.node.getPlaceholderText() !== newValue) {
+        if (this.node.placeholderText !== newValue) {
           this.node.setPlaceholderText(newValue)
         }
         break

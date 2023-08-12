@@ -11,7 +11,7 @@ export default class Switch<
     super.set(propName, newValue)
     switch (propName) {
       case "active":
-        if (this.node.getActive() !== newValue) {
+        if (this.node.active !== newValue) {
           this.node.setActive(newValue)
         }
         break

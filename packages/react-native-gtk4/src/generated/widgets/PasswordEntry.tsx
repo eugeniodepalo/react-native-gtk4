@@ -19,7 +19,9 @@ export default class PasswordEntry<
         }
         break
       case "placeholderText":
-        this.node.placeholderText = newValue
+        if (this.node.placeholderText !== newValue) {
+          this.node.placeholderText = newValue
+        }
         break
       case "showPeekIcon":
         if (this.node.getShowPeekIcon() !== newValue) {

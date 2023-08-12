@@ -42,7 +42,7 @@ const Container = forwardRef<Gtk.HeaderBar, Props>(function HeaderBarContainer(
 })
 
 interface SectionProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactNode
   position: Position
 }
 

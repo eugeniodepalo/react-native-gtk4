@@ -51,7 +51,7 @@ export default class Entry<T extends Gtk.Entry = Gtk.Entry> extends Widget<T> {
         this.node.setOverwriteMode(newValue)
         break
       case "placeholderText":
-        this.node.setPlaceholderText(newValue)
+        this.node.placeholderText = newValue
         break
       case "primaryIconActivatable":
         this.node.primaryIconActivatable = newValue

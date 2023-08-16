@@ -45,6 +45,10 @@ export class GirProperty {
       return "setActionTargetValue"
     }
 
+    if (this.name === "placeholderText") {
+      return null
+    }
+
     return this.prop.$.setter ? camelize(this.prop.$.setter) : null
   }
 

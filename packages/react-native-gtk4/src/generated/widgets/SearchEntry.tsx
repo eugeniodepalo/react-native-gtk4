@@ -14,7 +14,7 @@ export default class SearchEntry<
         this.node.activatesDefault = newValue
         break
       case "placeholderText":
-        this.node.setPlaceholderText(newValue)
+        this.node.placeholderText = newValue
         break
       case "searchDelay":
         this.node.setSearchDelay(newValue)

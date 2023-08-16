@@ -43,14 +43,18 @@ const Inner = React.forwardRef<Gtk.DropDown, Props<any>>(
       <DropDown
         model={model}
         ref={ref}
-        factory={renderItem ? itemFactory : null}
         selected={selectedItem}
-        listFactory={renderPopoverItem ? popoverItemFactory : null}
         onNotifySelected={(node) => {
           if (node.selected !== selectedItem) {
-            onSelectedItemChanged?.(node.selected, items[node.selected] as T)
+            const id = model
+              .getItem(node.selected)
+              ?.getProperty("string") as string
+
+            onSelectedItemChanged?.(node.selected, items[id] as T)
           }
         }}
+        factory={itemFactory}
+        listFactory={popoverItemFactory}
         {...props}
       />
     )

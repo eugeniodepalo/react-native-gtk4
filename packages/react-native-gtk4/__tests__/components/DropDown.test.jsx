@@ -25,6 +25,10 @@ describe("DropDown", () => {
     const MockedStringList = Gtk.StringList
 
     Gtk.StringList = class extends MockedStringList {
+      getItem(index) {
+        return { getProperty: () => items[index] }
+      }
+
       splice(index, count, values) {
         items.splice(index, count, ...values)
       }
@@ -86,7 +90,7 @@ describe("DropDown", () => {
 
     const dropDown = findBy({ type: "DropDown" })
 
-    render(<DropDown />)
+    render(<DropDown renderItem={null} />)
 
     expect(dropDown.node.setFactory).toHaveBeenNthCalledWith(2, null)
     expect(dropDown.node.setListFactory).toHaveBeenNthCalledWith(2, null)
@@ -116,10 +120,11 @@ describe("DropDown", () => {
 
   test("should call onSelectedItemChanged when selected item changes", () => {
     const onSelectedItemChanged = jest.fn()
+    const value = { value: "bar" }
 
     render(
       <DropDown onSelectedItemChanged={onSelectedItemChanged}>
-        <ListProvider.Item value="bar" />
+        <ListProvider.Item value={value} />
       </DropDown>
     )
 
@@ -129,6 +134,6 @@ describe("DropDown", () => {
 
     fireEvent(dropDown, "notify::selected")
 
-    expect(onSelectedItemChanged).toHaveBeenCalledWith(0, "bar")
+    expect(onSelectedItemChanged).toHaveBeenCalledWith(0, value)
   })
 })

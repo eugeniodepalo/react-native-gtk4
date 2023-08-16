@@ -73,7 +73,7 @@ const OrderedItem = function ListProviderItem({
 
     depsRef.current = { value, index }
 
-    const id = index.toString()
+    const id = typeof value === "string" ? value : index.toString()
 
     setItems((items) => {
       items[id] = value

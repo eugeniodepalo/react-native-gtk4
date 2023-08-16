@@ -79,7 +79,7 @@ describe("ListView", () => {
 
     render(
       <ListProvider.Container>
-        <ListView />
+        <ListView renderItem={null} />
       </ListProvider.Container>
     )
 

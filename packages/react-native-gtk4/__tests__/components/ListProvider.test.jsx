@@ -66,7 +66,7 @@ describe("ListProvider", () => {
   })
 
   describe("Item", () => {
-    const value = "bar"
+    const value = { value: "bar" }
 
     test("should render", () => {
       render(

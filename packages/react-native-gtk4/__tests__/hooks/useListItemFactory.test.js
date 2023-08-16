@@ -97,7 +97,7 @@ describe("useListItemFactory", () => {
     renderFn = jest.fn((value) => <Box name={value} />)
 
     const index = 0
-    const value = "value"
+    const value = { a: "value" }
 
     Gtk.SignalListItemFactory.mockImplementation(() => ({
       on: jest.fn(),

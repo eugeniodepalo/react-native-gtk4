@@ -12,7 +12,7 @@ export type ListItemFactoryRenderFunction<T> = (
 
 export default function useListItemFactory<T>(
   render?: ListItemFactoryRenderFunction<T>
-): Gtk.SignalListItemFactory | null {
+): Gtk.SignalListItemFactory | null | undefined {
   const factory = useMemo(() => new Gtk.SignalListItemFactory(), [])
   const { items } = useListModel()
 
@@ -82,5 +82,9 @@ export default function useListItemFactory<T>(
     }
   }, [render])
 
-  return render ? factory : null
+  if (render === undefined || render === null) {
+    return render
+  }
+
+  return factory
 }

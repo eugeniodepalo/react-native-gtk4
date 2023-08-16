@@ -41,7 +41,7 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
     <ListView
       model={selectionModel}
       ref={ref}
-      factory={renderItem ? itemFactory : null}
+      factory={itemFactory}
       {...props}
     />
   )

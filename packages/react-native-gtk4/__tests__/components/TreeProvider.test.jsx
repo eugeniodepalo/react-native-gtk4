@@ -7,6 +7,7 @@ import { Box } from "../../src/generated/intrinsics.js"
 
 describe("TreeProvider", () => {
   let model
+  let rootModel
 
   beforeEach(() => {
     setup()
@@ -35,6 +36,7 @@ describe("TreeProvider", () => {
     render(<TreeProvider.Container />)
 
     model = Gtk.StringList.mock.instances[0]
+    rootModel = Gtk.TreeListModel.new.mock.results[0].value
   })
 
   describe("Container", () => {
@@ -66,52 +68,66 @@ describe("TreeProvider", () => {
   })
 
   describe("List", () => {
-    test("should handle multiple items correctly", () => {
-      const value1 = "value1"
-      const value2 = "value2"
+    test("should render children as is if not a valid element", () => {
+      const child = []
+
+      jest.spyOn(React, "isValidElement").mockReturnValue(false)
+      jest.spyOn(TreeProvider, "List")
 
       render(
         <TreeProvider.Container>
-          <TreeProvider.List>
-            <TreeProvider.Item value={value1} />
-            <TreeProvider.Item value={value2} />
-          </TreeProvider.List>
+          <TreeProvider.List>{child}</TreeProvider.List>
         </TreeProvider.Container>
       )
 
-      expect(model.splice).toHaveBeenCalledWith(0, 0, ["0"])
-      expect(model.splice).toHaveBeenCalledWith(1, 0, ["1"])
+      expect(TreeProvider.List.mock.results[0].value).toEqual(child)
     })
 
-    test("should handle nested lists", () => {
-      const value1 = "value1"
-      const value2 = "value2"
-
+    test("should render", () => {
       render(
         <TreeProvider.Container>
           <TreeProvider.List>
-            <TreeProvider.Item value={value1}>
-              <TreeProvider.Item value={value2} />
-            </TreeProvider.Item>
+            <Box />
           </TreeProvider.List>
         </TreeProvider.Container>
       )
 
-      const onCreateFunc = Gtk.TreeListModel.new.mock.calls[0][3]
+      const child = findBy({ type: "Box" })
 
-      onCreateFunc({ getProperty: () => "0" })
+      expect(child).toBeNull()
+    })
 
-      expect(Gtk.StringList).toHaveBeenCalledTimes(2)
+    test("should handle unmount gracefully", () => {
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <Box />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
 
-      const nestedModel = Gtk.StringList.mock.instances[1]
+      render(null)
 
-      expect(model.splice).toHaveBeenCalledWith(0, 0, ["0"])
-      expect(nestedModel.append).toHaveBeenCalledWith("0.0")
+      const child = findBy({ type: "Box" })
+
+      expect(child).toBeNull()
     })
   })
 
   describe("Item", () => {
     const value = "value"
+
+    test("should not render anything by itself", () => {
+      render(
+        <TreeProvider.Item>
+          <Box />
+        </TreeProvider.Item>
+      )
+
+      const child = findBy({ type: "Box" })
+
+      expect(child).toBeNull()
+    })
 
     test("should throw when not in a TreeProvider.Container", () => {
       expect(() =>
@@ -214,6 +230,197 @@ describe("TreeProvider", () => {
       const nestedModel = Gtk.TreeListModel.new.mock.calls[0][3](item)
 
       expect(nestedModel.items).toEqual(["0.0.0"])
+    })
+
+    test("should handle multiple items correctly", () => {
+      const value1 = "value1"
+      const value2 = "value2"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value1} />
+            <TreeProvider.Item value={value2} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      expect(model.splice).toHaveBeenCalledWith(0, 0, ["0"])
+      expect(model.splice).toHaveBeenCalledWith(1, 0, ["1"])
+    })
+
+    test("should handle nested lists", () => {
+      const value1 = "value1"
+      const value2 = "value2"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value1}>
+              <TreeProvider.Item value={value2} />
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      const onCreateFunc = Gtk.TreeListModel.new.mock.calls[0][3]
+
+      onCreateFunc({ getProperty: () => "0" })
+
+      expect(Gtk.StringList).toHaveBeenCalledTimes(2)
+
+      const nestedModel = Gtk.StringList.mock.instances[1]
+
+      expect(model.splice).toHaveBeenCalledWith(0, 0, ["0"])
+      expect(nestedModel.append).toHaveBeenCalledWith("0.0")
+    })
+
+    test("should handle non-existent paths", () => {
+      const value = { value: "foo" }
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value}>
+              <TreeProvider.Item value={value} />
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      const onCreateFunc = Gtk.TreeListModel.new.mock.calls[0][3]
+      const childrenList = onCreateFunc({ getProperty: () => "1" })
+
+      expect(childrenList).toBeNull()
+    })
+
+    test("should handle non-existent nested paths", () => {
+      const value = { value: "foo" }
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value}>
+              <TreeProvider.Item value={value}>
+                <TreeProvider.Item value={value} />
+              </TreeProvider.Item>
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      const onCreateFunc = Gtk.TreeListModel.new.mock.calls[0][3]
+      const childrenList = onCreateFunc({ getProperty: () => "0.1" })
+
+      expect(childrenList).toBeNull()
+    })
+
+    test("should not update root node when deps have not changed", () => {
+      const value = "foo"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      expect(model.splice).toHaveBeenCalledWith(0, 0, ["0"])
+      expect(model.splice).toHaveBeenCalledTimes(1)
+    })
+
+    test("should not remove item from root node when deps have not changed", () => {
+      const value = "foo"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      render(null)
+
+      const addCalls = model.splice.mock.calls.filter(
+        ([index, deletions, additions]) =>
+          index === 0 &&
+          deletions === 0 &&
+          additions.length === 1 &&
+          additions[0] === "0"
+      )
+
+      expect(addCalls.length).toBe(1)
+      expect(model.splice).toHaveBeenCalledTimes(2)
+    })
+
+    test("should remove item from root node when unmounting", () => {
+      const value = "foo"
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      render(null)
+
+      const addCalls = model.splice.mock.calls.filter(
+        ([index, deletions, additions]) =>
+          index === 0 &&
+          deletions === 0 &&
+          additions.length === 1 &&
+          additions[0] === "0"
+      )
+
+      expect(addCalls.length).toBe(1)
+      expect(model.splice).toHaveBeenCalledTimes(2)
+    })
+
+    test("should trigger itemsChanged when mounting a nested item", () => {
+      const value = { value: "foo" }
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value}>
+              <TreeProvider.Item value={value} />
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      expect(rootModel.itemsChanged).toHaveBeenCalledWith(0, 1, 1)
+    })
+
+    test("should trigger itemsChanged when unmounting a nested item", () => {
+      const value = { value: "foo" }
+
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value}>
+              <TreeProvider.Item value={value} />
+            </TreeProvider.Item>
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
+
+      render(null)
+
+      expect(rootModel.itemsChanged).toHaveBeenCalledTimes(2)
+      expect(rootModel.itemsChanged).toHaveBeenCalledWith(0, 1, 1)
     })
   })
 })

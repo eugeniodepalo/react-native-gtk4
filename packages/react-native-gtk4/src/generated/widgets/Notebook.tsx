@@ -11,44 +11,28 @@ export default class Notebook<
     super.set(propName, newValue)
     switch (propName) {
       case "enablePopup":
-        if (this.node.enablePopup !== newValue) {
-          this.node.enablePopup = newValue
-        }
+        this.node.enablePopup = newValue
         break
       case "groupName":
-        if (this.node.getGroupName() !== newValue) {
-          this.node.setGroupName(newValue)
-        }
+        this.node.setGroupName(newValue)
         break
       case "page":
-        if (this.node.getCurrentPage() !== newValue) {
-          this.node.setCurrentPage(newValue)
-        }
+        this.node.setCurrentPage(newValue)
         break
       case "scrollable":
-        if (this.node.getScrollable() !== newValue) {
-          this.node.setScrollable(newValue)
-        }
+        this.node.setScrollable(newValue)
         break
       case "showBorder":
-        if (this.node.getShowBorder() !== newValue) {
-          this.node.setShowBorder(newValue)
-        }
+        this.node.setShowBorder(newValue)
         break
       case "showTabs":
-        if (this.node.getShowTabs() !== newValue) {
-          this.node.setShowTabs(newValue)
-        }
+        this.node.setShowTabs(newValue)
         break
       case "tabPos":
-        if (this.node.getTabPos() !== newValue) {
-          this.node.setTabPos(newValue)
-        }
+        this.node.setTabPos(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onChangeCurrentPage":
         this.setHandler("change-current-page", newValue)

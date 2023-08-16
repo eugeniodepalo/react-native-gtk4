@@ -11,19 +11,13 @@ export default class WindowControls<
     super.set(propName, newValue)
     switch (propName) {
       case "decorationLayout":
-        if (this.node.getDecorationLayout() !== newValue) {
-          this.node.setDecorationLayout(newValue)
-        }
+        this.node.setDecorationLayout(newValue)
         break
       case "side":
-        if (this.node.getSide() !== newValue) {
-          this.node.setSide(newValue)
-        }
+        this.node.setSide(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyDecorationLayout":
         this.setHandler("notify::decoration-layout", newValue)

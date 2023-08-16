@@ -11,14 +11,10 @@ export default class ApplicationWindow<
     super.set(propName, newValue)
     switch (propName) {
       case "showMenubar":
-        if (this.node.getShowMenubar() !== newValue) {
-          this.node.setShowMenubar(newValue)
-        }
+        this.node.setShowMenubar(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyShowMenubar":
         this.setHandler("notify::show-menubar", newValue)

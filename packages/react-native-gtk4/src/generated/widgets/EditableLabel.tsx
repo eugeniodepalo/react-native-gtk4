@@ -11,44 +11,28 @@ export default class EditableLabel<
     super.set(propName, newValue)
     switch (propName) {
       case "editing":
-        if (this.node.getEditing() !== newValue) {
-          this.node.editing = newValue
-        }
+        this.node.editing = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "editable":
-        if (this.node.getEditable() !== newValue) {
-          this.node.setEditable(newValue)
-        }
+        this.node.setEditable(newValue)
         break
       case "enableUndo":
-        if (this.node.getEnableUndo() !== newValue) {
-          this.node.setEnableUndo(newValue)
-        }
+        this.node.setEnableUndo(newValue)
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars() !== newValue) {
-          this.node.setMaxWidthChars(newValue)
-        }
+        this.node.setMaxWidthChars(newValue)
         break
       case "text":
-        if (this.node.getText() !== newValue) {
-          this.node.setText(newValue)
-        }
+        this.node.setText(newValue)
         break
       case "widthChars":
-        if (this.node.getWidthChars() !== newValue) {
-          this.node.setWidthChars(newValue)
-        }
+        this.node.setWidthChars(newValue)
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
-          this.node.xalign = newValue
-        }
+        this.node.xalign = newValue
         break
       case "onChanged":
         this.setHandler("changed", newValue)

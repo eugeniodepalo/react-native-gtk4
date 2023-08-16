@@ -11,114 +11,70 @@ export default class TreeView<
     super.set(propName, newValue)
     switch (propName) {
       case "activateOnSingleClick":
-        if (this.node.getActivateOnSingleClick() !== newValue) {
-          this.node.setActivateOnSingleClick(newValue)
-        }
+        this.node.setActivateOnSingleClick(newValue)
         break
       case "enableGridLines":
-        if (this.node.enableGridLines !== newValue) {
-          this.node.enableGridLines = newValue
-        }
+        this.node.enableGridLines = newValue
         break
       case "enableSearch":
-        if (this.node.getEnableSearch() !== newValue) {
-          this.node.setEnableSearch(newValue)
-        }
+        this.node.setEnableSearch(newValue)
         break
       case "enableTreeLines":
-        if (this.node.getEnableTreeLines() !== newValue) {
-          this.node.setEnableTreeLines(newValue)
-        }
+        this.node.setEnableTreeLines(newValue)
         break
       case "expanderColumn":
-        if (this.node.getExpanderColumn() !== newValue) {
-          this.node.setExpanderColumn(newValue)
-        }
+        this.node.setExpanderColumn(newValue)
         break
       case "fixedHeightMode":
-        if (this.node.getFixedHeightMode() !== newValue) {
-          this.node.setFixedHeightMode(newValue)
-        }
+        this.node.setFixedHeightMode(newValue)
         break
       case "headersClickable":
-        if (this.node.getHeadersClickable() !== newValue) {
-          this.node.setHeadersClickable(newValue)
-        }
+        this.node.setHeadersClickable(newValue)
         break
       case "headersVisible":
-        if (this.node.getHeadersVisible() !== newValue) {
-          this.node.setHeadersVisible(newValue)
-        }
+        this.node.setHeadersVisible(newValue)
         break
       case "hoverExpand":
-        if (this.node.getHoverExpand() !== newValue) {
-          this.node.setHoverExpand(newValue)
-        }
+        this.node.setHoverExpand(newValue)
         break
       case "hoverSelection":
-        if (this.node.getHoverSelection() !== newValue) {
-          this.node.setHoverSelection(newValue)
-        }
+        this.node.setHoverSelection(newValue)
         break
       case "levelIndentation":
-        if (this.node.getLevelIndentation() !== newValue) {
-          this.node.setLevelIndentation(newValue)
-        }
+        this.node.setLevelIndentation(newValue)
         break
       case "model":
-        if (this.node.getModel() !== newValue) {
-          this.node.setModel(newValue)
-        }
+        this.node.setModel(newValue)
         break
       case "reorderable":
-        if (this.node.getReorderable() !== newValue) {
-          this.node.setReorderable(newValue)
-        }
+        this.node.setReorderable(newValue)
         break
       case "rubberBanding":
-        if (this.node.getRubberBanding() !== newValue) {
-          this.node.setRubberBanding(newValue)
-        }
+        this.node.setRubberBanding(newValue)
         break
       case "searchColumn":
-        if (this.node.getSearchColumn() !== newValue) {
-          this.node.setSearchColumn(newValue)
-        }
+        this.node.setSearchColumn(newValue)
         break
       case "showExpanders":
-        if (this.node.getShowExpanders() !== newValue) {
-          this.node.setShowExpanders(newValue)
-        }
+        this.node.setShowExpanders(newValue)
         break
       case "tooltipColumn":
-        if (this.node.getTooltipColumn() !== newValue) {
-          this.node.setTooltipColumn(newValue)
-        }
+        this.node.setTooltipColumn(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "hadjustment":
-        if (this.node.getHadjustment() !== newValue) {
-          this.node.setHadjustment(newValue)
-        }
+        this.node.setHadjustment(newValue)
         break
       case "hscrollPolicy":
-        if (this.node.getHscrollPolicy() !== newValue) {
-          this.node.setHscrollPolicy(newValue)
-        }
+        this.node.setHscrollPolicy(newValue)
         break
       case "vadjustment":
-        if (this.node.getVadjustment() !== newValue) {
-          this.node.setVadjustment(newValue)
-        }
+        this.node.setVadjustment(newValue)
         break
       case "vscrollPolicy":
-        if (this.node.getVscrollPolicy() !== newValue) {
-          this.node.setVscrollPolicy(newValue)
-        }
+        this.node.setVscrollPolicy(newValue)
         break
       case "onColumnsChanged":
         this.setHandler("columns-changed", newValue)

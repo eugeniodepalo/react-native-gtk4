@@ -11,44 +11,28 @@ export default class PrintUnixDialog<
     super.set(propName, newValue)
     switch (propName) {
       case "currentPage":
-        if (this.node.getCurrentPage() !== newValue) {
-          this.node.setCurrentPage(newValue)
-        }
+        this.node.setCurrentPage(newValue)
         break
       case "embedPageSetup":
-        if (this.node.getEmbedPageSetup() !== newValue) {
-          this.node.setEmbedPageSetup(newValue)
-        }
+        this.node.setEmbedPageSetup(newValue)
         break
       case "hasSelection":
-        if (this.node.getHasSelection() !== newValue) {
-          this.node.setHasSelection(newValue)
-        }
+        this.node.setHasSelection(newValue)
         break
       case "manualCapabilities":
-        if (this.node.getManualCapabilities() !== newValue) {
-          this.node.setManualCapabilities(newValue)
-        }
+        this.node.setManualCapabilities(newValue)
         break
       case "pageSetup":
-        if (this.node.getPageSetup() !== newValue) {
-          this.node.setPageSetup(newValue)
-        }
+        this.node.setPageSetup(newValue)
         break
       case "printSettings":
-        if (this.node.printSettings !== newValue) {
-          this.node.printSettings = newValue
-        }
+        this.node.printSettings = newValue
         break
       case "supportSelection":
-        if (this.node.getSupportSelection() !== newValue) {
-          this.node.setSupportSelection(newValue)
-        }
+        this.node.setSupportSelection(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyCurrentPage":
         this.setHandler("notify::current-page", newValue)

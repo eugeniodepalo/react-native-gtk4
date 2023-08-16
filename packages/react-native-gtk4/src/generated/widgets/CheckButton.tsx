@@ -24,42 +24,28 @@ export default class CheckButton<
     super.set(propName, newValue)
     switch (propName) {
       case "active":
-        if (this.node.active !== newValue) {
-          this.node.setActive(newValue)
-        }
+        this.node.setActive(newValue)
         break
       case "group":
         this.node.setGroup(newValue)
         break
       case "inconsistent":
-        if (this.node.getInconsistent() !== newValue) {
-          this.node.setInconsistent(newValue)
-        }
+        this.node.setInconsistent(newValue)
         break
       case "label":
-        if (this.node.getLabel() !== newValue) {
-          this.node.setLabel(newValue)
-        }
+        this.node.setLabel(newValue)
         break
       case "useUnderline":
-        if (this.node.getUseUnderline() !== newValue) {
-          this.node.setUseUnderline(newValue)
-        }
+        this.node.setUseUnderline(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "actionName":
-        if (this.node.getActionName() !== newValue) {
-          this.node.setActionName(newValue)
-        }
+        this.node.setActionName(newValue)
         break
       case "actionTarget":
-        if (this.node.actionTarget !== newValue) {
-          this.node.actionTarget = newValue
-        }
+        this.node.setActionTargetValue(newValue)
         break
       case "onActivate":
         this.setHandler("activate", newValue)

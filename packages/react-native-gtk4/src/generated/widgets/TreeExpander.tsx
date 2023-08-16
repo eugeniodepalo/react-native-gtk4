@@ -24,29 +24,19 @@ export default class TreeExpander<
     super.set(propName, newValue)
     switch (propName) {
       case "hideExpander":
-        if (this.node.getHideExpander() !== newValue) {
-          this.node.setHideExpander(newValue)
-        }
+        this.node.setHideExpander(newValue)
         break
       case "indentForDepth":
-        if (this.node.getIndentForDepth() !== newValue) {
-          this.node.setIndentForDepth(newValue)
-        }
+        this.node.setIndentForDepth(newValue)
         break
       case "indentForIcon":
-        if (this.node.getIndentForIcon() !== newValue) {
-          this.node.setIndentForIcon(newValue)
-        }
+        this.node.setIndentForIcon(newValue)
         break
       case "listRow":
-        if (this.node.getListRow() !== newValue) {
-          this.node.setListRow(newValue)
-        }
+        this.node.setListRow(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)

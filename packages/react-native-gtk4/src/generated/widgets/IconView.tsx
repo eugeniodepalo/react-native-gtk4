@@ -13,109 +13,67 @@ export default class IconView<
     super.set(propName, newValue)
     switch (propName) {
       case "activateOnSingleClick":
-        if (this.node.getActivateOnSingleClick() !== newValue) {
-          this.node.setActivateOnSingleClick(newValue)
-        }
+        this.node.setActivateOnSingleClick(newValue)
         break
       case "columnSpacing":
-        if (this.node.getColumnSpacing() !== newValue) {
-          this.node.setColumnSpacing(newValue)
-        }
+        this.node.setColumnSpacing(newValue)
         break
       case "columns":
-        if (this.node.getColumns() !== newValue) {
-          this.node.setColumns(newValue)
-        }
+        this.node.setColumns(newValue)
         break
       case "itemOrientation":
-        if (this.node.getItemOrientation() !== newValue) {
-          this.node.setItemOrientation(newValue)
-        }
+        this.node.setItemOrientation(newValue)
         break
       case "itemPadding":
-        if (this.node.getItemPadding() !== newValue) {
-          this.node.setItemPadding(newValue)
-        }
+        this.node.setItemPadding(newValue)
         break
       case "itemWidth":
-        if (this.node.getItemWidth() !== newValue) {
-          this.node.setItemWidth(newValue)
-        }
+        this.node.setItemWidth(newValue)
         break
       case "margin":
-        if (this.node.getMargin() !== newValue) {
-          this.node.setMargin(newValue)
-        }
+        this.node.setMargin(newValue)
         break
       case "markupColumn":
-        if (this.node.getMarkupColumn() !== newValue) {
-          this.node.setMarkupColumn(newValue)
-        }
+        this.node.setMarkupColumn(newValue)
         break
       case "model":
-        if (this.node.getModel() !== newValue) {
-          this.node.setModel(newValue)
-        }
+        this.node.setModel(newValue)
         break
       case "pixbufColumn":
-        if (this.node.getPixbufColumn() !== newValue) {
-          this.node.setPixbufColumn(newValue)
-        }
+        this.node.setPixbufColumn(newValue)
         break
       case "reorderable":
-        if (this.node.getReorderable() !== newValue) {
-          this.node.setReorderable(newValue)
-        }
+        this.node.setReorderable(newValue)
         break
       case "rowSpacing":
-        if (this.node.getRowSpacing() !== newValue) {
-          this.node.setRowSpacing(newValue)
-        }
+        this.node.setRowSpacing(newValue)
         break
       case "selectionMode":
-        if (this.node.getSelectionMode() !== newValue) {
-          this.node.setSelectionMode(newValue)
-        }
+        this.node.setSelectionMode(newValue)
         break
       case "spacing":
-        if (this.node.getSpacing() !== newValue) {
-          this.node.setSpacing(newValue)
-        }
+        this.node.setSpacing(newValue)
         break
       case "textColumn":
-        if (this.node.getTextColumn() !== newValue) {
-          this.node.setTextColumn(newValue)
-        }
+        this.node.setTextColumn(newValue)
         break
       case "tooltipColumn":
-        if (this.node.getTooltipColumn() !== newValue) {
-          this.node.setTooltipColumn(newValue)
-        }
+        this.node.setTooltipColumn(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "hadjustment":
-        if (this.node.getHadjustment() !== newValue) {
-          this.node.setHadjustment(newValue)
-        }
+        this.node.setHadjustment(newValue)
         break
       case "hscrollPolicy":
-        if (this.node.getHscrollPolicy() !== newValue) {
-          this.node.setHscrollPolicy(newValue)
-        }
+        this.node.setHscrollPolicy(newValue)
         break
       case "vadjustment":
-        if (this.node.getVadjustment() !== newValue) {
-          this.node.setVadjustment(newValue)
-        }
+        this.node.setVadjustment(newValue)
         break
       case "vscrollPolicy":
-        if (this.node.getVscrollPolicy() !== newValue) {
-          this.node.setVscrollPolicy(newValue)
-        }
+        this.node.setVscrollPolicy(newValue)
         break
       case "onActivateCursorItem":
         this.setHandler("activate-cursor-item", newValue)

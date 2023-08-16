@@ -61,22 +61,11 @@ export default function (widgetClass) {
   for (const prop of widgetClass.settableProps) {
     ts += `case "${prop.name}":\n`
 
-    const getter = prop.getter
-      ? `this.node.${prop.getter}()`
-      : `this.node.${prop.name}`
-
     const setter = prop.setter
       ? `this.node.${prop.setter}(newValue)`
       : `this.node.${prop.name} = newValue`
 
-    if (prop.isWriteonly) {
-      ts += `${setter}\n`
-    } else {
-      ts += `if (${getter} !== newValue) {\n`
-      ts += `  ${setter}\n`
-      ts += `}\n`
-    }
-
+    ts += `${setter}\n`
     ts += `break\n`
   }
 

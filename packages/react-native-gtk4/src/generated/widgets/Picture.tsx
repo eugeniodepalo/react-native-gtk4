@@ -11,39 +11,25 @@ export default class Picture<
     super.set(propName, newValue)
     switch (propName) {
       case "alternativeText":
-        if (this.node.getAlternativeText() !== newValue) {
-          this.node.setAlternativeText(newValue)
-        }
+        this.node.setAlternativeText(newValue)
         break
       case "canShrink":
-        if (this.node.getCanShrink() !== newValue) {
-          this.node.setCanShrink(newValue)
-        }
+        this.node.setCanShrink(newValue)
         break
       case "contentFit":
-        if (this.node.getContentFit() !== newValue) {
-          this.node.setContentFit(newValue)
-        }
+        this.node.setContentFit(newValue)
         break
       case "file":
-        if (this.node.getFile() !== newValue) {
-          this.node.setFile(newValue)
-        }
+        this.node.setFile(newValue)
         break
       case "keepAspectRatio":
-        if (this.node.getKeepAspectRatio() !== newValue) {
-          this.node.setKeepAspectRatio(newValue)
-        }
+        this.node.setKeepAspectRatio(newValue)
         break
       case "paintable":
-        if (this.node.getPaintable() !== newValue) {
-          this.node.setPaintable(newValue)
-        }
+        this.node.setPaintable(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyAlternativeText":
         this.setHandler("notify::alternative-text", newValue)

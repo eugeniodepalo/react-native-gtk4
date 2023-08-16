@@ -14,57 +14,37 @@ export default class ShortcutsShortcut<
         this.node.accelSizeGroup = newValue
         break
       case "accelerator":
-        if (this.node.accelerator !== newValue) {
-          this.node.accelerator = newValue
-        }
+        this.node.accelerator = newValue
         break
       case "actionName":
-        if (this.node.actionName !== newValue) {
-          this.node.actionName = newValue
-        }
+        this.node.actionName = newValue
         break
       case "direction":
-        if (this.node.direction !== newValue) {
-          this.node.direction = newValue
-        }
+        this.node.direction = newValue
         break
       case "icon":
-        if (this.node.icon !== newValue) {
-          this.node.icon = newValue
-        }
+        this.node.icon = newValue
         break
       case "iconSet":
-        if (this.node.iconSet !== newValue) {
-          this.node.iconSet = newValue
-        }
+        this.node.iconSet = newValue
         break
       case "shortcutType":
-        if (this.node.shortcutType !== newValue) {
-          this.node.shortcutType = newValue
-        }
+        this.node.shortcutType = newValue
         break
       case "subtitle":
-        if (this.node.subtitle !== newValue) {
-          this.node.subtitle = newValue
-        }
+        this.node.subtitle = newValue
         break
       case "subtitleSet":
-        if (this.node.subtitleSet !== newValue) {
-          this.node.subtitleSet = newValue
-        }
+        this.node.subtitleSet = newValue
         break
       case "title":
-        if (this.node.title !== newValue) {
-          this.node.title = newValue
-        }
+        this.node.title = newValue
         break
       case "titleSizeGroup":
         this.node.titleSizeGroup = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyAccelSizeGroup":
         this.setHandler("notify::accel-size-group", newValue)

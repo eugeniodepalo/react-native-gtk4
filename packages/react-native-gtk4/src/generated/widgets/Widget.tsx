@@ -13,149 +13,91 @@ export default class Widget<
   set(propName: string, newValue: any) {
     switch (propName) {
       case "canFocus":
-        if (this.node.getCanFocus() !== newValue) {
-          this.node.setCanFocus(newValue)
-        }
+        this.node.setCanFocus(newValue)
         break
       case "canTarget":
-        if (this.node.getCanTarget() !== newValue) {
-          this.node.setCanTarget(newValue)
-        }
+        this.node.setCanTarget(newValue)
         break
       case "cssClasses":
-        if (this.node.getCssClasses() !== newValue) {
-          this.node.setCssClasses(newValue)
-        }
+        this.node.setCssClasses(newValue)
         break
       case "cursor":
-        if (this.node.getCursor() !== newValue) {
-          this.node.setCursor(newValue)
-        }
+        this.node.setCursor(newValue)
         break
       case "focusOnClick":
-        if (this.node.getFocusOnClick() !== newValue) {
-          this.node.setFocusOnClick(newValue)
-        }
+        this.node.setFocusOnClick(newValue)
         break
       case "focusable":
-        if (this.node.getFocusable() !== newValue) {
-          this.node.setFocusable(newValue)
-        }
+        this.node.setFocusable(newValue)
         break
       case "halign":
-        if (this.node.getHalign() !== newValue) {
-          this.node.setHalign(newValue)
-        }
+        this.node.setHalign(newValue)
         break
       case "hasTooltip":
-        if (this.node.getHasTooltip() !== newValue) {
-          this.node.setHasTooltip(newValue)
-        }
+        this.node.setHasTooltip(newValue)
         break
       case "heightRequest":
-        if (this.node.heightRequest !== newValue) {
-          this.node.heightRequest = newValue
-        }
+        this.node.heightRequest = newValue
         break
       case "hexpand":
-        if (this.node.getHexpand() !== newValue) {
-          this.node.setHexpand(newValue)
-        }
+        this.node.setHexpand(newValue)
         break
       case "hexpandSet":
-        if (this.node.getHexpandSet() !== newValue) {
-          this.node.setHexpandSet(newValue)
-        }
+        this.node.setHexpandSet(newValue)
         break
       case "layoutManager":
-        if (this.node.getLayoutManager() !== newValue) {
-          this.node.setLayoutManager(newValue)
-        }
+        this.node.setLayoutManager(newValue)
         break
       case "marginBottom":
-        if (this.node.getMarginBottom() !== newValue) {
-          this.node.setMarginBottom(newValue)
-        }
+        this.node.setMarginBottom(newValue)
         break
       case "marginEnd":
-        if (this.node.getMarginEnd() !== newValue) {
-          this.node.setMarginEnd(newValue)
-        }
+        this.node.setMarginEnd(newValue)
         break
       case "marginStart":
-        if (this.node.getMarginStart() !== newValue) {
-          this.node.setMarginStart(newValue)
-        }
+        this.node.setMarginStart(newValue)
         break
       case "marginTop":
-        if (this.node.getMarginTop() !== newValue) {
-          this.node.setMarginTop(newValue)
-        }
+        this.node.setMarginTop(newValue)
         break
       case "name":
-        if (this.node.getName() !== newValue) {
-          this.node.setName(newValue)
-        }
+        this.node.setName(newValue)
         break
       case "opacity":
-        if (this.node.getOpacity() !== newValue) {
-          this.node.setOpacity(newValue)
-        }
+        this.node.setOpacity(newValue)
         break
       case "overflow":
-        if (this.node.getOverflow() !== newValue) {
-          this.node.setOverflow(newValue)
-        }
+        this.node.setOverflow(newValue)
         break
       case "receivesDefault":
-        if (this.node.getReceivesDefault() !== newValue) {
-          this.node.setReceivesDefault(newValue)
-        }
+        this.node.setReceivesDefault(newValue)
         break
       case "sensitive":
-        if (this.node.getSensitive() !== newValue) {
-          this.node.setSensitive(newValue)
-        }
+        this.node.setSensitive(newValue)
         break
       case "tooltipMarkup":
-        if (this.node.getTooltipMarkup() !== newValue) {
-          this.node.setTooltipMarkup(newValue)
-        }
+        this.node.setTooltipMarkup(newValue)
         break
       case "tooltipText":
-        if (this.node.getTooltipText() !== newValue) {
-          this.node.setTooltipText(newValue)
-        }
+        this.node.setTooltipText(newValue)
         break
       case "valign":
-        if (this.node.getValign() !== newValue) {
-          this.node.setValign(newValue)
-        }
+        this.node.setValign(newValue)
         break
       case "vexpand":
-        if (this.node.getVexpand() !== newValue) {
-          this.node.setVexpand(newValue)
-        }
+        this.node.setVexpand(newValue)
         break
       case "vexpandSet":
-        if (this.node.getVexpandSet() !== newValue) {
-          this.node.setVexpandSet(newValue)
-        }
+        this.node.setVexpandSet(newValue)
         break
       case "visible":
-        if (this.node.getVisible() !== newValue) {
-          this.node.setVisible(newValue)
-        }
+        this.node.setVisible(newValue)
         break
       case "widthRequest":
-        if (this.node.widthRequest !== newValue) {
-          this.node.widthRequest = newValue
-        }
+        this.node.widthRequest = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onDestroy":
         this.setHandler("destroy", newValue)

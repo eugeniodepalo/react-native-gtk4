@@ -11,34 +11,22 @@ export default class ColorButton<
     super.set(propName, newValue)
     switch (propName) {
       case "modal":
-        if (this.node.getModal() !== newValue) {
-          this.node.setModal(newValue)
-        }
+        this.node.setModal(newValue)
         break
       case "showEditor":
-        if (this.node.showEditor !== newValue) {
-          this.node.showEditor = newValue
-        }
+        this.node.showEditor = newValue
         break
       case "title":
-        if (this.node.getTitle() !== newValue) {
-          this.node.setTitle(newValue)
-        }
+        this.node.setTitle(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "rgba":
-        if (this.node.getRgba() !== newValue) {
-          this.node.setRgba(newValue)
-        }
+        this.node.setRgba(newValue)
         break
       case "useAlpha":
-        if (this.node.getUseAlpha() !== newValue) {
-          this.node.setUseAlpha(newValue)
-        }
+        this.node.setUseAlpha(newValue)
         break
       case "onActivate":
         this.setHandler("activate", newValue)

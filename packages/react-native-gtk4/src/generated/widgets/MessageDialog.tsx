@@ -13,34 +13,22 @@ export default class MessageDialog<
     super.set(propName, newValue)
     switch (propName) {
       case "messageType":
-        if (this.node.messageType !== newValue) {
-          this.node.messageType = newValue
-        }
+        this.node.messageType = newValue
         break
       case "secondaryText":
-        if (this.node.secondaryText !== newValue) {
-          this.node.secondaryText = newValue
-        }
+        this.node.secondaryText = newValue
         break
       case "secondaryUseMarkup":
-        if (this.node.secondaryUseMarkup !== newValue) {
-          this.node.secondaryUseMarkup = newValue
-        }
+        this.node.secondaryUseMarkup = newValue
         break
       case "text":
-        if (this.node.text !== newValue) {
-          this.node.text = newValue
-        }
+        this.node.text = newValue
         break
       case "useMarkup":
-        if (this.node.useMarkup !== newValue) {
-          this.node.useMarkup = newValue
-        }
+        this.node.useMarkup = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyButtons":
         this.setHandler("notify::buttons", newValue)

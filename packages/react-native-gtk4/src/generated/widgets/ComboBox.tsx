@@ -26,54 +26,34 @@ export default class ComboBox<
     super.set(propName, newValue)
     switch (propName) {
       case "active":
-        if (this.node.active !== newValue) {
-          this.node.setActive(newValue)
-        }
+        this.node.setActive(newValue)
         break
       case "activeId":
-        if (this.node.getActiveId() !== newValue) {
-          this.node.setActiveId(newValue)
-        }
+        this.node.setActiveId(newValue)
         break
       case "buttonSensitivity":
-        if (this.node.getButtonSensitivity() !== newValue) {
-          this.node.setButtonSensitivity(newValue)
-        }
+        this.node.setButtonSensitivity(newValue)
         break
       case "entryTextColumn":
-        if (this.node.getEntryTextColumn() !== newValue) {
-          this.node.setEntryTextColumn(newValue)
-        }
+        this.node.setEntryTextColumn(newValue)
         break
       case "hasFrame":
-        if (this.node.hasFrame !== newValue) {
-          this.node.hasFrame = newValue
-        }
+        this.node.hasFrame = newValue
         break
       case "idColumn":
-        if (this.node.getIdColumn() !== newValue) {
-          this.node.setIdColumn(newValue)
-        }
+        this.node.setIdColumn(newValue)
         break
       case "model":
-        if (this.node.getModel() !== newValue) {
-          this.node.setModel(newValue)
-        }
+        this.node.setModel(newValue)
         break
       case "popupFixedWidth":
-        if (this.node.getPopupFixedWidth() !== newValue) {
-          this.node.setPopupFixedWidth(newValue)
-        }
+        this.node.setPopupFixedWidth(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "editingCanceled":
-        if (this.node.editingCanceled !== newValue) {
-          this.node.editingCanceled = newValue
-        }
+        this.node.editingCanceled = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

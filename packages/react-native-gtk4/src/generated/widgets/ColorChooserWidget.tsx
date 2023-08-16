@@ -11,24 +11,16 @@ export default class ColorChooserWidget<
     super.set(propName, newValue)
     switch (propName) {
       case "showEditor":
-        if (this.node.showEditor !== newValue) {
-          this.node.showEditor = newValue
-        }
+        this.node.showEditor = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "rgba":
-        if (this.node.getRgba() !== newValue) {
-          this.node.setRgba(newValue)
-        }
+        this.node.setRgba(newValue)
         break
       case "useAlpha":
-        if (this.node.getUseAlpha() !== newValue) {
-          this.node.setUseAlpha(newValue)
-        }
+        this.node.setUseAlpha(newValue)
         break
       case "onColorActivated":
         this.setHandler("color-activated", newValue)

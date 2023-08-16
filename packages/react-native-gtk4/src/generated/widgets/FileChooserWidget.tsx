@@ -11,34 +11,22 @@ export default class FileChooserWidget<
     super.set(propName, newValue)
     switch (propName) {
       case "searchMode":
-        if (this.node.searchMode !== newValue) {
-          this.node.searchMode = newValue
-        }
+        this.node.searchMode = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "action":
-        if (this.node.getAction() !== newValue) {
-          this.node.setAction(newValue)
-        }
+        this.node.setAction(newValue)
         break
       case "createFolders":
-        if (this.node.getCreateFolders() !== newValue) {
-          this.node.setCreateFolders(newValue)
-        }
+        this.node.setCreateFolders(newValue)
         break
       case "filter":
-        if (this.node.getFilter() !== newValue) {
-          this.node.setFilter(newValue)
-        }
+        this.node.setFilter(newValue)
         break
       case "selectMultiple":
-        if (this.node.getSelectMultiple() !== newValue) {
-          this.node.setSelectMultiple(newValue)
-        }
+        this.node.setSelectMultiple(newValue)
         break
       case "onDesktopFolder":
         this.setHandler("desktop-folder", newValue)

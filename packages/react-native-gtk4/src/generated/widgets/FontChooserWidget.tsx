@@ -11,39 +11,25 @@ export default class FontChooserWidget<
     super.set(propName, newValue)
     switch (propName) {
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "font":
-        if (this.node.getFont() !== newValue) {
-          this.node.setFont(newValue)
-        }
+        this.node.setFont(newValue)
         break
       case "fontDesc":
-        if (this.node.getFontDesc() !== newValue) {
-          this.node.setFontDesc(newValue)
-        }
+        this.node.setFontDesc(newValue)
         break
       case "language":
-        if (this.node.getLanguage() !== newValue) {
-          this.node.setLanguage(newValue)
-        }
+        this.node.setLanguage(newValue)
         break
       case "level":
-        if (this.node.getLevel() !== newValue) {
-          this.node.setLevel(newValue)
-        }
+        this.node.setLevel(newValue)
         break
       case "previewText":
-        if (this.node.getPreviewText() !== newValue) {
-          this.node.setPreviewText(newValue)
-        }
+        this.node.setPreviewText(newValue)
         break
       case "showPreviewEntry":
-        if (this.node.getShowPreviewEntry() !== newValue) {
-          this.node.setShowPreviewEntry(newValue)
-        }
+        this.node.setShowPreviewEntry(newValue)
         break
       case "onFontActivated":
         this.setHandler("font-activated", newValue)

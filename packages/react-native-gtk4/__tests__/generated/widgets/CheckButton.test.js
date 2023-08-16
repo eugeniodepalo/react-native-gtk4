@@ -54,7 +54,7 @@ describe("CheckButton", () => {
   test("should set actionTarget", () => {
     const newValue = new GLib.Variant()
     widget.set("actionTarget", newValue)
-    expect(widget.node.actionTarget).toBe(newValue)
+    expect(widget.node.setActionTargetValue).toHaveBeenCalledWith(newValue)
   })
 
   test("should connect onActivate", () => {

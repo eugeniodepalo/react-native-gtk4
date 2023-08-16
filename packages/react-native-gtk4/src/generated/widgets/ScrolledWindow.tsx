@@ -24,79 +24,49 @@ export default class ScrolledWindow<
     super.set(propName, newValue)
     switch (propName) {
       case "hadjustment":
-        if (this.node.getHadjustment() !== newValue) {
-          this.node.setHadjustment(newValue)
-        }
+        this.node.setHadjustment(newValue)
         break
       case "hasFrame":
-        if (this.node.getHasFrame() !== newValue) {
-          this.node.setHasFrame(newValue)
-        }
+        this.node.setHasFrame(newValue)
         break
       case "hscrollbarPolicy":
-        if (this.node.hscrollbarPolicy !== newValue) {
-          this.node.hscrollbarPolicy = newValue
-        }
+        this.node.hscrollbarPolicy = newValue
         break
       case "kineticScrolling":
-        if (this.node.getKineticScrolling() !== newValue) {
-          this.node.setKineticScrolling(newValue)
-        }
+        this.node.setKineticScrolling(newValue)
         break
       case "maxContentHeight":
-        if (this.node.getMaxContentHeight() !== newValue) {
-          this.node.setMaxContentHeight(newValue)
-        }
+        this.node.setMaxContentHeight(newValue)
         break
       case "maxContentWidth":
-        if (this.node.getMaxContentWidth() !== newValue) {
-          this.node.setMaxContentWidth(newValue)
-        }
+        this.node.setMaxContentWidth(newValue)
         break
       case "minContentHeight":
-        if (this.node.getMinContentHeight() !== newValue) {
-          this.node.setMinContentHeight(newValue)
-        }
+        this.node.setMinContentHeight(newValue)
         break
       case "minContentWidth":
-        if (this.node.getMinContentWidth() !== newValue) {
-          this.node.setMinContentWidth(newValue)
-        }
+        this.node.setMinContentWidth(newValue)
         break
       case "overlayScrolling":
-        if (this.node.getOverlayScrolling() !== newValue) {
-          this.node.setOverlayScrolling(newValue)
-        }
+        this.node.setOverlayScrolling(newValue)
         break
       case "propagateNaturalHeight":
-        if (this.node.getPropagateNaturalHeight() !== newValue) {
-          this.node.setPropagateNaturalHeight(newValue)
-        }
+        this.node.setPropagateNaturalHeight(newValue)
         break
       case "propagateNaturalWidth":
-        if (this.node.getPropagateNaturalWidth() !== newValue) {
-          this.node.setPropagateNaturalWidth(newValue)
-        }
+        this.node.setPropagateNaturalWidth(newValue)
         break
       case "vadjustment":
-        if (this.node.getVadjustment() !== newValue) {
-          this.node.setVadjustment(newValue)
-        }
+        this.node.setVadjustment(newValue)
         break
       case "vscrollbarPolicy":
-        if (this.node.vscrollbarPolicy !== newValue) {
-          this.node.vscrollbarPolicy = newValue
-        }
+        this.node.vscrollbarPolicy = newValue
         break
       case "windowPlacement":
-        if (this.node.windowPlacement !== newValue) {
-          this.node.windowPlacement = newValue
-        }
+        this.node.windowPlacement = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onEdgeOvershot":
         this.setHandler("edge-overshot", newValue)

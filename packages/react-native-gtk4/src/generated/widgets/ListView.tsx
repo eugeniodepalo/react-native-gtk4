@@ -11,59 +11,37 @@ export default class ListView<
     super.set(propName, newValue)
     switch (propName) {
       case "enableRubberband":
-        if (this.node.getEnableRubberband() !== newValue) {
-          this.node.setEnableRubberband(newValue)
-        }
+        this.node.setEnableRubberband(newValue)
         break
       case "factory":
-        if (this.node.getFactory() !== newValue) {
-          this.node.setFactory(newValue)
-        }
+        this.node.setFactory(newValue)
         break
       case "model":
-        if (this.node.getModel() !== newValue) {
-          this.node.setModel(newValue)
-        }
+        this.node.setModel(newValue)
         break
       case "showSeparators":
-        if (this.node.getShowSeparators() !== newValue) {
-          this.node.setShowSeparators(newValue)
-        }
+        this.node.setShowSeparators(newValue)
         break
       case "singleClickActivate":
-        if (this.node.getSingleClickActivate() !== newValue) {
-          this.node.setSingleClickActivate(newValue)
-        }
+        this.node.setSingleClickActivate(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "orientation":
-        if (this.node.getOrientation() !== newValue) {
-          this.node.setOrientation(newValue)
-        }
+        this.node.setOrientation(newValue)
         break
       case "hadjustment":
-        if (this.node.getHadjustment() !== newValue) {
-          this.node.setHadjustment(newValue)
-        }
+        this.node.setHadjustment(newValue)
         break
       case "hscrollPolicy":
-        if (this.node.getHscrollPolicy() !== newValue) {
-          this.node.setHscrollPolicy(newValue)
-        }
+        this.node.setHscrollPolicy(newValue)
         break
       case "vadjustment":
-        if (this.node.getVadjustment() !== newValue) {
-          this.node.setVadjustment(newValue)
-        }
+        this.node.setVadjustment(newValue)
         break
       case "vscrollPolicy":
-        if (this.node.getVscrollPolicy() !== newValue) {
-          this.node.setVscrollPolicy(newValue)
-        }
+        this.node.setVscrollPolicy(newValue)
         break
       case "onActivate":
         this.setHandler("activate", newValue)

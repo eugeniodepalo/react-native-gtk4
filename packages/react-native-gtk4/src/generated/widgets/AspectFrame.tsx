@@ -24,29 +24,19 @@ export default class AspectFrame<
     super.set(propName, newValue)
     switch (propName) {
       case "obeyChild":
-        if (this.node.getObeyChild() !== newValue) {
-          this.node.setObeyChild(newValue)
-        }
+        this.node.setObeyChild(newValue)
         break
       case "ratio":
-        if (this.node.getRatio() !== newValue) {
-          this.node.setRatio(newValue)
-        }
+        this.node.setRatio(newValue)
         break
       case "xalign":
-        if (this.node.getXalign() !== newValue) {
-          this.node.setXalign(newValue)
-        }
+        this.node.setXalign(newValue)
         break
       case "yalign":
-        if (this.node.getYalign() !== newValue) {
-          this.node.setYalign(newValue)
-        }
+        this.node.setYalign(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)

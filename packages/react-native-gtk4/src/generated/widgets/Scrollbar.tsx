@@ -11,19 +11,13 @@ export default class Scrollbar<
     super.set(propName, newValue)
     switch (propName) {
       case "adjustment":
-        if (this.node.getAdjustment() !== newValue) {
-          this.node.setAdjustment(newValue)
-        }
+        this.node.setAdjustment(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "orientation":
-        if (this.node.getOrientation() !== newValue) {
-          this.node.setOrientation(newValue)
-        }
+        this.node.setOrientation(newValue)
         break
       case "onNotifyAdjustment":
         this.setHandler("notify::adjustment", newValue)

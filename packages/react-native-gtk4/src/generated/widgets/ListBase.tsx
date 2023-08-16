@@ -11,34 +11,22 @@ export default class ListBase<
     super.set(propName, newValue)
     switch (propName) {
       case "orientation":
-        if (this.node.orientation !== newValue) {
-          this.node.orientation = newValue
-        }
+        this.node.orientation = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "hadjustment":
-        if (this.node.getHadjustment() !== newValue) {
-          this.node.setHadjustment(newValue)
-        }
+        this.node.setHadjustment(newValue)
         break
       case "hscrollPolicy":
-        if (this.node.getHscrollPolicy() !== newValue) {
-          this.node.setHscrollPolicy(newValue)
-        }
+        this.node.setHscrollPolicy(newValue)
         break
       case "vadjustment":
-        if (this.node.getVadjustment() !== newValue) {
-          this.node.setVadjustment(newValue)
-        }
+        this.node.setVadjustment(newValue)
         break
       case "vscrollPolicy":
-        if (this.node.getVscrollPolicy() !== newValue) {
-          this.node.setVscrollPolicy(newValue)
-        }
+        this.node.setVscrollPolicy(newValue)
         break
       case "onNotifyOrientation":
         this.setHandler("notify::orientation", newValue)

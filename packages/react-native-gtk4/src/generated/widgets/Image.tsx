@@ -9,49 +9,31 @@ export default class Image<T extends Gtk.Image = Gtk.Image> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "file":
-        if (this.node.file !== newValue) {
-          this.node.file = newValue
-        }
+        this.node.file = newValue
         break
       case "gicon":
-        if (this.node.getGicon() !== newValue) {
-          this.node.gicon = newValue
-        }
+        this.node.gicon = newValue
         break
       case "iconName":
-        if (this.node.getIconName() !== newValue) {
-          this.node.iconName = newValue
-        }
+        this.node.iconName = newValue
         break
       case "iconSize":
-        if (this.node.getIconSize() !== newValue) {
-          this.node.setIconSize(newValue)
-        }
+        this.node.setIconSize(newValue)
         break
       case "paintable":
-        if (this.node.getPaintable() !== newValue) {
-          this.node.paintable = newValue
-        }
+        this.node.paintable = newValue
         break
       case "pixelSize":
-        if (this.node.getPixelSize() !== newValue) {
-          this.node.setPixelSize(newValue)
-        }
+        this.node.setPixelSize(newValue)
         break
       case "resource":
-        if (this.node.resource !== newValue) {
-          this.node.resource = newValue
-        }
+        this.node.resource = newValue
         break
       case "useFallback":
-        if (this.node.useFallback !== newValue) {
-          this.node.useFallback = newValue
-        }
+        this.node.useFallback = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyFile":
         this.setHandler("notify::file", newValue)

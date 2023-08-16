@@ -24,24 +24,16 @@ export default class SearchBar<
     super.set(propName, newValue)
     switch (propName) {
       case "keyCaptureWidget":
-        if (this.node.getKeyCaptureWidget() !== newValue) {
-          this.node.setKeyCaptureWidget(newValue)
-        }
+        this.node.setKeyCaptureWidget(newValue)
         break
       case "searchModeEnabled":
-        if (this.node.searchModeEnabled !== newValue) {
-          this.node.searchModeEnabled = newValue
-        }
+        this.node.searchModeEnabled = newValue
         break
       case "showCloseButton":
-        if (this.node.getShowCloseButton() !== newValue) {
-          this.node.setShowCloseButton(newValue)
-        }
+        this.node.setShowCloseButton(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)

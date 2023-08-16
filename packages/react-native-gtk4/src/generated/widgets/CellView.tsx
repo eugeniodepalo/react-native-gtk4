@@ -14,29 +14,19 @@ export default class CellView<
     super.set(propName, newValue)
     switch (propName) {
       case "drawSensitive":
-        if (this.node.getDrawSensitive() !== newValue) {
-          this.node.setDrawSensitive(newValue)
-        }
+        this.node.setDrawSensitive(newValue)
         break
       case "fitModel":
-        if (this.node.getFitModel() !== newValue) {
-          this.node.setFitModel(newValue)
-        }
+        this.node.setFitModel(newValue)
         break
       case "model":
-        if (this.node.getModel() !== newValue) {
-          this.node.setModel(newValue)
-        }
+        this.node.setModel(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "orientation":
-        if (this.node.getOrientation() !== newValue) {
-          this.node.setOrientation(newValue)
-        }
+        this.node.setOrientation(newValue)
         break
       case "onNotifyCellArea":
         this.setHandler("notify::cell-area", newValue)

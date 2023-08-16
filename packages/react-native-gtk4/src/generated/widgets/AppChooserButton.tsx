@@ -13,29 +13,19 @@ export default class AppChooserButton<
     super.set(propName, newValue)
     switch (propName) {
       case "heading":
-        if (this.node.getHeading() !== newValue) {
-          this.node.setHeading(newValue)
-        }
+        this.node.setHeading(newValue)
         break
       case "modal":
-        if (this.node.getModal() !== newValue) {
-          this.node.setModal(newValue)
-        }
+        this.node.setModal(newValue)
         break
       case "showDefaultItem":
-        if (this.node.getShowDefaultItem() !== newValue) {
-          this.node.setShowDefaultItem(newValue)
-        }
+        this.node.setShowDefaultItem(newValue)
         break
       case "showDialogItem":
-        if (this.node.getShowDialogItem() !== newValue) {
-          this.node.setShowDialogItem(newValue)
-        }
+        this.node.setShowDialogItem(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

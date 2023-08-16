@@ -17,7 +17,7 @@ describe("SearchEntry", () => {
   test("should set placeholderText", () => {
     const newValue = "Some String"
     widget.set("placeholderText", newValue)
-    expect(widget.node.placeholderText).toBe(newValue)
+    expect(widget.node.setPlaceholderText).toHaveBeenCalledWith(newValue)
   })
 
   test("should set searchDelay", () => {

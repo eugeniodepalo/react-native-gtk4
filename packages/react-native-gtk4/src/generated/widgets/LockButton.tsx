@@ -11,49 +11,31 @@ export default class LockButton<
     super.set(propName, newValue)
     switch (propName) {
       case "permission":
-        if (this.node.getPermission() !== newValue) {
-          this.node.setPermission(newValue)
-        }
+        this.node.setPermission(newValue)
         break
       case "textLock":
-        if (this.node.textLock !== newValue) {
-          this.node.textLock = newValue
-        }
+        this.node.textLock = newValue
         break
       case "textUnlock":
-        if (this.node.textUnlock !== newValue) {
-          this.node.textUnlock = newValue
-        }
+        this.node.textUnlock = newValue
         break
       case "tooltipLock":
-        if (this.node.tooltipLock !== newValue) {
-          this.node.tooltipLock = newValue
-        }
+        this.node.tooltipLock = newValue
         break
       case "tooltipNotAuthorized":
-        if (this.node.tooltipNotAuthorized !== newValue) {
-          this.node.tooltipNotAuthorized = newValue
-        }
+        this.node.tooltipNotAuthorized = newValue
         break
       case "tooltipUnlock":
-        if (this.node.tooltipUnlock !== newValue) {
-          this.node.tooltipUnlock = newValue
-        }
+        this.node.tooltipUnlock = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "actionName":
-        if (this.node.getActionName() !== newValue) {
-          this.node.setActionName(newValue)
-        }
+        this.node.setActionName(newValue)
         break
       case "actionTarget":
-        if (this.node.actionTarget !== newValue) {
-          this.node.actionTarget = newValue
-        }
+        this.node.setActionTargetValue(newValue)
         break
       case "onNotifyPermission":
         this.setHandler("notify::permission", newValue)

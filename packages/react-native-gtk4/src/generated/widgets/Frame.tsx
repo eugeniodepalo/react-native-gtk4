@@ -22,24 +22,16 @@ export default class Frame<T extends Gtk.Frame = Gtk.Frame> extends Widget<T> {
     super.set(propName, newValue)
     switch (propName) {
       case "label":
-        if (this.node.getLabel() !== newValue) {
-          this.node.setLabel(newValue)
-        }
+        this.node.setLabel(newValue)
         break
       case "labelWidget":
-        if (this.node.getLabelWidget() !== newValue) {
-          this.node.setLabelWidget(newValue)
-        }
+        this.node.setLabelWidget(newValue)
         break
       case "labelXalign":
-        if (this.node.labelXalign !== newValue) {
-          this.node.labelXalign = newValue
-        }
+        this.node.labelXalign = newValue
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)

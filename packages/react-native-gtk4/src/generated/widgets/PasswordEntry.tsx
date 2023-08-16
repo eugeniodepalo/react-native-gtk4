@@ -11,59 +11,37 @@ export default class PasswordEntry<
     super.set(propName, newValue)
     switch (propName) {
       case "activatesDefault":
-        if (this.node.activatesDefault !== newValue) {
-          this.node.activatesDefault = newValue
-        }
+        this.node.activatesDefault = newValue
         break
       case "extraMenu":
-        if (this.node.getExtraMenu() !== newValue) {
-          this.node.setExtraMenu(newValue)
-        }
+        this.node.setExtraMenu(newValue)
         break
       case "placeholderText":
-        if (this.node.placeholderText !== newValue) {
-          this.node.placeholderText = newValue
-        }
+        this.node.placeholderText = newValue
         break
       case "showPeekIcon":
-        if (this.node.getShowPeekIcon() !== newValue) {
-          this.node.setShowPeekIcon(newValue)
-        }
+        this.node.setShowPeekIcon(newValue)
         break
       case "accessibleRole":
-        if (this.node.getAccessibleRole() !== newValue) {
-          this.node.accessibleRole = newValue
-        }
+        this.node.accessibleRole = newValue
         break
       case "editable":
-        if (this.node.getEditable() !== newValue) {
-          this.node.setEditable(newValue)
-        }
+        this.node.setEditable(newValue)
         break
       case "enableUndo":
-        if (this.node.getEnableUndo() !== newValue) {
-          this.node.setEnableUndo(newValue)
-        }
+        this.node.setEnableUndo(newValue)
         break
       case "maxWidthChars":
-        if (this.node.getMaxWidthChars() !== newValue) {
-          this.node.setMaxWidthChars(newValue)
-        }
+        this.node.setMaxWidthChars(newValue)
         break
       case "text":
-        if (this.node.getText() !== newValue) {
-          this.node.setText(newValue)
-        }
+        this.node.setText(newValue)
         break
       case "widthChars":
-        if (this.node.getWidthChars() !== newValue) {
-          this.node.setWidthChars(newValue)
-        }
+        this.node.setWidthChars(newValue)
         break
       case "xalign":
-        if (this.node.xalign !== newValue) {
-          this.node.xalign = newValue
-        }
+        this.node.xalign = newValue
         break
       case "onActivate":
         this.setHandler("activate", newValue)

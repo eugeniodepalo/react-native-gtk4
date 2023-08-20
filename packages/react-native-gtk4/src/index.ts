@@ -47,6 +47,7 @@ export {
   Scale,
   SpinButton,
   Stack,
+  TextView,
   TreeProvider,
 } from "./components.js"
 

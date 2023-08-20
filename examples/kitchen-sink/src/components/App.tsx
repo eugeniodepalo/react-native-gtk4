@@ -86,6 +86,13 @@ export default function App() {
   const [calendarMonth, setCalendarMonth] = useState(1)
   const [calendarYear, setCalendarYear] = useState(new Date().getFullYear())
 
+  const textViewBuffer = useMemo(() => {
+    const value = new Gtk.TextBuffer()
+    value.setText("Text Buffer", -1)
+    const anchor = value.createChildAnchor(value.getEndIter())
+    return { value, anchor }
+  }, [])
+
   const spinButtonAdjustment = useMemo(() => {
     const adjustment = new Gtk.Adjustment({
       lower: 0,
@@ -534,7 +541,6 @@ export default function App() {
               }}
               placeholderText="Type here..."
             />
-            <TextView />
             <CheckButton label="Check Button 1" active />
             <CheckButton label="Check Button 2" />
             <CheckButton
@@ -680,6 +686,14 @@ export default function App() {
               }}
             />
             <SpinButton range={[0, 80]} adjustment={spinButtonAdjustment} />
+            <TextView.Container buffer={textViewBuffer.value}>
+              <TextView.Overlay x={100} y={0}>
+                <Label label="Overlay 1" />
+              </TextView.Overlay>
+              <TextView.Anchor anchor={textViewBuffer.anchor}>
+                <Label label="Anchor 1" />
+              </TextView.Anchor>
+            </TextView.Container>
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={1} width={1} height={1}>

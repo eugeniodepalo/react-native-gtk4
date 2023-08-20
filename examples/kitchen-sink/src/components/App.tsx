@@ -687,7 +687,7 @@ export default function App() {
             />
             <SpinButton range={[0, 80]} adjustment={spinButtonAdjustment} />
             <TextView.Container buffer={textViewBuffer.value}>
-              <TextView.Overlay x={100} y={0}>
+              <TextView.Overlay x={150} y={0}>
                 <Label label="Overlay 1" />
               </TextView.Overlay>
               <TextView.Anchor anchor={textViewBuffer.anchor}>

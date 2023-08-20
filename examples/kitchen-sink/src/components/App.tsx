@@ -46,6 +46,7 @@ import {
   ListProvider,
   TreeProvider,
   TreeExpander,
+  Calendar,
 } from "react-native-gtk4"
 
 enum Column {
@@ -80,6 +81,9 @@ export default function App() {
   const [columnViewSelection, setColumnViewSelection] = useState([2])
   const [dropDownSelectedItem, setDropDownSelectedItem] = useState(0)
   const [treeViewSelection, setTreeViewSelection] = useState([1, 3])
+  const [selectedDay, setSelectedDay] = useState(1)
+  const [calendarMonth, setCalendarMonth] = useState(1)
+  const [calendarYear, setCalendarYear] = useState(new Date().getFullYear())
 
   const renderDropDownItem = useCallback(
     (item: string | null) => <Label label={item ?? ""} />,
@@ -646,6 +650,23 @@ export default function App() {
                 />
               ) : null}
             </Box>
+            <Calendar
+              hexpand
+              vexpand
+              markedDays={[1, 2, 3]}
+              day={selectedDay}
+              month={calendarMonth}
+              year={calendarYear}
+              onDaySelected={(calendar) => {
+                setSelectedDay(calendar.day)
+              }}
+              onNotifyMonth={(calendar) => {
+                setCalendarMonth(calendar.month)
+              }}
+              onNotifyYear={(calendar) => {
+                setCalendarYear(calendar.year)
+              }}
+            />
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={1} width={1} height={1}>

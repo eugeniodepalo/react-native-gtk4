@@ -19,6 +19,7 @@ export {
   AboutDialog,
   ActionBar,
   ApplicationWindow,
+  Calendar,
   CenterBox,
   CheckButton,
   ColorDialogButton,

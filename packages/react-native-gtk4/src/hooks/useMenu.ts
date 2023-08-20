@@ -1,6 +1,6 @@
 import Gio from "@girs/node-gio-2.0"
 import GLib from "@girs/node-glib-2.0"
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 
 interface MenuItem {
   label?: string
@@ -48,19 +48,15 @@ function buildMenu(menu: Gio.Menu, items: MenuItem[]) {
 
     menu.appendItem(menuItem)
   }
-
-  return () => {
-    menu.removeAll()
-  }
 }
 
 export default function useMenu(
   items: MenuItem[],
   deps: React.DependencyList | undefined
 ) {
-  const menu = useMemo(() => new Gio.Menu(), [])
-
-  useEffect(() => buildMenu(menu, items), deps)
-
-  return menu
+  return useMemo(() => {
+    const menu = new Gio.Menu()
+    buildMenu(menu, items)
+    return menu
+  }, deps)
 }

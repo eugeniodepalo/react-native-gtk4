@@ -45,6 +45,7 @@ export {
   PopoverMenuBar,
   PrintUnixDialog,
   Scale,
+  SpinButton,
   Stack,
   TreeProvider,
 } from "./components.js"

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import {
   ApplicationWindow,
   Box,
@@ -47,6 +47,7 @@ import {
   TreeProvider,
   TreeExpander,
   Calendar,
+  SpinButton,
 } from "react-native-gtk4"
 
 enum Column {
@@ -84,6 +85,17 @@ export default function App() {
   const [selectedDay, setSelectedDay] = useState(1)
   const [calendarMonth, setCalendarMonth] = useState(1)
   const [calendarYear, setCalendarYear] = useState(new Date().getFullYear())
+
+  const spinButtonAdjustment = useMemo(() => {
+    const adjustment = new Gtk.Adjustment({
+      lower: 0,
+      upper: 100,
+    })
+
+    adjustment.setStepIncrement(1)
+
+    return adjustment
+  }, [])
 
   const renderDropDownItem = useCallback(
     (item: string | null) => <Label label={item ?? ""} />,
@@ -667,6 +679,7 @@ export default function App() {
                 setCalendarYear(calendar.year)
               }}
             />
+            <SpinButton range={[0, 80]} adjustment={spinButtonAdjustment} />
           </Box>
         </Grid.Item>
         <Grid.Item col={1} row={1} width={1} height={1}>

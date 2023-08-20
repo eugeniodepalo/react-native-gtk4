@@ -1,6 +1,6 @@
 # React Native GTK4
 
-![Example App](https://github.com/eugeniodepalo/react-native-gtk4/assets/151741/b0f8515f-0cbe-4e0a-9662-d6dc34a653b9)
+![Example App](https://github.com/eugeniodepalo/react-native-gtk4/assets/151741/c86b7b59-8c06-4df5-9029-c0f79d31e121)
 
 Check out the package [README](packages/react-native-gtk4/README.md) for more information.
 

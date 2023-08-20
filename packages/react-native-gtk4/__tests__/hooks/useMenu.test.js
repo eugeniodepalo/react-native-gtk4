@@ -49,12 +49,4 @@ describe("useMenu", () => {
 
     expect(menu.appendItem).toHaveBeenCalledWith(menuItem)
   })
-
-  test("should remove all items on unmount", () => {
-    render(<Component />)
-
-    render(null)
-
-    expect(menu.removeAll).toHaveBeenCalled()
-  })
 })

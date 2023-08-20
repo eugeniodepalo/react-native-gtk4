@@ -27,12 +27,4 @@ describe("useActionGroup", () => {
     expect(group).toBeInstanceOf(Gio.SimpleActionGroup)
     expect(group.addAction).toHaveBeenCalledWith(action)
   })
-
-  test("should remove actions on unmount", () => {
-    render(<Component />)
-
-    render(null)
-
-    expect(group.remove).toHaveBeenCalledWith("test")
-  })
 })

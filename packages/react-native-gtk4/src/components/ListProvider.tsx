@@ -1,8 +1,7 @@
 import Gtk from "@girs/node-gtk-4.0"
-import React, { useEffect, useMemo, useRef } from "react"
+import React, { useEffect, useMemo } from "react"
 import ListModelProvider from "./ListModelProvider.js"
 import useListModel from "../hooks/useListModel.js"
-import _ from "lodash"
 
 interface Props {
   children: React.ReactNode
@@ -51,8 +50,6 @@ const OrderedItem = function ListProviderItem({
   index,
 }: OrderedItemProps) {
   const { model, setItems } = useListModel()
-  const depsRef = useRef<{ value: unknown; index: number } | null>(null)
-  const unmountedRef = useRef(false)
 
   if (!(model instanceof Gtk.StringList)) {
     throw new Error(
@@ -61,18 +58,6 @@ const OrderedItem = function ListProviderItem({
   }
 
   useEffect(() => {
-    return () => {
-      unmountedRef.current = true
-    }
-  }, [])
-
-  useEffect(() => {
-    if (_.isEqual(depsRef.current, { value, index })) {
-      return
-    }
-
-    depsRef.current = { value, index }
-
     const id = typeof value === "string" ? value : index.toString()
 
     setItems((items) => {
@@ -83,13 +68,6 @@ const OrderedItem = function ListProviderItem({
     model.splice(index, 0, [id])
 
     return () => {
-      if (
-        _.isEqual(depsRef.current, { value, index }) &&
-        !unmountedRef.current
-      ) {
-        return
-      }
-
       model.remove(index)
 
       setItems((items) => {

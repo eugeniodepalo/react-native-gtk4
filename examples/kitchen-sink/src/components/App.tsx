@@ -86,6 +86,25 @@ export default function App() {
   const [calendarMonth, setCalendarMonth] = useState(1)
   const [calendarYear, setCalendarYear] = useState(new Date().getFullYear())
 
+  const listItems = useMemo(() => {
+    return Array.from(Array(500).keys()).map((i) => `Item ${i}`)
+  }, [])
+
+  const columnViewItems = useMemo(() => {
+    return Array.from(Array(5).keys()).map((i) => ({
+      name: `Name ${i}`,
+      surname: `Surname ${i}`,
+    }))
+  }, [])
+
+  const treeViewItems = useMemo(() => {
+    return Array.from(Array(5).keys()).map((i) =>
+      Array.from(Array(5).keys()).map((j) =>
+        Array.from(Array(5).keys()).map((k) => `${i}.${j}.${k}`)
+      )
+    )
+  }, [])
+
   const textViewBuffer = useMemo(() => {
     const value = new Gtk.TextBuffer()
     value.setText("Text Buffer", -1)
@@ -418,11 +437,8 @@ export default function App() {
             />
             <ListProvider.Container>
               <ListProvider.List>
-                {Array.from(Array(5).keys()).map((i) => (
-                  <ListProvider.Item
-                    key={i}
-                    value={{ name: `Name ${i}`, surname: `Surname ${i}` }}
-                  />
+                {columnViewItems.map((item, i) => (
+                  <ListProvider.Item key={i} value={item} />
                 ))}
               </ListProvider.List>
               <ColumnView
@@ -446,12 +462,12 @@ export default function App() {
             </ListProvider.Container>
             <TreeProvider.Container autoexpand={false}>
               <TreeProvider.List>
-                {Array.from(Array(5).keys()).map((i) => (
-                  <TreeProvider.Item key={i} value={i}>
-                    {Array.from(Array(5).keys()).map((j) => (
+                {treeViewItems.map((item, i) => (
+                  <TreeProvider.Item key={i} value={`${i}`}>
+                    {item.map((item, j) => (
                       <TreeProvider.Item key={j} value={`${i}.${j}`}>
-                        {Array.from(Array(5).keys()).map((k) => (
-                          <TreeProvider.Item key={k} value={`${i}.${j}.${k}`} />
+                        {item.map((item, k) => (
+                          <TreeProvider.Item key={k} value={item} />
                         ))}
                       </TreeProvider.Item>
                     ))}
@@ -593,8 +609,8 @@ export default function App() {
               }}
               selectedItem={dropDownSelectedItem}
             >
-              {Array.from(Array(50).keys()).map((i) => (
-                <ListProvider.Item key={i} value={`Item ${i}`} />
+              {listItems.map((item, i) => (
+                <ListProvider.Item key={i} value={item} />
               ))}
             </DropDown>
             <ListProvider.Container>

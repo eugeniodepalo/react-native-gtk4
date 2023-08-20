@@ -9,7 +9,6 @@ import React, {
 } from "react"
 import ListModelProvider from "./ListModelProvider.js"
 import useListModel from "../hooks/useListModel.js"
-import _ from "lodash"
 
 interface Node {
   value: unknown
@@ -123,13 +122,6 @@ const OrderedItem = function TreeOrderedItem({
   const { model, setItems } = useListModel()
   const context = useContext(Context)
 
-  const depsRef = useRef<{
-    value: unknown
-    index: number
-    parent: Node | null
-    hasChildren: boolean
-  } | null>(null)
-
   if (!context || !(model instanceof Gtk.TreeListModel)) {
     throw new Error(
       "TreeProvider.Item must be used inside a TreeProvider.Container"
@@ -148,12 +140,6 @@ const OrderedItem = function TreeOrderedItem({
   }, [])
 
   useEffect(() => {
-    if (_.isEqual(depsRef.current, { value, index, parent, hasChildren })) {
-      return
-    }
-
-    depsRef.current = { value, index, parent, hasChildren }
-
     const path = parent ? `${parent.path}.${index}` : index.toString()
     const updatedNode = node ?? { value: null, path: "", children: [] }
 
@@ -176,13 +162,6 @@ const OrderedItem = function TreeOrderedItem({
     })
 
     return () => {
-      if (
-        _.isEqual(depsRef.current, { value, index, parent }) &&
-        !unmountedRef.current
-      ) {
-        return
-      }
-
       if (!parent) {
         root.splice(index, 1)
         rootModel.splice(index, 1, [])

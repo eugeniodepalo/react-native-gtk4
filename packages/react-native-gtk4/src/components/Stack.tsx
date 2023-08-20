@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { forwardRef, createContext } from "react"
 import Gtk from "@girs/node-gtk-4.0"
-import { Stack, StackSidebar } from "../generated/intrinsics.js"
+import { Stack, StackSidebar, StackSwitcher } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
@@ -98,8 +98,23 @@ const Sidebar = forwardRef<Gtk.StackSidebar, SidebarProps>(
   }
 )
 
+type SwitcherProps = Omit<JSX.IntrinsicElements["StackSwitcher"], "stack">
+
+export const Switcher = forwardRef<Gtk.StackSwitcher, SwitcherProps>(
+  function StackSwitcherComponent(props, ref) {
+    const context = useContext(Context)
+
+    if (!context || !context.stack) {
+      throw new Error("Stack.Switcher must be a child of Stack.Container")
+    }
+
+    return <StackSwitcher ref={ref} stack={context.stack} {...props} />
+  }
+)
+
 export default {
   Container,
   Item,
   Sidebar,
+  Switcher,
 }

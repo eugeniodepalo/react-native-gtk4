@@ -259,4 +259,74 @@ describe("Stack", () => {
       }).toThrow("Stack.Sidebar must be a child of Stack.Container")
     })
   })
+
+  describe("Switcher", () => {
+    test("should render", () => {
+      render(
+        <Stack.Container>
+          <Stack.Switcher>
+            <Box />
+          </Stack.Switcher>
+        </Stack.Container>
+      )
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+      const switcher = findBy({ type: "StackSwitcher" })
+
+      expect(stack.node).toBeInstanceOf(Gtk.Stack)
+      expect(child.node).toBeInstanceOf(Gtk.Box)
+      expect(switcher.node).toBeInstanceOf(Gtk.StackSwitcher)
+      expect(switcher.node.setStack).toHaveBeenCalledWith(stack.node)
+    })
+
+    test("should forward refs", () => {
+      const ref = createRef()
+      const childRef = createRef()
+
+      render(
+        <Stack.Container>
+          <Stack.Switcher ref={ref}>
+            <Box ref={childRef} />
+          </Stack.Switcher>
+        </Stack.Container>
+      )
+
+      const child = findBy({ type: "Box" })
+      const switcher = findBy({ type: "StackSwitcher" })
+
+      expect(ref.current).toBe(switcher.node)
+      expect(childRef.current).toBe(child.node)
+    })
+
+    test("should handle unmount gracefully", () => {
+      render(
+        <Stack.Container>
+          <Stack.Switcher>
+            <Box />
+          </Stack.Switcher>
+        </Stack.Container>
+      )
+
+      render(null)
+
+      const stack = findBy({ type: "Stack" })
+      const child = findBy({ type: "Box" })
+      const switcher = findBy({ type: "StackSwitcher" })
+
+      expect(stack).toBeNull()
+      expect(child).toBeNull()
+      expect(switcher).toBeNull()
+    })
+
+    test("should throw when not inside Stack.Container", () => {
+      expect(() => {
+        render(
+          <Stack.Switcher>
+            <Box />
+          </Stack.Switcher>
+        )
+      }).toThrow("Stack.Switcher must be a child of Stack.Container")
+    })
+  })
 })

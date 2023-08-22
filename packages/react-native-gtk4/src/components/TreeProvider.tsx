@@ -4,7 +4,6 @@ import React, {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react"
 import ListModelProvider from "./ListModelProvider.js"
@@ -129,15 +128,8 @@ const OrderedItem = function TreeOrderedItem({
   }
 
   const [node, setNode] = useState<Node | null>(null)
-  const unmountedRef = useRef(false)
   const { rootModel, root, parent } = context
   const hasChildren = React.Children.count(children) > 0
-
-  useEffect(() => {
-    return () => {
-      unmountedRef.current = true
-    }
-  }, [])
 
   useEffect(() => {
     const path = parent ? `${parent.path}.${index}` : index.toString()

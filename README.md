@@ -5,4 +5,4 @@
 
 ---
 
-Check out the package [README](packages/react-native-gtk4/README.md) for more information.
+<div align="center">Check out the package <a href="packages/react-native-gtk4/README.md">README</a> for more information.</div>

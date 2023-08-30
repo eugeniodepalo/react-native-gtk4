@@ -10,7 +10,8 @@ describe("Window overrides", () => {
 
       expect(window.node.on).toHaveBeenCalledWith(
         "close-request",
-        expect.any(Function)
+        expect.any(Function),
+        true
       )
 
       const [, onCloseRequest] = window.node.on.mock.calls[0]

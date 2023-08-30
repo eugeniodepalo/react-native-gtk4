@@ -1,13 +1,11 @@
 import Gtk from "@girs/node-gtk-4.0"
-import NodeContainer from "../../src/container/node.js"
+import NodeContainer from "../../src/containers/node.js"
 import { Reconciler } from "../../src/reconciler.js"
 import { Widget, Window } from "../../src/generated/widgets.js"
 
 jest.mock("react")
 jest.mock("../../src/generated/widgets/Widget.js")
 jest.mock("../../src/generated/widgets/Window.js")
-jest.mock("../../src/generated/widgets/ApplicationWindow.js")
-jest.mock("../../src/components/ApplicationProvider.js")
 jest.mock("../../src/reconciler.js")
 
 describe("NodeContainer", () => {

@@ -6,5 +6,5 @@ const parent = {
 
 Window.prototype.commitMount = function (this: Window) {
   parent.commitMount.call(this)
-  this.node.on("close-request", () => true)
+  this.node.on("close-request", () => true, true)
 }

@@ -5,13 +5,13 @@ import AbstractWidget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Gtk from "@girs/node-gtk-4.0"
 import _ from "lodash"
-import NodeContainer from "./container/node.js"
+import NodeContainer from "./containers/node.js"
 import Widget from "./generated/widgets/Widget.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
 
-type WidgetConstructor = typeof Widget & {
+export type WidgetConstructor = typeof Widget & {
   createNode(props: Record<string, any>): Gtk.Widget
 }
 
@@ -20,6 +20,16 @@ function definedProps(obj: Record<string, any>) {
     obj,
     (value, key) => value === undefined || key === "children"
   )
+}
+
+export function getWidgetClass(type: string): WidgetConstructor {
+  const Widget = widgets[type as keyof typeof widgets]
+
+  if (!Widget) {
+    throw new Error(`Unknown widget type: ${type}`)
+  }
+
+  return Widget as WidgetConstructor
 }
 
 const hostConfig: HostConfig<
@@ -44,7 +54,7 @@ const hostConfig: HostConfig<
   isPrimaryRenderer: true,
   noTimeout: -1,
   createInstance(type, instanceProps) {
-    const Widget = widgets[type] as WidgetConstructor
+    const Widget = getWidgetClass(type)
     const props = definedProps(instanceProps)
     const node = Widget.createNode(props)
     return new Widget(props, node)

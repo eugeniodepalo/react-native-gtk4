@@ -3,7 +3,7 @@ import Gtk from "@girs/node-gtk-4.0"
 import gi from "@girs/node-gtk"
 import ApplicationContainer, {
   MAX_TIMEOUT,
-} from "../../src/container/application.js"
+} from "../../src/containers/application.js"
 import { withApplicationContext } from "../../src/components/ApplicationProvider.js"
 import { Reconciler } from "../../src/reconciler.js"
 import { ApplicationWindow } from "../../src/generated/widgets.js"

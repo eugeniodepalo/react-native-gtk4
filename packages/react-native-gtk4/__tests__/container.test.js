@@ -3,13 +3,13 @@ import {
   destroyContainer,
   PRIVATE_CONTAINER_KEY,
 } from "../src/container.js"
-import NodeContainer from "../src/container/node.js"
-import ApplicationContainer from "../src/container/application.js"
+import NodeContainer from "../src/containers/node.js"
+import ApplicationContainer from "../src/containers/application.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 jest.mock("../src/reconciler.js")
-jest.mock("../src/container/node.js")
-jest.mock("../src/container/application.js")
+jest.mock("../src/containers/node.js")
+jest.mock("../src/containers/application.js")
 
 describe("Container", () => {
   describe("createContainer", () => {

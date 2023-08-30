@@ -48,6 +48,7 @@ import {
   TreeExpander,
   Calendar,
   SpinButton,
+  createPortal,
 } from "react-native-gtk4"
 
 enum Column {
@@ -294,6 +295,8 @@ export default function App() {
     }
   }, [])
 
+  const [containerBox, setContentBox] = useState<Gtk.Box | null>(null)
+
   return (
     <ApplicationWindow
       title="Kitchen Sink"
@@ -313,6 +316,14 @@ export default function App() {
       <Grid.Container hexpand vexpand>
         <Grid.Item col={0} row={0} width={1} height={1}>
           <Box orientation={Gtk.Orientation.VERTICAL} hexpand vexpand>
+            <Box
+              ref={(node: Gtk.Box | null) => setContentBox(node)}
+              hexpand
+              vexpand
+            />
+            {containerBox
+              ? createPortal(<Label label="Portal" />, containerBox)
+              : null}
             <Box orientation={Gtk.Orientation.HORIZONTAL} hexpand>
               <Stack.Container
                 hexpand

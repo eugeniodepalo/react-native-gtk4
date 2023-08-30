@@ -107,6 +107,26 @@ describe("TextView", () => {
       expect(textView.node.addOverlay).toHaveBeenCalledWith(child.node, x, y)
     })
 
+    test("should remove overlay when unmounted", () => {
+      const x = 10
+      const y = 20
+
+      render(
+        <TextView.Container>
+          <TextView.Overlay x={x} y={y}>
+            <Box />
+          </TextView.Overlay>
+        </TextView.Container>
+      )
+
+      const textView = findBy({ type: "TextView" })
+      const child = findBy({ type: "Box" })
+
+      render(null)
+
+      expect(textView.node.remove).toHaveBeenCalledWith(child.node)
+    })
+
     test("should throw when not inside TextView.Container", () => {
       expect(() => {
         render(
@@ -155,6 +175,25 @@ describe("TextView", () => {
         child.node,
         anchor
       )
+    })
+
+    test("should remove child when unmounted", () => {
+      const anchor = new Gtk.TextChildAnchor()
+
+      render(
+        <TextView.Container>
+          <TextView.Anchor anchor={anchor}>
+            <Box />
+          </TextView.Anchor>
+        </TextView.Container>
+      )
+
+      const textView = findBy({ type: "TextView" })
+      const child = findBy({ type: "Box" })
+
+      render(null)
+
+      expect(textView.node.remove).toHaveBeenCalledWith(child.node)
     })
 
     test("should throw when not inside TextView.Container", () => {

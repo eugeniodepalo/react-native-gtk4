@@ -207,6 +207,23 @@ describe("HeaderBar", () => {
       expect(headerBar.node.packEnd).toHaveBeenCalledWith(child.node)
     })
 
+    test("should pack child to start", () => {
+      render(
+        <HeaderBar.Container>
+          <HeaderBar.Section position="start">
+            <HeaderBar.Item>
+              <Box />
+            </HeaderBar.Item>
+          </HeaderBar.Section>
+        </HeaderBar.Container>
+      )
+
+      const headerBar = findBy({ type: "HeaderBar" })
+      const child = findBy({ type: "Box" })
+
+      expect(headerBar.node.packStart).toHaveBeenCalledWith(child.node)
+    })
+
     test("should set title widget", () => {
       render(<HeaderBar.Container title={<Box />} />)
 

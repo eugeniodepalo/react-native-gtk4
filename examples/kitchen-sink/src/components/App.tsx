@@ -86,6 +86,7 @@ export default function App() {
   const [selectedDay, setSelectedDay] = useState(1)
   const [calendarMonth, setCalendarMonth] = useState(1)
   const [calendarYear, setCalendarYear] = useState(new Date().getFullYear())
+  const [containerBox, setContentBox] = useState<Gtk.Box | null>(null)
 
   const listItems = useMemo(() => {
     return Array.from(Array(500).keys()).map((i) => `Item ${i}`)
@@ -294,8 +295,6 @@ export default function App() {
       clearTimeout(timeout)
     }
   }, [])
-
-  const [containerBox, setContentBox] = useState<Gtk.Box | null>(null)
 
   return (
     <ApplicationWindow

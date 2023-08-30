@@ -1,12 +1,12 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
 import { DefaultEventPriority } from "react-reconciler/constants"
-import AbstractWidget from "./widget.js"
 import Label from "./generated/widgets/Label.js"
 import Gtk from "@girs/node-gtk-4.0"
 import _ from "lodash"
-import NodeContainer from "./containers/node.js"
 import Widget from "./generated/widgets/Widget.js"
+import AbstractNode from "./node.js"
+import AbstractWidget from "./widget.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
@@ -35,7 +35,7 @@ export function getWidgetClass(type: string): WidgetConstructor {
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  NodeContainer<any>,
+  AbstractNode,
   AbstractWidget,
   AbstractWidget,
   AbstractWidget,

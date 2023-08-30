@@ -3,9 +3,12 @@ import AbstractNode from "./node.js"
 
 export default abstract class AbstractWidget<
   T extends Gtk.Widget = Gtk.Widget,
-> extends AbstractNode<T, Gtk.Widget> {
+> extends AbstractNode<T> {
   handlers: Record<string, any> = {}
   props: Record<string, any> = {}
+
+  abstract set(propName: string, newValue: any): void
+  abstract commitMount(): void
 
   constructor(props: Record<string, any> = {}, node: T) {
     super(node)
@@ -16,9 +19,6 @@ export default abstract class AbstractWidget<
       this.set(propName, props[propName])
     }
   }
-
-  abstract set(propName: string, newValue: any): void
-  abstract commitMount(): void
 
   setHandler(handlerName: string, handler: any): void {
     const oldHandler = this.handlers[handlerName]
@@ -36,19 +36,5 @@ export default abstract class AbstractWidget<
       this.node.on(handlerName, newHandler)
       this.handlers[handlerName] = newHandler
     }
-  }
-
-  getClosestParentOfType<T>(type: new () => T): T | null {
-    let parent = this.parent
-
-    while (parent) {
-      if (parent.node instanceof type) {
-        return parent.node
-      }
-
-      parent = parent.parent
-    }
-
-    return null
   }
 }

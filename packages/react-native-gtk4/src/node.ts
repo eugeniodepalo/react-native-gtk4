@@ -1,18 +1,20 @@
-export default abstract class AbstractNode<T = any, U = any> {
-  children: AbstractNode<U>[] = []
-  parent: AbstractNode<U> | null = null
+import Gtk from "@girs/node-gtk-4.0"
+
+export default class Node<T = any> {
+  children: Node[] = []
+  parent: Node | null = null
   node: T
 
   constructor(node: T) {
     this.node = node
   }
 
-  appendChild(child: AbstractNode<U>): void {
+  appendChild(child: Node): void {
     this.children.push(child)
     child.parent = this
   }
 
-  removeChild(child: AbstractNode<U>): void {
+  removeChild(child: Node): void {
     const index = this.children.indexOf(child)
 
     if (index === -1) {
@@ -20,10 +22,17 @@ export default abstract class AbstractNode<T = any, U = any> {
     }
 
     this.children.splice(index, 1)
+
+    if (child.node instanceof Gtk.Window) {
+      child.node.destroy()
+    } else if (child.node instanceof Gtk.Widget) {
+      child.node.unparent()
+    }
+
     child.parent = null
   }
 
-  insertBefore(child: AbstractNode<U>, beforeChild: AbstractNode<U>): void {
+  insertBefore(child: Node, beforeChild: Node): void {
     const beforeIndex = this.children.indexOf(beforeChild)
     const index = beforeIndex - 1
 
@@ -38,5 +47,19 @@ export default abstract class AbstractNode<T = any, U = any> {
 
     this.children.splice(index, 0, child)
     child.parent = this
+  }
+
+  getClosestParentOfType<T>(type: new () => T): T | null {
+    let parent = this.parent
+
+    while (parent) {
+      if (parent.node instanceof type) {
+        return parent.node
+      }
+
+      parent = parent.parent
+    }
+
+    return null
   }
 }

@@ -68,7 +68,9 @@ const OrderedItem = function ListProviderItem({
     model.splice(index, 0, [id])
 
     return () => {
-      model.remove(index)
+      if (model.getItem(index)) {
+        model.remove(index)
+      }
 
       setItems((items) => {
         delete items[id]

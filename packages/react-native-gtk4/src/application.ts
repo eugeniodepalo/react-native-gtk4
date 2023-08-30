@@ -1,26 +1,20 @@
 import gi from "@girs/node-gtk"
 import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
-import {
-  ApplicationContext,
-  withApplicationContext,
-} from "../components/ApplicationProvider.js"
-import ApplicationWindow from "../generated/widgets/ApplicationWindow.js"
-import NodeContainer from "./node.js"
-import { Reconciler } from "../reconciler.js"
-import AbstractNode from "../node.js"
+import { ApplicationContext } from "./components/ApplicationProvider.js"
+import ApplicationWindow from "./generated/widgets/ApplicationWindow.js"
+import AbstractNode from "./node.js"
 
 export const MAX_TIMEOUT = 2147483647
 
-export default class ApplicationContainer<
-  T extends Gtk.Application = Gtk.Application,
-> extends NodeContainer<T, Gtk.Widget> {
-  private context: ApplicationContext
+export default class Application extends AbstractNode<Gtk.Application> {
+  context: ApplicationContext
+
   private loop: GLib.MainLoop
   private timeout?: NodeJS.Timeout
 
-  constructor(node: T, reconciler?: Reconciler) {
-    super(node, reconciler)
+  constructor(node: Gtk.Application) {
+    super(node)
 
     this.loop = GLib.MainLoop.new(null, false)
 
@@ -35,9 +29,9 @@ export default class ApplicationContainer<
     }
   }
 
-  render(element: React.ReactNode) {
+  run(callback: () => void) {
     this.node.on("activate", () => {
-      super.render(withApplicationContext(element, this.context))
+      callback()
 
       const loop = () => {
         this.timeout = setTimeout(loop, MAX_TIMEOUT)
@@ -51,20 +45,17 @@ export default class ApplicationContainer<
     this.node.run([])
   }
 
-  appendChild(child: AbstractNode<Gtk.Widget>) {
+  appendChild<T>(child: AbstractNode<T>) {
     super.appendChild(child)
     this.afterInsert(child)
   }
 
-  insertBefore(
-    child: AbstractNode<Gtk.Widget>,
-    beforeChild: AbstractNode<Gtk.Widget>
-  ) {
+  insertBefore<T, U>(child: AbstractNode<T>, beforeChild: AbstractNode<U>) {
     super.insertBefore(child, beforeChild)
     this.afterInsert(child)
   }
 
-  private afterInsert(child: AbstractNode<Gtk.Widget>) {
+  private afterInsert<T>(child: AbstractNode<T>) {
     if (child instanceof ApplicationWindow) {
       child.node.setApplication(this.node)
     }

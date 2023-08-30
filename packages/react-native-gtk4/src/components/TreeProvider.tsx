@@ -134,6 +134,7 @@ const OrderedItem = function TreeOrderedItem({
   useEffect(() => {
     const path = parent ? `${parent.path}.${index}` : index.toString()
     const updatedNode = node ?? { value: null, path: "", children: [] }
+    const rootIndex = Number(path.split(".")[0])
 
     updatedNode.value = value
     updatedNode.path = path
@@ -143,7 +144,7 @@ const OrderedItem = function TreeOrderedItem({
       rootModel.splice(index, 0, [path])
     } else {
       parent.children.splice(index, 0, updatedNode)
-      rootModel.itemsChanged(Number(path.split(".")[0]), 1, 1)
+      rootModel.itemsChanged(rootIndex, 1, 1)
     }
 
     setNode(updatedNode)
@@ -159,7 +160,10 @@ const OrderedItem = function TreeOrderedItem({
         rootModel.splice(index, 1, [])
       } else {
         parent.children.splice(index, 1)
-        rootModel.itemsChanged(Number(path.split(".")[0]), 1, 1)
+
+        if (rootModel.getItem(rootIndex)) {
+          rootModel.itemsChanged(rootIndex, 1, 1)
+        }
       }
 
       setItems((items) => {

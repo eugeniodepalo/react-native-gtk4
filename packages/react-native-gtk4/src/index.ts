@@ -55,5 +55,9 @@ export default function render(
   element: React.ReactNode,
   application: Gtk.Application
 ) {
-  createContainer(application).render(element)
+  const container = createContainer(application)
+
+  container.rootNode.run(() => {
+    container.render(element)
+  })
 }

@@ -1,5 +1,5 @@
 import { DefaultEventPriority } from "react-reconciler/constants.js"
-import { createRootNode } from "../src/root-node.js"
+import { createRootNode } from "../src/rootNode.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("Reconciler", () => {
@@ -13,7 +13,7 @@ describe("Reconciler", () => {
     jest.doMock("react-reconciler")
     jest.doMock("../src/generated/widgets/Label.js")
     jest.doMock("../src/generated/widgets.js")
-    jest.doMock("../src/root-node.js")
+    jest.doMock("../src/rootNode.js")
 
     module = await import("../src/reconciler.js")
     Label = (await import("../src/generated/widgets/Label.js")).default

@@ -1,9 +1,9 @@
 import { createPortal, REACT_PORTAL_TYPE } from "../src/portal.js"
 import Gtk from "@girs/node-gtk-4.0"
 import Gio from "@girs/node-gio-2.0"
-import { createRootNode } from "../src/root-node.js"
+import { createRootNode } from "../src/rootNode.js"
 
-jest.mock("../src/root-node.js")
+jest.mock("../src/rootNode.js")
 
 describe("Portal", () => {
   let portal

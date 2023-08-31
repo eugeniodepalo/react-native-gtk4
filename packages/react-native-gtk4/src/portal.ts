@@ -1,7 +1,7 @@
 import { ReactPortal } from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import Gio from "@girs/node-gio-2.0"
-import { createRootNode } from "./root-node.js"
+import { createRootNode } from "./rootNode.js"
 
 export const REACT_PORTAL_TYPE = Symbol.for("react.portal")
 

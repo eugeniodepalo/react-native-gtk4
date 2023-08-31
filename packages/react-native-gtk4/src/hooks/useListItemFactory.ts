@@ -4,7 +4,7 @@ import React, { createRef, useEffect, useMemo } from "react"
 import { Reconciler, createReconciler } from "../reconciler.js"
 import useListModel from "./useListModel.js"
 import Container from "../container.js"
-import { RootNode, createRootNode } from "../root-node.js"
+import { RootNode, createRootNode } from "../rootNode.js"
 
 export const PRIVATE_CONTAINER_KEY = Symbol(
   "react-native-gtk4.listItemContainer"

@@ -2,7 +2,7 @@ import { Reconciler } from "../reconciler.js"
 import "../overrides.js"
 import Gtk from "@girs/node-gtk-4.0"
 import Gio from "@girs/node-gio-2.0"
-import { createRootNode } from "../root-node.js"
+import { createRootNode } from "../rootNode.js"
 import Container from "../container.js"
 
 const textPredicate = (predicate, child) => {

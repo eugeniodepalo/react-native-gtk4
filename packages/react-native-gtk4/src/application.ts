@@ -45,17 +45,17 @@ export default class Application extends AbstractNode<Gtk.Application> {
     this.node.run([])
   }
 
-  appendChild<T>(child: AbstractNode<T>) {
+  appendChild(child: AbstractNode) {
     super.appendChild(child)
     this.afterInsert(child)
   }
 
-  insertBefore<T, U>(child: AbstractNode<T>, beforeChild: AbstractNode<U>) {
+  insertBefore(child: AbstractNode, beforeChild: AbstractNode) {
     super.insertBefore(child, beforeChild)
     this.afterInsert(child)
   }
 
-  private afterInsert<T>(child: AbstractNode<T>) {
+  private afterInsert(child: AbstractNode) {
     if (child instanceof ApplicationWindow) {
       child.node.setApplication(this.node)
     }

@@ -30,7 +30,7 @@ function createContainer(
   return container
 }
 
-export function destroyContainer(listItem: ListItemWithContainer) {
+function destroyContainer(listItem: ListItemWithContainer) {
   const container = listItem[PRIVATE_CONTAINER_KEY]
 
   if (container) {

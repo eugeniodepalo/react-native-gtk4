@@ -6,12 +6,11 @@ import Gtk from "@girs/node-gtk-4.0"
 import _ from "lodash"
 import Widget from "./generated/widgets/Widget.js"
 import Node from "./node.js"
-import AbstractWidget from "./widget.js"
 
 type ElementType = keyof typeof widgets
 type UpdatePayload = [string, any][]
 
-export type WidgetConstructor = typeof Widget & {
+type WidgetConstructor = typeof Widget & {
   createNode(props: Record<string, any>): Gtk.Widget
 }
 
@@ -36,14 +35,14 @@ const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
   Node,
-  AbstractWidget,
-  AbstractWidget,
-  AbstractWidget,
-  AbstractWidget,
+  Widget,
+  Widget,
+  Widget,
+  Widget,
   Gtk.Widget,
   unknown,
   UpdatePayload,
-  Set<AbstractWidget>,
+  Set<Widget>,
   ReturnType<typeof setTimeout>,
   -1
 > = {

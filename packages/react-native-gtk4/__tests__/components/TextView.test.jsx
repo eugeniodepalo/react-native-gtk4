@@ -122,6 +122,8 @@ describe("TextView", () => {
       const textView = findBy({ type: "TextView" })
       const child = findBy({ type: "Box" })
 
+      child.node.parent = textView.node
+
       render(null)
 
       expect(textView.node.remove).toHaveBeenCalledWith(child.node)
@@ -190,6 +192,8 @@ describe("TextView", () => {
 
       const textView = findBy({ type: "TextView" })
       const child = findBy({ type: "Box" })
+
+      child.node.parent = textView.node
 
       render(null)
 

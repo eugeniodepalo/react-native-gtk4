@@ -1,5 +1,5 @@
 import Gtk from "@girs/node-gtk-4.0"
-import { createRootNode } from "./rootNode.js"
+import { createRootNode } from "./root-node.js"
 import { createReconciler } from "./reconciler.js"
 import "./generated/jsx.js"
 import "./overrides.js"

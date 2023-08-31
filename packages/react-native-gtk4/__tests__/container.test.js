@@ -1,55 +1,65 @@
-import {
-  createContainer,
-  destroyContainer,
-  PRIVATE_CONTAINER_KEY,
-} from "../src/container.js"
-import NodeContainer from "../src/containers/node.js"
-import ApplicationContainer from "../src/containers/application.js"
-import Gtk from "@girs/node-gtk-4.0"
+import Container from "../src/container.js"
+import { Reconciler } from "../src/reconciler.js"
 
+jest.mock("react")
+jest.mock("../src/generated/widgets/Widget.js")
+jest.mock("../src/generated/widgets/Window.js")
 jest.mock("../src/reconciler.js")
-jest.mock("../src/containers/node.js")
-jest.mock("../src/containers/application.js")
 
 describe("Container", () => {
-  describe("createContainer", () => {
-    test("should create a node container", () => {
-      const node = {}
-      const reconciler = {}
+  let container
+  let reconcilerContainer
+  let rootNode
 
-      const container = createContainer(node, reconciler)
+  beforeEach(() => {
+    Reconciler.createContainer.mockImplementation(() => ({}))
+    rootNode = {}
+    container = new Container(rootNode)
+    reconcilerContainer = Reconciler.createContainer.mock.results[0].value
+  })
 
-      expect(NodeContainer).toHaveBeenCalledWith(node, reconciler)
-      expect(container).toEqual(NodeContainer.mock.instances[0])
-      expect(node[PRIVATE_CONTAINER_KEY]).toBe(container)
-    })
+  describe("constructor", () => {
+    test("should initialize instance", () => {
+      expect(container.container).toBe(reconcilerContainer)
 
-    test("should create an application container", () => {
-      const node = new Gtk.Application()
-      const reconciler = {}
-
-      const container = createContainer(node, reconciler)
-
-      expect(ApplicationContainer).toHaveBeenCalledWith(node, reconciler)
-      expect(container).toEqual(ApplicationContainer.mock.instances[0])
-      expect(node[PRIVATE_CONTAINER_KEY]).toBe(container)
+      expect(Reconciler.createContainer).toHaveBeenCalledWith(
+        rootNode,
+        0,
+        null,
+        false,
+        null,
+        "0",
+        expect.any(Function),
+        null
+      )
     })
   })
 
-  describe("destroyContainer", () => {
+  describe("render", () => {
+    test("should update container", () => {
+      const element = {}
+
+      container.render(element)
+
+      expect(Reconciler.updateContainer).toHaveBeenCalledWith(
+        element,
+        reconcilerContainer,
+        null,
+        expect.any(Function)
+      )
+    })
+  })
+
+  describe("destroy", () => {
     test("should destroy container", () => {
-      const destroy = jest.fn()
+      container.destroy()
 
-      const node = {
-        [PRIVATE_CONTAINER_KEY]: {
-          destroy,
-        },
-      }
-
-      destroyContainer(node)
-
-      expect(destroy).toHaveBeenCalled()
-      expect(node[PRIVATE_CONTAINER_KEY]).toBeUndefined()
+      expect(Reconciler.updateContainer).toHaveBeenCalledWith(
+        null,
+        reconcilerContainer,
+        null,
+        expect.any(Function)
+      )
     })
   })
 })

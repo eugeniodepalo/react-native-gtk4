@@ -23,6 +23,8 @@ describe("ListBox overrides", () => {
       const child = { node: {} }
 
       listBox.appendChild(child)
+      child.node.parent = listBox.node
+
       listBox.removeChild(child)
 
       expect(listBox.node.remove).toHaveBeenCalledWith(child.node)

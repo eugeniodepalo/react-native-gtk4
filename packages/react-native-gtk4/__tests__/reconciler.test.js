@@ -1,9 +1,9 @@
 import { DefaultEventPriority } from "react-reconciler/constants.js"
-import { createContainer } from "../src/container.js"
+import { createRootNode } from "../src/root-node.js"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("Reconciler", () => {
-  let container
+  let rootNode
   let Label
   let Widget
   let module
@@ -13,15 +13,15 @@ describe("Reconciler", () => {
     jest.doMock("react-reconciler")
     jest.doMock("../src/generated/widgets/Label.js")
     jest.doMock("../src/generated/widgets.js")
-    jest.doMock("../src/container.js")
+    jest.doMock("../src/root-node.js")
 
     module = await import("../src/reconciler.js")
     Label = (await import("../src/generated/widgets/Label.js")).default
     Widget = (await import("../src/generated/widgets.js")).Widget
     ReactReconciler = await import("react-reconciler")
 
-    container = createContainer(new Gtk.Application())
-    container.children = []
+    rootNode = createRootNode(new Gtk.Application())
+    rootNode.children = []
 
     Widget.createNode = jest.fn(() => new Gtk.Widget())
     Label.createNode = jest.fn(() => new Gtk.Label())
@@ -31,7 +31,7 @@ describe("Reconciler", () => {
     test("should create a reconciler", () => {
       jest.clearAllMocks()
 
-      const reconciler = module.createReconciler(container)
+      const reconciler = module.createReconciler()
 
       expect(ReactReconciler).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -146,7 +146,7 @@ describe("Reconciler", () => {
       test("should remove undefined props", () => {
         const props = { some: "Prop", undefined: undefined }
 
-        hostConfig.createInstance("Widget", props, container)
+        hostConfig.createInstance("Widget", props, rootNode)
 
         expect(Widget.createNode).toHaveBeenCalledWith({ some: "Prop" })
 
@@ -161,7 +161,7 @@ describe("Reconciler", () => {
       test("should create a label", () => {
         const text = "Some text"
 
-        hostConfig.createTextInstance(text, container)
+        hostConfig.createTextInstance(text, rootNode)
 
         expect(Label.createNode).toHaveBeenCalled()
 
@@ -239,7 +239,7 @@ describe("Reconciler", () => {
         const newProps = { ...oldProps, new: "Prop" }
 
         const payload = hostConfig.prepareUpdate(
-          container,
+          rootNode,
           "Widget",
           oldProps,
           newProps
@@ -374,40 +374,40 @@ describe("Reconciler", () => {
     })
 
     describe("clearContainer", () => {
-      test("should remove all children from the container", () => {
-        container.removeChild = jest.fn()
-        container.children = [{}, {}, {}]
+      test("should remove all children from the rootNode", () => {
+        rootNode.removeChild = jest.fn()
+        rootNode.children = [{}, {}, {}]
 
-        hostConfig.clearContainer(container)
+        hostConfig.clearContainer(rootNode)
 
-        for (const child of container.children) {
-          expect(container.removeChild).toHaveBeenCalledWith(child)
+        for (const child of rootNode.children) {
+          expect(rootNode.removeChild).toHaveBeenCalledWith(child)
         }
       })
     })
 
     describe("appendChildToContainer", () => {
-      test("should append a child to the container", () => {
+      test("should append a child to the rootNode", () => {
         const child = {}
 
-        container.appendChild = jest.fn()
+        rootNode.appendChild = jest.fn()
 
-        hostConfig.appendChildToContainer(container, child)
+        hostConfig.appendChildToContainer(rootNode, child)
 
-        expect(container.appendChild).toHaveBeenCalledWith(child)
+        expect(rootNode.appendChild).toHaveBeenCalledWith(child)
       })
     })
 
     describe("insertInContainerBefore", () => {
-      test("should insert a child in the container", () => {
+      test("should insert a child in the rootNode", () => {
         const child = {}
         const beforeChild = {}
 
-        container.insertBefore = jest.fn()
+        rootNode.insertBefore = jest.fn()
 
-        hostConfig.insertInContainerBefore(container, child, beforeChild)
+        hostConfig.insertInContainerBefore(rootNode, child, beforeChild)
 
-        expect(container.insertBefore).toHaveBeenCalledWith(child, beforeChild)
+        expect(rootNode.insertBefore).toHaveBeenCalledWith(child, beforeChild)
       })
     })
 

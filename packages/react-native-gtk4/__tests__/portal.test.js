@@ -1,26 +1,27 @@
 import { createPortal, REACT_PORTAL_TYPE } from "../src/portal.js"
 import Gtk from "@girs/node-gtk-4.0"
-import { createContainer } from "../src/container.js"
 import Gio from "@girs/node-gio-2.0"
+import { createRootNode } from "../src/root-node.js"
 
-jest.mock("../src/container.js")
+jest.mock("../src/root-node.js")
 
 describe("Portal", () => {
   let portal
 
   describe("createPortal", () => {
     const key = "key"
-    let rootNode
+
+    let application
     let children
-    let container
+    let rootNode
 
     beforeEach(() => {
-      createContainer.mockImplementation(() => ({}))
+      createRootNode.mockImplementation(() => ({}))
 
-      rootNode = new Gtk.Application()
+      application = new Gtk.Application()
       children = []
-      portal = createPortal(children, rootNode, key)
-      container = createContainer.mock.results[0].value
+      portal = createPortal(children, application, key)
+      rootNode = createRootNode.mock.results[0].value
     })
 
     test("should create a portal with a container", () => {
@@ -28,11 +29,11 @@ describe("Portal", () => {
         $$typeof: REACT_PORTAL_TYPE,
         key,
         children,
-        containerInfo: container,
+        containerInfo: rootNode,
         implementation: null,
       })
 
-      expect(createContainer).toHaveBeenCalledWith(rootNode)
+      expect(createRootNode).toHaveBeenCalledWith(application)
     })
 
     test("should throw an error when root node is null", () => {
@@ -48,11 +49,11 @@ describe("Portal", () => {
         $$typeof: REACT_PORTAL_TYPE,
         key: null,
         children,
-        containerInfo: container,
+        containerInfo: rootNode,
         implementation: null,
       })
 
-      expect(createContainer).toHaveBeenCalledWith(rootNode)
+      expect(createRootNode).toHaveBeenCalledWith(application)
     })
 
     test("should use default application", () => {
@@ -61,18 +62,17 @@ describe("Portal", () => {
 
       portal = createPortal(children)
 
-      const rootNode = Gio.Application.getDefault.mock.results[0].value
-      const container = createContainer.mock.results[0].value
+      const application = Gio.Application.getDefault.mock.results[0].value
 
       expect(portal).toMatchObject({
         $$typeof: REACT_PORTAL_TYPE,
         key: null,
         children,
-        containerInfo: container,
+        containerInfo: rootNode,
         implementation: null,
       })
 
-      expect(createContainer).toHaveBeenCalledWith(rootNode)
+      expect(createRootNode).toHaveBeenCalledWith(application)
     })
   })
 })

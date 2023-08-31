@@ -23,6 +23,7 @@ describe("HeaderBar overrides", () => {
       const child = { node: {} }
 
       headerBar.appendChild(child)
+      child.node.parent = headerBar.node
 
       headerBar.removeChild(child)
 

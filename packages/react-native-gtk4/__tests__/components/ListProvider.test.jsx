@@ -24,6 +24,8 @@ describe("ListProvider", () => {
 
     const items = []
 
+    context.model.getItem = jest.fn((index) => items[index])
+
     context.model.splice = jest.fn((index, count, values) => {
       items.splice(index, count, ...values)
     })

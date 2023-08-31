@@ -23,6 +23,7 @@ describe("Box overrides", () => {
       const child = { node: {} }
 
       box.appendChild(child)
+      child.node.parent = box.node
 
       box.removeChild(child)
 

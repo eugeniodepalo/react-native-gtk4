@@ -23,6 +23,8 @@ describe("Overlay overrides", () => {
       const child = { node: {} }
 
       overlay.appendChild(child)
+      child.node.parent = overlay.node
+
       overlay.removeChild(child)
 
       expect(overlay.node.removeOverlay).toHaveBeenCalledWith(child.node)

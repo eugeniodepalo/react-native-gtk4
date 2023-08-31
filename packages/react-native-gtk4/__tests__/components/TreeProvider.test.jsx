@@ -24,6 +24,10 @@ describe("TreeProvider", () => {
         this.items = []
       }
 
+      getItem(index) {
+        return this.items[index]
+      }
+
       append(value) {
         this.items.push(value)
       }
@@ -417,7 +421,13 @@ describe("TreeProvider", () => {
         </TreeProvider.Container>
       )
 
-      render(null)
+      render(
+        <TreeProvider.Container>
+          <TreeProvider.List>
+            <TreeProvider.Item value={value} />
+          </TreeProvider.List>
+        </TreeProvider.Container>
+      )
 
       expect(rootModel.itemsChanged).toHaveBeenCalledTimes(2)
       expect(rootModel.itemsChanged).toHaveBeenCalledWith(0, 1, 1)

@@ -1,4 +1,6 @@
 import AbstractNode from "../src/node.js"
+import { Widget, Window } from "../src/generated/widgets.js"
+import Gtk from "@girs/node-gtk-4.0"
 
 describe("AbstractNode", () => {
   let node
@@ -40,6 +42,30 @@ describe("AbstractNode", () => {
       expect(() => node.removeChild({})).toThrow(
         "Child to be removed not found in parent"
       )
+    })
+
+    test("should unparent widgets", () => {
+      const child = new Widget()
+
+      child.node = new Gtk.Widget()
+
+      node.appendChild(child)
+
+      node.removeChild(child)
+
+      expect(child.node.unparent).toHaveBeenCalled()
+    })
+
+    test("should destroy windows", () => {
+      const child = new Window({})
+
+      child.node = new Gtk.Window()
+
+      node.appendChild(child)
+
+      node.removeChild(child)
+
+      expect(child.node.destroy).toHaveBeenCalled()
     })
   })
 

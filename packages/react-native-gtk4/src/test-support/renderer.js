@@ -1,9 +1,9 @@
 import { Reconciler } from "../reconciler.js"
-import { withApplicationContext } from "../components/ApplicationProvider.js"
 import "../overrides.js"
 import Gtk from "@girs/node-gtk-4.0"
 import Gio from "@girs/node-gio-2.0"
-import { createContainer } from "../container.js"
+import { createRootNode } from "../root-node.js"
+import Container from "../container.js"
 
 const textPredicate = (predicate, child) => {
   return (
@@ -41,36 +41,23 @@ export default class Renderer {
     Gio.Application.getDefault = jest.fn(() => this.application)
 
     this.application = new Gtk.Application()
-    this.applicationContainer = createContainer(this.application)
+    this.applicationContainer = new Container(createRootNode(this.application))
     this.container = Reconciler.createContainer.mock.results[0].value
-
-    this.applicationContext = {
-      application: this.application,
-      quit: jest.fn(),
-    }
   }
 
   render(element) {
     jest.spyOn(console, "error").mockImplementation(() => {})
-
-    Reconciler.updateContainer(
-      withApplicationContext(element, this.applicationContext),
-      this.container,
-      null,
-      () => {}
-    )
+    this.applicationContainer.render(element)
 
     while (jest.getTimerCount() > 0) {
       jest.runAllTimers()
-      Reconciler.flushSync(() => {})
-      Reconciler.flushControlled(() => {})
-      Reconciler.flushPassiveEffects()
+      this.applicationContainer.commit()
     }
 
     console.error.mockRestore()
   }
 
-  findAllBy(predicate = {}, root = this.applicationContainer) {
+  findAllBy(predicate = {}, root = this.applicationContainer.rootNode) {
     const results = []
 
     for (const child of root.children) {
@@ -84,7 +71,7 @@ export default class Renderer {
     return results
   }
 
-  findBy(predicate = {}, root = this.applicationContainer) {
+  findBy(predicate = {}, root = this.applicationContainer.rootNode) {
     return this.findAllBy(predicate, root)[0] ?? null
   }
 

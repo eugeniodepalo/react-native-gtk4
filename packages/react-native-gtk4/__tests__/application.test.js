@@ -1,38 +1,27 @@
 import GLib from "@girs/node-glib-2.0"
 import Gtk from "@girs/node-gtk-4.0"
 import gi from "@girs/node-gtk"
-import ApplicationContainer, {
-  MAX_TIMEOUT,
-} from "../../src/containers/application.js"
-import { withApplicationContext } from "../../src/components/ApplicationProvider.js"
-import { Reconciler } from "../../src/reconciler.js"
-import { ApplicationWindow } from "../../src/generated/widgets.js"
+import Application, { MAX_TIMEOUT } from "../src/application.js"
+import { ApplicationWindow } from "../src/generated/widgets.js"
 
 jest.mock("react")
-jest.mock("../../src/generated/widgets/Widget.js")
-jest.mock("../../src/generated/widgets/Window.js")
-jest.mock("../../src/generated/widgets/ApplicationWindow.js")
-jest.mock("../../src/components/ApplicationProvider.js")
-jest.mock("../../src/reconciler.js")
+jest.mock("../src/generated/widgets/Widget.js")
+jest.mock("../src/generated/widgets/Window.js")
+jest.mock("../src/generated/widgets/ApplicationWindow.js")
 
-describe("ApplicationContainer", () => {
+describe("Application", () => {
   let application
-  let applicationContainer
-  let container
+  let rootNode
   let loop
 
   beforeEach(() => {
-    Reconciler.createContainer.mockImplementation(() => ({}))
-    withApplicationContext.mockImplementation(() => ({}))
-
     GLib.MainLoop.new.mockImplementation(() => ({
       run: jest.fn(),
       quit: jest.fn(),
     }))
 
     application = new Gtk.Application()
-    applicationContainer = new ApplicationContainer(application)
-    container = Reconciler.createContainer.mock.results[0].value
+    rootNode = new Application(application)
     loop = GLib.MainLoop.new.mock.results[0].value
   })
 
@@ -47,9 +36,7 @@ describe("ApplicationContainer", () => {
       jest.useFakeTimers()
       jest.spyOn(global, "setTimeout")
 
-      const element = {}
-
-      applicationContainer.render(element)
+      rootNode.run(() => {})
 
       expect(application.run).toHaveBeenCalledWith([])
 
@@ -61,13 +48,6 @@ describe("ApplicationContainer", () => {
       const [, onActivate] = application.on.mock.calls[0]
 
       onActivate()
-
-      expect(Reconciler.updateContainer).toHaveBeenCalledWith(
-        withApplicationContext.mock.results[0].value,
-        container,
-        null,
-        expect.any(Function)
-      )
 
       expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), MAX_TIMEOUT)
       expect(gi.startLoop).toHaveBeenCalled()
@@ -87,22 +67,13 @@ describe("ApplicationContainer", () => {
       jest.spyOn(global, "setTimeout")
       jest.spyOn(global, "clearTimeout")
 
-      const element = {}
-
-      applicationContainer.render(element)
+      rootNode.run(() => {})
 
       const [, onActivate] = application.on.mock.calls[0]
 
       onActivate()
 
-      expect(withApplicationContext).toHaveBeenCalledWith(
-        element,
-        expect.objectContaining({
-          application,
-        })
-      )
-
-      const [, { quit }] = withApplicationContext.mock.calls[0]
+      const { quit } = rootNode.context
       const timeout = setTimeout.mock.results[0].value
       const result = quit()
 
@@ -119,7 +90,7 @@ describe("ApplicationContainer", () => {
 
       child.node = new Gtk.ApplicationWindow()
 
-      applicationContainer.appendChild(child)
+      rootNode.appendChild(child)
 
       expect(child.node.setApplication).toHaveBeenCalledWith(application)
     })
@@ -133,10 +104,10 @@ describe("ApplicationContainer", () => {
 
       child3.node = new Gtk.ApplicationWindow()
 
-      applicationContainer.appendChild(child1)
-      applicationContainer.appendChild(child2)
+      rootNode.appendChild(child1)
+      rootNode.appendChild(child2)
 
-      applicationContainer.insertBefore(child3, child2)
+      rootNode.insertBefore(child3, child2)
 
       expect(child3.node.setApplication).toHaveBeenCalledWith(application)
     })

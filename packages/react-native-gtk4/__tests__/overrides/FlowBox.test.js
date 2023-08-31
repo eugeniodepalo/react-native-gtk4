@@ -23,6 +23,8 @@ describe("FlowBox overrides", () => {
       const child = { node: {} }
 
       flowBox.appendChild(child)
+      child.node.parent = flowBox.node
+
       flowBox.removeChild(child)
 
       expect(flowBox.node.remove).toHaveBeenCalledWith(child.node)

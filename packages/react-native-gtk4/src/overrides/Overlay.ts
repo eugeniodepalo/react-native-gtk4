@@ -20,7 +20,10 @@ Overlay.prototype.removeChild = function (
   child: AbstractWidget
 ) {
   parent.removeChild.call(this, child)
-  this.node.removeOverlay(child.node)
+
+  if (child.node.parent === this.node) {
+    this.node.removeOverlay(child.node)
+  }
 }
 
 Overlay.prototype.insertBefore = function (

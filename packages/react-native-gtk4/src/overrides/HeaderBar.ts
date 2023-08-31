@@ -20,7 +20,10 @@ HeaderBar.prototype.removeChild = function (
   child: AbstractWidget
 ) {
   parent.removeChild.call(this, child)
-  this.node.remove(child.node)
+
+  if (child.node.parent === this.node) {
+    this.node.remove(child.node)
+  }
 }
 
 HeaderBar.prototype.insertBefore = function (

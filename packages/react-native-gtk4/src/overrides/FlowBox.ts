@@ -20,7 +20,10 @@ FlowBox.prototype.removeChild = function (
   child: AbstractWidget
 ) {
   parent.removeChild.call(this, child)
-  this.node.remove(child.node)
+
+  if (child.node.parent === this.node) {
+    this.node.remove(child.node)
+  }
 }
 
 FlowBox.prototype.insertBefore = function (

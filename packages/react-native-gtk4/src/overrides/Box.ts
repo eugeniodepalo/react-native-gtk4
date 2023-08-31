@@ -14,7 +14,10 @@ Box.prototype.appendChild = function (this: Box, child: AbstractWidget) {
 
 Box.prototype.removeChild = function (this: Box, child: AbstractWidget) {
   parent.removeChild.call(this, child)
-  this.node.remove(child.node)
+
+  if (child.node.parent === this.node) {
+    this.node.remove(child.node)
+  }
 }
 
 Box.prototype.insertBefore = function (

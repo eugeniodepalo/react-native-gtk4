@@ -49,7 +49,9 @@ const Overlay = function TextViewOverlay({
     textView.addOverlay(child, x, y)
 
     return () => {
-      textView.remove(child)
+      if (child.parent === textView) {
+        textView.remove(child)
+      }
     }
   }, [textView, x, y])
 
@@ -81,7 +83,9 @@ const Anchor = function TextViewAnchor({ children, anchor }: AnchorProps) {
     textView.addChildAtAnchor(child, anchor)
 
     return () => {
-      textView.remove(child)
+      if (child.parent === textView) {
+        textView.remove(child)
+      }
     }
   }, [textView, anchor])
 

@@ -157,7 +157,10 @@ const OrderedItem = function TreeOrderedItem({
     return () => {
       if (!parent) {
         root.splice(index, 1)
-        rootModel.splice(index, 1, [])
+
+        if (rootModel.getItem(index)) {
+          rootModel.splice(index, 1, [])
+        }
       } else {
         parent.children.splice(index, 1)
 

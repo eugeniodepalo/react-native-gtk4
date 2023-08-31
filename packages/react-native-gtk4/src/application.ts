@@ -3,11 +3,11 @@ import Gtk from "@girs/node-gtk-4.0"
 import GLib from "@girs/node-glib-2.0"
 import { ApplicationContext } from "./components/ApplicationProvider.js"
 import ApplicationWindow from "./generated/widgets/ApplicationWindow.js"
-import AbstractNode from "./node.js"
+import Node from "./node.js"
 
 export const MAX_TIMEOUT = 2147483647
 
-export default class Application extends AbstractNode<Gtk.Application> {
+export default class Application extends Node<Gtk.Application> {
   context: ApplicationContext
 
   private loop: GLib.MainLoop
@@ -45,17 +45,17 @@ export default class Application extends AbstractNode<Gtk.Application> {
     this.node.run([])
   }
 
-  appendChild(child: AbstractNode) {
+  appendChild(child: Node) {
     super.appendChild(child)
     this.afterInsert(child)
   }
 
-  insertBefore(child: AbstractNode, beforeChild: AbstractNode) {
+  insertBefore(child: Node, beforeChild: Node) {
     super.insertBefore(child, beforeChild)
     this.afterInsert(child)
   }
 
-  private afterInsert(child: AbstractNode) {
+  private afterInsert(child: Node) {
     if (child instanceof ApplicationWindow) {
       child.node.setApplication(this.node)
     }

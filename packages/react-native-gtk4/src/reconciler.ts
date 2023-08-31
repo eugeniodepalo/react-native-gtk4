@@ -5,7 +5,7 @@ import Label from "./generated/widgets/Label.js"
 import Gtk from "@girs/node-gtk-4.0"
 import _ from "lodash"
 import Widget from "./generated/widgets/Widget.js"
-import AbstractNode from "./node.js"
+import Node from "./node.js"
 import AbstractWidget from "./widget.js"
 
 type ElementType = keyof typeof widgets
@@ -35,7 +35,7 @@ export function getWidgetClass(type: string): WidgetConstructor {
 const hostConfig: HostConfig<
   ElementType,
   Record<string, any>,
-  AbstractNode,
+  Node,
   AbstractWidget,
   AbstractWidget,
   AbstractWidget,

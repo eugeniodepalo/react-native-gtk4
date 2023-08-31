@@ -1,9 +1,9 @@
 import Gtk from "@girs/node-gtk-4.0"
-import AbstractNode from "./node.js"
+import Node from "./node.js"
 
 export default abstract class AbstractWidget<
   T extends Gtk.Widget = Gtk.Widget,
-> extends AbstractNode<T> {
+> extends Node<T> {
   handlers: Record<string, any> = {}
   props: Record<string, any> = {}
 

@@ -1,12 +1,12 @@
-import AbstractNode from "../src/node.js"
+import Node from "../src/node.js"
 import { Widget, Window } from "../src/generated/widgets.js"
 import Gtk from "@girs/node-gtk-4.0"
 
-describe("AbstractNode", () => {
+describe("Node", () => {
   let node
 
   beforeEach(() => {
-    node = new (class extends AbstractNode {})()
+    node = new Node()
   })
 
   describe("constructor", () => {

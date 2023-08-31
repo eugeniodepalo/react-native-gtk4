@@ -1,9 +1,43 @@
 import GObject from "@girs/node-gobject-2.0"
 import Gtk from "@girs/node-gtk-4.0"
 import React, { createRef, useEffect, useMemo } from "react"
-import { createContainer, destroyContainer } from "../container.js"
-import { createReconciler } from "../reconciler.js"
+import { Reconciler, createReconciler } from "../reconciler.js"
 import useListModel from "./useListModel.js"
+import Container from "../container.js"
+import { RootNode, createRootNode } from "../rootNode.js"
+
+export const PRIVATE_CONTAINER_KEY = Symbol(
+  "react-native-gtk4.listItemContainer"
+)
+
+type ListItemContainer = Container<RootNode<Gtk.ListItem>>
+
+type ListItemWithContainer = Gtk.ListItem & {
+  [PRIVATE_CONTAINER_KEY]?: ListItemContainer
+}
+
+function createContainer(
+  listItem: ListItemWithContainer,
+  reconciler: Reconciler
+): ListItemContainer {
+  let container = listItem[PRIVATE_CONTAINER_KEY]
+
+  if (!container) {
+    container = new Container(createRootNode(listItem), reconciler)
+    listItem[PRIVATE_CONTAINER_KEY] = container
+  }
+
+  return container
+}
+
+export function destroyContainer(listItem: ListItemWithContainer) {
+  const container = listItem[PRIVATE_CONTAINER_KEY]
+
+  if (container) {
+    container.destroy()
+    delete listItem[PRIVATE_CONTAINER_KEY]
+  }
+}
 
 export type ListItemFactoryRenderFunction<T> = (
   value: T | null,
@@ -49,7 +83,7 @@ export default function useListItemFactory<T>(
 
     const onFactoryBind = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
-      const container = createContainer(listItem)
+      const container = createContainer(listItem, reconciler)
 
       const item =
         listItem.item instanceof Gtk.TreeListRow
@@ -64,7 +98,7 @@ export default function useListItemFactory<T>(
 
     const onFactoryUnbind = (object: GObject.Object) => {
       const listItem = object as Gtk.ListItem
-      const container = createContainer(listItem)
+      const container = createContainer(listItem, reconciler)
 
       container.render(render(null, listItem))
     }

@@ -27,6 +27,12 @@ describe("DropDown", () => {
     expect(widget.node.setFactory).toHaveBeenCalledWith(newValue)
   })
 
+  test("should set headerFactory", () => {
+    const newValue = new Gtk.ListItemFactory()
+    widget.set("headerFactory", newValue)
+    expect(widget.node.setHeaderFactory).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set listFactory", () => {
     const newValue = new Gtk.ListItemFactory()
     widget.set("listFactory", newValue)
@@ -37,6 +43,12 @@ describe("DropDown", () => {
     const newValue = new Gio.ListModel()
     widget.set("model", newValue)
     expect(widget.node.setModel).toHaveBeenCalledWith(newValue)
+  })
+
+  test("should set searchMatchMode", () => {
+    const newValue = Gtk.StringFilterMatchMode.EXACT
+    widget.set("searchMatchMode", newValue)
+    expect(widget.node.setSearchMatchMode).toHaveBeenCalledWith(newValue)
   })
 
   test("should set selected", () => {
@@ -117,6 +129,21 @@ describe("DropDown", () => {
     )
   })
 
+  test("should connect onNotifyHeaderFactory", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyHeaderFactory", callback)
+
+    const handler = widget.handlers["notify::header-factory"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::header-factory",
+      expect.any(Function)
+    )
+  })
+
   test("should connect onNotifyListFactory", () => {
     const callback = jest.fn()
 
@@ -143,6 +170,21 @@ describe("DropDown", () => {
     expect(callback).toHaveBeenCalled()
     expect(widget.node.on).toHaveBeenCalledWith(
       "notify::model",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifySearchMatchMode", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifySearchMatchMode", callback)
+
+    const handler = widget.handlers["notify::search-match-mode"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::search-match-mode",
       expect.any(Function)
     )
   })

@@ -26,7 +26,7 @@ const Container = forwardRef<
 })
 
 interface ItemProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
 }
 
 const Item = function ActionBarItem({ children }: ItemProps) {

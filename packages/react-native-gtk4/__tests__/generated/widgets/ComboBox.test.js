@@ -15,7 +15,7 @@ describe("ComboBox", () => {
 
     new ComboBox(props, ComboBox.createNode(props))
 
-    expect(Gtk.ComboBox).toHaveBeenCalledWith(props)
+    expect(Gtk.ComboBox).toHaveBeenCalledWith({ has_entry: props.hasEntry })
   })
 
   test("should set active", () => {

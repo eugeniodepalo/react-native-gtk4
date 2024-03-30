@@ -16,7 +16,10 @@ describe("CellView", () => {
 
     new CellView(props, CellView.createNode(props))
 
-    expect(Gtk.CellView).toHaveBeenCalledWith(props)
+    expect(Gtk.CellView).toHaveBeenCalledWith({
+      cell_area: props.cellArea,
+      cell_area_context: props.cellAreaContext,
+    })
   })
 
   test("should set drawSensitive", () => {

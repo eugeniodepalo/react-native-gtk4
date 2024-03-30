@@ -32,7 +32,9 @@ export class Gir {
   }
 
   get classes() {
-    return this.namespace.class_.filter((c) => c.$.name !== "Inscription")
+    return this.namespace.class_.filter(
+      (c) => !["Inscription"].includes(c.$.name)
+    )
   }
 
   get interfaces() {
@@ -87,6 +89,23 @@ export class Gir {
           {
             $: {
               name: "WORD_CHAR",
+            },
+          },
+        ],
+      },
+      {
+        $: {
+          name: "Gdk.GLAPI",
+        },
+        member: [
+          {
+            $: {
+              name: "GL",
+            },
+          },
+          {
+            $: {
+              name: "GLES",
             },
           },
         ],

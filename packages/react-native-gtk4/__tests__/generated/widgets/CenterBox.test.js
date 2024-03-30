@@ -26,6 +26,12 @@ describe("CenterBox", () => {
     expect(widget.node.setEndWidget).toHaveBeenCalledWith(newValue)
   })
 
+  test("should set shrinkCenterLast", () => {
+    const newValue = true
+    widget.set("shrinkCenterLast", newValue)
+    expect(widget.node.setShrinkCenterLast).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set startWidget", () => {
     const newValue = new Gtk.Widget()
     widget.set("startWidget", newValue)
@@ -85,6 +91,21 @@ describe("CenterBox", () => {
     expect(callback).toHaveBeenCalled()
     expect(widget.node.on).toHaveBeenCalledWith(
       "notify::end-widget",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifyShrinkCenterLast", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyShrinkCenterLast", callback)
+
+    const handler = widget.handlers["notify::shrink-center-last"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::shrink-center-last",
       expect.any(Function)
     )
   })

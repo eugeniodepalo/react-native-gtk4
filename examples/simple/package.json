@@ -9,11 +9,11 @@
     "start": "pnpm run build && node dist/index.js"
   },
   "dependencies": {
-    "react-native-gtk4": "workspace:*",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-native-gtk4": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.2.14",
-    "typescript": "^5.1.6"
+    "@types/react": "^18.2.73",
+    "typescript": "^5.4.3"
   }
 }

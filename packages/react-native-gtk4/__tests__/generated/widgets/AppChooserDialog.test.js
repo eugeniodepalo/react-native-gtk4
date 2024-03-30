@@ -17,7 +17,10 @@ describe("AppChooserDialog", () => {
 
     new AppChooserDialog(props, AppChooserDialog.createNode(props))
 
-    expect(Gtk.AppChooserDialog).toHaveBeenCalledWith(props)
+    expect(Gtk.AppChooserDialog).toHaveBeenCalledWith({
+      gfile: props.gfile,
+      content_type: props.contentType,
+    })
   })
 
   test("should set heading", () => {

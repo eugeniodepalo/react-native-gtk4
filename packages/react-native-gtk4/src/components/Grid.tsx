@@ -22,7 +22,7 @@ const Container = forwardRef<Gtk.Grid, JSX.IntrinsicElements["Grid"]>(
 )
 
 interface ItemProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
   col?: number
   row?: number
   width?: number

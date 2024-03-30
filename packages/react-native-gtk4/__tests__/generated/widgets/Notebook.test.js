@@ -23,7 +23,7 @@ describe("Notebook", () => {
   test("should set page", () => {
     const newValue = 1
     widget.set("page", newValue)
-    expect(widget.node.setCurrentPage).toHaveBeenCalledWith(newValue)
+    expect(widget.node.page).toBe(newValue)
   })
 
   test("should set scrollable", () => {

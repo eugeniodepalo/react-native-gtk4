@@ -7,7 +7,7 @@ export default class AppChooserDialog<
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.AppChooserDialog({
       gfile: props.gfile,
-      contentType: props.contentType,
+      content_type: props.contentType,
     })
   }
   set(propName: string, newValue: any) {

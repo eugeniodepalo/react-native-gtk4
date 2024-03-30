@@ -6,7 +6,7 @@ export default class AppChooserWidget<
 > extends Widget<T> {
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.AppChooserWidget({
-      contentType: props.contentType,
+      content_type: props.contentType,
     })
   }
   set(propName: string, newValue: any) {

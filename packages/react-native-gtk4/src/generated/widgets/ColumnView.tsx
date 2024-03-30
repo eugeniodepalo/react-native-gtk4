@@ -13,11 +13,17 @@ export default class ColumnView<
       case "enableRubberband":
         this.node.setEnableRubberband(newValue)
         break
+      case "headerFactory":
+        this.node.setHeaderFactory(newValue)
+        break
       case "model":
         this.node.setModel(newValue)
         break
       case "reorderable":
         this.node.setReorderable(newValue)
+        break
+      case "rowFactory":
+        this.node.setRowFactory(newValue)
         break
       case "showColumnSeparators":
         this.node.setShowColumnSeparators(newValue)
@@ -27,6 +33,9 @@ export default class ColumnView<
         break
       case "singleClickActivate":
         this.node.setSingleClickActivate(newValue)
+        break
+      case "tabBehavior":
+        this.node.setTabBehavior(newValue)
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
@@ -52,11 +61,17 @@ export default class ColumnView<
       case "onNotifyEnableRubberband":
         this.setHandler("notify::enable-rubberband", newValue)
         break
+      case "onNotifyHeaderFactory":
+        this.setHandler("notify::header-factory", newValue)
+        break
       case "onNotifyModel":
         this.setHandler("notify::model", newValue)
         break
       case "onNotifyReorderable":
         this.setHandler("notify::reorderable", newValue)
+        break
+      case "onNotifyRowFactory":
+        this.setHandler("notify::row-factory", newValue)
         break
       case "onNotifyShowColumnSeparators":
         this.setHandler("notify::show-column-separators", newValue)
@@ -69,6 +84,9 @@ export default class ColumnView<
         break
       case "onNotifySorter":
         this.setHandler("notify::sorter", newValue)
+        break
+      case "onNotifyTabBehavior":
+        this.setHandler("notify::tab-behavior", newValue)
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)

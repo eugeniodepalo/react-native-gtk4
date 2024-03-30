@@ -7,7 +7,7 @@ export default class ComboBox<
 > extends Widget<T> {
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.ComboBox({
-      hasEntry: props.hasEntry,
+      has_entry: props.hasEntry,
     })
   }
   appendChild(child: AbstractWidget) {

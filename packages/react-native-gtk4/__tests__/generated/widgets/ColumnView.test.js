@@ -14,6 +14,12 @@ describe("ColumnView", () => {
     expect(widget.node.setEnableRubberband).toHaveBeenCalledWith(newValue)
   })
 
+  test("should set headerFactory", () => {
+    const newValue = new Gtk.ListItemFactory()
+    widget.set("headerFactory", newValue)
+    expect(widget.node.setHeaderFactory).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set model", () => {
     const newValue = new Gtk.SelectionModel()
     widget.set("model", newValue)
@@ -24,6 +30,12 @@ describe("ColumnView", () => {
     const newValue = true
     widget.set("reorderable", newValue)
     expect(widget.node.setReorderable).toHaveBeenCalledWith(newValue)
+  })
+
+  test("should set rowFactory", () => {
+    const newValue = new Gtk.ListItemFactory()
+    widget.set("rowFactory", newValue)
+    expect(widget.node.setRowFactory).toHaveBeenCalledWith(newValue)
   })
 
   test("should set showColumnSeparators", () => {
@@ -42,6 +54,12 @@ describe("ColumnView", () => {
     const newValue = true
     widget.set("singleClickActivate", newValue)
     expect(widget.node.setSingleClickActivate).toHaveBeenCalledWith(newValue)
+  })
+
+  test("should set tabBehavior", () => {
+    const newValue = Gtk.ListTabBehavior.ALL
+    widget.set("tabBehavior", newValue)
+    expect(widget.node.setTabBehavior).toHaveBeenCalledWith(newValue)
   })
 
   test("should set accessibleRole", () => {
@@ -119,6 +137,21 @@ describe("ColumnView", () => {
     )
   })
 
+  test("should connect onNotifyHeaderFactory", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyHeaderFactory", callback)
+
+    const handler = widget.handlers["notify::header-factory"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::header-factory",
+      expect.any(Function)
+    )
+  })
+
   test("should connect onNotifyModel", () => {
     const callback = jest.fn()
 
@@ -145,6 +178,21 @@ describe("ColumnView", () => {
     expect(callback).toHaveBeenCalled()
     expect(widget.node.on).toHaveBeenCalledWith(
       "notify::reorderable",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifyRowFactory", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyRowFactory", callback)
+
+    const handler = widget.handlers["notify::row-factory"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::row-factory",
       expect.any(Function)
     )
   })
@@ -205,6 +253,21 @@ describe("ColumnView", () => {
     expect(callback).toHaveBeenCalled()
     expect(widget.node.on).toHaveBeenCalledWith(
       "notify::sorter",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifyTabBehavior", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyTabBehavior", callback)
+
+    const handler = widget.handlers["notify::tab-behavior"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::tab-behavior",
       expect.any(Function)
     )
   })

@@ -8,6 +8,9 @@ export default class Box<T extends Gtk.Box = Gtk.Box> extends Widget<T> {
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "baselineChild":
+        this.node.setBaselineChild(newValue)
+        break
       case "baselinePosition":
         this.node.setBaselinePosition(newValue)
         break
@@ -22,6 +25,9 @@ export default class Box<T extends Gtk.Box = Gtk.Box> extends Widget<T> {
         break
       case "orientation":
         this.node.setOrientation(newValue)
+        break
+      case "onNotifyBaselineChild":
+        this.setHandler("notify::baseline-child", newValue)
         break
       case "onNotifyBaselinePosition":
         this.setHandler("notify::baseline-position", newValue)

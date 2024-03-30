@@ -3,7 +3,7 @@ import { useMemo } from "react"
 
 export default function useActionGroup(
   actions: Record<string, () => void>,
-  deps: React.DependencyList | undefined
+  deps: React.DependencyList
 ) {
   return useMemo(() => {
     const group = new Gio.SimpleActionGroup()

@@ -28,6 +28,9 @@ export default class GridView<
       case "singleClickActivate":
         this.node.setSingleClickActivate(newValue)
         break
+      case "tabBehavior":
+        this.node.setTabBehavior(newValue)
+        break
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
@@ -66,6 +69,9 @@ export default class GridView<
         break
       case "onNotifySingleClickActivate":
         this.setHandler("notify::single-click-activate", newValue)
+        break
+      case "onNotifyTabBehavior":
+        this.setHandler("notify::tab-behavior", newValue)
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)

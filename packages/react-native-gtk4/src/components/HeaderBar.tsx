@@ -8,7 +8,7 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 type Position = "start" | "end"
 
 type Props = Omit<JSX.IntrinsicElements["HeaderBar"], "titleWidget"> & {
-  title?: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  title?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
 }
 
 const Context = createContext<Gtk.HeaderBar | null>(null)
@@ -58,7 +58,7 @@ const Section = function HeaderBarSection({
 }
 
 interface ItemProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
 }
 
 const Item = function HeaderBarItem({ children }: ItemProps) {

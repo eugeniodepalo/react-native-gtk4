@@ -19,6 +19,9 @@ export default class ColorDialogButton<
       case "accessibleRole":
         this.node.accessibleRole = newValue
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onNotifyDialog":
         this.setHandler("notify::dialog", newValue)
         break

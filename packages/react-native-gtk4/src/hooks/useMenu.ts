@@ -50,10 +50,7 @@ function buildMenu(menu: Gio.Menu, items: MenuItem[]) {
   }
 }
 
-export default function useMenu(
-  items: MenuItem[],
-  deps: React.DependencyList | undefined
-) {
+export default function useMenu(items: MenuItem[], deps: React.DependencyList) {
   return useMemo(() => {
     const menu = new Gio.Menu()
     buildMenu(menu, items)

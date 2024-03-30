@@ -28,8 +28,8 @@ const Container = forwardRef<Gtk.Notebook, Props>(function NotebookContainer(
 })
 
 interface TabProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
-  label: string | (React.ReactElement & React.RefAttributes<Gtk.Widget>)
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
+  label: string | (React.ReactElement & { ref?: React.Ref<Gtk.Widget> })
 }
 
 const Tab = function NotebookTab({ children, label }: TabProps) {
@@ -41,7 +41,7 @@ const Tab = function NotebookTab({ children, label }: TabProps) {
 
   const labelElement = (
     typeof label === "string" ? <Label label={label} /> : label
-  ) as React.ReactElement & React.RefAttributes<Gtk.Widget>
+  ) as React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
 
   const [childRef, setChildRef] = useForwardedRef(children.ref)
   const [labelRef, setLabelRef] = useForwardedRef(labelElement?.ref)

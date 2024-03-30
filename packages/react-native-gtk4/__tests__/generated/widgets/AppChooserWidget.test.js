@@ -15,7 +15,9 @@ describe("AppChooserWidget", () => {
 
     new AppChooserWidget(props, AppChooserWidget.createNode(props))
 
-    expect(Gtk.AppChooserWidget).toHaveBeenCalledWith(props)
+    expect(Gtk.AppChooserWidget).toHaveBeenCalledWith({
+      content_type: props.contentType,
+    })
   })
 
   test("should set defaultText", () => {

@@ -16,6 +16,9 @@ export default class ListView<
       case "factory":
         this.node.setFactory(newValue)
         break
+      case "headerFactory":
+        this.node.setHeaderFactory(newValue)
+        break
       case "model":
         this.node.setModel(newValue)
         break
@@ -24,6 +27,9 @@ export default class ListView<
         break
       case "singleClickActivate":
         this.node.setSingleClickActivate(newValue)
+        break
+      case "tabBehavior":
+        this.node.setTabBehavior(newValue)
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
@@ -52,6 +58,9 @@ export default class ListView<
       case "onNotifyFactory":
         this.setHandler("notify::factory", newValue)
         break
+      case "onNotifyHeaderFactory":
+        this.setHandler("notify::header-factory", newValue)
+        break
       case "onNotifyModel":
         this.setHandler("notify::model", newValue)
         break
@@ -60,6 +69,9 @@ export default class ListView<
         break
       case "onNotifySingleClickActivate":
         this.setHandler("notify::single-click-activate", newValue)
+        break
+      case "onNotifyTabBehavior":
+        this.setHandler("notify::tab-behavior", newValue)
         break
       case "onNotifyAccessibleRole":
         this.setHandler("notify::accessible-role", newValue)

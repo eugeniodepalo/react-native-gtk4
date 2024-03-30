@@ -6,7 +6,7 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 import { createPortal } from "../portal.js"
 
 type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "titlebar"> & {
-  titlebar?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
+  titlebar?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
 }
 
 export default forwardRef<Gtk.ApplicationWindow, Props>(

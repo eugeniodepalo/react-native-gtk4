@@ -9,8 +9,8 @@ type Props = Omit<
   "children" | "startChild" | "endChild"
 > & {
   children: [
-    React.ReactElement & React.RefAttributes<Gtk.Widget>,
-    React.ReactElement & React.RefAttributes<Gtk.Widget>,
+    React.ReactElement & { ref?: React.Ref<Gtk.Widget> },
+    React.ReactElement & { ref?: React.Ref<Gtk.Widget> },
   ]
 }
 

@@ -88,11 +88,6 @@ export class GirClass {
 
   get props() {
     const props = [...(this.class_.property || [])].map((prop) => {
-      if (this.name === "Notebook" && prop.$.name === "page") {
-        prop.$.getter = "get_current_page"
-        prop.$.setter = "set_current_page"
-      }
-
       return new GirProperty(prop, this.gir)
     })
 

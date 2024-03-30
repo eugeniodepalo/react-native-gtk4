@@ -15,7 +15,7 @@ describe("MessageDialog", () => {
 
     new MessageDialog(props, MessageDialog.createNode(props))
 
-    expect(Gtk.MessageDialog).toHaveBeenCalledWith(props)
+    expect(Gtk.MessageDialog).toHaveBeenCalledWith({ buttons: props.buttons })
   })
 
   test("should set messageType", () => {

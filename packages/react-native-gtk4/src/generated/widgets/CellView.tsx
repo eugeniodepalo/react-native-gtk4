@@ -6,8 +6,8 @@ export default class CellView<
 > extends Widget<T> {
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.CellView({
-      cellArea: props.cellArea,
-      cellAreaContext: props.cellAreaContext,
+      cell_area: props.cellArea,
+      cell_area_context: props.cellAreaContext,
     })
   }
   set(propName: string, newValue: any) {

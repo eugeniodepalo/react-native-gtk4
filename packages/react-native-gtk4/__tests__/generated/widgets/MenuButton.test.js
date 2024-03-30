@@ -21,6 +21,12 @@ describe("MenuButton", () => {
     expect(widget.node.setAlwaysShowArrow).toHaveBeenCalledWith(newValue)
   })
 
+  test("should set canShrink", () => {
+    const newValue = true
+    widget.set("canShrink", newValue)
+    expect(widget.node.setCanShrink).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set direction", () => {
     const newValue = Gtk.ArrowType.UP
     widget.set("direction", newValue)
@@ -116,6 +122,21 @@ describe("MenuButton", () => {
     expect(callback).toHaveBeenCalled()
     expect(widget.node.on).toHaveBeenCalledWith(
       "notify::always-show-arrow",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifyCanShrink", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyCanShrink", callback)
+
+    const handler = widget.handlers["notify::can-shrink"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::can-shrink",
       expect.any(Function)
     )
   })

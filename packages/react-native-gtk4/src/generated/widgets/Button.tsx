@@ -23,6 +23,9 @@ export default class Button<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "canShrink":
+        this.node.setCanShrink(newValue)
+        break
       case "hasFrame":
         this.node.setHasFrame(newValue)
         break
@@ -49,6 +52,9 @@ export default class Button<
         break
       case "onClicked":
         this.setHandler("clicked", newValue)
+        break
+      case "onNotifyCanShrink":
+        this.setHandler("notify::can-shrink", newValue)
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)

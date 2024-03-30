@@ -9,9 +9,7 @@ type Props = Omit<
   JSX.IntrinsicElements["Expander"],
   "labelWidget" | "label"
 > & {
-  label?:
-    | string
-    | ((React.ReactElement & React.RefAttributes<Gtk.Widget>) | null)
+  label?: string | (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
 }
 
 export default forwardRef<Gtk.Expander, Props>(function ExpanderComponent(

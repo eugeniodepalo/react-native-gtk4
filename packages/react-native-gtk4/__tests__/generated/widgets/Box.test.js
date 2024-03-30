@@ -8,6 +8,12 @@ describe("Box", () => {
     widget = new Box({}, Box.createNode({}))
   })
 
+  test("should set baselineChild", () => {
+    const newValue = 1
+    widget.set("baselineChild", newValue)
+    expect(widget.node.setBaselineChild).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set baselinePosition", () => {
     const newValue = Gtk.BaselinePosition.TOP
     widget.set("baselinePosition", newValue)
@@ -36,6 +42,21 @@ describe("Box", () => {
     const newValue = Gtk.Orientation.HORIZONTAL
     widget.set("orientation", newValue)
     expect(widget.node.setOrientation).toHaveBeenCalledWith(newValue)
+  })
+
+  test("should connect onNotifyBaselineChild", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyBaselineChild", callback)
+
+    const handler = widget.handlers["notify::baseline-child"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::baseline-child",
+      expect.any(Function)
+    )
   })
 
   test("should connect onNotifyBaselinePosition", () => {

@@ -1,4 +1,4 @@
-import { camelize } from "../helpers"
+import { camelize, underscore } from "../helpers"
 
 export default function (widgetClass) {
   let ts = ""
@@ -25,7 +25,7 @@ export default function (widgetClass) {
   ts += `    return new ${widgetClass.type.name}({\n`
 
   for (const prop of widgetClass.constructOnlyProps) {
-    ts += `${prop.name}: props.${prop.name},\n`
+    ts += `${underscore(prop.rawName)}: props.${prop.name},\n`
   }
 
   ts += `  })\n`

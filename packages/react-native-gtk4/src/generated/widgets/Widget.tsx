@@ -6,7 +6,7 @@ export default class Widget<
 > extends AbstractWidget<T> {
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.Widget({
-      cssName: props.cssName,
+      css_name: props.cssName,
     })
   }
   commitMount() {}

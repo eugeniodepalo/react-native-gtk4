@@ -1,5 +1,3 @@
-import { camelize } from "../helpers.js"
-
 export default function (gir) {
   let ts = ""
 

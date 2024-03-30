@@ -8,8 +8,8 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = Omit<JSX.IntrinsicElements["MenuButton"], "popover"> & {
   actionGroup?: Gio.ActionGroup
-  actionPrefix?: string
-  popover?: React.ReactElement & React.RefAttributes<Gtk.Popover>
+  actionPrefix: string
+  popover?: (React.ReactElement & { ref?: React.Ref<Gtk.Popover> }) | null
 }
 
 export default forwardRef<Gtk.MenuButton, Props>(function MenuButtonComponent(
@@ -27,10 +27,10 @@ export default forwardRef<Gtk.MenuButton, Props>(function MenuButtonComponent(
       return
     }
 
-    menuButton.insertActionGroup(actionPrefix ?? null, actionGroup)
+    menuButton.insertActionGroup(actionPrefix, actionGroup)
 
     return () => {
-      menuButton.insertActionGroup(actionPrefix ?? null, null)
+      menuButton.insertActionGroup(actionPrefix, null)
     }
   }, [actionGroup, actionPrefix])
 

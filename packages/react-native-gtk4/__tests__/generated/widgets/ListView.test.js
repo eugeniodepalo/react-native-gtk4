@@ -20,6 +20,12 @@ describe("ListView", () => {
     expect(widget.node.setFactory).toHaveBeenCalledWith(newValue)
   })
 
+  test("should set headerFactory", () => {
+    const newValue = new Gtk.ListItemFactory()
+    widget.set("headerFactory", newValue)
+    expect(widget.node.setHeaderFactory).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set model", () => {
     const newValue = new Gtk.SelectionModel()
     widget.set("model", newValue)
@@ -36,6 +42,12 @@ describe("ListView", () => {
     const newValue = true
     widget.set("singleClickActivate", newValue)
     expect(widget.node.setSingleClickActivate).toHaveBeenCalledWith(newValue)
+  })
+
+  test("should set tabBehavior", () => {
+    const newValue = Gtk.ListTabBehavior.ALL
+    widget.set("tabBehavior", newValue)
+    expect(widget.node.setTabBehavior).toHaveBeenCalledWith(newValue)
   })
 
   test("should set accessibleRole", () => {
@@ -119,6 +131,21 @@ describe("ListView", () => {
     )
   })
 
+  test("should connect onNotifyHeaderFactory", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyHeaderFactory", callback)
+
+    const handler = widget.handlers["notify::header-factory"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::header-factory",
+      expect.any(Function)
+    )
+  })
+
   test("should connect onNotifyModel", () => {
     const callback = jest.fn()
 
@@ -160,6 +187,21 @@ describe("ListView", () => {
     expect(callback).toHaveBeenCalled()
     expect(widget.node.on).toHaveBeenCalledWith(
       "notify::single-click-activate",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifyTabBehavior", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyTabBehavior", callback)
+
+    const handler = widget.handlers["notify::tab-behavior"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::tab-behavior",
       expect.any(Function)
     )
   })

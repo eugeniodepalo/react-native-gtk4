@@ -537,6 +537,21 @@ describe("Window", () => {
     )
   })
 
+  test("should connect onNotifySuspended", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifySuspended", callback)
+
+    const handler = widget.handlers["notify::suspended"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::suspended",
+      expect.any(Function)
+    )
+  })
+
   test("should connect onNotifyTitle", () => {
     const callback = jest.fn()
 

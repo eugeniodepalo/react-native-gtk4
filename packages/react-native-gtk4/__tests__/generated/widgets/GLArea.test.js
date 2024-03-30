@@ -1,4 +1,5 @@
 import { GLArea } from "../../../src/generated/widgets.js"
+import Gdk from "@girs/node-gdk-4.0"
 import Gtk from "@girs/node-gtk-4.0"
 
 describe("GLArea", () => {
@@ -6,6 +7,12 @@ describe("GLArea", () => {
 
   beforeEach(() => {
     widget = new GLArea({}, GLArea.createNode({}))
+  })
+
+  test("should set allowedApis", () => {
+    const newValue = Gdk.GLAPI.GL
+    widget.set("allowedApis", newValue)
+    expect(widget.node.setAllowedApis).toHaveBeenCalledWith(newValue)
   })
 
   test("should set autoRender", () => {
@@ -75,6 +82,36 @@ describe("GLArea", () => {
     handler()
     expect(widget.node.on).toHaveBeenCalledWith("resize", expect.any(Function))
     expect(callback).toHaveBeenCalled()
+  })
+
+  test("should connect onNotifyAllowedApis", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyAllowedApis", callback)
+
+    const handler = widget.handlers["notify::allowed-apis"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::allowed-apis",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifyApi", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyApi", callback)
+
+    const handler = widget.handlers["notify::api"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::api",
+      expect.any(Function)
+    )
   })
 
   test("should connect onNotifyAutoRender", () => {

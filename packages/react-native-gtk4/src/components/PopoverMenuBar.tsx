@@ -6,7 +6,7 @@ import { PopoverMenuBar } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = Omit<JSX.IntrinsicElements["PopoverMenuBar"], "children"> & {
-  children?: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children?: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
 }
 
 const Context = createContext<Gtk.PopoverMenuBar | null>(null)
@@ -31,7 +31,7 @@ const Container = forwardRef<Gtk.PopoverMenuBar, Props>(
 
 interface ItemProps {
   id: string
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
 }
 
 const Item = function PopoverMenuBarItemComponent({

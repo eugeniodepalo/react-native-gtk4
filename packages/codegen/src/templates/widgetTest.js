@@ -1,4 +1,5 @@
 import { GirType } from "../gir/type"
+import { underscore } from "../helpers.js"
 
 const primitiveTestValues = {
   string: '"Some String"',
@@ -95,8 +96,19 @@ export default function (widgetClass, gir) {
       widgetClass.name +
       ".createNode(props))\n"
 
+    const expectedProps = widgetClass.constructOnlyProps.reduce((acc, prop) => {
+      acc[underscore(prop.rawName)] = `props.${prop.name}`
+      return acc
+    }, {})
+
     ts += "\n"
-    ts += `  expect(${widgetClass.type.name}).toHaveBeenCalledWith(props)\n`
+    ts += `  expect(${widgetClass.type.name}).toHaveBeenCalledWith({`
+
+    for (const expectedProp in expectedProps) {
+      ts += `${expectedProp}: ${expectedProps[expectedProp]}, `
+    }
+
+    ts += "  })\n"
     ts += "})\n"
     ts += "\n"
   }

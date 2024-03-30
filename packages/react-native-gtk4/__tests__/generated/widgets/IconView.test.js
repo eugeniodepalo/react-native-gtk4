@@ -15,7 +15,7 @@ describe("IconView", () => {
 
     new IconView(props, IconView.createNode(props))
 
-    expect(Gtk.IconView).toHaveBeenCalledWith(props)
+    expect(Gtk.IconView).toHaveBeenCalledWith({ cell_area: props.cellArea })
   })
 
   test("should set activateOnSingleClick", () => {

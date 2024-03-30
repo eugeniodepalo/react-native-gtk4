@@ -16,7 +16,7 @@ describe("Widget", () => {
 
     new Widget(props, Widget.createNode(props))
 
-    expect(Gtk.Widget).toHaveBeenCalledWith(props)
+    expect(Gtk.Widget).toHaveBeenCalledWith({ css_name: props.cssName })
   })
 
   test("should set canFocus", () => {

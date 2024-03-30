@@ -6,7 +6,7 @@ export default class Dialog<
 > extends Window<T> {
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.Dialog({
-      useHeaderBar: props.useHeaderBar,
+      use_header_bar: props.useHeaderBar,
     })
   }
   set(propName: string, newValue: any) {

@@ -6,7 +6,7 @@ import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = JSX.IntrinsicElements["Overlay"] & {
-  content: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  content: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
 }
 
 export default forwardRef<Gtk.Overlay, Props>(function OverlayComponent(

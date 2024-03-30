@@ -15,7 +15,9 @@ describe("Dialog", () => {
 
     new Dialog(props, Dialog.createNode(props))
 
-    expect(Gtk.Dialog).toHaveBeenCalledWith(props)
+    expect(Gtk.Dialog).toHaveBeenCalledWith({
+      use_header_bar: props.useHeaderBar,
+    })
   })
 
   test("should set accessibleRole", () => {

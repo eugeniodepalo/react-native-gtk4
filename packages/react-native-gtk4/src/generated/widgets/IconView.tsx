@@ -6,7 +6,7 @@ export default class IconView<
 > extends Widget<T> {
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.IconView({
-      cellArea: props.cellArea,
+      cell_area: props.cellArea,
     })
   }
   set(propName: string, newValue: any) {

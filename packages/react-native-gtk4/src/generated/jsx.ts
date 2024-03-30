@@ -148,11 +148,13 @@ declare global {
       }
       Box: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Box>
+        baselineChild?: number | null
         baselinePosition?: Gtk.BaselinePosition | null
         homogeneous?: boolean | null
         spacing?: number | null
         accessibleRole?: Gtk.AccessibleRole | null
         orientation?: Gtk.Orientation | null
+        onNotifyBaselineChild?: (node: Gtk.Box) => void
         onNotifyBaselinePosition?: (node: Gtk.Box) => void
         onNotifyHomogeneous?: (node: Gtk.Box) => void
         onNotifySpacing?: (node: Gtk.Box) => void
@@ -161,6 +163,7 @@ declare global {
       }
       Button: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Button>
+        canShrink?: boolean | null
         hasFrame?: boolean | null
         iconName?: string | null
         label?: string | null
@@ -170,6 +173,7 @@ declare global {
         actionTarget?: GLib.Variant | null
         onActivate?: (node: Gtk.Button) => void
         onClicked?: (node: Gtk.Button) => void
+        onNotifyCanShrink?: (node: Gtk.Button) => void
         onNotifyChild?: (node: Gtk.Button) => void
         onNotifyHasFrame?: (node: Gtk.Button) => void
         onNotifyIconName?: (node: Gtk.Button) => void
@@ -223,12 +227,14 @@ declare global {
         baselinePosition?: Gtk.BaselinePosition | null
         centerWidget?: Gtk.Widget | null
         endWidget?: Gtk.Widget | null
+        shrinkCenterLast?: boolean | null
         startWidget?: Gtk.Widget | null
         accessibleRole?: Gtk.AccessibleRole | null
         orientation?: Gtk.Orientation | null
         onNotifyBaselinePosition?: (node: Gtk.CenterBox) => void
         onNotifyCenterWidget?: (node: Gtk.CenterBox) => void
         onNotifyEndWidget?: (node: Gtk.CenterBox) => void
+        onNotifyShrinkCenterLast?: (node: Gtk.CenterBox) => void
         onNotifyStartWidget?: (node: Gtk.CenterBox) => void
         onNotifyAccessibleRole?: (node: Gtk.CenterBox) => void
         onNotifyOrientation?: (node: Gtk.CenterBox) => void
@@ -308,6 +314,7 @@ declare global {
         dialog?: Gtk.ColorDialog | null
         rgba?: Gdk.RGBA | null
         accessibleRole?: Gtk.AccessibleRole | null
+        onActivate?: (node: Gtk.ColorDialogButton) => void
         onNotifyDialog?: (node: Gtk.ColorDialogButton) => void
         onNotifyRgba?: (node: Gtk.ColorDialogButton) => void
         onNotifyAccessibleRole?: (node: Gtk.ColorDialogButton) => void
@@ -315,11 +322,14 @@ declare global {
       ColumnView: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ColumnView>
         enableRubberband?: boolean | null
+        headerFactory?: Gtk.ListItemFactory | null
         model?: Gtk.SelectionModel | null
         reorderable?: boolean | null
+        rowFactory?: Gtk.ListItemFactory | null
         showColumnSeparators?: boolean | null
         showRowSeparators?: boolean | null
         singleClickActivate?: boolean | null
+        tabBehavior?: Gtk.ListTabBehavior | null
         accessibleRole?: Gtk.AccessibleRole | null
         hadjustment?: Gtk.Adjustment | null
         hscrollPolicy?: Gtk.ScrollablePolicy | null
@@ -328,12 +338,15 @@ declare global {
         onActivate?: (node: Gtk.ColumnView, position?: number) => void
         onNotifyColumns?: (node: Gtk.ColumnView) => void
         onNotifyEnableRubberband?: (node: Gtk.ColumnView) => void
+        onNotifyHeaderFactory?: (node: Gtk.ColumnView) => void
         onNotifyModel?: (node: Gtk.ColumnView) => void
         onNotifyReorderable?: (node: Gtk.ColumnView) => void
+        onNotifyRowFactory?: (node: Gtk.ColumnView) => void
         onNotifyShowColumnSeparators?: (node: Gtk.ColumnView) => void
         onNotifyShowRowSeparators?: (node: Gtk.ColumnView) => void
         onNotifySingleClickActivate?: (node: Gtk.ColumnView) => void
         onNotifySorter?: (node: Gtk.ColumnView) => void
+        onNotifyTabBehavior?: (node: Gtk.ColumnView) => void
         onNotifyAccessibleRole?: (node: Gtk.ColumnView) => void
         onNotifyHadjustment?: (node: Gtk.ColumnView) => void
         onNotifyHscrollPolicy?: (node: Gtk.ColumnView) => void
@@ -418,8 +431,10 @@ declare global {
         enableSearch?: boolean | null
         expression?: Gtk.Expression | null
         factory?: Gtk.ListItemFactory | null
+        headerFactory?: Gtk.ListItemFactory | null
         listFactory?: Gtk.ListItemFactory | null
         model?: Gio.ListModel | null
+        searchMatchMode?: Gtk.StringFilterMatchMode | null
         selected?: number | null
         showArrow?: boolean | null
         accessibleRole?: Gtk.AccessibleRole | null
@@ -427,8 +442,10 @@ declare global {
         onNotifyEnableSearch?: (node: Gtk.DropDown) => void
         onNotifyExpression?: (node: Gtk.DropDown) => void
         onNotifyFactory?: (node: Gtk.DropDown) => void
+        onNotifyHeaderFactory?: (node: Gtk.DropDown) => void
         onNotifyListFactory?: (node: Gtk.DropDown) => void
         onNotifyModel?: (node: Gtk.DropDown) => void
+        onNotifySearchMatchMode?: (node: Gtk.DropDown) => void
         onNotifySelected?: (node: Gtk.DropDown) => void
         onNotifySelectedItem?: (node: Gtk.DropDown) => void
         onNotifyShowArrow?: (node: Gtk.DropDown) => void
@@ -788,6 +805,7 @@ declare global {
         useFont?: boolean | null
         useSize?: boolean | null
         accessibleRole?: Gtk.AccessibleRole | null
+        onActivate?: (node: Gtk.FontDialogButton) => void
         onNotifyDialog?: (node: Gtk.FontDialogButton) => void
         onNotifyFontDesc?: (node: Gtk.FontDialogButton) => void
         onNotifyFontFeatures?: (node: Gtk.FontDialogButton) => void
@@ -811,6 +829,7 @@ declare global {
       }
       GLArea: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.GLArea>
+        allowedApis?: Gdk.GLAPI | null
         autoRender?: boolean | null
         hasDepthBuffer?: boolean | null
         hasStencilBuffer?: boolean | null
@@ -819,6 +838,8 @@ declare global {
         onCreateContext?: (node: Gtk.GLArea) => Gdk.GLContext
         onRender?: (node: Gtk.GLArea, context?: Gdk.GLContext) => boolean
         onResize?: (node: Gtk.GLArea, width?: number, height?: number) => void
+        onNotifyAllowedApis?: (node: Gtk.GLArea) => void
+        onNotifyApi?: (node: Gtk.GLArea) => void
         onNotifyAutoRender?: (node: Gtk.GLArea) => void
         onNotifyContext?: (node: Gtk.GLArea) => void
         onNotifyHasDepthBuffer?: (node: Gtk.GLArea) => void
@@ -851,6 +872,7 @@ declare global {
         minColumns?: number | null
         model?: Gtk.SelectionModel | null
         singleClickActivate?: boolean | null
+        tabBehavior?: Gtk.ListTabBehavior | null
         accessibleRole?: Gtk.AccessibleRole | null
         orientation?: Gtk.Orientation | null
         hadjustment?: Gtk.Adjustment | null
@@ -864,6 +886,7 @@ declare global {
         onNotifyMinColumns?: (node: Gtk.GridView) => void
         onNotifyModel?: (node: Gtk.GridView) => void
         onNotifySingleClickActivate?: (node: Gtk.GridView) => void
+        onNotifyTabBehavior?: (node: Gtk.GridView) => void
         onNotifyAccessibleRole?: (node: Gtk.GridView) => void
         onNotifyOrientation?: (node: Gtk.GridView) => void
         onNotifyHadjustment?: (node: Gtk.GridView) => void
@@ -1124,9 +1147,11 @@ declare global {
         ref?: React.Ref<Gtk.ListView>
         enableRubberband?: boolean | null
         factory?: Gtk.ListItemFactory | null
+        headerFactory?: Gtk.ListItemFactory | null
         model?: Gtk.SelectionModel | null
         showSeparators?: boolean | null
         singleClickActivate?: boolean | null
+        tabBehavior?: Gtk.ListTabBehavior | null
         accessibleRole?: Gtk.AccessibleRole | null
         orientation?: Gtk.Orientation | null
         hadjustment?: Gtk.Adjustment | null
@@ -1136,9 +1161,11 @@ declare global {
         onActivate?: (node: Gtk.ListView, position?: number) => void
         onNotifyEnableRubberband?: (node: Gtk.ListView) => void
         onNotifyFactory?: (node: Gtk.ListView) => void
+        onNotifyHeaderFactory?: (node: Gtk.ListView) => void
         onNotifyModel?: (node: Gtk.ListView) => void
         onNotifyShowSeparators?: (node: Gtk.ListView) => void
         onNotifySingleClickActivate?: (node: Gtk.ListView) => void
+        onNotifyTabBehavior?: (node: Gtk.ListView) => void
         onNotifyAccessibleRole?: (node: Gtk.ListView) => void
         onNotifyOrientation?: (node: Gtk.ListView) => void
         onNotifyHadjustment?: (node: Gtk.ListView) => void
@@ -1178,6 +1205,7 @@ declare global {
         ref?: React.Ref<Gtk.MenuButton>
         active?: boolean | null
         alwaysShowArrow?: boolean | null
+        canShrink?: boolean | null
         direction?: Gtk.ArrowType | null
         hasFrame?: boolean | null
         iconName?: string | null
@@ -1190,6 +1218,7 @@ declare global {
         onActivate?: (node: Gtk.MenuButton) => void
         onNotifyActive?: (node: Gtk.MenuButton) => void
         onNotifyAlwaysShowArrow?: (node: Gtk.MenuButton) => void
+        onNotifyCanShrink?: (node: Gtk.MenuButton) => void
         onNotifyChild?: (node: Gtk.MenuButton) => void
         onNotifyDirection?: (node: Gtk.MenuButton) => void
         onNotifyHasFrame?: (node: Gtk.MenuButton) => void
@@ -2346,6 +2375,7 @@ declare global {
         onNotifyModal?: (node: Gtk.Window) => void
         onNotifyResizable?: (node: Gtk.Window) => void
         onNotifyStartupId?: (node: Gtk.Window) => void
+        onNotifySuspended?: (node: Gtk.Window) => void
         onNotifyTitle?: (node: Gtk.Window) => void
         onNotifyTitlebar?: (node: Gtk.Window) => void
         onNotifyTransientFor?: (node: Gtk.Window) => void

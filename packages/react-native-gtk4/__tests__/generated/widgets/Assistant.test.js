@@ -15,7 +15,9 @@ describe("Assistant", () => {
 
     new Assistant(props, Assistant.createNode(props))
 
-    expect(Gtk.Assistant).toHaveBeenCalledWith(props)
+    expect(Gtk.Assistant).toHaveBeenCalledWith({
+      use_header_bar: props.useHeaderBar,
+    })
   })
 
   test("should set accessibleRole", () => {

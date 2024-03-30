@@ -15,7 +15,9 @@ describe("AppChooserButton", () => {
 
     new AppChooserButton(props, AppChooserButton.createNode(props))
 
-    expect(Gtk.AppChooserButton).toHaveBeenCalledWith(props)
+    expect(Gtk.AppChooserButton).toHaveBeenCalledWith({
+      content_type: props.contentType,
+    })
   })
 
   test("should set heading", () => {

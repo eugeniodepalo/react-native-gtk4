@@ -57,6 +57,21 @@ describe("FontDialogButton", () => {
     expect(widget.node.accessibleRole).toBe(newValue)
   })
 
+  test("should connect onActivate", () => {
+    const callback = jest.fn()
+
+    widget.set("onActivate", callback)
+
+    const handler = widget.handlers["activate"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "activate",
+      expect.any(Function)
+    )
+    expect(callback).toHaveBeenCalled()
+  })
+
   test("should connect onNotifyDialog", () => {
     const callback = jest.fn()
 

@@ -19,6 +19,9 @@ export default class CenterBox<
       case "endWidget":
         this.node.setEndWidget(newValue)
         break
+      case "shrinkCenterLast":
+        this.node.setShrinkCenterLast(newValue)
+        break
       case "startWidget":
         this.node.setStartWidget(newValue)
         break
@@ -36,6 +39,9 @@ export default class CenterBox<
         break
       case "onNotifyEndWidget":
         this.setHandler("notify::end-widget", newValue)
+        break
+      case "onNotifyShrinkCenterLast":
+        this.setHandler("notify::shrink-center-last", newValue)
         break
       case "onNotifyStartWidget":
         this.setHandler("notify::start-widget", newValue)

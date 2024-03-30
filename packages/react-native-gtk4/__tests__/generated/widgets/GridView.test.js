@@ -44,6 +44,12 @@ describe("GridView", () => {
     expect(widget.node.setSingleClickActivate).toHaveBeenCalledWith(newValue)
   })
 
+  test("should set tabBehavior", () => {
+    const newValue = Gtk.ListTabBehavior.ALL
+    widget.set("tabBehavior", newValue)
+    expect(widget.node.setTabBehavior).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set accessibleRole", () => {
     const newValue = Gtk.AccessibleRole.ALERT
     widget.set("accessibleRole", newValue)
@@ -181,6 +187,21 @@ describe("GridView", () => {
     expect(callback).toHaveBeenCalled()
     expect(widget.node.on).toHaveBeenCalledWith(
       "notify::single-click-activate",
+      expect.any(Function)
+    )
+  })
+
+  test("should connect onNotifyTabBehavior", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyTabBehavior", callback)
+
+    const handler = widget.handlers["notify::tab-behavior"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::tab-behavior",
       expect.any(Function)
     )
   })

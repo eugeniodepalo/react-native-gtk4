@@ -6,7 +6,7 @@ export default class Assistant<
 > extends Window<T> {
   static createNode(props: Record<string, any> = {}) {
     return new Gtk.Assistant({
-      useHeaderBar: props.useHeaderBar,
+      use_header_bar: props.useHeaderBar,
     })
   }
   set(propName: string, newValue: any) {

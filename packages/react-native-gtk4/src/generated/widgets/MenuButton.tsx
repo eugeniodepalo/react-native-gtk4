@@ -29,6 +29,9 @@ export default class MenuButton<
       case "alwaysShowArrow":
         this.node.setAlwaysShowArrow(newValue)
         break
+      case "canShrink":
+        this.node.setCanShrink(newValue)
+        break
       case "direction":
         this.node.setDirection(newValue)
         break
@@ -64,6 +67,9 @@ export default class MenuButton<
         break
       case "onNotifyAlwaysShowArrow":
         this.setHandler("notify::always-show-arrow", newValue)
+        break
+      case "onNotifyCanShrink":
+        this.setHandler("notify::can-shrink", newValue)
         break
       case "onNotifyChild":
         this.setHandler("notify::child", newValue)

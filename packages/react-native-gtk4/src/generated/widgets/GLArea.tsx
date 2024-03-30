@@ -10,6 +10,9 @@ export default class GLArea<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "allowedApis":
+        this.node.setAllowedApis(newValue)
+        break
       case "autoRender":
         this.node.setAutoRender(newValue)
         break
@@ -33,6 +36,12 @@ export default class GLArea<
         break
       case "onResize":
         this.setHandler("resize", newValue)
+        break
+      case "onNotifyAllowedApis":
+        this.setHandler("notify::allowed-apis", newValue)
+        break
+      case "onNotifyApi":
+        this.setHandler("notify::api", newValue)
         break
       case "onNotifyAutoRender":
         this.setHandler("notify::auto-render", newValue)

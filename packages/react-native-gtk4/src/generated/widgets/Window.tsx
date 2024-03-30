@@ -170,6 +170,9 @@ export default class Window<
       case "onNotifyStartupId":
         this.setHandler("notify::startup-id", newValue)
         break
+      case "onNotifySuspended":
+        this.setHandler("notify::suspended", newValue)
+        break
       case "onNotifyTitle":
         this.setHandler("notify::title", newValue)
         break

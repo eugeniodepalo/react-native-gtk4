@@ -19,11 +19,17 @@ export default class DropDown<
       case "factory":
         this.node.setFactory(newValue)
         break
+      case "headerFactory":
+        this.node.setHeaderFactory(newValue)
+        break
       case "listFactory":
         this.node.setListFactory(newValue)
         break
       case "model":
         this.node.setModel(newValue)
+        break
+      case "searchMatchMode":
+        this.node.setSearchMatchMode(newValue)
         break
       case "selected":
         this.node.setSelected(newValue)
@@ -46,11 +52,17 @@ export default class DropDown<
       case "onNotifyFactory":
         this.setHandler("notify::factory", newValue)
         break
+      case "onNotifyHeaderFactory":
+        this.setHandler("notify::header-factory", newValue)
+        break
       case "onNotifyListFactory":
         this.setHandler("notify::list-factory", newValue)
         break
       case "onNotifyModel":
         this.setHandler("notify::model", newValue)
+        break
+      case "onNotifySearchMatchMode":
+        this.setHandler("notify::search-match-mode", newValue)
         break
       case "onNotifySelected":
         this.setHandler("notify::selected", newValue)

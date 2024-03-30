@@ -17,7 +17,7 @@ export default class Notebook<
         this.node.setGroupName(newValue)
         break
       case "page":
-        this.node.setCurrentPage(newValue)
+        this.node.page = newValue
         break
       case "scrollable":
         this.node.setScrollable(newValue)

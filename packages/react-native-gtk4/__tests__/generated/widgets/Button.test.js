@@ -9,6 +9,12 @@ describe("Button", () => {
     widget = new Button({}, Button.createNode({}))
   })
 
+  test("should set canShrink", () => {
+    const newValue = true
+    widget.set("canShrink", newValue)
+    expect(widget.node.setCanShrink).toHaveBeenCalledWith(newValue)
+  })
+
   test("should set hasFrame", () => {
     const newValue = true
     widget.set("hasFrame", newValue)
@@ -76,6 +82,21 @@ describe("Button", () => {
     handler()
     expect(widget.node.on).toHaveBeenCalledWith("clicked", expect.any(Function))
     expect(callback).toHaveBeenCalled()
+  })
+
+  test("should connect onNotifyCanShrink", () => {
+    const callback = jest.fn()
+
+    widget.set("onNotifyCanShrink", callback)
+
+    const handler = widget.handlers["notify::can-shrink"]
+    expect(handler).toBeDefined()
+    handler()
+    expect(callback).toHaveBeenCalled()
+    expect(widget.node.on).toHaveBeenCalledWith(
+      "notify::can-shrink",
+      expect.any(Function)
+    )
   })
 
   test("should connect onNotifyChild", () => {

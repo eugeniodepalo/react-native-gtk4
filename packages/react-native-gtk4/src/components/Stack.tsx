@@ -36,7 +36,7 @@ const Container = forwardRef<Gtk.Stack, JSX.IntrinsicElements["Stack"]>(
 )
 
 interface ItemProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
   name: string
   title?: string
 }

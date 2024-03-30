@@ -22,7 +22,7 @@ const Container = forwardRef<Gtk.TextView, JSX.IntrinsicElements["TextView"]>(
 )
 
 interface OverlayProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
   x?: number
   y?: number
 }
@@ -61,7 +61,7 @@ const Overlay = function TextViewOverlay({
 }
 
 interface AnchorProps {
-  children: React.ReactElement & React.RefAttributes<Gtk.Widget>
+  children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
   anchor: Gtk.TextChildAnchor
 }
 

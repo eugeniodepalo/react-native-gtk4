@@ -9,9 +9,9 @@ type Props = Omit<
   JSX.IntrinsicElements["CenterBox"],
   "startWidget" | "endWidget" | "centerWidget" | "children"
 > & {
-  start?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
-  end?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
-  children?: (React.ReactElement & React.RefAttributes<Gtk.Widget>) | null
+  start?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
+  end?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
+  children?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
 }
 
 export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(

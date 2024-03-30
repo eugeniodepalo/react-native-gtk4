@@ -13,6 +13,9 @@ importers:
       '@girs/node-adw-1':
         specifier: 1.4.3-3.3.0
         version: 1.4.3-3.3.0(node-gtk@0.12.1)
+      node-gtk:
+        specifier: ^0.12.0
+        version: 0.12.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -35,6 +38,9 @@ importers:
       axios:
         specifier: ^1.6.8
         version: 1.6.8
+      node-gtk:
+        specifier: ^0.12.0
+        version: 0.12.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -51,6 +57,9 @@ importers:
 
   examples/flatpak:
     dependencies:
+      node-gtk:
+        specifier: ^0.12.0
+        version: 0.12.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -67,6 +76,9 @@ importers:
 
   examples/kitchen-sink:
     dependencies:
+      node-gtk:
+        specifier: ^0.12.0
+        version: 0.12.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -83,6 +95,9 @@ importers:
 
   examples/multiple-windows:
     dependencies:
+      node-gtk:
+        specifier: ^0.12.0
+        version: 0.12.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -99,6 +114,9 @@ importers:
 
   examples/simple:
     dependencies:
+      node-gtk:
+        specifier: ^0.12.0
+        version: 0.12.1
       react:
         specifier: ^18.2.0
         version: 18.2.0

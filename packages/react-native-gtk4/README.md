@@ -15,7 +15,7 @@ React Native GTK4 allows you to build native GTK4 applications using React. It p
 
 Before you begin, ensure that you have the following installed on your development machine:
 
-- [Node.js](https://nodejs.org) (v16 or higher)
+- [Node.js](https://nodejs.org) (v18 or higher)
 - [GTK4](https://www.gtk.org/docs/installations)
 
 ### Installation

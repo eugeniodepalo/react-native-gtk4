@@ -22,7 +22,7 @@ jobs:
           cache-to: type=gha,mode=max
       - run: docker run -v "$(pwd)/coverage:/coverage" --rm test -- --coverage --coverageDirectory=/coverage
       - run: sudo chown -R $(id -u):$(id -g) ./coverage
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           directory: ./coverage
         env:

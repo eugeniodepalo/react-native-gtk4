@@ -147,8 +147,8 @@ importers:
         specifier: ^18.2.73
         version: 18.2.73
       typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
+        specifier: ^5.4.3
+        version: 5.4.3
 
   packages/codegen:
     devDependencies:
@@ -6796,12 +6796,6 @@ packages:
       has-proto: 1.0.3
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
-    dev: true
-
-  /typescript@5.1.6:
-    resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
-    engines: {node: '>=14.17'}
-    hasBin: true
     dev: true
 
   /typescript@5.4.3:

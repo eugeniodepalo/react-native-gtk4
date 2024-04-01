@@ -9,7 +9,7 @@
     "start": "pnpm run build && node dist/index.js"
   },
   "dependencies": {
-    "node-gtk": "^0.12.0",
+    "node-gtk": "^0.13.0",
     "react": "^18.2.0",
     "react-native-gtk4": "workspace:*"
   },

@@ -21,12 +21,12 @@ interface Context {
   parent: Node | null
 }
 
-const Context = createContext<Context | null>(null)
-
-interface Props {
+interface ContainerProps {
   children: React.ReactNode
   autoexpand?: boolean
 }
+
+const Context = createContext<Context | null>(null)
 
 function getNode(root: Node[], path: string): Node | null {
   const parts = path.split(".")
@@ -48,10 +48,10 @@ function getNode(root: Node[], path: string): Node | null {
   return node
 }
 
-const Container = function TreeProvider({
+const Container = function TreeProviderContainer({
   children,
   autoexpand = true,
-}: Props) {
+}: ContainerProps) {
   const rootModel = useMemo(() => new Gtk.StringList(), [])
   const root = useMemo<Node[]>(() => [], [])
 
@@ -88,40 +88,33 @@ interface ListProps {
   children: React.ReactNode
 }
 
-const List = function TreeList({ children }: ListProps) {
+const List = function TreeProviderList({ children }: ListProps) {
   return React.Children.map(children, (child, index) => {
-    if (React.isValidElement<ItemProps>(child)) {
-      const {
-        key,
-        props: { value, children },
-      } = child
-
-      return (
-        <OrderedItem key={key ?? index} value={value} index={index}>
-          {children}
-        </OrderedItem>
-      )
+    if (!React.isValidElement(child)) {
+      return child
     }
 
-    return child
+    return (
+      <ItemContext.Provider value={index} key={child.key ?? index}>
+        {child}
+      </ItemContext.Provider>
+    )
   })
 }
 
-interface OrderedItemProps {
-  value: unknown
-  index: number
+interface ItemProps<T> {
   children?: React.ReactNode
+  value: T
 }
 
-const OrderedItem = function TreeOrderedItem({
-  children,
-  index,
-  value,
-}: OrderedItemProps) {
+const ItemContext = createContext<number | null>(null)
+
+const Item = function TreeItem<T>({ children, value }: ItemProps<T>) {
   const { model, setItems } = useListModel()
   const context = useContext(Context)
+  const index = useContext(ItemContext)
 
-  if (!context || !(model instanceof Gtk.TreeListModel)) {
+  if (!context || !(model instanceof Gtk.TreeListModel) || index === null) {
     throw new Error(
       "TreeProvider.Item must be used inside a TreeProvider.Container"
     )
@@ -181,15 +174,6 @@ const OrderedItem = function TreeOrderedItem({
       {children ? <List>{children}</List> : null}
     </Context.Provider>
   ) : null
-}
-
-interface ItemProps {
-  children?: React.ReactNode
-  value: unknown
-}
-
-const Item = function TreeItem(_props: ItemProps) {
-  return null
 }
 
 export default {

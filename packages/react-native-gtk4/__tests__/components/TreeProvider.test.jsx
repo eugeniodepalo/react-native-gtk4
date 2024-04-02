@@ -73,18 +73,19 @@ describe("TreeProvider", () => {
 
   describe("List", () => {
     test("should render children as is if not a valid element", () => {
-      const child = []
 
       jest.spyOn(React, "isValidElement").mockReturnValue(false)
       jest.spyOn(TreeProvider, "List")
 
       render(
         <TreeProvider.Container>
-          <TreeProvider.List>{child}</TreeProvider.List>
+          <TreeProvider.List><Box /></TreeProvider.List>
         </TreeProvider.Container>
       )
 
-      expect(TreeProvider.List.mock.results[0].value).toEqual(child)
+      expect(TreeProvider.List.mock.results[0].value[0]).toMatchObject({
+        type: "Box",
+      })
     })
 
     test("should render", () => {
@@ -98,7 +99,7 @@ describe("TreeProvider", () => {
 
       const child = findBy({ type: "Box" })
 
-      expect(child).toBeNull()
+      expect(child.node).toBeInstanceOf(Gtk.Box)
     })
 
     test("should handle unmount gracefully", () => {
@@ -120,18 +121,6 @@ describe("TreeProvider", () => {
 
   describe("Item", () => {
     const value = "value"
-
-    test("should not render anything by itself", () => {
-      render(
-        <TreeProvider.Item>
-          <Box />
-        </TreeProvider.Item>
-      )
-
-      const child = findBy({ type: "Box" })
-
-      expect(child).toBeNull()
-    })
 
     test("should throw when not in a TreeProvider.Container", () => {
       expect(() =>

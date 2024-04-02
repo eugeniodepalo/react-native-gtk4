@@ -1,13 +1,13 @@
 import Gtk from "@girs/node-gtk-4.0"
-import React, { useEffect, useMemo } from "react"
+import React, { createContext, useContext, useEffect, useMemo } from "react"
 import ListModelProvider from "./ListModelProvider.js"
 import useListModel from "../hooks/useListModel.js"
 
-interface Props {
+interface ContainerProps {
   children: React.ReactNode
 }
 
-const Container = function ListProviderContainer({ children }: Props) {
+const Container = function ListProviderContainer({ children }: ContainerProps) {
   const model = useMemo(() => new Gtk.StringList(), [])
   return <ListModelProvider model={model}>{children}</ListModelProvider>
 }
@@ -26,32 +26,29 @@ const List = function ListProviderList({ children }: ListProps) {
   }
 
   return React.Children.map(children, (child, index) => {
-    if (React.isValidElement<ItemProps>(child)) {
-      return (
-        <OrderedItem
-          key={child.key ?? index}
-          value={child.props.value}
-          index={index}
-        />
-      )
+    if (!React.isValidElement(child)) {
+      return child
     }
 
-    return child
+    return (
+      <ItemContext.Provider value={index} key={child.key ?? index}>
+        {child}
+      </ItemContext.Provider>
+    )
   })
 }
 
-interface OrderedItemProps {
-  value: unknown
-  index: number
+interface ItemProps<T> {
+  value: T
 }
 
-const OrderedItem = function ListProviderItem({
-  value,
-  index,
-}: OrderedItemProps) {
-  const { model, setItems } = useListModel()
+const ItemContext = createContext<number | null>(null)
 
-  if (!(model instanceof Gtk.StringList)) {
+const Item = function ListProviderItem<T>({ value }: ItemProps<T>) {
+  const { model, setItems } = useListModel()
+  const index = useContext(ItemContext)
+
+  if (!(model instanceof Gtk.StringList) || index === null) {
     throw new Error(
       "ListProvider.Item must be used within a ListProvider.Container"
     )
@@ -81,15 +78,6 @@ const OrderedItem = function ListProviderItem({
 
   return null
 }
-
-interface ItemProps {
-  value: unknown
-}
-
-const Item = function ListProviderItem(_props: ItemProps) {
-  return null
-}
-
 export default {
   Container,
   Item,

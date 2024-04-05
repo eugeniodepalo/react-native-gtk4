@@ -1,5 +1,5 @@
 import React from "react"
-import { setup, render } from "../../src/test-support/index.js"
+import { setup, render } from "../../test-support/index.js"
 import useSelection from "../../src/hooks/useSelection.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"

@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup } from "../../src/test-support/index.js"
+import { render, setup } from "../../test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import useListItemFactory from "../../src/hooks/useListItemFactory.js"
 import Gtk from "@girs/node-gtk-4.0"

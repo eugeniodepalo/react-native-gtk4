@@ -1,6 +1,6 @@
 import React from "react"
 import useApplication from "../../src/hooks/useApplication.js"
-import { setup, render } from "../../src/test-support/index.js"
+import { setup, render } from "../../test-support/index.js"
 import ApplicationProvider from "../../src/components/ApplicationProvider.js"
 
 describe("useApplication", () => {

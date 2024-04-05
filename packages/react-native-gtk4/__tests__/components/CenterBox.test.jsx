@@ -1,5 +1,5 @@
 import React, { createRef } from "react"
-import { render, setup, findBy } from "../../src/test-support/index.js"
+import { render, setup, findBy } from "../../test-support/index.js"
 import CenterBox from "../../src/components/CenterBox.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"

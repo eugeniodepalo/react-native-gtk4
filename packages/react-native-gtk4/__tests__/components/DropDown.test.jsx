@@ -6,7 +6,7 @@ import {
   setup,
   findBy,
   fireEvent,
-} from "../../src/test-support/index.js"
+} from "../../test-support/index.js"
 import DropDown from "../../src/components/DropDown.js"
 import ListProvider from "../../src/components/ListProvider.js"
 import Gtk from "@girs/node-gtk-4.0"

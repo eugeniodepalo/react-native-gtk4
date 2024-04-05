@@ -1,5 +1,5 @@
 import React, { createRef } from "react"
-import { render, setup, findBy } from "../../src/test-support/index.js"
+import { render, setup, findBy } from "../../test-support/index.js"
 import TextView from "../../src/components/TextView.js"
 import Gtk from "@girs/node-gtk-4.0"
 import { Box } from "../../src/generated/intrinsics.js" // Assuming we are using the Gtk.Box as the children for simplicity.

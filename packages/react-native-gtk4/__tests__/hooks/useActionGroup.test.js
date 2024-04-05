@@ -1,7 +1,7 @@
 import React from "react"
 import Gio from "@girs/node-gio-2.0"
 import useActionGroup from "../../src/hooks/useActionGroup.js"
-import { setup, render } from "../../src/test-support/index.js"
+import { setup, render } from "../../test-support/index.js"
 
 describe("useActionGroup", () => {
   let actions

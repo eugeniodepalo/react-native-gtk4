@@ -1,7 +1,7 @@
 import React from "react"
 import Gtk from "@girs/node-gtk-4.0"
 import Gdk from "@girs/node-gdk-4.0"
-import { setup, render } from "../../src/test-support/index.js"
+import { setup, render } from "../../test-support/index.js"
 import useStylesheet, {
   useInlineStylesheet,
 } from "../../src/hooks/useStylesheet.js"

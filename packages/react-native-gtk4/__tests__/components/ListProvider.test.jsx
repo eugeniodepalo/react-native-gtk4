@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup, findBy } from "../../src/test-support/index.js"
+import { render, setup, findBy } from "../../test-support/index.js"
 import { Box } from "../../src/generated/intrinsics.js"
 import Gtk from "@girs/node-gtk-4.0"
 import ListProvider from "../../src/components/ListProvider.js"

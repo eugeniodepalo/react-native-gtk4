@@ -1,5 +1,5 @@
 import React, { createRef } from "react"
-import { render, setup, findBy } from "../../src/test-support/index.js"
+import { render, setup, findBy } from "../../test-support/index.js"
 import EmojiChooser from "../../src/components/EmojiChooser.js"
 import Gtk from "@girs/node-gtk-4.0"
 

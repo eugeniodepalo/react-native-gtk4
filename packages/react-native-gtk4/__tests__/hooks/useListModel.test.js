@@ -1,5 +1,5 @@
 import React from "react"
-import { render, setup } from "../../src/test-support/index.js"
+import { render, setup } from "../../test-support/index.js"
 import useListModel from "../../src/hooks/useListModel.js"
 import ListModelProvider from "../../src/components/ListModelProvider.js"
 import Gtk from "@girs/node-gtk-4.0"

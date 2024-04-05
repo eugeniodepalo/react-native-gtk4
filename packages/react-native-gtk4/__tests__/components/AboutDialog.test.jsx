@@ -1,5 +1,5 @@
 import React, { createRef } from "react"
-import { render, findBy, setup } from "../../src/test-support/index.js"
+import { render, findBy, setup } from "../../test-support/index.js"
 import AboutDialog from "../../src/components/AboutDialog.js"
 import Gtk from "@girs/node-gtk-4.0"
 

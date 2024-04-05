@@ -1,7 +1,7 @@
 import React from "react"
 import Gio from "@girs/node-gio-2.0"
 import GLib from "@girs/node-glib-2.0"
-import { setup, render } from "../../src/test-support/index.js"
+import { setup, render } from "../../test-support/index.js"
 import useMenu from "../../src/hooks/useMenu.js"
 
 describe("useMenu", () => {

@@ -39,7 +39,7 @@
     "@girs/node-gtk-4.0": "^4.12.5-3.3.0",
     "@girs/node-pango-1.0": "^1.51.0-3.3.0",
     "lodash": "^4.17.21",
-    "react-reconciler": "^0.29.0"
+    "react-reconciler": "^0.29.2"
   },
   "peerDependencies": {
     "node-gtk": "^0.12.0",

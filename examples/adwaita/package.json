@@ -11,11 +11,11 @@
   "dependencies": {
     "@girs/node-adw-1": "1.4.3-3.3.0",
     "node-gtk": "^0.12.0",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-native-gtk4": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.2.79",
+    "@types/react": "^18.3.1",
     "typescript": "^5.4.5"
   }
 }

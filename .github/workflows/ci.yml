@@ -20,6 +20,7 @@ jobs:
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - run: npx check-peer-dependencies
       - run: docker run -v "$(pwd)/coverage:/coverage" --rm test -- --coverage --coverageDirectory=/coverage
       - run: sudo chown -R $(id -u):$(id -g) ./coverage
       - uses: codecov/codecov-action@v4

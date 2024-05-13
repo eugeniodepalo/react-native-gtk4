@@ -24,8 +24,8 @@ importers:
         version: link:../../packages/react-native-gtk4
     devDependencies:
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -49,8 +49,8 @@ importers:
         version: link:../../packages/react-native-gtk4
     devDependencies:
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -68,8 +68,8 @@ importers:
         version: link:../../packages/react-native-gtk4
     devDependencies:
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -87,8 +87,8 @@ importers:
         version: link:../../packages/react-native-gtk4
     devDependencies:
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -106,8 +106,8 @@ importers:
         version: link:../../packages/react-native-gtk4
     devDependencies:
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -125,8 +125,8 @@ importers:
         version: link:../../packages/react-native-gtk4
     devDependencies:
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -144,8 +144,8 @@ importers:
         specifier: ^20.12.11
         version: 20.12.11
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -226,8 +226,8 @@ importers:
         specifier: ^20.12.11
         version: 20.12.11
       '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^18.3.2
+        version: 18.3.2
       '@types/react-reconciler':
         specifier: ^0.28.8
         version: 0.28.8
@@ -2299,11 +2299,11 @@ packages:
   /@types/react-reconciler@0.28.8:
     resolution: {integrity: sha512-SN9c4kxXZonFhbX4hJrZy37yw9e7EIxcpHCxQv5JUS18wDE5ovkQKlqQEkufdJCCMfuI9BnjUJvhYeJ9x5Ra7g==}
     dependencies:
-      '@types/react': 18.3.1
+      '@types/react': 18.3.2
     dev: true
 
-  /@types/react@18.3.1:
-    resolution: {integrity: sha512-V0kuGBX3+prX+DQ/7r2qsv1NsdfnCLnTgnRJ1pYnxykBhGMz+qj+box5lq7XsO5mtZsBqpjwwTu/7wszPfMBcw==}
+  /@types/react@18.3.2:
+    resolution: {integrity: sha512-Btgg89dAnqD4vV7R3hlwOxgqobUQKgx3MmrQRi0yYbs/P0ym8XozIAlkqVilPqHQwXs4e9Tf63rrCgl58BcO4w==}
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3

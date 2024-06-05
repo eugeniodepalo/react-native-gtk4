@@ -22,5 +22,11 @@ describe("Entry overrides", () => {
 
       expect(entry.node.setText).toHaveBeenCalledWith("text")
     })
+
+    test("should call parent set", () => {
+      entry.set("unknown", "value")
+
+      expect(entry.node.setText).not.toHaveBeenCalled()
+    })
   })
 })

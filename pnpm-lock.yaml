@@ -230,8 +230,8 @@ importers:
         specifier: ^7.24.7
         version: 7.24.7(@babel/core@7.24.7)
       '@babel/preset-react':
-        specifier: ^7.24.6
-        version: 7.24.6(@babel/core@7.24.7)
+        specifier: ^7.24.7
+        version: 7.24.7(@babel/core@7.24.7)
       '@babel/preset-typescript':
         specifier: ^7.24.7
         version: 7.24.7(@babel/core@7.24.7)
@@ -500,11 +500,6 @@ packages:
       '@babel/types': 7.24.7
     dev: true
 
-  /@babel/helper-plugin-utils@7.24.6:
-    resolution: {integrity: sha512-MZG/JcWfxybKwsA9N9PmtF2lOSFSEMVCpIRrbxccZFLJPrJciJdG/UhSh5W96GEteJI2ARqm5UAHxISwRDLSNg==}
-    engines: {node: '>=6.9.0'}
-    dev: true
-
   /@babel/helper-plugin-utils@7.24.7:
     resolution: {integrity: sha512-Rq76wjt7yz9AAc1KnlRKNAi/dMSVWgDRx43FHoJEbcYU6xOWaE2dVPwcdTukJrjxS65GITyfbvEYHvkirZ6uEg==}
     engines: {node: '>=6.9.0'}
@@ -572,11 +567,6 @@ packages:
 
   /@babel/helper-validator-identifier@7.24.7:
     resolution: {integrity: sha512-rR+PBcQ1SMQDDyF6X0wxtG8QyLCgUB0eRAGguqRLfkCA87l7yAP7ehq8SNj96OOGTO8OBV70KhuFYcIkHXOg0w==}
-    engines: {node: '>=6.9.0'}
-    dev: true
-
-  /@babel/helper-validator-option@7.24.6:
-    resolution: {integrity: sha512-Jktc8KkF3zIkePb48QO+IapbXlSapOW9S+ogZZkcO6bABgYAxtZcjZ/O005111YLf+j4M84uEgwYoidDkXbCkQ==}
     engines: {node: '>=6.9.0'}
     dev: true
 
@@ -1322,8 +1312,8 @@ packages:
       '@babel/helper-plugin-utils': 7.24.7
     dev: true
 
-  /@babel/plugin-transform-react-display-name@7.24.6(@babel/core@7.24.7):
-    resolution: {integrity: sha512-/3iiEEHDsJuj9QU09gbyWGSUxDboFcD7Nj6dnHIlboWSodxXAoaY/zlNMHeYAC0WsERMqgO9a7UaM77CsYgWcg==}
+  /@babel/plugin-transform-react-display-name@7.24.7(@babel/core@7.24.7):
+    resolution: {integrity: sha512-H/Snz9PFxKsS1JLI4dJLtnJgCJRoo0AUm3chP6NYr+9En1JMKloheEiLIhlp5MDVznWo+H3AAC1Mc8lmUEpsgg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -1332,20 +1322,20 @@ packages:
       '@babel/helper-plugin-utils': 7.24.7
     dev: true
 
-  /@babel/plugin-transform-react-jsx-development@7.24.6(@babel/core@7.24.7):
-    resolution: {integrity: sha512-F7EsNp5StNDouSSdYyDSxh4J+xvj/JqG+Cb6s2fA+jCyHOzigG5vTwgH8tU2U8Voyiu5zCG9bAK49wTr/wPH0w==}
+  /@babel/plugin-transform-react-jsx-development@7.24.7(@babel/core@7.24.7):
+    resolution: {integrity: sha512-QG9EnzoGn+Qar7rxuW+ZOsbWOt56FvvI93xInqsZDC5fsekx1AlIO4KIJ5M+D0p0SqSH156EpmZyXq630B8OlQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.24.7
-      '@babel/plugin-transform-react-jsx': 7.24.6(@babel/core@7.24.7)
+      '@babel/plugin-transform-react-jsx': 7.24.7(@babel/core@7.24.7)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@babel/plugin-transform-react-jsx@7.24.6(@babel/core@7.24.7):
-    resolution: {integrity: sha512-pCtPHhpRZHfwdA5G1Gpk5mIzMA99hv0R8S/Ket50Rw+S+8hkt3wBWqdqHaPw0CuUYxdshUgsPiLQ5fAs4ASMhw==}
+  /@babel/plugin-transform-react-jsx@7.24.7(@babel/core@7.24.7):
+    resolution: {integrity: sha512-+Dj06GDZEFRYvclU6k4bme55GKBEWUmByM/eoKuqg4zTNQHiApWRhQph5fxQB2wAEFvRzL1tOEj1RJ19wJrhoA==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -1360,8 +1350,8 @@ packages:
       - supports-color
     dev: true
 
-  /@babel/plugin-transform-react-pure-annotations@7.24.6(@babel/core@7.24.7):
-    resolution: {integrity: sha512-0HoDQlFJJkXRyV2N+xOpUETbKHcouSwijRQbKWVtxsPoq5bbB30qZag9/pSc5xcWVYjTHlLsBsY+hZDnzQTPNw==}
+  /@babel/plugin-transform-react-pure-annotations@7.24.7(@babel/core@7.24.7):
+    resolution: {integrity: sha512-PLgBVk3fzbmEjBJ/u8kFzOqS9tUeDjiaWud/rRym/yjCo/M9cASPlnrd2ZmmZpQT40fOOrvR8jh+n8jikrOhNA==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -1606,19 +1596,19 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /@babel/preset-react@7.24.6(@babel/core@7.24.7):
-    resolution: {integrity: sha512-8mpzh1bWvmINmwM3xpz6ahu57mNaWavMm+wBNjQ4AFu1nghKBiIRET7l/Wmj4drXany/BBGjJZngICcD98F1iw==}
+  /@babel/preset-react@7.24.7(@babel/core@7.24.7):
+    resolution: {integrity: sha512-AAH4lEkpmzFWrGVlHaxJB7RLH21uPQ9+He+eFLWHmF9IuFQVugz8eAsamaW0DXRrTfco5zj1wWtpdcXJUOfsag==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.6
-      '@babel/helper-validator-option': 7.24.6
-      '@babel/plugin-transform-react-display-name': 7.24.6(@babel/core@7.24.7)
-      '@babel/plugin-transform-react-jsx': 7.24.6(@babel/core@7.24.7)
-      '@babel/plugin-transform-react-jsx-development': 7.24.6(@babel/core@7.24.7)
-      '@babel/plugin-transform-react-pure-annotations': 7.24.6(@babel/core@7.24.7)
+      '@babel/helper-plugin-utils': 7.24.7
+      '@babel/helper-validator-option': 7.24.7
+      '@babel/plugin-transform-react-display-name': 7.24.7(@babel/core@7.24.7)
+      '@babel/plugin-transform-react-jsx': 7.24.7(@babel/core@7.24.7)
+      '@babel/plugin-transform-react-jsx-development': 7.24.7(@babel/core@7.24.7)
+      '@babel/plugin-transform-react-pure-annotations': 7.24.7(@babel/core@7.24.7)
     transitivePeerDependencies:
       - supports-color
     dev: true

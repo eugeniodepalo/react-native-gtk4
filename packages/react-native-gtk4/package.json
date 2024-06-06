@@ -48,7 +48,7 @@
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
-    "@babel/preset-react": "^7.24.6",
+    "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.4",

@@ -9,7 +9,7 @@
     "start": "pnpm run build && node dist/index.js"
   },
   "dependencies": {
-    "@types/node": "^20.14.6",
+    "@types/node": "^20.14.7",
     "axios": "^1.7.2",
     "node-gtk": "^0.12.0",
     "react": "^18.3.1",

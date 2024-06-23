@@ -8,7 +8,6 @@
     "build": "tsc",
     "lint": "eslint src",
     "test": "jest",
-    "test:docker": "docker build -t react-native-gtk4 . && docker run -it react-native-gtk4",
     "codegen": "./bin/codegen"
   },
   "engines": {

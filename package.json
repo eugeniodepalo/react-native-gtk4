@@ -1,13 +1,17 @@
 {
   "name": "react-native-gtk",
   "private": true,
+  "packageManager": "pnpm@9.1.4",
   "workspaces": [
     "packages/*",
     "examples/*"
   ],
   "scripts": {
-    "build": "pnpm --filter react-native-gtk4 run build",
-    "test": "pnpm --filter react-native-gtk4 run test",
-    "publish": "pnpm --filter react-native-gtk4 publish"
+    "build": "turbo build -F react-native-gtk4",
+    "test": "turbo test -F react-native-gtk4",
+    "publish": "turbo publish -F react-native-gtk4"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.4"
   }
 }

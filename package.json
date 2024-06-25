@@ -12,6 +12,6 @@
     "publish": "turbo publish -F react-native-gtk4"
   },
   "devDependencies": {
-    "turbo": "^2.0.4"
+    "turbo": "^2.0.5"
   }
 }

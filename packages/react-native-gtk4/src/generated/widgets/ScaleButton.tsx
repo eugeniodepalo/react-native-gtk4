@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Widget from "./Widget.js"
 
 export default class ScaleButton<
@@ -12,6 +12,9 @@ export default class ScaleButton<
     switch (propName) {
       case "adjustment":
         this.node.setAdjustment(newValue)
+        break
+      case "hasFrame":
+        this.node.setHasFrame(newValue)
         break
       case "icons":
         this.node.setIcons(newValue)
@@ -39,6 +42,9 @@ export default class ScaleButton<
         break
       case "onNotifyAdjustment":
         this.setHandler("notify::adjustment", newValue)
+        break
+      case "onNotifyHasFrame":
+        this.setHandler("notify::has-frame", newValue)
         break
       case "onNotifyIcons":
         this.setHandler("notify::icons", newValue)

@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Button from "./Button.js"
 
 export default class LinkButton<
@@ -23,7 +23,7 @@ export default class LinkButton<
         this.node.setActionName(newValue)
         break
       case "actionTarget":
-        this.node.setActionTargetValue(newValue)
+        this.node.setActionTarget(newValue)
         break
       case "onActivateLink":
         this.setHandler("activate-link", newValue)

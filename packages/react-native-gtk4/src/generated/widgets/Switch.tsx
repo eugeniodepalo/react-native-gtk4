@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Widget from "./Widget.js"
 
 export default class Switch<
@@ -23,7 +23,7 @@ export default class Switch<
         this.node.setActionName(newValue)
         break
       case "actionTarget":
-        this.node.setActionTargetValue(newValue)
+        this.node.setActionTarget(newValue)
         break
       case "onActivate":
         this.setHandler("activate", newValue)

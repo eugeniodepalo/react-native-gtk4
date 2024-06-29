@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Application from "./application.js"
 import Widget from "./generated/widgets/Widget.js"
 import { getWidgetClass } from "./reconciler.js"
@@ -9,10 +9,10 @@ export const ROOT_NODE_KEY = Symbol("react-native-gtk4.rootNode")
 export type RootNode<T> = T extends Gtk.Application
   ? Application
   : T extends Gtk.Widget
-  ? Widget<T>
-  : Node<T>
+    ? Widget<T>
+    : Node<T>
 
-type WithRootNode<T> = T & {
+export type WithRootNode<T> = T & {
   [ROOT_NODE_KEY]?: RootNode<T>
 }
 

@@ -1,6 +1,6 @@
 import React, { ForwardedRef } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { ListView } from "../generated/intrinsics.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
@@ -14,7 +14,7 @@ type Props<T> = Omit<
   selectionMode?: Gtk.SelectionMode
   selection?: number[]
   onSelectionChanged?: (indexes: number[], selection: unknown[]) => void
-  renderItem?: ListItemFactoryRenderFunction<T>
+  renderItem?: ListItemFactoryRenderFunction<T> | null
 }
 
 export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<

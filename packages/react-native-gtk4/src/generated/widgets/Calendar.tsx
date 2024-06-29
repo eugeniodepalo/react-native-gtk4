@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Widget from "./Widget.js"
 
 export default class Calendar<
@@ -11,10 +11,10 @@ export default class Calendar<
     super.set(propName, newValue)
     switch (propName) {
       case "day":
-        this.node.day = newValue
+        this.node.setDay(newValue)
         break
       case "month":
-        this.node.month = newValue
+        this.node.setMonth(newValue)
         break
       case "showDayNames":
         this.node.setShowDayNames(newValue)
@@ -26,7 +26,7 @@ export default class Calendar<
         this.node.setShowWeekNumbers(newValue)
         break
       case "year":
-        this.node.year = newValue
+        this.node.setYear(newValue)
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue

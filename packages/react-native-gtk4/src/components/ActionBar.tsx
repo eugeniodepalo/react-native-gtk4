@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, createContext } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { ActionBar } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
@@ -69,12 +69,12 @@ const Item = function ActionBarItem({ children }: ItemProps) {
 
 interface SectionProps {
   children: React.ReactElement
-  position: Position
+  position?: Position
 }
 
 const Section = function ActionBarSection({
   children,
-  position,
+  position = "start",
 }: SectionProps) {
   return (
     <PositionContext.Provider value={position}>

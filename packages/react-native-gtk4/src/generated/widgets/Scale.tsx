@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Range from "./Range.js"
 
 export default class Scale<T extends Gtk.Scale = Gtk.Scale> extends Range<T> {

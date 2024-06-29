@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useState } from "react"
-import Gio from "@girs/node-gio-2.0"
+import Gio from "@/generated/girs/node-gio-2.0"
 
 export interface ListModelContext {
   items: Record<string, unknown>

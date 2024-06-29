@@ -1,7 +1,10 @@
 #!/bin/sh
 
+set -e
+
 rm -rf src/generated
 rm -rf __tests__/generated
 pnpm run --filter codegen generate
 mv ../codegen/out/src/generated src/
 mv ../codegen/out/__tests__/generated __tests__/
+mv ../codegen/out/girs src/generated/

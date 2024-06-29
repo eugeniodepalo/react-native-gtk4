@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup-node src/index.ts",
     "lint": "eslint src",
     "test": "jest",
     "codegen": "./bin/codegen"
@@ -30,13 +30,6 @@
   },
   "homepage": "https://github.com/eugeniodepalo/react-native-gtk4",
   "dependencies": {
-    "@girs/node-gdk-4.0": "^4.0.0-3.3.0",
-    "@girs/node-gio-2.0": "^2.78.0-3.3.0",
-    "@girs/node-glib-2.0": "^2.78.0-3.3.0",
-    "@girs/node-gobject-2.0": "^2.78.0-3.3.0",
-    "@girs/node-gtk": "^3.3.0",
-    "@girs/node-gtk-4.0": "^4.12.5-3.3.0",
-    "@girs/node-pango-1.0": "^1.51.0-3.3.0",
     "lodash": "^4.17.21",
     "react-reconciler": "^0.29.2"
   },
@@ -64,6 +57,7 @@
     "prettier": "^3.3.2",
     "ts-jest": "^29.1.5",
     "ts-jest-resolver": "^2.0.1",
+    "tsup": "^8.1.0",
     "typescript": "^5.5.3"
   }
 }

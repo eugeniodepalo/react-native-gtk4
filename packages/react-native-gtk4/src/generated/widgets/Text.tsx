@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Widget from "./Widget.js"
 
 export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
@@ -45,7 +45,7 @@ export default class Text<T extends Gtk.Text = Gtk.Text> extends Widget<T> {
         this.node.setOverwriteMode(newValue)
         break
       case "placeholderText":
-        this.node.placeholderText = newValue
+        this.node.setPlaceholderText(newValue)
         break
       case "propagateTextWidth":
         this.node.setPropagateTextWidth(newValue)

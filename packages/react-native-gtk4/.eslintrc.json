@@ -38,7 +38,7 @@
       "plugins": ["@typescript-eslint"]
     },
     {
-      "files": ["**/*.js", "**/*.jsx"],
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
       "env": {
         "jest": true,
         "node": true

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { HeaderBar } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
@@ -43,12 +43,12 @@ const Container = forwardRef<Gtk.HeaderBar, Props>(function HeaderBarContainer(
 
 interface SectionProps {
   children: React.ReactNode
-  position: Position
+  position?: Position
 }
 
 const Section = function HeaderBarSection({
   children,
-  position,
+  position = "start",
 }: SectionProps) {
   return (
     <PositionContext.Provider value={position}>

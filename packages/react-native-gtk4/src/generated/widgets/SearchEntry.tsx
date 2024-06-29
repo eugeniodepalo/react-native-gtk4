@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Widget from "./Widget.js"
 
 export default class SearchEntry<
@@ -13,8 +13,14 @@ export default class SearchEntry<
       case "activatesDefault":
         this.node.activatesDefault = newValue
         break
+      case "inputHints":
+        this.node.setInputHints(newValue)
+        break
+      case "inputPurpose":
+        this.node.setInputPurpose(newValue)
+        break
       case "placeholderText":
-        this.node.placeholderText = newValue
+        this.node.setPlaceholderText(newValue)
         break
       case "searchDelay":
         this.node.setSearchDelay(newValue)
@@ -69,6 +75,12 @@ export default class SearchEntry<
         break
       case "onNotifyActivatesDefault":
         this.setHandler("notify::activates-default", newValue)
+        break
+      case "onNotifyInputHints":
+        this.setHandler("notify::input-hints", newValue)
+        break
+      case "onNotifyInputPurpose":
+        this.setHandler("notify::input-purpose", newValue)
         break
       case "onNotifyPlaceholderText":
         this.setHandler("notify::placeholder-text", newValue)

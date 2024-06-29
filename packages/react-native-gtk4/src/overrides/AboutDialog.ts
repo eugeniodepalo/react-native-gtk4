@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import AboutDialog from "../generated/widgets/AboutDialog.js"
 
 const parent = {

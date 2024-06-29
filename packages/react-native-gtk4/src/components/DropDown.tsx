@@ -1,6 +1,6 @@
 import React, { ForwardedRef } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { DropDown } from "../generated/intrinsics.js"
 import useListItemFactory, {
   ListItemFactoryRenderFunction,
@@ -18,8 +18,8 @@ type Props<T> = Omit<
   | "onNotifySelectedItem"
   | "onNotifySelectedItemChanged"
 > & {
-  renderPopoverItem?: ListItemFactoryRenderFunction<T>
-  renderItem?: ListItemFactoryRenderFunction<T>
+  renderPopoverItem?: ListItemFactoryRenderFunction<T> | null
+  renderItem?: ListItemFactoryRenderFunction<T> | null
   onSelectedItemChanged?: (index: number, item: T) => void
   selectedItem?: number
 }

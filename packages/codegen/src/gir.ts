@@ -1,8 +1,15 @@
 import { GirClass } from "./gir/class.js"
-import { GirModule, InheritanceTable } from "@ts-for-gir/lib"
+import {
+  GirClassElement,
+  GirModule,
+  GirNamespace,
+  InheritanceTable,
+} from "@ts-for-gir/lib"
 import { ModuleLoader } from "./module-loader.js"
+import { GirImport } from "./gir/import.js"
+import { dirname, join } from "path"
 
-const ROOT_PATH = `${__dirname}/..`
+const ROOT_PATH = dirname(join(new URL(import.meta.url).pathname, ".."))
 
 export class Gir {
   module: GirModule
@@ -26,10 +33,15 @@ export class Gir {
     })
 
     const inheritanceTable: InheritanceTable = {}
-    const [{ module }] = await moduleLoader.getModulesResolved(["Gtk-4.0"])
+    const loadedModules = await moduleLoader.getModulesResolved(["Gtk-4.0"])
+    const module = loadedModules[0].module
 
-    module.init(inheritanceTable)
-    module.start([module])
+    for (const { module } of loadedModules) {
+      GirModule.allGirModules.push(module)
+      module.init(inheritanceTable)
+    }
+
+    module.start(GirModule.allGirModules)
 
     return new Gir(module)
   }
@@ -40,102 +52,56 @@ export class Gir {
 
   get widgetClasses() {
     return this.classes
-      .filter(this.isWidgetClass.bind(this))
+      .filter((c) => this.isWidgetClass(c))
       .map((c) => new GirClass(c, this))
   }
 
   get classes() {
-    return this.namespace.class_.filter(
-      (c) => !["Inscription"].includes(c.$.name)
-    )
+    return this.collectFromDependencies("class")
   }
 
   get interfaces() {
-    return this.namespace.interface
+    return this.collectFromDependencies("interface")
   }
 
   get enumerations() {
-    return [
-      ...this.namespace.enumeration,
-      {
-        $: {
-          name: "Pango.EllipsizeMode",
-        },
-        member: [
-          {
-            $: {
-              name: "NONE",
-            },
-          },
-          {
-            $: {
-              name: "START",
-            },
-          },
-          {
-            $: {
-              name: "MIDDLE",
-            },
-          },
-          {
-            $: {
-              name: "END",
-            },
-          },
-        ],
-      },
-      {
-        $: {
-          name: "Pango.WrapMode",
-        },
-        member: [
-          {
-            $: {
-              name: "WORD",
-            },
-          },
-          {
-            $: {
-              name: "CHAR",
-            },
-          },
-          {
-            $: {
-              name: "WORD_CHAR",
-            },
-          },
-        ],
-      },
-      {
-        $: {
-          name: "Gdk.GLAPI",
-        },
-        member: [
-          {
-            $: {
-              name: "GL",
-            },
-          },
-          {
-            $: {
-              name: "GLES",
-            },
-          },
-        ],
-      },
-    ]
+    return this.collectFromDependencies("enumeration")
   }
 
   get bitfields() {
-    return this.namespace.bitfield
+    return this.collectFromDependencies("bitfield")
   }
 
   get namespace() {
-    return this.xml.repository.namespace[0]
+    return this.module.ns
+  }
+
+  private collectFromDependencies<T extends keyof Omit<GirNamespace, "$">>(
+    prop: T
+  ) {
+    const initialValue = this.namespace[prop] || []
+
+    return this.module.allDependencies
+      .reduce(
+        (acc, dep) => {
+          const module = this.module.dependencyManager.getModule(
+            GirModule.allGirModules,
+            dep
+          )
+
+          if (!module) {
+            return acc
+          }
+
+          return acc.concat(module.ns[prop] || [])
+        },
+        initialValue as NonNullable<GirNamespace[T]>[]
+      )
+      .flat()
   }
 
   get imports() {
-    const imports = []
+    const imports: GirImport[] = []
 
     for (const widgetClass of this.widgetClasses) {
       for (const import_ of widgetClass.imports) {
@@ -148,7 +114,7 @@ export class Gir {
     return imports
   }
 
-  findInterfaceByName(name) {
+  findInterfaceByName(name: string) {
     if (!name) {
       return null
     }
@@ -156,7 +122,7 @@ export class Gir {
     return this.interfaces.find((i) => i.$.name === name)
   }
 
-  findClassByName(name) {
+  findClassByName(name: string | null | undefined) {
     if (!name) {
       return null
     }
@@ -164,7 +130,7 @@ export class Gir {
     return this.classes.find((c) => c.$.name === name)
   }
 
-  isWidgetClass(class_) {
+  isWidgetClass(class_: GirClassElement | null | undefined): boolean {
     if (!class_) {
       return false
     }

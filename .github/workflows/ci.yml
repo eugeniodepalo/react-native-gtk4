@@ -14,11 +14,12 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: packages/react-native-gtk4
+          file: Dockerfile
           tags: test
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - run: docker run -v "$(pwd)/coverage:/coverage" --rm test -- --coverage --coverageDirectory=/coverage
+      - run: docker run -v "$(pwd)/coverage:/coverage" --rm test test -- --coverage --coverageDirectory=/coverage
       - run: sudo chown -R $(id -u):$(id -g) ./coverage
       - uses: codecov/codecov-action@v4
         with:

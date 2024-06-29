@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Widget from "./Widget.js"
 
 export default class SpinButton<
@@ -10,6 +10,9 @@ export default class SpinButton<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "activatesDefault":
+        this.node.setActivatesDefault(newValue)
+        break
       case "adjustment":
         this.node.setAdjustment(newValue)
         break
@@ -61,6 +64,9 @@ export default class SpinButton<
       case "orientation":
         this.node.setOrientation(newValue)
         break
+      case "onActivate":
+        this.setHandler("activate", newValue)
+        break
       case "onChangeValue":
         this.setHandler("change-value", newValue)
         break
@@ -90,6 +96,9 @@ export default class SpinButton<
         break
       case "onInsertText":
         this.setHandler("insert-text", newValue)
+        break
+      case "onNotifyActivatesDefault":
+        this.setHandler("notify::activates-default", newValue)
         break
       case "onNotifyAdjustment":
         this.setHandler("notify::adjustment", newValue)

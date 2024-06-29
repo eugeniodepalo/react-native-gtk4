@@ -1,5 +1,5 @@
-import GObject from "@girs/node-gobject-2.0"
-import Gtk from "@girs/node-gtk-4.0"
+import GObject from "@/generated/girs/node-gobject-2.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import React, { createRef, useEffect, useMemo } from "react"
 import { Reconciler, createReconciler } from "../reconciler.js"
 import useListModel from "./useListModel.js"
@@ -45,7 +45,7 @@ export type ListItemFactoryRenderFunction<T> = (
 ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 
 export default function useListItemFactory<T>(
-  render?: ListItemFactoryRenderFunction<T>
+  render?: ListItemFactoryRenderFunction<T> | null
 ): Gtk.SignalListItemFactory | null | undefined {
   const factory = useMemo(() => new Gtk.SignalListItemFactory(), [])
   const { items } = useListModel()

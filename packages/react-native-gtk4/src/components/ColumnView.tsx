@@ -1,6 +1,6 @@
 import React, { ForwardedRef, useState, useCallback, useEffect } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { ColumnView } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 import useListItemFactory from "../hooks/useListItemFactory.js"
@@ -20,14 +20,14 @@ type Props<T> = Omit<JSX.IntrinsicElements["ColumnView"], "model"> & {
   selectionMode?: Gtk.SelectionMode
   selection?: number[]
   onSelectionChanged?: (indexes: number[], selection: T[]) => void
-  renderCell?: RenderCellFunction<T>
+  renderCell: RenderCellFunction<T>
 }
 
 interface ColumnProps<T> {
   index: number
   column: Column
   view: Gtk.ColumnView
-  renderCell?: RenderCellFunction<T>
+  renderCell: RenderCellFunction<T>
 }
 
 const Column = React.memo(function ColumnComponent<T>({
@@ -38,10 +38,6 @@ const Column = React.memo(function ColumnComponent<T>({
 }: ColumnProps<T>) {
   const render = useCallback(
     (item: T | null, listItem: Gtk.ListItem) => {
-      if (!renderCell) {
-        throw new Error("Expected renderCell to be defined")
-      }
-
       return renderCell(item, index, listItem)
     },
     [index, renderCell]

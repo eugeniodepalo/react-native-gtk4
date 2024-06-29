@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react"
-import Gtk from "@girs/node-gtk-4.0"
-import Gio from "@girs/node-gio-2.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
+import Gio from "@/generated/girs/node-gio-2.0"
 import useApplication from "../hooks/useApplication.js"
 import _ from "lodash"
 
@@ -95,22 +95,24 @@ export function SingleFileDialog({
       }
     }
 
-    switch (selectionType) {
-      case "file":
-        dialog.open(null, cancellable, (_, result) => {
-          handleFinish(() => dialog.openFinish(result))
-        })
-        break
-      case "folder":
-        dialog.selectFolder(null, cancellable, (_, result) => {
-          handleFinish(() => dialog.selectFolderFinish(result))
-        })
-        break
-      case "save":
-        dialog.save(null, cancellable, (_, result) => {
-          handleFinish(() => dialog.saveFinish(result))
-        })
-        break
+    switch (
+      selectionType
+      // case "file":
+      //   dialog.open(null, cancellable, (_, result) => {
+      //     handleFinish(() => dialog.openFinish(result))
+      //   })
+      //   break
+      // case "folder":
+      //   dialog.selectFolder(null, cancellable, (_, result) => {
+      //     handleFinish(() => dialog.selectFolderFinish(result))
+      //   })
+      //   break
+      // case "save":
+      //   dialog.save(null, cancellable, (_, result) => {
+      //     handleFinish(() => dialog.saveFinish(result))
+      //   })
+      //   break
+    ) {
     }
   }, [application, dialog, selectionType])
 
@@ -142,17 +144,19 @@ export function MultipleFileDialog({
       }
     }
 
-    switch (selectionType) {
-      case "file":
-        dialog.openMultiple(null, cancellable, (_, result) => {
-          handleFinish(() => dialog.openMultipleFinish(result))
-        })
-        break
-      case "folder":
-        dialog.selectMultipleFolders(null, cancellable, (_, result) => {
-          handleFinish(() => dialog.selectMultipleFoldersFinish(result))
-        })
-        break
+    switch (
+      selectionType
+      // case "file":
+      //   dialog.openMultiple(null, cancellable, (_, result) => {
+      //     handleFinish(() => dialog.openMultipleFinish(result))
+      //   })
+      //   break
+      // case "folder":
+      //   dialog.selectMultipleFolders(null, cancellable, (_, result) => {
+      //     handleFinish(() => dialog.selectMultipleFoldersFinish(result))
+      //   })
+      //   break
+    ) {
     }
   }, [application, dialog, selectionType])
 

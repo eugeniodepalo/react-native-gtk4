@@ -11,7 +11,9 @@
     "declaration": true,
     "allowJs": true,
     "jsx": "react",
-    "baseUrl": "."
-  },
-  "include": ["src/index.ts", "src/types.d.ts"]
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
 }

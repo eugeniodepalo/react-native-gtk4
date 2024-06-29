@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import React, { createContext, useContext, useEffect, useMemo } from "react"
 import ListModelProvider from "./ListModelProvider.js"
 import useListModel from "../hooks/useListModel.js"

@@ -1,4 +1,4 @@
-import Gio from "@girs/node-gio-2.0"
+import Gio from "@/generated/girs/node-gio-2.0"
 import { useMemo } from "react"
 
 export default function useActionGroup(

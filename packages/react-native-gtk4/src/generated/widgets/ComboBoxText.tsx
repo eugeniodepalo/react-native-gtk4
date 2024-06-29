@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import ComboBox from "./ComboBox.js"
 
 export default class ComboBoxText<

@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Popover from "./Popover.js"
 
 export default class PopoverMenu<
@@ -10,6 +10,9 @@ export default class PopoverMenu<
   set(propName: string, newValue: any) {
     super.set(propName, newValue)
     switch (propName) {
+      case "flags":
+        this.node.setFlags(newValue)
+        break
       case "menuModel":
         this.node.setMenuModel(newValue)
         break
@@ -18,6 +21,9 @@ export default class PopoverMenu<
         break
       case "accessibleRole":
         this.node.accessibleRole = newValue
+        break
+      case "onNotifyFlags":
+        this.setHandler("notify::flags", newValue)
         break
       case "onNotifyMenuModel":
         this.setHandler("notify::menu-model", newValue)

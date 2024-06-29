@@ -1,8 +1,24 @@
 #!/bin/sh
 
-pnpm run build
+set -e
+
+IMAGE_NAME=react-native-gtk4
+CONTAINER_NAME=react-native-gtk4-codegen
+
+docker build -t $IMAGE_NAME ../..
+rm -rf girs
+mkdir -p girs
+docker rm -f $CONTAINER_NAME > /dev/null 2>&1 || true
+docker run -d --name $CONTAINER_NAME --entrypoint /bin/bash -v ./girs:/girs $IMAGE_NAME -c 'sleep infinity' > /dev/null
+docker exec $CONTAINER_NAME /bin/bash -c 'cp /usr/share/gir-1.0/*.gir /girs' > /dev/null
+docker stop $CONTAINER_NAME > /dev/null
+docker rm $CONTAINER_NAME > /dev/null
+
 rm -rf out
 mkdir -p out/src/generated/widgets
 mkdir -p out/__tests__/generated/widgets
+pnpm exec ts-for-gir generate Gtk-4.0 -g ./girs -e node -o out/girs
+rm ./out/girs/*-import.js
+pnpm run build
 node dist/index.js
 pnpm exec prettier --write 'out/**/*.{ts,tsx,js}'

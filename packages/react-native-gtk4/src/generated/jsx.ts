@@ -1,9 +1,9 @@
 import React from "react"
-import Gtk from "@girs/node-gtk-4.0"
-import Gdk from "@girs/node-gdk-4.0"
-import Gio from "@girs/node-gio-2.0"
-import GLib from "@girs/node-glib-2.0"
-import Pango from "@girs/node-pango-1.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
+import Gdk from "@/generated/girs/node-gdk-4.0.js"
+import Gio from "@/generated/girs/node-gio-2.0.js"
+import GLib from "@/generated/girs/node-glib-2.0.js"
+import Pango from "@/generated/girs/node-pango-1.0.js"
 
 declare global {
   namespace JSX {
@@ -847,6 +847,14 @@ declare global {
         onNotifyUseEs?: (node: Gtk.GLArea) => void
         onNotifyAccessibleRole?: (node: Gtk.GLArea) => void
       }
+      GraphicsOffload: JSX.IntrinsicElements["Widget"] & {
+        ref?: React.Ref<Gtk.GraphicsOffload>
+        enabled?: Gtk.GraphicsOffloadEnabled | null
+        accessibleRole?: Gtk.AccessibleRole | null
+        onNotifyChild?: (node: Gtk.GraphicsOffload) => void
+        onNotifyEnabled?: (node: Gtk.GraphicsOffload) => void
+        onNotifyAccessibleRole?: (node: Gtk.GraphicsOffload) => void
+      }
       Grid: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Grid>
         baselineRow?: number | null
@@ -1000,6 +1008,33 @@ declare global {
         onNotifyRevealed?: (node: Gtk.InfoBar) => void
         onNotifyShowCloseButton?: (node: Gtk.InfoBar) => void
         onNotifyAccessibleRole?: (node: Gtk.InfoBar) => void
+      }
+      Inscription: JSX.IntrinsicElements["Widget"] & {
+        ref?: React.Ref<Gtk.Inscription>
+        attributes?: Pango.AttrList | null
+        markup?: string | null
+        minChars?: number | null
+        minLines?: number | null
+        natChars?: number | null
+        natLines?: number | null
+        text?: string | null
+        textOverflow?: Gtk.InscriptionOverflow | null
+        wrapMode?: Pango.WrapMode | null
+        xalign?: number | null
+        yalign?: number | null
+        accessibleRole?: Gtk.AccessibleRole | null
+        onNotifyAttributes?: (node: Gtk.Inscription) => void
+        onNotifyMarkup?: (node: Gtk.Inscription) => void
+        onNotifyMinChars?: (node: Gtk.Inscription) => void
+        onNotifyMinLines?: (node: Gtk.Inscription) => void
+        onNotifyNatChars?: (node: Gtk.Inscription) => void
+        onNotifyNatLines?: (node: Gtk.Inscription) => void
+        onNotifyText?: (node: Gtk.Inscription) => void
+        onNotifyTextOverflow?: (node: Gtk.Inscription) => void
+        onNotifyWrapMode?: (node: Gtk.Inscription) => void
+        onNotifyXalign?: (node: Gtk.Inscription) => void
+        onNotifyYalign?: (node: Gtk.Inscription) => void
+        onNotifyAccessibleRole?: (node: Gtk.Inscription) => void
       }
       Label: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.Label>
@@ -1431,9 +1466,11 @@ declare global {
       }
       PopoverMenu: JSX.IntrinsicElements["Popover"] & {
         ref?: React.Ref<Gtk.PopoverMenu>
+        flags?: Gtk.PopoverMenuFlags | null
         menuModel?: Gio.MenuModel | null
         visibleSubmenu?: string | null
         accessibleRole?: Gtk.AccessibleRole | null
+        onNotifyFlags?: (node: Gtk.PopoverMenu) => void
         onNotifyMenuModel?: (node: Gtk.PopoverMenu) => void
         onNotifyVisibleSubmenu?: (node: Gtk.PopoverMenu) => void
         onNotifyAccessibleRole?: (node: Gtk.PopoverMenu) => void
@@ -1542,6 +1579,7 @@ declare global {
       ScaleButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.ScaleButton>
         adjustment?: Gtk.Adjustment | null
+        hasFrame?: boolean | null
         icons?: string[] | null
         value?: number | null
         accessibleRole?: Gtk.AccessibleRole | null
@@ -1551,6 +1589,7 @@ declare global {
         onValueChanged?: (node: Gtk.ScaleButton, value?: number) => void
         onNotifyActive?: (node: Gtk.ScaleButton) => void
         onNotifyAdjustment?: (node: Gtk.ScaleButton) => void
+        onNotifyHasFrame?: (node: Gtk.ScaleButton) => void
         onNotifyIcons?: (node: Gtk.ScaleButton) => void
         onNotifyValue?: (node: Gtk.ScaleButton) => void
         onNotifyAccessibleRole?: (node: Gtk.ScaleButton) => void
@@ -1631,6 +1670,8 @@ declare global {
       SearchEntry: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.SearchEntry>
         activatesDefault?: boolean | null
+        inputHints?: Gtk.InputHints | null
+        inputPurpose?: Gtk.InputPurpose | null
         placeholderText?: string | null
         searchDelay?: number | null
         accessibleRole?: Gtk.AccessibleRole | null
@@ -1659,6 +1700,8 @@ declare global {
           position?: number
         ) => void
         onNotifyActivatesDefault?: (node: Gtk.SearchEntry) => void
+        onNotifyInputHints?: (node: Gtk.SearchEntry) => void
+        onNotifyInputPurpose?: (node: Gtk.SearchEntry) => void
         onNotifyPlaceholderText?: (node: Gtk.SearchEntry) => void
         onNotifySearchDelay?: (node: Gtk.SearchEntry) => void
         onNotifyAccessibleRole?: (node: Gtk.SearchEntry) => void
@@ -1762,6 +1805,7 @@ declare global {
       }
       SpinButton: JSX.IntrinsicElements["Widget"] & {
         ref?: React.Ref<Gtk.SpinButton>
+        activatesDefault?: boolean | null
         adjustment?: Gtk.Adjustment | null
         climbRate?: number | null
         digits?: number | null
@@ -1779,6 +1823,7 @@ declare global {
         widthChars?: number | null
         xalign?: number | null
         orientation?: Gtk.Orientation | null
+        onActivate?: (node: Gtk.SpinButton) => void
         onChangeValue?: (node: Gtk.SpinButton, scroll?: Gtk.ScrollType) => void
         onInput?: (node: Gtk.SpinButton, newValue?: number) => number
         onOutput?: (node: Gtk.SpinButton) => boolean
@@ -1798,6 +1843,7 @@ declare global {
           length?: number,
           position?: number
         ) => void
+        onNotifyActivatesDefault?: (node: Gtk.SpinButton) => void
         onNotifyAdjustment?: (node: Gtk.SpinButton) => void
         onNotifyClimbRate?: (node: Gtk.SpinButton) => void
         onNotifyDigits?: (node: Gtk.SpinButton) => void
@@ -2193,11 +2239,13 @@ declare global {
         ref?: React.Ref<Gtk.Video>
         autoplay?: boolean | null
         file?: Gio.File | null
+        graphicsOffload?: Gtk.GraphicsOffloadEnabled | null
         loop?: boolean | null
         mediaStream?: Gtk.MediaStream | null
         accessibleRole?: Gtk.AccessibleRole | null
         onNotifyAutoplay?: (node: Gtk.Video) => void
         onNotifyFile?: (node: Gtk.Video) => void
+        onNotifyGraphicsOffload?: (node: Gtk.Video) => void
         onNotifyLoop?: (node: Gtk.Video) => void
         onNotifyMediaStream?: (node: Gtk.Video) => void
         onNotifyAccessibleRole?: (node: Gtk.Video) => void

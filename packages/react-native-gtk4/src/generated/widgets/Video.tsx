@@ -1,4 +1,4 @@
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Widget from "./Widget.js"
 
 export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
@@ -14,6 +14,9 @@ export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
       case "file":
         this.node.setFile(newValue)
         break
+      case "graphicsOffload":
+        this.node.setGraphicsOffload(newValue)
+        break
       case "loop":
         this.node.setLoop(newValue)
         break
@@ -28,6 +31,9 @@ export default class Video<T extends Gtk.Video = Gtk.Video> extends Widget<T> {
         break
       case "onNotifyFile":
         this.setHandler("notify::file", newValue)
+        break
+      case "onNotifyGraphicsOffload":
+        this.setHandler("notify::graphics-offload", newValue)
         break
       case "onNotifyLoop":
         this.setHandler("notify::loop", newValue)

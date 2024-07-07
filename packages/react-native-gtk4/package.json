@@ -8,7 +8,7 @@
     "build": "tsup-node src/index.ts",
     "lint": "eslint src",
     "test": "jest",
-    "codegen": "./bin/codegen"
+    "codegen": "pnpm --filter codegen run run $(pwd)"
   },
   "engines": {
     "node": ">=18.0.0"

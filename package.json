@@ -9,7 +9,8 @@
   "scripts": {
     "build": "turbo build -F react-native-gtk4",
     "test": "turbo test -F react-native-gtk4",
-    "publish": "turbo publish -F react-native-gtk4"
+    "publish": "turbo publish -F react-native-gtk4",
+    "postinstall": "turbo codegen -F react-native-gtk4"
   },
   "devDependencies": {
     "turbo": "^2.0.6"

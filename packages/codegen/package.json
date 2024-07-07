@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "tsup-node src/index.ts",
-    "generate": "./bin/generate"
+    "run": "./bin/codegen"
   },
   "repository": {
     "type": "git",

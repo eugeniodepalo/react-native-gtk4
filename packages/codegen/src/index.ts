@@ -2,8 +2,10 @@ import fs from "fs"
 import * as templates from "./templates.js"
 import { Gir } from "./gir.js"
 
+const OUT_DIR = process.argv[2]
+
 function writeGeneratedFile(path: string, content: string) {
-  fs.writeFileSync(`out/${path}`, content)
+  fs.writeFileSync(`${OUT_DIR}/${path}`, content)
 }
 
 async function main() {

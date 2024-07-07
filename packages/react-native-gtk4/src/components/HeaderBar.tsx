@@ -24,7 +24,11 @@ const Container = forwardRef<Gtk.HeaderBar, Props>(function HeaderBarContainer(
   const [, setTitleRef] = useForwardedRef(title?.ref, setTitleWidget)
 
   return (
-    <HeaderBar ref={setInnerRef} {...props} titleWidget={titleWidget}>
+    <HeaderBar
+      ref={setInnerRef}
+      {...props}
+      titleWidget={titleWidget ?? undefined}
+    >
       {headerBar ? (
         <Context.Provider value={headerBar}>
           {title

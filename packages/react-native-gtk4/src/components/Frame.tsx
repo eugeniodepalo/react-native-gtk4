@@ -28,7 +28,9 @@ export default forwardRef<Gtk.Frame, Props>(function FrameComponent(
         : null}
       <Frame
         ref={ref}
-        {...(typeof label === "string" ? { label } : { labelWidget })}
+        {...(typeof label === "string"
+          ? { label }
+          : { labelWidget: labelWidget ?? undefined })}
         {...props}
       />
     </>

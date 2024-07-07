@@ -14,12 +14,12 @@ function getEnumerationTestValues(gir: Gir) {
   const testValues: Record<string, string> = {}
 
   for (const enumeration of gir.enumerations) {
-    const type = new GirType(
-      enumeration.$.name,
-      gir,
-      enumeration._module?.namespace
-    )
+    if (!enumeration._module) {
+      continue
+    }
 
+    const qualifiedName = `${enumeration._module.namespace}.${enumeration.$.name}`
+    const type = new GirType(qualifiedName, gir)
     const member = enumeration.member?.[0].$.name.toUpperCase()
     testValues[type.name] = `${type.name}.${member}`
   }
@@ -31,7 +31,12 @@ function getBitfieldTestValues(gir: Gir) {
   const testValues: Record<string, string> = {}
 
   for (const bitfield of gir.bitfields) {
-    const type = new GirType(bitfield.$.name, gir, bitfield._module?.namespace)
+    if (!bitfield._module) {
+      continue
+    }
+
+    const qualifiedName = `${bitfield._module.namespace}.${bitfield.$.name}`
+    const type = new GirType(qualifiedName, gir)
     const member = bitfield.member[0].$.name.toUpperCase()
     testValues[type.name] = `${type.name}.${member}`
   }
@@ -94,8 +99,8 @@ export default function (widgetClass: GirClass, gir: Gir) {
 
   ts += `import { ${widgetClass.name} } from "@/generated/widgets.js"\n`
 
-  for (const import_ of widgetClass.imports) {
-    ts += `import ${import_.name} from "${import_.moduleName}"\n`
+  for (const type of widgetClass.typeDependencies) {
+    ts += `import ${type.import_.name} from "${type.import_.moduleName}"\n`
   }
 
   ts += "\n"

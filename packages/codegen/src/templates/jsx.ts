@@ -5,8 +5,8 @@ export default function (gir: Gir) {
 
   ts += `import React from "react"\n`
 
-  for (const import_ of gir.imports) {
-    ts += `import ${import_.name} from "${import_.moduleName}"\n`
+  for (const type of gir.typeDependencies) {
+    ts += `import ${type.import_.name} from "${type.import_.moduleName}"\n`
   }
 
   ts += `\n`
@@ -28,7 +28,7 @@ export default function (gir: Gir) {
     }
 
     for (const prop of widgetClass.writableProps) {
-      ts += `${prop.name}${prop.isOptional ? "?" : ""}: ${prop.type?.name}${
+      ts += `${prop.name}?: ${prop.type?.name}${
         prop.isArray ? "[]" : ""
       }${prop.isOptional ? " | null" : ""}\n`
     }
@@ -37,9 +37,9 @@ export default function (gir: Gir) {
       ts += `${signal.name}?: (node: ${widgetClass.type.name}, \n`
 
       for (const param of signal.params) {
-        ts += `${param.name}${param.isOptional ? "?" : ""}: ${param.type?.name}${
+        ts += `${param.name}: ${param.type?.name}${
           param.isArray ? "[]" : ""
-        }, \n`
+        }${param.isOptional ? " | null" : ""},\n`
       }
 
       ts += `) => ${signal.returnType?.name}\n`

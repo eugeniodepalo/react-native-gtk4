@@ -29,7 +29,7 @@ export default forwardRef<Gtk.ApplicationWindow, Props>(
         <ApplicationWindow
           ref={ref}
           key={titlebarWidget ? "with-titlebar" : "without-titlebar"}
-          titlebar={titlebarWidget}
+          titlebar={titlebarWidget ?? undefined}
           {...props}
         />
       </>

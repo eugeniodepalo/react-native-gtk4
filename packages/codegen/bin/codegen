@@ -8,10 +8,10 @@ OUT_DIR=$1
 
 # Build the docker image to get the GIR files
 docker build -t $IMAGE_NAME ../..
-rm -rf girs
-mkdir -p girs
+rm -rf $OUT_DIR/girs
+mkdir -p $OUT_DIR/girs
 docker rm -f $CONTAINER_NAME > /dev/null 2>&1 || true
-docker run -d --name $CONTAINER_NAME --entrypoint /bin/bash -v ./girs:/girs $IMAGE_NAME -c 'sleep infinity' > /dev/null
+docker run -d --name $CONTAINER_NAME --entrypoint /bin/bash -v $OUT_DIR/girs:/girs $IMAGE_NAME -c 'sleep infinity' > /dev/null
 docker exec $CONTAINER_NAME /bin/bash -c 'cp /usr/share/gir-1.0/*.gir /girs' > /dev/null
 docker stop $CONTAINER_NAME > /dev/null
 docker rm $CONTAINER_NAME > /dev/null
@@ -23,7 +23,7 @@ mkdir -p $OUT_DIR/src/generated/widgets
 mkdir -p $OUT_DIR/__tests__/generated/widgets
 
 # Generate the GIR types
-pnpm exec ts-for-gir generate Gtk-4.0 -g ./girs -e node -o $OUT_DIR/src/generated/girs
+pnpm exec ts-for-gir generate Gtk-4.0 -g $OUT_DIR/girs -e node -o $OUT_DIR/src/generated/girs
 rm -f $OUT_DIR/src/generated/girs/*-import.js
 
 # Generate the types

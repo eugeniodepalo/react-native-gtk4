@@ -83,7 +83,11 @@ export default forwardRef<Gtk.ColumnView, Props<any>>(
     })
 
     return (
-      <ColumnView model={selectionModel} ref={setInnerRef} {...props}>
+      <ColumnView
+        model={selectionModel ?? undefined}
+        ref={setInnerRef}
+        {...props}
+      >
         {columnView
           ? columns.map((column, index) => (
               <Column

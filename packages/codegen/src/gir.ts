@@ -1,34 +1,30 @@
 import { GirClass } from "./gir/class.js"
 import {
   GirBitfieldElement,
-  GirClassElement,
   GirEnumElement,
-  GirInterfaceElement,
-  GirModule,
-  GirNamespace,
-  InheritanceTable,
+  GirModule as BaseGirModule,
 } from "@ts-for-gir/lib"
 import { ModuleLoader } from "./module-loader.js"
-import { GirImport } from "./gir/import.js"
-import { dirname, join } from "path"
-
-const ROOT_PATH = dirname(join(new URL(import.meta.url).pathname, ".."))
+import { GirInterface } from "./gir/interface.js"
+import { GirType } from "./gir/type.js"
+import { uniqueBy } from "remeda"
+import { GirModule } from "./gir/module.js"
 
 export class Gir {
-  module: GirModule
-  _widgetClasses?: GirClass[]
-  _classes?: GirClassElement[]
-  _interfaces?: GirInterfaceElement[]
-  _enumerations?: GirEnumElement[]
-  _bitfields?: GirBitfieldElement[]
-  _imports?: GirImport[]
+  private _baseModules: BaseGirModule[]
+  private _modules?: GirModule[]
+  private _classes?: GirClass[]
+  private _interfaces?: GirInterface[]
+  private _enumerations?: GirEnumElement[]
+  private _bitfields?: GirBitfieldElement[]
+  private _typeDependencies?: GirType[]
 
-  static async parse() {
+  static async parse(rootDir: string) {
     const moduleLoader = new ModuleLoader({
       environment: "node",
-      root: ROOT_PATH,
-      outdir: `${ROOT_PATH}/out`,
-      girDirectories: [`${ROOT_PATH}/girs`],
+      root: "",
+      outdir: "",
+      girDirectories: [`${rootDir}/girs`],
       verbose: false,
       noNamespace: false,
       noComments: false,
@@ -41,114 +37,94 @@ export class Gir {
       packageYarn: false,
     })
 
-    const inheritanceTable: InheritanceTable = {}
     const loadedModules = await moduleLoader.getModulesResolved(["Gtk-4.0"])
-    const module = loadedModules[0].module
+    const modules = loadedModules.map((m) => m.module)
 
-    for (const { module } of loadedModules) {
-      GirModule.allGirModules.push(module)
-      module.init(inheritanceTable)
-    }
-
-    module.start(GirModule.allGirModules)
-
-    return new Gir(module)
+    return new Gir(modules)
   }
 
-  constructor(module: GirModule) {
-    this.module = module
+  constructor(baseModules: BaseGirModule[]) {
+    this._baseModules = baseModules
+
+    BaseGirModule.allGirModules = this._baseModules
+
+    for (const module of this.modules) {
+      module.init()
+    }
+
+    for (const module of this.modules) {
+      module.start()
+    }
+  }
+
+  get modules() {
+    return (this._modules ||= this._baseModules.map(
+      (m) => new GirModule(m, this)
+    ))
   }
 
   get widgetClasses() {
-    return (this._widgetClasses ||= this.classes
-      .filter((c) => this.isWidgetClass(c))
-      .map((c) => new GirClass(c, this)))
+    return this.modules[0].classes.filter((c) => c.isWidget)
   }
 
   get classes() {
-    return (this._classes ||= this.collectFromDependencies(
-      (dep) => dep.class || []
-    ))
+    return (this._classes ||= this.collectFromModules((m) => m.classes))
   }
 
   get interfaces() {
-    return (this._interfaces ||= this.collectFromDependencies(
-      (dep) => dep.interface || []
-    ))
+    return (this._interfaces ||= this.collectFromModules((m) => m.interfaces))
   }
 
   get enumerations() {
-    return (this._enumerations ||= this.collectFromDependencies(
-      (dep) => dep.enumeration || []
+    return (this._enumerations ||= this.collectFromModules(
+      (m) => m.enumerations
     ))
   }
 
   get bitfields() {
-    return (this._bitfields ||= this.collectFromDependencies(
-      (dep) => dep.bitfield || []
+    return (this._bitfields ||= this.collectFromModules((m) => m.bitfields))
+  }
+
+  get typeDependencies() {
+    return (this._typeDependencies ||= uniqueBy(
+      this.widgetClasses.flatMap((c) => c.typeDependencies),
+      (t) => t.namespace
     ))
   }
 
-  get namespace() {
-    return this.module.ns
-  }
+  findModuleByNamespace(namespace: string) {
+    const module = this.modules.find((m) => m.namespace === namespace)
 
-  private collectFromDependencies<T>(getter: (dep: GirNamespace) => T[]): T[] {
-    return this.module.allDependencies.reduce((acc, dep) => {
-      const module = this.module.dependencyManager.getModule(
-        GirModule.allGirModules,
-        dep
-      )
-
-      if (!module) {
-        return acc
-      }
-
-      return [...acc, ...getter(module.ns)]
-    }, getter(this.module.ns))
-  }
-
-  get imports() {
-    if (this._imports) {
-      return this._imports
+    if (!module) {
+      throw new Error(`Module not found for namespace: ${namespace}`)
     }
 
-    const imports: GirImport[] = []
-
-    for (const widgetClass of this.widgetClasses) {
-      for (const import_ of widgetClass.imports) {
-        if (!imports.find((i) => i.name === import_.name)) {
-          imports.push(import_)
-        }
-      }
-    }
-
-    return (this._imports = imports)
+    return module
   }
 
   findInterfaceByName(name: string) {
-    return this.interfaces.find((i) => i.$.name === name)
+    const interface_ = this.interfaces.find((i) => i.qualifiedName === name)
+
+    if (!interface_) {
+      throw new Error(`Interface not found for name: ${name}`)
+    }
+
+    return interface_
   }
 
   findClassByName(name: string) {
-    return this.classes.find((c) => c.$.name === name)
+    const class_ = this.classes.find((c) => c.qualifiedName === name)
+
+    if (!class_) {
+      throw new Error(`Class not found for name: ${name}`)
+    }
+
+    return class_
   }
 
-  isWidgetClass(class_: GirClassElement): boolean {
-    if (class_.$.name === "Widget") {
-      return true
-    }
-
-    if (!class_.$.parent) {
-      return false
-    }
-
-    const parentClass = this.findClassByName(class_.$.parent)
-
-    if (!parentClass) {
-      return false
-    }
-
-    return this.isWidgetClass(parentClass)
+  private collectFromModules<T>(getter: (module: GirModule) => T[]): T[] {
+    return this.modules.reduce((acc, module) => {
+      return [...acc, ...getter(module)]
+    }, [] as T[])
   }
 }

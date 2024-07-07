@@ -4,7 +4,7 @@ import { GirClass } from "@/gir/class.js"
 export default function (widgetClass: GirClass) {
   let ts = ""
 
-  ts += `import ${widgetClass.import_.name} from "${widgetClass.import_.moduleName}"\n`
+  ts += `import ${widgetClass.type.import_.name} from "${widgetClass.type.import_.moduleName}"\n`
   ts += `import ${widgetClass.parentImport.name} from "${widgetClass.parentImport.moduleName}"\n`
 
   if (widgetClass.isContainer) {

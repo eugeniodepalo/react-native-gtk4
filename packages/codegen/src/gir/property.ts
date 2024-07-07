@@ -1,36 +1,27 @@
 import { GirPropertyElement } from "@ts-for-gir/lib"
 import { camelize } from "../helpers.js"
-import { GirImport } from "./import.js"
 import { GirType } from "./type.js"
-import { Gir } from "@/gir.js"
+import { GirElement } from "./element.js"
 
-export class GirProperty {
-  prop: GirPropertyElement
-  gir: Gir
-
-  constructor(prop: GirPropertyElement, gir: Gir) {
-    this.prop = prop
-    this.gir = gir
-  }
-
+export class GirProperty extends GirElement<GirPropertyElement> {
   get isArray() {
-    return Boolean(this.prop.array)
+    return this.data.type[0].isArray
   }
 
   get isOptional() {
-    return true
+    return this.data.type[0].nullable || this.data.type[0].optional
   }
 
   get isConstructOnly() {
-    return this.prop.$["construct-only"] === "1"
+    return this._element.$["construct-only"] === "1"
   }
 
   get isReadonly() {
-    return this.prop.$.writable !== "1"
+    return this.data.readonly
   }
 
   get rawName() {
-    return this.prop.$.name
+    return this.data.name || ""
   }
 
   get name() {
@@ -42,32 +33,14 @@ export class GirProperty {
   }
 
   get getter() {
-    return this.prop.$.getter ? camelize(this.prop.$.getter) : null
+    return this._element.$.getter ? camelize(this._element.$.getter) : null
   }
 
   get setter() {
-    return this.prop.$.setter ? camelize(this.prop.$.setter) : null
+    return this._element.$.setter ? camelize(this._element.$.setter) : null
   }
 
   get type() {
-    let typeName: string | undefined
-
-    if (this.isArray) {
-      typeName = (this.prop.array || [])[0].type?.[0].$.name
-    } else if (typeof this.prop.type === "string") {
-      typeName = this.prop.type
-    } else {
-      typeName = (this.prop.type || [])[0].$.name
-    }
-
-    if (!typeName) {
-      return null
-    }
-
-    return new GirType(typeName, this.gir, this.prop._module?.namespace)
-  }
-
-  get import_() {
-    return this.type?.import_
+    return new GirType(this.data.type[0].type, this._gir)
   }
 }

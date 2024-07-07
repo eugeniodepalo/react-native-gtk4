@@ -9,7 +9,7 @@ function writeGeneratedFile(path: string, content: string) {
 }
 
 async function main() {
-  const gir = await Gir.parse()
+  const gir = await Gir.parse(OUT_DIR)
 
   for (const widgetClass of gir.widgetClasses) {
     writeGeneratedFile(

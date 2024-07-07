@@ -1,6 +1,6 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import * as widgets from "./generated/widgets.js"
-import { DefaultEventPriority } from "react-reconciler/constants"
+import { DefaultEventPriority } from "react-reconciler/constants.js"
 import Label from "./generated/widgets/Label.js"
 import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import _ from "lodash"

@@ -53,8 +53,8 @@ const Inner = React.forwardRef<Gtk.DropDown, Props<any>>(
             onSelectedItemChanged?.(node.selected, items[id] as T)
           }
         }}
-        factory={itemFactory}
-        listFactory={popoverItemFactory}
+        factory={itemFactory ?? undefined}
+        listFactory={popoverItemFactory ?? undefined}
         {...props}
       />
     )

@@ -19,6 +19,7 @@ import type {
 
 export class ModuleLoader {
   dependencyManager: DependencyManager
+
   /** Transitive module dependencies */
   modDependencyMap: DependencyMap = {}
   constructor(protected readonly config: GenerateConfig) {

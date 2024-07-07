@@ -29,5 +29,8 @@
     "prettier": "^3.3.2",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "remeda": "^2.5.0"
   }
 }

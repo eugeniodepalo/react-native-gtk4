@@ -1,6 +1,9 @@
 import { GirClass } from "./gir/class.js"
 import {
+  GirBitfieldElement,
   GirClassElement,
+  GirEnumElement,
+  GirInterfaceElement,
   GirModule,
   GirNamespace,
   InheritanceTable,
@@ -13,6 +16,12 @@ const ROOT_PATH = dirname(join(new URL(import.meta.url).pathname, ".."))
 
 export class Gir {
   module: GirModule
+  _widgetClasses?: GirClass[]
+  _classes?: GirClassElement[]
+  _interfaces?: GirInterfaceElement[]
+  _enumerations?: GirEnumElement[]
+  _bitfields?: GirBitfieldElement[]
+  _imports?: GirImport[]
 
   static async parse() {
     const moduleLoader = new ModuleLoader({
@@ -27,7 +36,7 @@ export class Gir {
       fixConflicts: false,
       generateAlias: false,
       promisify: false,
-      npmScope: "@react-native-gtk4",
+      npmScope: "",
       package: false,
       packageYarn: false,
     })
@@ -46,61 +55,64 @@ export class Gir {
     return new Gir(module)
   }
 
-  constructor(gir: GirModule) {
-    this.module = gir
+  constructor(module: GirModule) {
+    this.module = module
   }
 
   get widgetClasses() {
-    return this.classes
+    return (this._widgetClasses ||= this.classes
       .filter((c) => this.isWidgetClass(c))
-      .map((c) => new GirClass(c, this))
+      .map((c) => new GirClass(c, this)))
   }
 
   get classes() {
-    return this.collectFromDependencies("class")
+    return (this._classes ||= this.collectFromDependencies(
+      (dep) => dep.class || []
+    ))
   }
 
   get interfaces() {
-    return this.collectFromDependencies("interface")
+    return (this._interfaces ||= this.collectFromDependencies(
+      (dep) => dep.interface || []
+    ))
   }
 
   get enumerations() {
-    return this.collectFromDependencies("enumeration")
+    return (this._enumerations ||= this.collectFromDependencies(
+      (dep) => dep.enumeration || []
+    ))
   }
 
   get bitfields() {
-    return this.collectFromDependencies("bitfield")
+    return (this._bitfields ||= this.collectFromDependencies(
+      (dep) => dep.bitfield || []
+    ))
   }
 
   get namespace() {
     return this.module.ns
   }
 
-  private collectFromDependencies<T extends keyof Omit<GirNamespace, "$">>(
-    prop: T
-  ) {
-    const initialValue = this.namespace[prop] || []
-
-    return this.module.allDependencies
-      .reduce(
-        (acc, dep) => {
-          const module = this.module.dependencyManager.getModule(
-            GirModule.allGirModules,
-            dep
-          )
-
-          if (!module) {
-            return acc
-          }
-
-          return acc.concat(module.ns[prop] || [])
-        },
-        initialValue as NonNullable<GirNamespace[T]>[]
+  private collectFromDependencies<T>(getter: (dep: GirNamespace) => T[]): T[] {
+    return this.module.allDependencies.reduce((acc, dep) => {
+      const module = this.module.dependencyManager.getModule(
+        GirModule.allGirModules,
+        dep
       )
-      .flat()
+
+      if (!module) {
+        return acc
+      }
+
+      return [...acc, ...getter(module.ns)]
+    }, getter(this.module.ns))
   }
 
   get imports() {
+    if (this._imports) {
+      return this._imports
+    }
+
     const imports: GirImport[] = []
 
     for (const widgetClass of this.widgetClasses) {
@@ -111,34 +123,32 @@ export class Gir {
       }
     }
 
-    return imports
+    return (this._imports = imports)
   }
 
   findInterfaceByName(name: string) {
-    if (!name) {
-      return null
-    }
-
     return this.interfaces.find((i) => i.$.name === name)
   }
 
-  findClassByName(name: string | null | undefined) {
-    if (!name) {
-      return null
-    }
-
+  findClassByName(name: string) {
     return this.classes.find((c) => c.$.name === name)
   }
 
-  isWidgetClass(class_: GirClassElement | null | undefined): boolean {
-    if (!class_) {
-      return false
-    }
-
+  isWidgetClass(class_: GirClassElement): boolean {
     if (class_.$.name === "Widget") {
       return true
     }
 
-    return this.isWidgetClass(this.findClassByName(class_.$.parent))
+    if (!class_.$.parent) {
+      return false
+    }
+
+    const parentClass = this.findClassByName(class_.$.parent)
+
+    if (!parentClass) {
+      return false
+    }
+
+    return this.isWidgetClass(parentClass)
   }
 }

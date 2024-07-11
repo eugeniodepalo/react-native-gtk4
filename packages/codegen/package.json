@@ -24,7 +24,7 @@
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-env": "^7.24.8",
     "prettier": "^3.3.2",
     "xml2js": "^0.6.2"
   }

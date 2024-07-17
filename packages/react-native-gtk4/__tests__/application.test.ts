@@ -1,6 +1,6 @@
 import GLib from "@/generated/girs/node-glib-2.0"
 import Gtk from "@/generated/girs/node-gtk-4.0.js"
-import gi from "@/generated/girs/node-gtk"
+import gi from "@/generated/girs/node-gtk.js"
 import Application, { MAX_TIMEOUT } from "@/application.js"
 import { ApplicationWindow } from "@/generated/widgets.js"
 
@@ -19,6 +19,17 @@ describe("Application", () => {
   let loop: GLib.MainLoop
 
   beforeEach(() => {
+    mockedGLibMainLoopNew.mockImplementation(() => {
+      return {
+        run: jest.fn(),
+        quit: jest.fn(),
+        isRunning: jest.fn(),
+        getContext: jest.fn(),
+        ref: jest.fn(),
+        unref: jest.fn(),
+      }
+    })
+
     application = new Gtk.Application()
     rootNode = new Application(application)
     loop = mockedGLibMainLoopNew.mock.results[0].value

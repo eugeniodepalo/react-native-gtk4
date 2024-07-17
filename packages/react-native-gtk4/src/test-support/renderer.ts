@@ -1,4 +1,3 @@
-import { Reconciler } from "@/reconciler.js"
 import "@/overrides.js"
 import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import Gio from "@/generated/girs/node-gio-2.0"
@@ -12,8 +11,6 @@ interface Predicate {
   type?: string
   props?: Record<string, any>
 }
-
-const MockedReconciler = Reconciler as jest.Mocked<typeof Reconciler>
 
 const textPredicate = (predicate: Predicate, child: Widget) => {
   return (
@@ -47,17 +44,14 @@ const predicateFn = (predicate: Predicate, child: Widget) => {
 export default class Renderer {
   application: Gio.Application
   applicationContainer: Container<Node<Gio.Application>>
-  container: ReturnType<typeof Reconciler.createContainer>
 
   constructor() {
     this.application = new Gtk.Application()
     this.applicationContainer = new Container(createRootNode(this.application))
-    this.container = MockedReconciler.createContainer.mock.results[0].value
   }
 
   setup() {
     jest.useFakeTimers()
-    jest.spyOn(Reconciler, "createContainer")
     Gio.Application.getDefault = jest.fn(() => this.application)
   }
 

@@ -37,6 +37,10 @@ export class GirProperty extends GirElement<GirPropertyElement> {
   }
 
   get setter() {
+    if (this._element.$.setter === "set_action_target") {
+      return "setActionTargetValue"
+    }
+
     return this._element.$.setter ? camelize(this._element.$.setter) : null
   }
 

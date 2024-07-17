@@ -26,14 +26,6 @@ describe("Scale", () => {
     expect(ref.current).toBe(scale.node)
   })
 
-  test("should set range", () => {
-    render(<Scale range={range} />)
-
-    const scale = findBy<Gtk.Scale>({ type: "Scale" })
-
-    expect(scale.node.setRange).toHaveBeenCalledWith(range[0], range[1])
-  })
-
   test("should unset range on unmount", () => {
     render(<Scale range={range} />)
 
@@ -42,6 +34,14 @@ describe("Scale", () => {
     render(null)
 
     expect(scale.node.setRange).toHaveBeenCalledWith(0, 0)
+  })
+
+  test("should set range", () => {
+    render(<Scale range={range} />)
+
+    const scale = findBy<Gtk.Scale>({ type: "Scale" })
+
+    expect(scale.node.setRange).toHaveBeenCalledWith(range[0], range[1])
   })
 
   test("should set value correctly", () => {

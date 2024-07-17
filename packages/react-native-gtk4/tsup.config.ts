@@ -8,4 +8,5 @@ export default defineConfig({
   dts: true,
   target: "node20",
   format: ["cjs"],
+  tsconfig: "tsconfig.build.json",
 })

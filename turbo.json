@@ -1,7 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": ["NODE_ENV"],
-  "globalPassThroughEnv": ["DISPLAY"],
+  "globalPassThroughEnv": [
+    "DISPLAY",
+    "XDG_RUNTIME_DIR",
+    "PULSE_SERVER",
+    "DBUS_SESSION_BUS_ADDRESS"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

@@ -6,7 +6,7 @@ export default defineConfig({
   sourcemap: false,
   clean: true,
   dts: true,
-  target: "node20",
+  target: "node18",
   format: ["cjs"],
   tsconfig: "tsconfig.build.json",
 })

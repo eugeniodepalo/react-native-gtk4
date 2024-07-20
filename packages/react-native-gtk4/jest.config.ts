@@ -13,10 +13,8 @@ const jestConfig: JestConfigWithTsJest = {
   transform: {
     "^.+\\.[jt]sx?$": ["ts-jest", { useESM: true }],
   },
-  clearMocks: true,
-  resetModules: true,
-  resetMocks: true,
   restoreMocks: true,
+  clearMocks: true,
 }
 
 export default jestConfig

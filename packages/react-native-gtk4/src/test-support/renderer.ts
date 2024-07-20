@@ -53,6 +53,7 @@ export default class Renderer {
   setup() {
     jest.useFakeTimers()
     Gio.Application.getDefault = jest.fn(() => this.application)
+    this.render(null)
   }
 
   render(element: React.ReactNode) {

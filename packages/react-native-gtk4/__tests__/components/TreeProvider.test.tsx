@@ -32,9 +32,15 @@ class MockedStringList extends Gtk.StringList {
   }
 }
 
+mockedTreeListModelNew.mockImplementation(
+  (...args) => new Gtk.TreeListModel(...args)
+)
+
 const MockedStringListMock = MockedStringList as jest.MockedClass<
   typeof MockedStringList
 >
+
+Gtk.StringList = MockedStringList
 
 describe("TreeProvider", () => {
   let model: MockedStringList
@@ -43,15 +49,9 @@ describe("TreeProvider", () => {
   beforeEach(() => {
     setup()
 
-    mockedTreeListModelNew.mockImplementation(
-      (...args) => new Gtk.TreeListModel(...args)
-    )
-
-    Gtk.StringList = MockedStringList
-
     render(
       <TreeProvider.Container>
-        <></>
+        <Box />
       </TreeProvider.Container>
     )
 

@@ -96,7 +96,7 @@ describe("useListItemFactory", () => {
   })
 
   test("should render actual items on bind", () => {
-    renderFn = jest.fn((value) => <Box data-id={value} />)
+    renderFn = jest.fn((value) => <Box name={(value as { a: "string" }).a} />)
 
     const index = 0
     const value = { a: "value" }
@@ -125,7 +125,7 @@ describe("useListItemFactory", () => {
 
     const item = MockedGtk.Box.mock.instances[0]
 
-    expect(item.setName).toHaveBeenCalledWith(value)
+    expect(item.setName).toHaveBeenCalledWith("value")
   })
 
   test("should set child to null on teardown", () => {
@@ -150,7 +150,7 @@ describe("useListItemFactory", () => {
   })
 
   test("should render empty items on unbind", () => {
-    renderFn = jest.fn((value) => <Box data-id={value} />)
+    renderFn = jest.fn((value) => <Box name={value as string} />)
 
     const index = 0
     const value = "value"

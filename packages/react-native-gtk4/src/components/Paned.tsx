@@ -24,12 +24,7 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
   const [, setEndChildRef] = useForwardedRef(children[1].ref, setEndChild)
 
   return (
-    <Paned
-      ref={ref}
-      startChild={startChild ?? undefined}
-      endChild={endChild ?? undefined}
-      {...props}
-    >
+    <Paned ref={ref} startChild={startChild} endChild={endChild} {...props}>
       {React.cloneElement(children[0], {
         ref: setStartChildRef,
       })}

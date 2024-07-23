@@ -18,7 +18,7 @@ export class GirSignal extends GirElement<GirSignalElement> {
 
   get params() {
     return this.data.inParams.map((param) => {
-      return new GirProperty(param as GirPropertyElement, this._gir)
+      return new GirProperty(param as GirPropertyElement, this, this._gir)
     })
   }
 

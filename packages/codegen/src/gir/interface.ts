@@ -1,7 +1,6 @@
 import { GirInterfaceElement } from "@ts-for-gir/lib"
 import { GirProperty } from "./property.js"
 import { GirSignal } from "./signal.js"
-import { GirType } from "./type.js"
 import { GirElement } from "./element.js"
 
 export class GirInterface extends GirElement<GirInterfaceElement> {
@@ -10,7 +9,7 @@ export class GirInterface extends GirElement<GirInterfaceElement> {
 
   get props() {
     return (this._props ||= this.data.properties.map(
-      (p) => new GirProperty(p, this._gir)
+      (p) => new GirProperty(p, this, this._gir)
     ))
   }
 

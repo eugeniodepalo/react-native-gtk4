@@ -37,7 +37,7 @@ export default forwardRef<Gtk.CheckButton, Props>(function CheckButtonComponent(
   return (
     <>
       {radio ? createPortal(<CheckButton ref={groupRef} />) : null}
-      <CheckButton ref={setInnerRef} group={group ?? undefined} {...props} />
+      <CheckButton ref={setInnerRef} group={group} {...props} />
     </>
   )
 })

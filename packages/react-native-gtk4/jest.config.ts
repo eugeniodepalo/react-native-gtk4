@@ -15,6 +15,7 @@ const jestConfig: JestConfigWithTsJest = {
   },
   restoreMocks: true,
   clearMocks: true,
+  resetModules: true,
 }
 
 export default jestConfig

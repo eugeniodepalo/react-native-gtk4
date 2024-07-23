@@ -40,8 +40,6 @@ describe("Reconciler", () => {
 
   describe("createReconciler", () => {
     test("should create a reconciler", () => {
-      jest.clearAllMocks()
-
       const reconciler = module.createReconciler()
 
       expect(ReactReconciler).toHaveBeenCalledWith(

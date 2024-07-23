@@ -82,7 +82,7 @@ export class GirClass extends GirElement<GirClassElement> {
   get props() {
     return (this._props ||= uniqueBy(
       [
-        ...this.data.properties.map((p) => new GirProperty(p, this._gir)),
+        ...this.data.properties.map((p) => new GirProperty(p, this, this._gir)),
         ...this.interfaces.flatMap((i) => i.props),
       ].filter((p) => p.rawName !== "__gtype__"),
       (p) => p.name

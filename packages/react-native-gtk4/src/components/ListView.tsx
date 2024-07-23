@@ -39,9 +39,9 @@ export default forwardRef<Gtk.ListView, Props<any>>(function ListViewComponent<
 
   return (
     <ListView
-      model={selectionModel ?? undefined}
+      model={selectionModel}
       ref={ref}
-      factory={itemFactory ?? undefined}
+      factory={itemFactory}
       {...props}
     />
   )

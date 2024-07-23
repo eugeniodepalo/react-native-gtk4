@@ -4,16 +4,16 @@ import ColorDialogButton from "@/components/ColorDialogButton.js"
 import Gtk from "@/generated/girs/node-gtk-4.0.js"
 
 const MockedGtk = Gtk as jest.Mocked<typeof Gtk>
-let GtkColorDialog: jest.Mocked<typeof Gtk.ColorDialog>
+
+const MockedGtkColorDialog = Gtk.ColorDialog as jest.Mocked<
+  typeof Gtk.ColorDialog
+>
 
 describe("ColorDialogButton", () => {
-  beforeEach(() => {
-    setup()
-    GtkColorDialog = Gtk.ColorDialog as jest.Mocked<typeof Gtk.ColorDialog>
-  })
+  beforeEach(setup)
 
   afterEach(() => {
-    Gtk.ColorDialog = GtkColorDialog
+    Gtk.ColorDialog = MockedGtkColorDialog
   })
 
   test("should not render when Gtk.ColorDialog is not supported", async () => {

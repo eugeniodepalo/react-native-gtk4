@@ -5,9 +5,14 @@ import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { Pango } from "@/index.js"
 
 const MockedGtk = Gtk as jest.Mocked<typeof Gtk>
+const MockedGtkFontDialog = Gtk.FontDialog as jest.Mocked<typeof Gtk.FontDialog>
 
 describe("FontDialogButton", () => {
   beforeEach(setup)
+
+  afterEach(() => {
+    Gtk.FontDialog = MockedGtkFontDialog
+  })
 
   test("should not render when Gtk.FontDialog is not supported", async () => {
     Gtk.FontDialog = undefined as unknown as typeof Gtk.FontDialog

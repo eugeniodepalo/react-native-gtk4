@@ -49,9 +49,9 @@ export default forwardRef<Gtk.CenterBox, Props>(function CenterBoxComponent(
       <CenterBox
         ref={ref}
         {...props}
-        startWidget={startWidget ?? undefined}
-        endWidget={endWidget ?? undefined}
-        centerWidget={centerWidget ?? undefined}
+        startWidget={startWidget}
+        endWidget={endWidget}
+        centerWidget={centerWidget}
       />
     </>
   )

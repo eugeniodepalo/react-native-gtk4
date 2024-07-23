@@ -36,7 +36,7 @@ describe("DropDown", () => {
         const obj = new GObject.Object()
 
         jest.spyOn(obj, "getProperty").mockImplementation((name) => {
-          if (name === "value") {
+          if (name === "string") {
             return items[position]
           }
 
@@ -149,7 +149,7 @@ describe("DropDown", () => {
 
     dropDown.node.selected = 0
 
-    fireEvent(dropDown, "notify::selected")
+    fireEvent(dropDown, "notify::selected", dropDown.node)
 
     expect(onSelectedItemChanged).toHaveBeenCalledWith(0, value)
   })

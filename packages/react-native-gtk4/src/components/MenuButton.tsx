@@ -43,11 +43,7 @@ export default forwardRef<Gtk.MenuButton, Props>(function MenuButtonComponent(
             })
           )
         : null}
-      <MenuButton
-        ref={setInnerRef}
-        popover={popoverWidget ?? undefined}
-        {...props}
-      />
+      <MenuButton ref={setInnerRef} popover={popoverWidget} {...props} />
     </>
   )
 })

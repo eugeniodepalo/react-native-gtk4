@@ -16,8 +16,8 @@ pnpm run girs:generate
 rm -f ./src/generated/girs/*-import.js
 
 # Generate the types
-node dist/index.js .
+pnpm exec codegen .
 
 # Format the generated files
-pnpm exec prettier --write ./src/generated/**/*.{ts,tsx,js}
-pnpm exec prettier --write ./__tests__/generated/**/*.{ts,tsx,js}
+pnpm exec prettier --write ./src/generated/**/*.{ts,tsx,js} --ignore-path .prettierignore
+pnpm exec prettier --write ./__tests__/generated/**/*.{ts,tsx,js} --ignore-path .prettierignore

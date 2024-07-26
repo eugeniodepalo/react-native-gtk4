@@ -8,17 +8,13 @@
     "DBUS_SESSION_BUS_ADDRESS"
   ],
   "tasks": {
-    "react-native-gtk4#build": {
-      "dependsOn": ["^build", "codegen"],
-      "outputs": ["dist/**"]
-    },
     "codegen": {
-      "dependsOn": ["codegen#build"],
-      "inputs": ["girs/**"],
+      "dependsOn": ["^build"],
+      "inputs": ["girs/**", "bin/codegen"],
       "outputs": ["src/generated/**", "__tests__/generated/**"]
     },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "codegen"],
       "outputs": ["dist/**"]
     },
     "start": {

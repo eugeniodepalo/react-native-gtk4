@@ -11,14 +11,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 9.1.4
           run_install: false
       - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm test -- --coverage --coverageDirectory=./coverage
+      - run: ./bin/setup
+      - run: pnpm test -- -- --coverage --coverageDirectory=./coverage
       - uses: codecov/codecov-action@v4
         with:
           directory: ./coverage

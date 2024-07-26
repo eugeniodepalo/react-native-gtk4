@@ -31,9 +31,10 @@ describe("FileDialog", () => {
         render(<SingleFileDialog onFinished={onFinished} />)
         const dialog = MockedGtk.FileDialog.mock
           .instances[0] as jest.Mocked<Gtk.FileDialog>
-        dialog.open.mock.calls[0][2](null, new Gio.AsyncResult(), {})
+        const result = new Gio.AsyncResult()
+        dialog.open.mock.calls[0][2]?.(null, result, {})
         expect(dialog.open).toHaveBeenCalled()
-        expect(dialog.openFinish).toHaveBeenCalledWith("result")
+        expect(dialog.openFinish).toHaveBeenCalledWith(result)
         expect(onFinished).toHaveBeenCalled()
       })
       test("it should call onCancelled when openFinish throws an error", async () => {
@@ -44,7 +45,7 @@ describe("FileDialog", () => {
         dialog.openFinish.mockImplementation(() => {
           throw new Error()
         })
-        dialog.open.mock.calls[0][2](null, new Gio.AsyncResult(), {})
+        dialog.open.mock.calls[0][2]?.(null, new Gio.AsyncResult(), {})
         expect(dialog.open).toHaveBeenCalled()
         expect(onCancelled).toHaveBeenCalled()
       })
@@ -58,7 +59,7 @@ describe("FileDialog", () => {
         const dialog = MockedGtk.FileDialog.mock
           .instances[0] as jest.Mocked<Gtk.FileDialog>
         const result = new Gio.AsyncResult()
-        dialog.selectFolder.mock.calls[0][2](null, result, {})
+        dialog.selectFolder.mock.calls[0][2]?.(null, result, {})
         expect(dialog.selectFolder).toHaveBeenCalled()
         expect(dialog.selectFolderFinish).toHaveBeenCalledWith(result)
         expect(onFinished).toHaveBeenCalled()
@@ -73,7 +74,7 @@ describe("FileDialog", () => {
         dialog.selectFolderFinish.mockImplementation(() => {
           throw new Error()
         })
-        dialog.selectFolder.mock.calls[0][2](null, new Gio.AsyncResult(), {})
+        dialog.selectFolder.mock.calls[0][2]?.(null, new Gio.AsyncResult(), {})
         expect(dialog.selectFolder).toHaveBeenCalled()
         expect(onCancelled).toHaveBeenCalled()
       })
@@ -87,9 +88,9 @@ describe("FileDialog", () => {
         const dialog = MockedGtk.FileDialog.mock
           .instances[0] as jest.Mocked<Gtk.FileDialog>
         const result = new Gio.AsyncResult()
-        dialog.save.mock.calls[0][2](null, result, {})
+        dialog.save.mock.calls[0][2]?.(null, result, {})
         expect(dialog.save).toHaveBeenCalled()
-        expect(dialog.saveFinish).toHaveBeenCalledWith("result")
+        expect(dialog.saveFinish).toHaveBeenCalledWith(result)
         expect(onFinished).toHaveBeenCalled()
       })
       test("it should call onCancelled when saveFinish throws an error", async () => {
@@ -102,7 +103,7 @@ describe("FileDialog", () => {
         dialog.saveFinish.mockImplementation(() => {
           throw new Error()
         })
-        dialog.save.mock.calls[0][2](null, new Gio.AsyncResult(), {})
+        dialog.save.mock.calls[0][2]?.(null, new Gio.AsyncResult(), {})
         expect(dialog.save).toHaveBeenCalled()
         expect(onCancelled).toHaveBeenCalled()
       })
@@ -116,7 +117,7 @@ describe("FileDialog", () => {
         const dialog = MockedGtk.FileDialog.mock
           .instances[0] as jest.Mocked<Gtk.FileDialog>
         const result = new Gio.AsyncResult()
-        dialog.openMultiple.mock.calls[0][2](null, result, {})
+        dialog.openMultiple.mock.calls[0][2]?.(null, result, {})
         expect(dialog.openMultiple).toHaveBeenCalled()
         expect(dialog.openMultipleFinish).toHaveBeenCalledWith(result)
         expect(onFinished).toHaveBeenCalled()
@@ -129,7 +130,7 @@ describe("FileDialog", () => {
         dialog.openMultipleFinish.mockImplementation(() => {
           throw new Error()
         })
-        dialog.openMultiple.mock.calls[0][2](null, new Gio.AsyncResult(), {})
+        dialog.openMultiple.mock.calls[0][2]?.(null, new Gio.AsyncResult(), {})
         expect(dialog.openMultiple).toHaveBeenCalled()
         expect(onCancelled).toHaveBeenCalled()
       })
@@ -143,7 +144,7 @@ describe("FileDialog", () => {
         const dialog = MockedGtk.FileDialog.mock
           .instances[0] as jest.Mocked<Gtk.FileDialog>
         const result = new Gio.AsyncResult()
-        dialog.selectMultipleFolders.mock.calls[0][2](null, result, {})
+        dialog.selectMultipleFolders.mock.calls[0][2]?.(null, result, {})
         expect(dialog.selectMultipleFolders).toHaveBeenCalled()
         expect(dialog.selectMultipleFoldersFinish).toHaveBeenCalledWith(result)
         expect(onFinished).toHaveBeenCalled()
@@ -161,7 +162,7 @@ describe("FileDialog", () => {
         dialog.selectMultipleFoldersFinish.mockImplementation(() => {
           throw new Error()
         })
-        dialog.selectMultipleFolders.mock.calls[0][2](
+        dialog.selectMultipleFolders.mock.calls[0][2]?.(
           null,
           new Gio.AsyncResult(),
           {}

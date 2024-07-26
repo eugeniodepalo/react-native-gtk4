@@ -1,8 +1,11 @@
 {
-  "name": "codegen",
+  "name": "@react-native-gtk4/codegen",
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "codegen": "dist/index.js"
+  },
   "scripts": {
     "build": "tsup-node src/index.ts"
   },
@@ -23,7 +26,7 @@
   },
   "homepage": "https://github.com/eugeniodepalo/react-native-gtk4",
   "devDependencies": {
-    "@ts-for-gir/lib": "^3.3.0",
+    "@ts-for-gir/lib": "workspace:*",
     "@types/node": "^20.14.7",
     "prettier": "^3.3.2",
     "remeda": "^2.5.0",

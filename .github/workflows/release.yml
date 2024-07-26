@@ -9,11 +9,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.target_commitish }}
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
       - uses: actions/setup-node@v4
         with:
-          registry-url: https://registry.npmjs.org/
-      - run: npm install -g pnpm
-      - run: pnpm install --frozen-lockfile
+          node-version: 18
+          cache: pnpm
+      - run: ./bin/setup
       - run: NODE_ENV=production pnpm run build
       - run: pnpm run publish
         env:

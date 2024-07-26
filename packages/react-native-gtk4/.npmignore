@@ -1,9 +1,11 @@
 /__tests__
 /.eslintrc.json
+/.turbo
+/bin
 /girs
-/jest.config.js
+/jest.config.ts
 /pnpm-lock.yaml
 /src
-tsconfig.json
-tsconfig.build.json
-tsup.config.ts
+/tsconfig.build.json
+/tsconfig.json
+/tsup.config.ts

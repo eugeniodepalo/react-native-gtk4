@@ -16,10 +16,11 @@ jobs:
         with:
           node-version: 18
           cache: pnpm
+      - run: sudo apt-get install -y libgtk-4-dev libgirepository1.0-dev build-essential
       - run: ./bin/setup
-      - run: pnpm test -- -- --coverage --coverageDirectory=./coverage
+      - run: pnpm test -- -- --coverage --coverageDirectory=coverage
       - uses: codecov/codecov-action@v4
         with:
-          directory: ./coverage
+          directory: ./packages/react-native-gtk4/coverage
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

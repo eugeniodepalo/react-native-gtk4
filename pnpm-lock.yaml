@@ -174,14 +174,7 @@ importers:
         version: 5.5.3
 
   packages/codegen:
-    dependencies:
-      remeda:
-        specifier: ^2.5.0
-        version: 2.5.0
     devDependencies:
-      '@ts-for-gir/cli':
-        specifier: ^3.3.0
-        version: 3.3.0(typescript@5.5.2)
       '@ts-for-gir/lib':
         specifier: ^3.3.0
         version: 3.3.0
@@ -191,6 +184,9 @@ importers:
       prettier:
         specifier: ^3.3.2
         version: 3.3.2
+      remeda:
+        specifier: ^2.5.0
+        version: 2.5.0
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(ts-node@10.9.2(@types/node@20.14.8)(typescript@5.5.2))(typescript@5.5.2)
@@ -228,6 +224,9 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.24.7
         version: 7.24.7(@babel/core@7.24.7)
+      '@ts-for-gir/cli':
+        specifier: ^3.3.0
+        version: 3.3.0(typescript@5.5.3)
       '@types/jest':
         specifier: ^29.5.12
         version: 29.5.12
@@ -269,7 +268,7 @@ importers:
         version: 3.3.2
       ts-jest:
         specifier: ^29.1.5
-        version: 29.1.5(@babel/core@7.24.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.24.7))(esbuild@0.21.5)(jest@29.7.0(@types/node@20.14.10)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3)))(typescript@5.5.3)
+        version: 29.1.5(@babel/core@7.24.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.24.7))(jest@29.7.0(@types/node@20.14.10)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3)))(typescript@5.5.3)
       ts-jest-resolver:
         specifier: ^2.0.1
         version: 2.0.1
@@ -2480,8 +2479,8 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  inquirer@9.3.4:
-    resolution: {integrity: sha512-Hp6meNSDzp+Oc9JNUUlYsK81dxaPrrBRa7H/s3+yebCDRJe4UNKYSkEUZoIcuKJjNipBLPKsuc7BvO6tLzo/KA==}
+  inquirer@9.3.6:
+    resolution: {integrity: sha512-riK/iQB2ctwkpWYgjjWIRv3MBLt2gzb2Sj0JNQNbyTXgyXsLWcDPJ5WS5ZDTCx7BRFnJsARtYh+58fjP5M2Y0Q==}
     engines: {node: '>=18'}
 
   internal-slot@1.0.7:
@@ -5340,15 +5339,15 @@ snapshots:
 
   '@tootallnate/once@2.0.0': {}
 
-  '@ts-for-gir/cli@3.3.0(typescript@5.5.2)':
+  '@ts-for-gir/cli@3.3.0(typescript@5.5.3)':
     dependencies:
       '@ts-for-gir/generator-base': 3.3.0
       '@ts-for-gir/generator-html-doc': 3.3.0
       '@ts-for-gir/generator-typescript': 3.3.0
       '@ts-for-gir/lib': 3.3.0
       colorette: 2.0.20
-      cosmiconfig: 9.0.0(typescript@5.5.2)
-      inquirer: 9.3.4
+      cosmiconfig: 9.0.0(typescript@5.5.3)
+      inquirer: 9.3.6
       tiny-glob: 0.2.9
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -5993,14 +5992,14 @@ snapshots:
     dependencies:
       browserslist: 4.23.0
 
-  cosmiconfig@9.0.0(typescript@5.5.2):
+  cosmiconfig@9.0.0(typescript@5.5.3):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.5.2
+      typescript: 5.5.3
 
   create-jest@29.7.0(@types/node@20.14.10)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3)):
     dependencies:
@@ -6670,7 +6669,7 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  inquirer@9.3.4:
+  inquirer@9.3.6:
     dependencies:
       '@inquirer/figures': 1.0.3
       ansi-escapes: 4.3.2
@@ -8048,7 +8047,7 @@ snapshots:
     dependencies:
       jest-resolve: 29.7.0
 
-  ts-jest@29.1.5(@babel/core@7.24.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.24.7))(esbuild@0.21.5)(jest@29.7.0(@types/node@20.14.10)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3)))(typescript@5.5.3):
+  ts-jest@29.1.5(@babel/core@7.24.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.24.7))(jest@29.7.0(@types/node@20.14.10)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3)))(typescript@5.5.3):
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
@@ -8065,7 +8064,6 @@ snapshots:
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
       babel-jest: 29.7.0(@babel/core@7.24.7)
-      esbuild: 0.21.5
 
   ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3):
     dependencies:

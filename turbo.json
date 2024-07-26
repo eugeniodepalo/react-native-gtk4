@@ -8,6 +8,15 @@
     "DBUS_SESSION_BUS_ADDRESS"
   ],
   "tasks": {
+    "react-native-gtk4#build": {
+      "dependsOn": ["^build", "codegen"],
+      "outputs": ["dist/**"]
+    },
+    "codegen": {
+      "dependsOn": ["codegen#build"],
+      "inputs": ["girs/**"],
+      "outputs": ["src/generated/**", "__tests__/generated/**"]
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
@@ -20,11 +29,6 @@
     "test": {
       "dependsOn": ["build"],
       "cache": false
-    },
-    "react-native-gtk4#codegen": {
-      "dependsOn": ["codegen#build"],
-      "outputs": ["src/generated/**", "__tests__/generated/**"],
-      "inputs": ["$TURBO_DEFAULT$", "../../Dockerfile"]
     }
   }
 }

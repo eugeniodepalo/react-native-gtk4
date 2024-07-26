@@ -1,12 +1,9 @@
 /__tests__
-/.dockerignore
 /.eslintrc.json
-/babel.config.js
-/bin/codegen
-/codegen
-/Dockerfile
+/girs
 /jest.config.js
 /pnpm-lock.yaml
 /src
-/test-support
 tsconfig.json
+tsconfig.build.json
+tsup.config.ts

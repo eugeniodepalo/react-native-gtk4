@@ -8,7 +8,9 @@
     "build": "tsup-node src/index.ts",
     "lint": "eslint src",
     "test": "jest",
-    "codegen": "pnpm --filter codegen run run $(pwd)"
+    "codegen": "./bin/codegen",
+    "girs:copy": "ts-for-gir copy Gtk-4.0 -o ./girs -g /usr/share/gir-1.0 /usr/lib/*/gir-1.0",
+    "girs:generate": "ts-for-gir generate Gtk-4.0 -o ./src/generated/girs -g ./girs -e node"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -43,6 +45,7 @@
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
+    "@ts-for-gir/cli": "^3.3.0",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.6",
     "@types/node": "^20.14.10",

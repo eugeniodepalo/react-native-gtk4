@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, createContext } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { Notebook, Label } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 import { createPortal } from "../portal.js"
@@ -29,7 +29,7 @@ const Container = forwardRef<Gtk.Notebook, Props>(function NotebookContainer(
 
 interface TabProps {
   children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
-  label: string | (React.ReactElement & { ref?: React.Ref<Gtk.Widget> })
+  label?: string | (React.ReactElement & { ref?: React.Ref<Gtk.Widget> })
 }
 
 const Tab = function NotebookTab({ children, label }: TabProps) {

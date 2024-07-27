@@ -1,8 +1,0 @@
-#!/bin/sh
-
-pnpm run build
-rm -rf out
-mkdir -p out/src/generated/widgets
-mkdir -p out/__tests__/generated/widgets
-node dist/index.js
-pnpm exec prettier --write 'out/**/*.{ts,tsx,js}'

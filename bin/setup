@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
+
+mkdir -p $ROOT_DIR/packages/ts-for-gir/cli/lib
+mkdir -p $ROOT_DIR/packages/codegen/dist
+touch $ROOT_DIR/packages/ts-for-gir/cli/lib/start.js
+touch $ROOT_DIR/packages/codegen/dist/index.js
+
+pnpm install --frozen-lockfile
+cd $ROOT_DIR/node_modules/.pnpm/node-gtk@*/node_modules/node-gtk
+npx node-pre-gyp rebuild

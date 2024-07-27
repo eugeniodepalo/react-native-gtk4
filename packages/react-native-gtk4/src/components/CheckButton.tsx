@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { CheckButton } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
@@ -37,7 +37,7 @@ export default forwardRef<Gtk.CheckButton, Props>(function CheckButtonComponent(
   return (
     <>
       {radio ? createPortal(<CheckButton ref={groupRef} />) : null}
-      <CheckButton ref={setInnerRef} group={group ?? undefined} {...props} />
+      <CheckButton ref={setInnerRef} group={group} {...props} />
     </>
   )
 })

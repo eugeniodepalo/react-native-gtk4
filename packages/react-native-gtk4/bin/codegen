@@ -1,7 +1,23 @@
 #!/bin/sh
 
-rm -rf src/generated
-rm -rf __tests__/generated
-pnpm run --filter codegen generate
-mv ../codegen/out/src/generated src/
-mv ../codegen/out/__tests__/generated __tests__/
+set -e
+
+# Go to the root of the project
+cd "$(dirname "$0")/.."
+
+# Clean up the generated files
+rm -rf ./src/generated
+rm -rf ./__tests__/generated
+mkdir -p ./src/generated/widgets
+mkdir -p ./__tests__/generated/widgets
+
+# Generate the GIR types
+pnpm girs:generate
+rm -f ./src/generated/girs/*-import.js
+
+# Generate the types
+pnpm exec codegen .
+
+# Format the generated files
+pnpm exec prettier --write ./src/generated/**/*.{ts,tsx,js} --ignore-path .prettierignore
+pnpm exec prettier --write ./__tests__/generated/**/*.{ts,tsx,js} --ignore-path .prettierignore

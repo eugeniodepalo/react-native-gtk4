@@ -1,8 +1,8 @@
-import Gio from "@girs/node-gio-2.0"
-import GLib from "@girs/node-glib-2.0"
+import Gio from "@/generated/girs/node-gio-2.0"
+import GLib from "@/generated/girs/node-glib-2.0"
 import { useMemo } from "react"
 
-interface MenuItem {
+export interface MenuItem {
   label?: string
   icon?: string
   action?: string

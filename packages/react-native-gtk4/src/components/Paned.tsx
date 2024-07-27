@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { forwardRef } from "react"
-import Gtk from "@girs/node-gtk-4.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
 import { Paned } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
@@ -24,12 +24,7 @@ export default forwardRef<Gtk.Paned, Props>(function PanedComponent(
   const [, setEndChildRef] = useForwardedRef(children[1].ref, setEndChild)
 
   return (
-    <Paned
-      ref={ref}
-      startChild={startChild ?? undefined}
-      endChild={endChild ?? undefined}
-      {...props}
-    >
+    <Paned ref={ref} startChild={startChild} endChild={endChild} {...props}>
       {React.cloneElement(children[0], {
         ref: setStartChildRef,
       })}

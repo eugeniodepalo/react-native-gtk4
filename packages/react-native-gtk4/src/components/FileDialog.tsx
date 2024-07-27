@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react"
-import Gtk from "@girs/node-gtk-4.0"
-import Gio from "@girs/node-gio-2.0"
+import Gtk from "@/generated/girs/node-gtk-4.0.js"
+import Gio from "@/generated/girs/node-gio-2.0"
 import useApplication from "../hooks/useApplication.js"
 import _ from "lodash"
 

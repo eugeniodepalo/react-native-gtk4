@@ -4,17 +4,21 @@ on:
     types: [created]
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.target_commitish }}
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
       - uses: actions/setup-node@v4
         with:
-          registry-url: https://registry.npmjs.org/
-      - run: npm install -g pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: NODE_ENV=production pnpm run build
+          node-version: 18
+          cache: pnpm
+      - run: sudo apt-get install -y libgtk-4-dev libgirepository1.0-dev build-essential
+      - run: ./bin/setup
+      - run: NODE_ENV=production pnpm build
       - run: pnpm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

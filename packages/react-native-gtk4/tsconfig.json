@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "target": "ES2020",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "target": "ESNext",
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -11,7 +11,10 @@
     "declaration": true,
     "allowJs": true,
     "jsx": "react",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src/index.ts", "src/types.d.ts"]
+  "exclude": ["node_modules", "dist"]
 }

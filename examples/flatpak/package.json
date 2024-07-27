@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "pnpm run build && node dist/index.js",
+    "start": "pnpm build && node dist/index.js",
     "flatpak:remote-add": "flatpak --user remote-add --no-gpg-verify example repo",
     "flatpak:build": "flatpak-builder --repo=repo --force-clean build com.example.Example.yml",
     "flatpak:install": "flatpak --user --reinstall -y install example com.example.Example",

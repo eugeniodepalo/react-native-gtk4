@@ -1,28 +1,29 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": [
-    "NODE_ENV"
-  ],
+  "globalEnv": ["NODE_ENV"],
   "globalPassThroughEnv": [
-    "DISPLAY"
+    "DISPLAY",
+    "XDG_RUNTIME_DIR",
+    "PULSE_SERVER",
+    "DBUS_SESSION_BUS_ADDRESS"
   ],
   "tasks": {
+    "codegen": {
+      "dependsOn": ["^build"],
+      "inputs": ["girs/**", "bin/codegen"],
+      "outputs": ["src/generated/**", "__tests__/generated/**"]
+    },
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**"
-      ]
+      "dependsOn": ["^build", "codegen"],
+      "outputs": ["dist/**"]
     },
     "start": {
+      "dependsOn": ["build"],
       "persistent": true,
       "cache": false
     },
     "test": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["build"],
       "cache": false
     }
   }

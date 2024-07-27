@@ -59,7 +59,7 @@ while Windows uses process handles (which are pointers).
 
 GPid is used in GLib only for descendant processes spawned with
 the g_spawn functions.</doc>
-      <source-position filename="glib/glibconfig.h" line="201"/>
+      <source-position filename="glib/glibconfig.h" line="200"/>
       <type name="gint" c:type="int"/>
     </alias>
     <alias name="Quark" c:type="GQuark">
@@ -8248,11 +8248,11 @@ in the macro, so you shouldn't use double quotes.</doc>
       </parameters>
     </function-macro>
     <constant name="DIR_SEPARATOR" value="47" c:type="G_DIR_SEPARATOR">
-      <source-position filename="glib/glibconfig.h" line="212"/>
+      <source-position filename="glib/glibconfig.h" line="211"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="DIR_SEPARATOR_S" value="/" c:type="G_DIR_SEPARATOR_S">
-      <source-position filename="glib/glibconfig.h" line="213"/>
+      <source-position filename="glib/glibconfig.h" line="212"/>
       <type name="utf8" c:type="gchar*"/>
     </constant>
     <record name="Data" c:type="GData" disguised="1" opaque="1">
@@ -13260,7 +13260,7 @@ for details.</doc>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="HAVE_GNUC_VARARGS" value="1" c:type="G_HAVE_GNUC_VARARGS">
-      <source-position filename="glib/glibconfig.h" line="139"/>
+      <source-position filename="glib/glibconfig.h" line="138"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="HAVE_GNUC_VISIBILITY"
@@ -13272,11 +13272,11 @@ for details.</doc>
     <constant name="HAVE_GROWING_STACK"
               value="0"
               c:type="G_HAVE_GROWING_STACK">
-      <source-position filename="glib/glibconfig.h" line="136"/>
+      <source-position filename="glib/glibconfig.h" line="135"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="HAVE_ISO_VARARGS" value="1" c:type="G_HAVE_ISO_VARARGS">
-      <source-position filename="glib/glibconfig.h" line="126"/>
+      <source-position filename="glib/glibconfig.h" line="125"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <callback name="HFunc" c:type="GHFunc">
@@ -22427,7 +22427,7 @@ linked against at application run time.</doc>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="MODULE_SUFFIX" value="so" c:type="G_MODULE_SUFFIX">
-      <source-position filename="glib/glibconfig.h" line="196"/>
+      <source-position filename="glib/glibconfig.h" line="195"/>
       <type name="utf8" c:type="gchar*"/>
     </constant>
     <function-macro name="MUTEX_AUTO_LOCK"
@@ -28491,7 +28491,7 @@ and all memory allocated by the @group is released.</doc>
            filename="glib/gmain.h"
            line="170">A format specifier that can be used in printf()-style format strings
 when printing a #GPid.</doc>
-      <source-position filename="glib/glibconfig.h" line="202"/>
+      <source-position filename="glib/glibconfig.h" line="201"/>
       <type name="utf8" c:type="gchar*"/>
     </constant>
     <constant name="PI_2" value="1.570796" c:type="G_PI_2">
@@ -35810,13 +35810,13 @@ currently the number of fields must be 2.</doc>
     <constant name="SEARCHPATH_SEPARATOR"
               value="58"
               c:type="G_SEARCHPATH_SEPARATOR">
-      <source-position filename="glib/glibconfig.h" line="214"/>
+      <source-position filename="glib/glibconfig.h" line="213"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="SEARCHPATH_SEPARATOR_S"
               value=":"
               c:type="G_SEARCHPATH_SEPARATOR_S">
-      <source-position filename="glib/glibconfig.h" line="215"/>
+      <source-position filename="glib/glibconfig.h" line="214"/>
       <type name="utf8" c:type="gchar*"/>
     </constant>
     <constant name="SIZEOF_LONG" value="8" c:type="GLIB_SIZEOF_LONG">
@@ -37101,29 +37101,29 @@ the #GSource from the main loop.</doc>
       <type name="utf8" c:type="gchar*"/>
     </constant>
     <constant name="SYSDEF_AF_INET" value="2" c:type="GLIB_SYSDEF_AF_INET">
-      <source-position filename="glib/glibconfig.h" line="205"/>
+      <source-position filename="glib/glibconfig.h" line="204"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="SYSDEF_AF_INET6" value="10" c:type="GLIB_SYSDEF_AF_INET6">
-      <source-position filename="glib/glibconfig.h" line="206"/>
+      <source-position filename="glib/glibconfig.h" line="205"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="SYSDEF_AF_UNIX" value="1" c:type="GLIB_SYSDEF_AF_UNIX">
-      <source-position filename="glib/glibconfig.h" line="204"/>
+      <source-position filename="glib/glibconfig.h" line="203"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="SYSDEF_MSG_DONTROUTE"
               value="4"
               c:type="GLIB_SYSDEF_MSG_DONTROUTE">
-      <source-position filename="glib/glibconfig.h" line="210"/>
+      <source-position filename="glib/glibconfig.h" line="209"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="SYSDEF_MSG_OOB" value="1" c:type="GLIB_SYSDEF_MSG_OOB">
-      <source-position filename="glib/glibconfig.h" line="208"/>
+      <source-position filename="glib/glibconfig.h" line="207"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <constant name="SYSDEF_MSG_PEEK" value="2" c:type="GLIB_SYSDEF_MSG_PEEK">
-      <source-position filename="glib/glibconfig.h" line="209"/>
+      <source-position filename="glib/glibconfig.h" line="208"/>
       <type name="gint" c:type="gint"/>
     </constant>
     <record name="Scanner" c:type="GScanner">
@@ -53401,10 +53401,6 @@ Since 2.24</doc>
         </parameter>
       </parameters>
     </function-macro>
-    <constant name="VA_COPY_AS_ARRAY" value="1" c:type="G_VA_COPY_AS_ARRAY">
-      <source-position filename="glib/glibconfig.h" line="124"/>
-      <type name="gint" c:type="gint"/>
-    </constant>
     <constant name="VERSION_MIN_REQUIRED"
               value="2"
               c:type="GLIB_VERSION_MIN_REQUIRED"

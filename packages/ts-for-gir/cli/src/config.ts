@@ -249,6 +249,16 @@ export class Config {
         configName: Config.options.configName,
     }
 
+    static copyOptions = {
+        modules: this.options.modules,
+        girDirectories: Config.options.girDirectories,
+        root: this.options.root,
+        outdir: Config.options.outdir,
+        ignore: Config.options.ignore,
+        configName: Config.options.configName,
+        verbose: Config.options.verbose,
+    }
+
     /**
      * Overwrites values in the user config file
      * @param configsToAdd
@@ -331,6 +341,26 @@ export class Config {
             npmScope: config.npmScope,
             package: config.package,
             packageYarn: config.packageYarn,
+        }
+        return generateConfig
+    }
+
+    public static getOptionsGeneration(config: UserConfig): GenerateConfig {
+        const generateConfig: GenerateConfig = {
+            girDirectories: config.girDirectories,
+            root: config.root,
+            outdir: config.outdir,
+            verbose: config.verbose,
+            noNamespace: config.noNamespace,
+            noComments: config.noComments,
+            noDebugComments: config.noDebugComments,
+            fixConflicts: config.fixConflicts,
+            promisify: config.promisify,
+            npmScope: config.npmScope,
+            packageYarn: config.packageYarn,
+            environment: 'node',
+            generateAlias: config.generateAlias,
+            package: config.package,
         }
         return generateConfig
     }

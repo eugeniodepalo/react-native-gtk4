@@ -246,6 +246,10 @@ one should use the wrapper functions provided for `PangoAttribute`.</doc>
         <type name="AttrType" c:type="PangoAttrType"/>
       </field>
       <field name="copy">
+        <doc xml:space="preserve"
+             filename="pango/pango-attributes.h"
+             line="339">function to duplicate an attribute of this type
+  (see [method@Pango.Attribute.copy])</doc>
         <callback name="copy">
           <source-position filename="pango/pango-attributes.h" line="356"/>
           <return-value transfer-ownership="full">
@@ -259,6 +263,10 @@ one should use the wrapper functions provided for `PangoAttribute`.</doc>
         </callback>
       </field>
       <field name="destroy">
+        <doc xml:space="preserve"
+             filename="pango/pango-attributes.h"
+             line="341">function to free an attribute of this type
+  (see [method@Pango.Attribute.destroy])</doc>
         <callback name="destroy">
           <source-position filename="pango/pango-attributes.h" line="357"/>
           <return-value transfer-ownership="none">
@@ -272,6 +280,10 @@ one should use the wrapper functions provided for `PangoAttribute`.</doc>
         </callback>
       </field>
       <field name="equal">
+        <doc xml:space="preserve"
+             filename="pango/pango-attributes.h"
+             line="343">function to check two attributes of this type for equality
+  (see [method@Pango.Attribute.equal])</doc>
         <callback name="equal">
           <source-position filename="pango/pango-attributes.h" line="358"/>
           <return-value transfer-ownership="none">
@@ -7687,6 +7699,10 @@ a particular `PangoFontMap` implementation.</doc>
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
       <field name="load_font">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontmap.h"
+             line="57">a function to load a font with a given description. See
+pango_font_map_load_font().</doc>
         <callback name="load_font">
           <source-position filename="pango/pango-fontmap.h" line="78"/>
           <return-value transfer-ownership="full" nullable="1">
@@ -7720,6 +7736,10 @@ a particular `PangoFontMap` implementation.</doc>
         </callback>
       </field>
       <field name="list_families">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontmap.h"
+             line="59">A function to list available font families. See
+pango_font_map_list_families().</doc>
         <callback name="list_families">
           <source-position filename="pango/pango-fontmap.h" line="81"/>
           <return-value transfer-ownership="none">
@@ -7760,6 +7780,10 @@ a particular `PangoFontMap` implementation.</doc>
         </callback>
       </field>
       <field name="load_fontset">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontmap.h"
+             line="61">a function to load a fontset with a given given description
+suitable for a particular language. See pango_font_map_load_fontset().</doc>
         <callback name="load_fontset">
           <source-position filename="pango/pango-fontmap.h" line="84"/>
           <return-value transfer-ownership="full" nullable="1">
@@ -7806,6 +7830,10 @@ can handle fonts of this fonts loaded with this fontmap.</doc>
         <type name="utf8" c:type="const char*"/>
       </field>
       <field name="get_serial">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontmap.h"
+             line="65">a function to get the serial number of the fontmap.
+See pango_font_map_get_serial().</doc>
         <callback name="get_serial">
           <source-position filename="pango/pango-fontmap.h" line="91"/>
           <return-value transfer-ownership="none">
@@ -7825,6 +7853,9 @@ can handle fonts of this fonts loaded with this fontmap.</doc>
         </callback>
       </field>
       <field name="changed">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontmap.h"
+             line="67">See pango_font_map_changed()</doc>
         <callback name="changed">
           <source-position filename="pango/pango-fontmap.h" line="92"/>
           <return-value transfer-ownership="none">
@@ -8414,6 +8445,9 @@ glyph for a Unicode character.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="get_language">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontset.h"
+             line="90">a function to get the language of the fontset.</doc>
         <source-position filename="pango/pango-fontset.h" line="107"/>
         <return-value transfer-ownership="full">
           <type name="Language" c:type="PangoLanguage*"/>
@@ -8550,6 +8584,10 @@ a particular `PangoFontset` implementation.</doc>
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
       <field name="get_font">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontset.h"
+             line="86">a function to get the font in the fontset that contains the
+  best glyph for the given Unicode character; see [method@Pango.Fontset.get_font]</doc>
         <callback name="get_font">
           <source-position filename="pango/pango-fontset.h" line="103"/>
           <return-value transfer-ownership="full">
@@ -8575,6 +8613,10 @@ a particular `PangoFontset` implementation.</doc>
         </callback>
       </field>
       <field name="get_metrics">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontset.h"
+             line="88">a function to get overall metric information for the fonts
+  in the fontset; see [method@Pango.Fontset.get_metrics]</doc>
         <callback name="get_metrics">
           <source-position filename="pango/pango-fontset.h" line="106"/>
           <return-value transfer-ownership="full">
@@ -8594,6 +8636,9 @@ a particular `PangoFontset` implementation.</doc>
         </callback>
       </field>
       <field name="get_language">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontset.h"
+             line="90">a function to get the language of the fontset.</doc>
         <callback name="get_language">
           <source-position filename="pango/pango-fontset.h" line="107"/>
           <return-value transfer-ownership="full">
@@ -8607,6 +8652,10 @@ a particular `PangoFontset` implementation.</doc>
         </callback>
       </field>
       <field name="foreach">
+        <doc xml:space="preserve"
+             filename="pango/pango-fontset.h"
+             line="91">a function to loop over the fonts in the fontset. See
+  [method@Pango.Fontset.foreach]</doc>
         <callback name="foreach">
           <source-position filename="pango/pango-fontset.h" line="108"/>
           <return-value transfer-ownership="none">
@@ -15359,6 +15408,9 @@ By subclassing `PangoRenderer` and overriding operations such as
 backends and destinations can be created.</doc>
       <source-position filename="pango/pango-renderer.h" line="195"/>
       <virtual-method name="begin">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="107">Do renderer-specific initialization before drawing</doc>
         <source-position filename="pango/pango-renderer.h" line="177"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -15625,6 +15677,11 @@ Use [method@Pango.Renderer.activate] to activate a renderer.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="draw_shape">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="100">draw content for a glyph shaped with `PangoAttrShape`
+  @x, @y are the coordinates of the left edge of the baseline,
+  in user coordinates.</doc>
         <source-position filename="pango/pango-renderer.h" line="155"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -15707,6 +15764,9 @@ using the given `PangoRenderer`; coordinates are in device space.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="end">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="108">Do renderer-specific cleanup after drawing</doc>
         <source-position filename="pango/pango-renderer.h" line="178"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -15755,6 +15815,9 @@ changes to colors. (See [method@Pango.Renderer.set_color])</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="prepare_run">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="109">updates the renderer for a new run</doc>
         <source-position filename="pango/pango-renderer.h" line="180"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -16556,6 +16619,9 @@ and must be implemented:
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
       <field name="draw_glyphs">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="95">draws a `PangoGlyphString`</doc>
         <callback name="draw_glyphs">
           <source-position filename="pango/pango-renderer.h" line="139"/>
           <return-value transfer-ownership="none">
@@ -16598,6 +16664,9 @@ and must be implemented:
         </callback>
       </field>
       <field name="draw_rectangle">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="96">draws a rectangle</doc>
         <callback name="draw_rectangle">
           <source-position filename="pango/pango-renderer.h" line="144"/>
           <return-value transfer-ownership="none">
@@ -16646,6 +16715,11 @@ and must be implemented:
         </callback>
       </field>
       <field name="draw_error_underline">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="97">draws a squiggly line that approximately
+covers the given rectangle in the style of an underline used to
+indicate a spelling error.</doc>
         <callback name="draw_error_underline">
           <source-position filename="pango/pango-renderer.h" line="150"/>
           <return-value transfer-ownership="none">
@@ -16686,6 +16760,11 @@ and must be implemented:
         </callback>
       </field>
       <field name="draw_shape">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="100">draw content for a glyph shaped with `PangoAttrShape`
+  @x, @y are the coordinates of the left edge of the baseline,
+  in user coordinates.</doc>
         <callback name="draw_shape">
           <source-position filename="pango/pango-renderer.h" line="155"/>
           <return-value transfer-ownership="none">
@@ -16708,6 +16787,9 @@ and must be implemented:
         </callback>
       </field>
       <field name="draw_trapezoid">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="103">draws a trapezoidal filled area</doc>
         <callback name="draw_trapezoid">
           <source-position filename="pango/pango-renderer.h" line="160"/>
           <return-value transfer-ownership="none">
@@ -16766,6 +16848,9 @@ and must be implemented:
         </callback>
       </field>
       <field name="draw_glyph">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="104">draws a single glyph</doc>
         <callback name="draw_glyph">
           <source-position filename="pango/pango-renderer.h" line="168"/>
           <return-value transfer-ownership="none">
@@ -16806,6 +16891,10 @@ and must be implemented:
         </callback>
       </field>
       <field name="part_changed">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="105">do renderer specific processing when rendering
+ attributes change</doc>
         <callback name="part_changed">
           <source-position filename="pango/pango-renderer.h" line="174"/>
           <return-value transfer-ownership="none">
@@ -16828,6 +16917,9 @@ and must be implemented:
         </callback>
       </field>
       <field name="begin">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="107">Do renderer-specific initialization before drawing</doc>
         <callback name="begin">
           <source-position filename="pango/pango-renderer.h" line="177"/>
           <return-value transfer-ownership="none">
@@ -16841,6 +16933,9 @@ and must be implemented:
         </callback>
       </field>
       <field name="end">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="108">Do renderer-specific cleanup after drawing</doc>
         <callback name="end">
           <source-position filename="pango/pango-renderer.h" line="178"/>
           <return-value transfer-ownership="none">
@@ -16854,6 +16949,9 @@ and must be implemented:
         </callback>
       </field>
       <field name="prepare_run">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="109">updates the renderer for a new run</doc>
         <callback name="prepare_run">
           <source-position filename="pango/pango-renderer.h" line="180"/>
           <return-value transfer-ownership="none">
@@ -16870,6 +16968,9 @@ and must be implemented:
         </callback>
       </field>
       <field name="draw_glyph_item">
+        <doc xml:space="preserve"
+             filename="pango/pango-renderer.h"
+             line="110">draws a `PangoGlyphItem`</doc>
         <callback name="draw_glyph_item">
           <source-position filename="pango/pango-renderer.h" line="183"/>
           <return-value transfer-ownership="none">

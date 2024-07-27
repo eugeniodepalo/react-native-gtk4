@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 18
           cache: pnpm
+          registry-url: https://registry.npmjs.org/
       - run: sudo apt-get install -y libgtk-4-dev libgirepository1.0-dev build-essential
       - run: ./bin/setup
       - run: NODE_ENV=production pnpm build

@@ -11,7 +11,7 @@
     "build": "cd packages/react-native-gtk4 && turbo build",
     "test": "cd packages/react-native-gtk4 && turbo test",
     "codegen": "cd packages/react-native-gtk4 && turbo codegen",
-    "publish": "cd packages/react-native-gtk4 && pnpm run publish"
+    "publish": "cd packages/react-native-gtk4 && pnpm publish"
   },
   "devDependencies": {
     "turbo": "^2.0.9"

@@ -9,11 +9,11 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "pnpm run lint && pnpm run build:ts",
+    "build": "pnpm lint && pnpm build:ts",
     "build:ts": "tsc",
-    "clear": "pnpm run clear:build",
+    "clear": "pnpm clear:build",
     "clear:build": "rimraf ./lib",
-    "watch": "pnpm run build:ts --watch",
+    "watch": "pnpm build:ts --watch",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "update-package-descriptions": "wget https://raw.githubusercontent.com/vala-lang/valadoc-org/master/documentation/packages.xml"
   },

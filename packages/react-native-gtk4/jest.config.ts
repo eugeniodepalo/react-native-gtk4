@@ -6,7 +6,7 @@ const jestConfig: JestConfigWithTsJest = {
   preset: "ts-jest",
   resolver: "ts-jest-resolver",
   setupFilesAfterEnv: ["<rootDir>/src/test-support/setup.ts"],
-  coveragePathIgnorePatterns: ["/node_modules/", "test-support"],
+  coveragePathIgnorePatterns: ["/node_modules/", "/bin/"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },

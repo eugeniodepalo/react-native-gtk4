@@ -12,7 +12,7 @@ mkdir -p ./src/generated/widgets
 mkdir -p ./__tests__/generated/widgets
 
 # Generate the GIR types
-pnpm run girs:generate
+pnpm girs:generate
 rm -f ./src/generated/girs/*-import.js
 
 # Generate the types

@@ -11,11 +11,13 @@
     "codegen": {
       "dependsOn": ["^build"],
       "inputs": ["girs/**", "bin/codegen"],
-      "outputs": ["src/generated/**", "__tests__/generated/**"]
+      "outputs": ["src/generated/**", "__tests__/generated/**"],
+      "outputLogs": "new-only"
     },
     "build": {
       "dependsOn": ["^build", "codegen"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "outputLogs": "new-only"
     },
     "start": {
       "dependsOn": ["build"],

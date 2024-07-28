@@ -89,7 +89,6 @@ export class ModuleLoader {
 
   private async loadGirModules(
     inDependencies: Dependency[],
-    ignoreDependencies: string[] = [],
     girModules: GirModuleResolvedBy[] = [],
     resolvedBy = ResolveType.BY_HAND,
     failedGirModules = new Set<string>()
@@ -140,17 +139,8 @@ export class ModuleLoader {
       const transitiveDependencies = girModule.module.transitiveDependencies
 
       if (transitiveDependencies.length > 0) {
-        for (const transitiveDependency of transitiveDependencies) {
-          if (ignoreDependencies.includes(transitiveDependency.packageName)) {
-            console.warn(
-              `Load dependency "${transitiveDependency.packageName}" which is in the ignore list, if this should really be ignored also ignore "${girModule.packageName}"`
-            )
-          }
-        }
-
         await this.loadGirModules(
           transitiveDependencies,
-          ignoreDependencies,
           girModules,
           ResolveType.DEPENDENCE,
           failedGirModules
@@ -172,11 +162,10 @@ export class ModuleLoader {
   }
 
   public async getModulesResolved(
-    packageNames: string[],
-    ignore: string[] = []
+    packageNames: string[]
   ): Promise<GirModuleResolvedBy[]> {
     const dependencies = this.packageNamesToDependencies(new Set(packageNames))
-    const { loaded } = await this.loadGirModules(dependencies, ignore)
+    const { loaded } = await this.loadGirModules(dependencies)
 
     return loaded
   }

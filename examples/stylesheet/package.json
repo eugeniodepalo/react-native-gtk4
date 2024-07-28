@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "pnpm build && cp -r data dist/ && node dist/index.js"
+    "start": "cp -r data dist/ && node dist/index.js"
   },
   "dependencies": {
     "react": "18.3.1",

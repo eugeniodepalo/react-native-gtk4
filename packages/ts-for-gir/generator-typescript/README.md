@@ -17,4 +17,5 @@
 </p>
 
 # Generator base
+
 TypeScript type definition generator for ts-for-gir.

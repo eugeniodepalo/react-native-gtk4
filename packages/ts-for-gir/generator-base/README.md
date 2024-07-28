@@ -17,5 +17,5 @@
 </p>
 
 # Generator base
-Base generator interface for ts-for-gir generators.
 
+Base generator interface for ts-for-gir generators.

@@ -8,12 +8,12 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "cd packages/react-native-gtk4 && turbo build",
-    "test": "cd packages/react-native-gtk4 && turbo test",
-    "codegen": "cd packages/react-native-gtk4 && turbo codegen",
-    "publish": "cd packages/react-native-gtk4 && pnpm publish"
+    "build": "turbo build -F react-native-gtk4",
+    "test": "turbo test -F react-native-gtk4",
+    "codegen": "turbo codegen -F react-native-gtk4",
+    "publish": "pnpm publish -F react-native-gtk4"
   },
   "devDependencies": {
-    "turbo": "^2.0.9"
+    "turbo": "2.0.9"
   }
 }

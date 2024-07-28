@@ -10,7 +10,6 @@ import {
 } from "@ts-for-gir/lib"
 
 import type {
-  GirModulesGroupedMap,
   GenerateConfig,
   GirModuleResolvedBy,
   DependencyMap,
@@ -19,69 +18,18 @@ import type {
 
 export class ModuleLoader {
   dependencyManager: DependencyManager
-
-  /** Transitive module dependencies */
   modDependencyMap: DependencyMap = {}
-  constructor(protected readonly config: GenerateConfig) {
+
+  constructor(private readonly config: GenerateConfig) {
     this.dependencyManager = DependencyManager.getInstance(config)
   }
 
-  /**
-   * Find modules that depend on the module with the name 'packageName'
-   * @param girModulesGroupedMap
-   * @param packageName
-   */
-  protected findPackageNamesDependOnPackage(
-    girModulesGroupedMap: GirModulesGroupedMap,
-    packageName: string
-  ): GirModuleResolvedBy[] {
-    const girModules: GirModuleResolvedBy[] = []
-    for (const girModulesGrouped of Object.values(girModulesGroupedMap)) {
-      for (const girModuleResolvedBy of girModulesGrouped.modules) {
-        if (girModuleResolvedBy.packageName === packageName) {
-          continue
-        }
-        for (const dep of girModuleResolvedBy.module.dependencies) {
-          if (
-            dep.packageName === packageName &&
-            !girModules.includes(girModuleResolvedBy)
-          ) {
-            girModules.push(girModuleResolvedBy)
-          }
-        }
-      }
-    }
-    return girModules
-  }
-
-  /**
-   * Find modules that depend on the module with the names in `packageNames`
-   * @param girModulesGroupedMap
-   * @param packageName
-   */
-  protected findPackageNamesDependOnPackages(
-    girModulesGroupedMap: GirModulesGroupedMap,
-    packageNames: string[]
-  ): GirModuleResolvedBy[] {
-    let girModules: GirModuleResolvedBy[] = []
-    for (const packageName of packageNames) {
-      girModules = girModules.concat(
-        this.findPackageNamesDependOnPackage(girModulesGroupedMap, packageName)
-      )
-    }
-    return girModules
-  }
-
-  /**
-   * Figure out transitive module dependencies
-   * @param packageName
-   * @param result
-   */
-  protected traverseDependencies(
+  private traverseDependencies(
     packageName: string,
     result: { [name: string]: Dependency } = {}
   ): void {
     const deps = this.modDependencyMap[packageName]
+
     if (isIterable(deps)) {
       for (const dep of deps) {
         if (result[dep.packageName]) continue
@@ -91,21 +39,11 @@ export class ModuleLoader {
     }
   }
 
-  /**
-   * Extends the modDependencyMap by the current Module,
-   * should be called for each girModule so that the modDependencyMap is complete
-   * @param girModule
-   */
-  protected extendDependencyMapByGirModule(girModule: GirModule): void {
+  private extendDependencyMapByGirModule(girModule: GirModule): void {
     this.modDependencyMap[girModule.packageName] = girModule.dependencies
   }
 
-  /**
-   * Sets the traverse dependencies for the current girModule,
-   * is required so that all dependencies can be found internally when generating the dependency imports for the module .d.ts file
-   * @param girModules
-   */
-  protected setTraverseDependenciesForModules(
+  private setTraverseDependenciesForModules(
     girModules: GirModuleResolvedBy[]
   ): void {
     for (const girModule of girModules) {
@@ -115,13 +53,7 @@ export class ModuleLoader {
     }
   }
 
-  /**
-   * Reads a gir xml module file and creates an object of GirModule.
-   * Also sets the setDependencyMap
-   * @param fillName
-   * @param config
-   */
-  protected async loadAndCreateGirModule(
+  private async loadAndCreateGirModule(
     dependency: Dependency
   ): Promise<GirModule | null> {
     if (!dependency.exists || dependency.path === null) {
@@ -129,20 +61,16 @@ export class ModuleLoader {
     }
 
     console.log(`Parsing ${dependency.path}...`)
+
     const fileContents = await readFile(dependency.path, "utf8")
     const result = girParser(fileContents)
     const girModule = new GirModule(result, this.config)
-    // Figure out transitive module dependencies
     this.extendDependencyMapByGirModule(girModule)
+
     return girModule
   }
 
-  /**
-   * Returns a girModule found by `packageName` property
-   * @param girModules Array of girModules
-   * @param packageNames Full name like 'Gtk-3.0' you are looking for
-   */
-  protected findGirModuleByFullNames(
+  private findGirModuleByFullNames(
     girModules: (GirModuleResolvedBy | GirModule)[],
     packageNames: string[]
   ): Array<GirModuleResolvedBy | GirModule> {
@@ -151,12 +79,7 @@ export class ModuleLoader {
     )
   }
 
-  /**
-   * Checks if a girModules with the `packageNames` exists
-   * @param girModules
-   * @param packageName
-   */
-  protected existsGirModules(
+  private existsGirModules(
     girModules: (GirModuleResolvedBy | GirModule)[],
     packageName: string
   ): boolean {
@@ -164,38 +87,30 @@ export class ModuleLoader {
     return foundModule.length > 0
   }
 
-  /**
-   *  Reads the gir xml module files and creates an object of GirModule for each module
-   * @param dependencies
-   * @param girModules
-   * @param resolvedBy
-   * @param failedGirModules
-   * @param ignoreDependencies
-   * @returns
-   */
-  protected async loadGirModules(
-    dependencies: Dependency[],
+  private async loadGirModules(
+    inDependencies: Dependency[],
     ignoreDependencies: string[] = [],
     girModules: GirModuleResolvedBy[] = [],
     resolvedBy = ResolveType.BY_HAND,
     failedGirModules = new Set<string>()
   ): Promise<{ loaded: GirModuleResolvedBy[]; failed: Set<string> }> {
     let newModuleFound = false
-
-    // Clone array
-    dependencies = [...dependencies]
+    const dependencies = [...inDependencies]
 
     while (dependencies.length > 0) {
       const dependency = dependencies.shift()
+
       if (!dependency?.packageName) continue
-      // If module has not already been loaded
+
       if (!this.existsGirModules(girModules, dependency.packageName)) {
         const girModule = await this.loadAndCreateGirModule(dependency)
+
         if (!girModule) {
           if (!failedGirModules.has(dependency.packageName)) {
             console.warn(
               WARN_NO_GIR_FILE_FOUND_FOR_PACKAGE(dependency.packageName)
             )
+
             failedGirModules.add(dependency.packageName)
           }
         } else if (girModule && girModule.packageName) {
@@ -203,7 +118,9 @@ export class ModuleLoader {
             packageName: girModule.packageName,
             module: girModule,
             resolvedBy,
+            path: dependency.path,
           }
+
           girModules.push(addModule)
           newModuleFound = true
         }
@@ -217,13 +134,11 @@ export class ModuleLoader {
       }
     }
 
-    // Figure out transitive module dependencies
     this.setTraverseDependenciesForModules(girModules)
 
-    // Load girModules for dependencies
     for (const girModule of girModules) {
-      // Load dependencies
       const transitiveDependencies = girModule.module.transitiveDependencies
+
       if (transitiveDependencies.length > 0) {
         for (const transitiveDependency of transitiveDependencies) {
           if (ignoreDependencies.includes(transitiveDependency.packageName)) {
@@ -242,26 +157,20 @@ export class ModuleLoader {
         )
       }
     }
+
     return {
       loaded: girModules,
       failed: failedGirModules,
     }
   }
 
-  protected packageNamesToDependencies(
-    packageNames: Set<string>
-  ): Dependency[] {
+  private packageNamesToDependencies(packageNames: Set<string>): Dependency[] {
     return Array.from(packageNames).map((packageName) => {
       const { namespace, version } = splitModuleName(packageName)
       return this.dependencyManager.get(namespace, version)
     })
   }
 
-  /**
-   * Loads all found `packageNames` and sorts out those that the user does not want to use including their dependencies
-   * @param girDirectories
-   * @param packageNames
-   */
   public async getModulesResolved(
     packageNames: string[],
     ignore: string[] = []

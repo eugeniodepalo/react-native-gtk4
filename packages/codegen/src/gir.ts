@@ -4,7 +4,7 @@ import {
   GirEnumElement,
   GirModule as BaseGirModule,
 } from "@ts-for-gir/lib"
-import { ModuleLoader } from "./module-loader.js"
+import { ModuleLoader } from "./moduleLoader.js"
 import { GirInterface } from "./gir/interface.js"
 import { GirType } from "./gir/type.js"
 import { uniqueBy } from "remeda"

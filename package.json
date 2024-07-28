@@ -1,5 +1,5 @@
 {
-  "name": "react-native-gtk",
+  "name": "@react-native-gtk4/root",
   "private": true,
   "packageManager": "pnpm@9.6.0",
   "workspaces": [

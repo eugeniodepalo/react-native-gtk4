@@ -9,12 +9,12 @@
     "start": "pnpm build && node dist/index.js"
   },
   "dependencies": {
-    "node-gtk": "^0.12.0",
-    "react": "^18.3.1",
+    "node-gtk": "0.12.0",
+    "react": "18.3.1",
     "react-native-gtk4": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "typescript": "^5.5.4"
+    "@types/react": "18.3.3",
+    "typescript": "5.5.4"
   }
 }

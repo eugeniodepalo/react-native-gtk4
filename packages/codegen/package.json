@@ -1,36 +1,36 @@
 {
-    "name": "@react-native-gtk4/codegen",
-    "version": "0.0.0",
-    "private": true,
-    "type": "module",
-    "bin": {
-        "codegen": "dist/index.js"
-    },
-    "scripts": {
-        "build": "tsup-node src/index.ts"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/eugeniodepalo/react-native-gtk4.git"
-    },
-    "keywords": [
-        "react",
-        "gtk",
-        "node-gtk",
-        "native"
-    ],
-    "author": "Eugenio Depalo <eugeniodepalo@gmail.com>",
-    "license": "MPL-2.0",
-    "bugs": {
-        "url": "https://github.com/eugeniodepalo/react-native-gtk4/issues"
-    },
-    "homepage": "https://github.com/eugeniodepalo/react-native-gtk4",
-    "devDependencies": {
-        "@ts-for-gir/lib": "workspace:*",
-        "@types/node": "20.14.7",
-        "prettier": "3.3.3",
-        "remeda": "2.6.0",
-        "tsup": "8.2.3",
-        "typescript": "5.5.4"
-    }
+  "name": "@react-native-gtk4/codegen",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "codegen": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugeniodepalo/react-native-gtk4.git"
+  },
+  "keywords": [
+    "react",
+    "gtk",
+    "node-gtk",
+    "native"
+  ],
+  "author": "Eugenio Depalo <eugeniodepalo@gmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/eugeniodepalo/react-native-gtk4/issues"
+  },
+  "homepage": "https://github.com/eugeniodepalo/react-native-gtk4",
+  "devDependencies": {
+    "@ts-for-gir/lib": "workspace:*",
+    "@types/node": "20.14.7",
+    "prettier": "3.3.3",
+    "remeda": "2.6.0",
+    "tsup": "8.2.3",
+    "typescript": "5.5.4"
+  }
 }

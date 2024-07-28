@@ -5,7 +5,7 @@ import { Calendar } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 import _ from "lodash"
 
-type Props = JSX.IntrinsicElements["Calendar"] & {
+type Props = React.JSX.IntrinsicElements["Calendar"] & {
   markedDays?: number[]
 }
 

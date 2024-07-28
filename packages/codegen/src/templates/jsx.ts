@@ -10,13 +10,13 @@ export default function (gir: Gir) {
   }
 
   ts += `\n`
-  ts += `declare global {\n`
+  ts += `declare module "react" {\n`
   ts += `  namespace JSX {\n`
   ts += `    interface IntrinsicElements {\n`
 
   for (const widgetClass of gir.widgetClasses) {
     if (widgetClass.parent) {
-      ts += `${widgetClass.name}: JSX.IntrinsicElements["${widgetClass.parent.name}"] & {\n`
+      ts += `${widgetClass.name}: React.JSX.IntrinsicElements["${widgetClass.parent.name}"] & {\n`
     } else {
       ts += `${widgetClass.name}: {\n`
     }

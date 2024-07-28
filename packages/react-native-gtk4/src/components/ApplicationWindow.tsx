@@ -5,7 +5,10 @@ import { ApplicationWindow } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 import { createPortal } from "../portal.js"
 
-type Props = Omit<JSX.IntrinsicElements["ApplicationWindow"], "titlebar"> & {
+type Props = Omit<
+  React.JSX.IntrinsicElements["ApplicationWindow"],
+  "titlebar"
+> & {
   titlebar?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
 }
 

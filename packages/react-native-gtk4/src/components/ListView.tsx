@@ -8,7 +8,7 @@ import useListItemFactory, {
 import useSelection from "../hooks/useSelection.js"
 
 type Props<T> = Omit<
-  JSX.IntrinsicElements["ListView"],
+  React.JSX.IntrinsicElements["ListView"],
   "factory" | "headerFactory" | "model"
 > & {
   selectionMode?: Gtk.SelectionMode

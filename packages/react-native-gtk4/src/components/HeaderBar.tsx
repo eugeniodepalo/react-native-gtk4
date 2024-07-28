@@ -7,7 +7,7 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Position = "start" | "end"
 
-type Props = Omit<JSX.IntrinsicElements["HeaderBar"], "titleWidget"> & {
+type Props = Omit<React.JSX.IntrinsicElements["HeaderBar"], "titleWidget"> & {
   title?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
 }
 

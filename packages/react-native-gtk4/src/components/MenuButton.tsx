@@ -6,7 +6,7 @@ import { createPortal } from "../portal.js"
 import Gio from "@/generated/girs/node-gio-2.0"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
-type Props = Omit<JSX.IntrinsicElements["MenuButton"], "popover"> & {
+type Props = Omit<React.JSX.IntrinsicElements["MenuButton"], "popover"> & {
   actionGroup?: Gio.ActionGroup
   actionPrefix: string
   popover?: (React.ReactElement & { ref?: React.Ref<Gtk.Popover> }) | null

@@ -5,7 +5,7 @@ import { Paned } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = Omit<
-  JSX.IntrinsicElements["Paned"],
+  React.JSX.IntrinsicElements["Paned"],
   "children" | "startChild" | "endChild"
 > & {
   children: [

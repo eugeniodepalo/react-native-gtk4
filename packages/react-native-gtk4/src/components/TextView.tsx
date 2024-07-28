@@ -6,20 +6,21 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 
 const Context = createContext<Gtk.TextView | null>(null)
 
-const Container = forwardRef<Gtk.TextView, JSX.IntrinsicElements["TextView"]>(
-  function TextViewContainer({ children, ...props }, ref) {
-    const [textView, setTextView] = useState<Gtk.TextView | null>(null)
-    const [, setInnerRef] = useForwardedRef(ref, setTextView)
+const Container = forwardRef<
+  Gtk.TextView,
+  React.JSX.IntrinsicElements["TextView"]
+>(function TextViewContainer({ children, ...props }, ref) {
+  const [textView, setTextView] = useState<Gtk.TextView | null>(null)
+  const [, setInnerRef] = useForwardedRef(ref, setTextView)
 
-    return (
-      <TextView ref={setInnerRef} {...props}>
-        {textView ? (
-          <Context.Provider value={textView}>{children}</Context.Provider>
-        ) : null}
-      </TextView>
-    )
-  }
-)
+  return (
+    <TextView ref={setInnerRef} {...props}>
+      {textView ? (
+        <Context.Provider value={textView}>{children}</Context.Provider>
+      ) : null}
+    </TextView>
+  )
+})
 
 interface OverlayProps {
   children: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }

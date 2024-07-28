@@ -6,7 +6,7 @@ import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = Omit<
-  JSX.IntrinsicElements["Expander"],
+  React.JSX.IntrinsicElements["Expander"],
   "labelWidget" | "label"
 > & {
   label?: string | (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null

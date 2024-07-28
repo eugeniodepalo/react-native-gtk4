@@ -6,7 +6,7 @@ import { createPortal } from "../portal.js"
 
 export default forwardRef<
   Gtk.PrintUnixDialog,
-  JSX.IntrinsicElements["PrintUnixDialog"]
+  React.JSX.IntrinsicElements["PrintUnixDialog"]
 >(function PrintUnixDialogComponent(props, ref) {
   return createPortal(<PrintUnixDialog ref={ref} {...props} />)
 })

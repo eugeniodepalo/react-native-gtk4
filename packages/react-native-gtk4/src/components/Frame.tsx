@@ -5,7 +5,10 @@ import { Frame } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 import { createPortal } from "../portal.js"
 
-type Props = Omit<JSX.IntrinsicElements["Frame"], "labelWidget" | "label"> & {
+type Props = Omit<
+  React.JSX.IntrinsicElements["Frame"],
+  "labelWidget" | "label"
+> & {
   label?: string | (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null
 }
 

@@ -6,7 +6,7 @@ import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
 type Props = Omit<
-  JSX.IntrinsicElements["CenterBox"],
+  React.JSX.IntrinsicElements["CenterBox"],
   "startWidget" | "endWidget" | "centerWidget" | "children"
 > & {
   start?: (React.ReactElement & { ref?: React.Ref<Gtk.Widget> }) | null

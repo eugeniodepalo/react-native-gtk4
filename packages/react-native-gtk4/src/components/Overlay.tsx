@@ -5,7 +5,7 @@ import { Overlay } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
-type Props = JSX.IntrinsicElements["Overlay"] & {
+type Props = React.JSX.IntrinsicElements["Overlay"] & {
   content: React.ReactElement & { ref?: React.Ref<Gtk.Widget> }
 }
 

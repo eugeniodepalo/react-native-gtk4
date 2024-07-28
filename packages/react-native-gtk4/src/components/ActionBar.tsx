@@ -11,7 +11,7 @@ const PositionContext = createContext<Position>("start")
 
 const Container = forwardRef<
   Gtk.ActionBar,
-  Omit<JSX.IntrinsicElements["ActionBar"], "centerWidget">
+  Omit<React.JSX.IntrinsicElements["ActionBar"], "centerWidget">
 >(function ActionBarContainer({ children, ...props }, ref) {
   const [actionBar, setActionBar] = useState<Gtk.ActionBar | null>(null)
   const [, setInnerRef] = useForwardedRef(ref, setActionBar)

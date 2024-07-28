@@ -5,7 +5,7 @@ import { LevelBar } from "../generated/intrinsics.js"
 import _ from "lodash"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
-type Props = JSX.IntrinsicElements["LevelBar"] & {
+type Props = React.JSX.IntrinsicElements["LevelBar"] & {
   offsets?: Record<string, number>
 }
 

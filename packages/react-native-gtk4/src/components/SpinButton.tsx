@@ -5,7 +5,7 @@ import { SpinButton } from "../generated/intrinsics.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 import _ from "lodash"
 
-type Props = JSX.IntrinsicElements["SpinButton"] & {
+type Props = React.JSX.IntrinsicElements["SpinButton"] & {
   range?: [number, number]
 }
 

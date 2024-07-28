@@ -7,7 +7,7 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 type ElementType = "Popover" | "PopoverMenu" | "EmojiChooser"
 
 export type AbstractPopoverProps<T extends ElementType> = Omit<
-  JSX.IntrinsicElements[T],
+  React.JSX.IntrinsicElements[T],
   "children"
 > & {
   elementType: T

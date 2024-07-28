@@ -10,7 +10,7 @@ export interface AboutDialogCreditSection {
   people: string[]
 }
 
-type Props = JSX.IntrinsicElements["AboutDialog"] & {
+type Props = React.JSX.IntrinsicElements["AboutDialog"] & {
   creditSections?: AboutDialogCreditSection[]
 }
 

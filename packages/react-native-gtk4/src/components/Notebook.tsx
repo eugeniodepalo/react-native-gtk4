@@ -7,7 +7,7 @@ import { createPortal } from "../portal.js"
 
 const Context = createContext<Gtk.Notebook | null>(null)
 
-type Props = JSX.IntrinsicElements["Notebook"] & {
+type Props = React.JSX.IntrinsicElements["Notebook"] & {
   children: React.ReactNode
 }
 

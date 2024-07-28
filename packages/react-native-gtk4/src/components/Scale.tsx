@@ -11,7 +11,7 @@ interface ScaleMark {
   position?: Gtk.PositionType
 }
 
-type Props = Omit<JSX.IntrinsicElements["Scale"], "children"> & {
+type Props = Omit<React.JSX.IntrinsicElements["Scale"], "children"> & {
   marks?: ScaleMark[]
   value?: number
   range: [number, number]

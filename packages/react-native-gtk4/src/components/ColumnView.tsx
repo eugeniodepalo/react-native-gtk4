@@ -15,7 +15,7 @@ type RenderCellFunction<T> = (
   listItem: Gtk.ListItem
 ) => React.ReactElement & React.RefAttributes<Gtk.Widget>
 
-type Props<T> = Omit<JSX.IntrinsicElements["ColumnView"], "model"> & {
+type Props<T> = Omit<React.JSX.IntrinsicElements["ColumnView"], "model"> & {
   columns: Column[]
   selectionMode?: Gtk.SelectionMode
   selection?: number[]

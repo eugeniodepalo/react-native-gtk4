@@ -12,7 +12,7 @@ interface Context {
 
 const Context = createContext<Context | null>(null)
 
-const Container = forwardRef<Gtk.Stack, JSX.IntrinsicElements["Stack"]>(
+const Container = forwardRef<Gtk.Stack, React.JSX.IntrinsicElements["Stack"]>(
   function StackContainer({ children, visibleChildName, ...props }, ref) {
     const [stack, setStack] = useState<Gtk.Stack | null>(null)
     const [, setInnerRef] = useForwardedRef(ref, setStack)
@@ -84,7 +84,7 @@ const Item = function StackItem({ children, name, title }: ItemProps) {
   )
 }
 
-type SidebarProps = Omit<JSX.IntrinsicElements["StackSidebar"], "stack">
+type SidebarProps = Omit<React.JSX.IntrinsicElements["StackSidebar"], "stack">
 
 const Sidebar = forwardRef<Gtk.StackSidebar, SidebarProps>(
   function StackSidebarComponent(props, ref) {
@@ -98,7 +98,7 @@ const Sidebar = forwardRef<Gtk.StackSidebar, SidebarProps>(
   }
 )
 
-type SwitcherProps = Omit<JSX.IntrinsicElements["StackSwitcher"], "stack">
+type SwitcherProps = Omit<React.JSX.IntrinsicElements["StackSwitcher"], "stack">
 
 export const Switcher = forwardRef<Gtk.StackSwitcher, SwitcherProps>(
   function StackSwitcherComponent(props, ref) {

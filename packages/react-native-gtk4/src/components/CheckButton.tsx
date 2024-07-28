@@ -5,7 +5,7 @@ import { CheckButton } from "../generated/intrinsics.js"
 import { createPortal } from "../portal.js"
 import useForwardedRef from "../hooks/useForwardedRef.js"
 
-type Props = Omit<JSX.IntrinsicElements["CheckButton"], "group"> & {
+type Props = Omit<React.JSX.IntrinsicElements["CheckButton"], "group"> & {
   radio?: boolean
 }
 

@@ -9,7 +9,7 @@ import useListModel from "../hooks/useListModel.js"
 import ListProvider from "./ListProvider.js"
 
 type Props<T> = Omit<
-  JSX.IntrinsicElements["DropDown"],
+  React.JSX.IntrinsicElements["DropDown"],
   | "itemFactory"
   | "popoverItemFactory"
   | "model"

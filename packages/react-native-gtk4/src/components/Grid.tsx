@@ -6,7 +6,7 @@ import useForwardedRef from "../hooks/useForwardedRef.js"
 
 const Context = createContext<Gtk.Grid | null>(null)
 
-const Container = forwardRef<Gtk.Grid, JSX.IntrinsicElements["Grid"]>(
+const Container = forwardRef<Gtk.Grid, React.JSX.IntrinsicElements["Grid"]>(
   function GridContainer({ children, ...props }, ref) {
     const [grid, setGrid] = useState<Gtk.Grid | null>(null)
     const [, setInnerRef] = useForwardedRef(ref, setGrid)

@@ -9,7 +9,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "node-gtk": "0.12.0",
+    "node-gtk": "0.12.1",
     "react": "18.3.1",
     "react-native-gtk4": "workspace:*"
   },

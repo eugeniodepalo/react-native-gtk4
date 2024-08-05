@@ -185,8 +185,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       remeda:
-        specifier: 2.6.0
-        version: 2.6.0
+        specifier: 2.7.1
+        version: 2.7.1
       tsup:
         specifier: 8.2.4
         version: 8.2.4(typescript@5.5.4)
@@ -209,8 +209,8 @@ importers:
         specifier: 0.29.2
         version: 0.29.2(react@18.3.1)
       remeda:
-        specifier: 2.6.0
-        version: 2.6.0
+        specifier: 2.7.1
+        version: 2.7.1
     devDependencies:
       '@babel/core':
         specifier: 7.24.9
@@ -3632,8 +3632,8 @@ packages:
     resolution: {integrity: sha512-dQUtn90WanSNl+7mQKcXAgZxvUe7Z0SqXlgzv0za4LwiUhyzBC58yQO3liFoUgu8GiJVInAhJjkj1N0EtQ5nkQ==}
     hasBin: true
 
-  remeda@2.6.0:
-    resolution: {integrity: sha512-uwq9c2s91Mry5YQiPGWtW9vF2DgTIVLzCIZZYz6Rcv8hsgWFQjavOaP24m9ZNF2mur+eq0x2EqRQlPBaLZuYrA==}
+  remeda@2.7.1:
+    resolution: {integrity: sha512-P+tm5rsatmF0GRh/EWq7vfoVyYyZbjO5Un/d08rZyEiznQWHXTtxhPu8cTntlQ8bHyPJBF3n2i5yFFmgaS3stA==}
 
   remove-trailing-spaces@1.0.8:
     resolution: {integrity: sha512-O3vsMYfWighyFbTd8hk8VaSj9UAGENxAtX+//ugIst2RMk5e03h6RoIS+0ylsFxY1gvmPuAY/PO4It+gPEeySA==}
@@ -8154,7 +8154,7 @@ snapshots:
     dependencies:
       jsesc: 0.5.0
 
-  remeda@2.6.0:
+  remeda@2.7.1:
     dependencies:
       type-fest: 4.23.0
 

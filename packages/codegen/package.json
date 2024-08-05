@@ -29,7 +29,7 @@
     "@ts-for-gir/lib": "workspace:*",
     "@types/node": "22.1.0",
     "prettier": "3.3.3",
-    "remeda": "2.6.0",
+    "remeda": "2.7.1",
     "tsup": "8.2.4",
     "typescript": "5.5.4"
   }

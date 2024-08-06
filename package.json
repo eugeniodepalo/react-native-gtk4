@@ -14,6 +14,6 @@
     "publish": "pnpm publish -F react-native-gtk4"
   },
   "devDependencies": {
-    "turbo": "2.0.9"
+    "turbo": "2.0.12"
   }
 }

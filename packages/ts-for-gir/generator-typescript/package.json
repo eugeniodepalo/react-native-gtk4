@@ -40,7 +40,7 @@
         "@typescript-eslint/eslint-plugin": "8.2.0",
         "@typescript-eslint/parser": "8.2.0",
         "ejs": "3.1.10",
-        "eslint": "8.57.0",
+        "eslint": "9.9.1",
         "eslint-config-prettier": "9.1.0",
         "eslint-plugin-prettier": "5.2.1",
         "fast-xml-parser": "4.4.1",

@@ -2768,7 +2768,7 @@ export class GirModule {
 
             if (type === 'method') {
                 const tsMethod1 = (girElement as GirMethodElement)._tsData
-                const tsMethod2 = (localNames[name][type] as GirMethodElement)._tsData
+                const tsMethod2 = localNames[name][type]._tsData
                 if (!tsMethod1 || !tsMethod2) {
                     return null
                 }

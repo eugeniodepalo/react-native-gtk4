@@ -1512,7 +1512,7 @@ export class GirModule {
         const { returnTypes, outArrayLengthIndex, retTypeIsVoid } = this.getReturnType(girSignalFunc, girClass._tsData)
 
         if (this.config.environment === 'node') {
-            returnTypes[0].type === 'void'
+            returnTypes[0].type = 'void'
         }
 
         const tsCallback: TsCallback = {
@@ -1647,6 +1647,7 @@ export class GirModule {
         girClass: GirClassElement | GirUnionElement | GirInterfaceElement | GirRecordElement,
     ) {
         if (!girClass._tsData) {
+            // eslint-disable-next-line @typescript-eslint/only-throw-error
             throw NO_TSDATA('setSignalTsData')
         }
 
@@ -1669,6 +1670,7 @@ export class GirModule {
             girSignal._tsData.doc.tags.push(...this.getTsDocReturnTags(girSignal))
 
             if (!girSignal._tsData) {
+                // eslint-disable-next-line @typescript-eslint/only-throw-error
                 throw NO_TSDATA('setSignalTsData')
             }
 
@@ -1870,11 +1872,11 @@ export class GirModule {
         const girMethods: GirMethodElement[] = []
 
         if (!girClass.$.name) return girMethods
-        const fName = girClass.$.name + 'Class'
+        let fName: string | undefined = girClass.$.name + 'Class'
         let rec = this.ns.record?.find((r) => r.$.name == fName)
         if (!rec || !this.isGtypeStructFor(girClass, rec)) {
             rec = this.ns.record?.find((r) => this.isGtypeStructFor(girClass, r))
-            fName == rec?.$.name
+            fName = rec?.$.name
         }
         if (!rec) return girMethods
 

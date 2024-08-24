@@ -25,7 +25,6 @@ import type {
     TsTypeSeparator,
     TsType,
     TsClass,
-    TsParameter,
     TypeGirFunction,
     TypeGirProperty,
     ConflictChildElement,
@@ -127,7 +126,7 @@ export class ConflictResolver {
         }
 
         // Signals
-        const _signals = tsClass.signals.map((s) => s._tsData).filter((s) => !!s) as TsSignal[]
+        const _signals = tsClass.signals.map((s) => s._tsData).filter((s) => !!s)
         for (const tsSignal of _signals) {
             signalMethods.push(...this.tsElArrToChildArr<ConflictChildElement<TsFunction>>(tsSignal.tsMethods, depth))
         }
@@ -447,10 +446,8 @@ export class ConflictResolver {
                 name: funcs[0].name,
                 returnTypes: returnTypes,
                 isStatic: funcs[0].isStatic || false,
-                inParams: inParams.map((inParam) => inParam._tsData).filter((inParam) => !!inParam) as TsParameter[],
-                outParams: outParams
-                    .map((outParam) => outParam._tsData)
-                    .filter((outParam) => !!outParam) as TsParameter[],
+                inParams: inParams.map((inParam) => inParam._tsData).filter((inParam) => !!inParam),
+                outParams: outParams.map((outParam) => outParam._tsData).filter((outParam) => !!outParam),
                 girTypeName: funcs[0].girTypeName,
             },
             funcs[0].parent,

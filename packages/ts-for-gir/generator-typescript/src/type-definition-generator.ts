@@ -816,7 +816,7 @@ export class TypeDefinitionGenerator implements Generator {
             def.push(`${indent}${exp}interface ${constructPropInterfaceName} ${ext}{`)
             def.push(
                 ...this.generateProperties(
-                    girClass._tsData.constructProps.map((cp) => cp._tsData).filter((cp) => !!cp) as TsProperty[],
+                    girClass._tsData.constructProps.map((cp) => cp._tsData).filter((cp) => !!cp),
                     false,
                     namespace,
                     `Own constructor properties of ${girClass._module.packageName}.${girClass._fullSymName}`,
@@ -868,7 +868,7 @@ export class TypeDefinitionGenerator implements Generator {
 
         def.push(
             ...this.generateProperties(
-                girClass._tsData.properties.map((p) => p._tsData).filter((p) => !!p) as TsProperty[],
+                girClass._tsData.properties.map((p) => p._tsData).filter((p) => !!p),
                 onlyStatic,
                 namespace,
                 `Own properties of ${girClass._module.packageName}.${girClass._fullSymName}`,
@@ -902,7 +902,7 @@ export class TypeDefinitionGenerator implements Generator {
 
         def.push(
             ...this.generateFunctions(
-                girClass._tsData.methods.map((girFunc) => girFunc._tsData).filter((tsFunc) => !!tsFunc) as TsFunction[],
+                girClass._tsData.methods.map((girFunc) => girFunc._tsData).filter((tsFunc) => !!tsFunc),
                 onlyStatic,
                 namespace,
                 indentCount,
@@ -936,9 +936,7 @@ export class TypeDefinitionGenerator implements Generator {
         // Constructors
         def.push(
             ...this.generateFunctions(
-                girClass._tsData.constructors
-                    .map((girFunc) => girFunc._tsData)
-                    .filter((tsFunc) => !!tsFunc) as TsFunction[],
+                girClass._tsData.constructors.map((girFunc) => girFunc._tsData).filter((tsFunc) => !!tsFunc),
                 true,
                 namespace,
                 indentCount,
@@ -947,9 +945,7 @@ export class TypeDefinitionGenerator implements Generator {
         // _init method
         def.push(
             ...this.generateFunctions(
-                girClass._tsData.constructors
-                    .map((girFunc) => girFunc._tsData)
-                    .filter((tsFunc) => !!tsFunc) as TsFunction[],
+                girClass._tsData.constructors.map((girFunc) => girFunc._tsData).filter((tsFunc) => !!tsFunc),
                 false,
                 namespace,
                 indentCount,
@@ -958,9 +954,7 @@ export class TypeDefinitionGenerator implements Generator {
         // Pseudo constructors
         def.push(
             ...this.generateFunctions(
-                girClass._tsData.staticFunctions
-                    .map((girFunc) => girFunc._tsData)
-                    .filter((tsFunc) => !!tsFunc) as TsFunction[],
+                girClass._tsData.staticFunctions.map((girFunc) => girFunc._tsData).filter((tsFunc) => !!tsFunc),
                 true,
                 namespace,
                 indentCount,
@@ -995,9 +989,7 @@ export class TypeDefinitionGenerator implements Generator {
 
         def.push(
             ...this.generateFunctions(
-                girClass._tsData.virtualMethods
-                    .map((girFunc) => girFunc._tsData)
-                    .filter((tsFunc) => !!tsFunc) as TsFunction[],
+                girClass._tsData.virtualMethods.map((girFunc) => girFunc._tsData).filter((tsFunc) => !!tsFunc),
                 false,
                 namespace,
                 indentCount,
@@ -1018,9 +1010,7 @@ export class TypeDefinitionGenerator implements Generator {
             throw new Error(NO_TSDATA('generateClassSignalInterface'))
         }
 
-        const tsSignals = girClass._tsData.signals
-            .map((signal) => signal._tsData)
-            .filter((signal) => !!signal) as TsSignal[]
+        const tsSignals = girClass._tsData.signals.map((signal) => signal._tsData).filter((signal) => !!signal)
 
         def.push(
             ...this.generateCallbackInterfaces(

@@ -14,7 +14,7 @@ import { COMMENT_REG_EXP, PARAM_REG_EXP, OPT_PARAM_REG_EXP } from './constants.j
 export { inspect }
 
 // Get __filename on ESM
-export const __filename = fileURLToPath(import.meta.url)
+const __filename = fileURLToPath(import.meta.url)
 // Get __dirname on ESM
 export const __dirname = dirname(__filename)
 

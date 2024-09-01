@@ -10,7 +10,7 @@
     "test": "jest",
     "codegen": "./bin/codegen",
     "girs:copy": "ts-for-gir copy Gtk-4.0 -o ./girs -g /usr/share/gir-1.0 /usr/lib/*/gir-1.0",
-    "girs:generate": "ts-for-gir generate Gtk-4.0 -o ./src/generated/girs -g ./girs -e node"
+    "girs:generate": "ts-for-gir generate Gtk-4.0 -o ./src/generated/girs -g ./girs"
   },
   "engines": {
     "node": ">=18.0.0"

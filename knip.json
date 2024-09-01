@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": ["packages/ts-for-gir/cli/src/start.ts"],
+  "project": ["packages/ts-for-gir/*/src/**/*.ts"],
+  "ignore": ["packages/codegen/**/*", "packages/react-native-gtk4/**/*"]
+}

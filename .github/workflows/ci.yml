@@ -19,7 +19,7 @@ jobs:
       - run: sudo apt-get install -y libgtk-4-dev libgirepository1.0-dev build-essential
       - run: ./bin/setup
       - run: pnpm test -- -- --coverage --coverageDirectory=coverage
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           directory: ./packages/react-native-gtk4/coverage
         env:
